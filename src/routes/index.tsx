@@ -14,7 +14,7 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-function WorkTile({ i, ratio, eager }: { i: number; ratio?: string; eager?: boolean }) {
+function WorkTile({ i, ratio, eager }: { i: number; ratio?: string; eager?: boolean | undefined }) {
   const w = works[i]!;
   return (
     <Link to="/works/$slug" params={{ slug: w.slug }} className="group block">

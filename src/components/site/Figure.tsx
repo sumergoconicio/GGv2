@@ -8,10 +8,10 @@ export function Figure({
   ratio,
 }: {
   img: Img;
-  caption?: string;
+  caption?: string | undefined;
   className?: string;
-  eager?: boolean;
-  ratio?: string;
+  eager?: boolean | undefined;
+  ratio?: string | undefined;
 }) {
   return (
     <figure className={className}>
