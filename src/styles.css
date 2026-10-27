@@ -46,13 +46,24 @@
 
 :root {
   /* Editorial layer on top of VLAK */
-  --j-hairline: rgba(0, 0, 0, 0.22);
+  --j-hairline: color-mix(in srgb, var(--text) 24%, transparent);
   --j-rule: 6px;
   --j-active: oklch(0.5 0.24 262);
-  --j-field: oklch(1 0 0);
+  --j-field: color-mix(in srgb, var(--bg) 70%, white);
   --j-frame-max: 1680px;
   --j-pad: clamp(20px, 3.2vw, 48px);
   --j-cell: clamp(20px, 2.6vw, 44px);
+  /* Dark themes: lift the blue and darken input fields. */
+  &[data-theme="dark"] {
+    --j-active: oklch(0.72 0.16 258);
+    --j-field: color-mix(in srgb, var(--bg) 85%, white);
+  }
+  @media (prefers-color-scheme: dark) {
+    &:not([data-theme="light"]) {
+      --j-active: oklch(0.72 0.16 258);
+      --j-field: color-mix(in srgb, var(--bg) 85%, white);
+    }
+  }
   /* Jeanne draws its own lines; switch off VLAK's background column overlay. */
   --grid-image: none;
 }
