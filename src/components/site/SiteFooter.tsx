@@ -7,7 +7,7 @@ export function SiteFooter() {
       <div className="j-rule grid border-b border-hairline lg:grid-cols-12">
         <div className="hidden border-r border-hairline lg:col-span-2 lg:block" />
         <div className="py-12 lg:col-span-10 lg:px-[clamp(24px,4vw,72px)] lg:py-16">
-          <h2 className="j-caps font-sans">Recent posts</h2>
+          <p className="j-caps">Recent posts</p>
           <ul className="mt-6 grid gap-6 md:grid-cols-3">
             {posts.slice(0, 3).map((p) => (
               <li key={p.slug}>
