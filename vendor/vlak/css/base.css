@@ -1,0 +1,38 @@
+/* ── Base ──
+   Vlak owns the page: paper on html, ink on body, and quiet
+   gutter verticals on html::before so overflow-x:clip cannot drop
+   them. --grid-pos: 20px 0 puts the first tile line on the left
+   20px gutter; that utmost left gutter must paint. Do not clip
+   it. No 204 horizontals — those cage the type. Homepage and
+   About kill this overlay and keep boxed cells only. */
+/* --text-scale multiplies the root size, so every rem in the system (type,
+   controls, spacing inside components) follows it while the px module grid
+   stays put. Browser text settings still apply underneath. */
+html{scroll-behavior:smooth;overflow-x:clip;background-color:var(--bg);font-size:calc(100% * var(--text-scale, 1))}
+html::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background-image:var(--grid-image);
+  background-size:var(--grid-size) 100%;
+  background-repeat:repeat-x;
+  background-position:var(--grid-pos)
+}
+body{
+  position:relative;
+  z-index:1;
+  overflow-x:clip;
+  background-color:transparent;
+  color:var(--text);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  font-weight:500;
+  line-height:1.45;
+  transition:var(--transition);
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ── Utilities ── */
+.rs-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.rs-sr:focus-visible+.rs-check,.rs-sr:focus-visible+.rs-radio-dot,.rs-sr:focus-visible+.rs-switch{outline:1.5px solid var(--text);outline-offset:2px}

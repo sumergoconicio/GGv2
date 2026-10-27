@@ -1,0 +1,154 @@
+{
+  "name": "@noorddev/vlak-react",
+  "version": "0.5.0",
+  "description": "Vlak React components for product exploration. Fixed visual rules, precompiled StyleX, and one stylesheet with no compiler to configure.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Noord-Ventures/vlak.git",
+    "directory": "packages/react"
+  },
+  "homepage": "https://vlak.dev",
+  "bugs": {
+    "url": "https://github.com/Noord-Ventures/vlak/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./css": {
+      "types": "./dist/vlak-react.css.d.ts",
+      "default": "./dist/vlak-react.css"
+    },
+    "./tokens.stylex": {
+      "types": "./dist/tokens.stylex.d.ts",
+      "default": "./dist/tokens.stylex.js"
+    },
+    "./components/*": {
+      "types": "./dist/components/*.d.ts",
+      "default": "./dist/components/*.js"
+    },
+    "./package.json": "./package.json",
+    "./workflow.css": {
+      "types": "./dist/workflow.css.d.ts",
+      "default": "./dist/workflow.css"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@stylexjs/stylex": "^0.19.0",
+    "@noorddev/vlak": "file:../vlak"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0",
+    "streamdown": "^2.6.0",
+    "shiki": "^3.19.0",
+    "@streamdown/math": "^1.0.2",
+    "@streamdown/cjk": "^1.0.3",
+    "mermaid": "^11.12.2",
+    "@xyflow/react": "^12.11.6",
+    "react-jsx-parser": "^2.4.1",
+    "katex": "^0.16.27",
+    "acorn": "^8.15.0",
+    "acorn-jsx": "^5.3.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.7",
+    "@babel/preset-react": "^7.29.7",
+    "@babel/preset-typescript": "^7.29.7",
+    "@stylexjs/babel-plugin": "^0.19.0",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.7",
+    "@types/node": "^26.4.1",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "axe-core": "^4.13.0",
+    "jsdom": "^26.1.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.7",
+    "vitest-axe": "^0.1.0",
+    "streamdown": "^2.6.0",
+    "shiki": "^3.19.0",
+    "@streamdown/math": "^1.0.2",
+    "@streamdown/cjk": "^1.0.3",
+    "mermaid": "^11.12.2",
+    "@xyflow/react": "^12.11.6",
+    "react-jsx-parser": "^2.4.1",
+    "katex": "^0.16.27",
+    "acorn": "^8.15.0",
+    "acorn-jsx": "^5.3.2"
+  },
+  "engines": {
+    "node": ">=18.18"
+  },
+  "keywords": [
+    "react",
+    "design-system",
+    "components",
+    "stylex",
+    "accessible",
+    "monochrome",
+    "shadcn",
+    "ui-library",
+    "typescript",
+    "a11y",
+    "accessible-components",
+    "react-component-library",
+    "dashboard",
+    "data-table",
+    "agent-ui"
+  ],
+  "author": "Renato Valdés Olmos",
+  "peerDependenciesMeta": {
+    "streamdown": {
+      "optional": true
+    },
+    "shiki": {
+      "optional": true
+    },
+    "@streamdown/math": {
+      "optional": true
+    },
+    "@streamdown/cjk": {
+      "optional": true
+    },
+    "mermaid": {
+      "optional": true
+    },
+    "@xyflow/react": {
+      "optional": true
+    },
+    "react-jsx-parser": {
+      "optional": true
+    },
+    "katex": {
+      "optional": true
+    },
+    "acorn": {
+      "optional": true
+    },
+    "acorn-jsx": {
+      "optional": true
+    }
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  }
+}

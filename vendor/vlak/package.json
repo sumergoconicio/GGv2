@@ -1,0 +1,89 @@
+{
+  "name": "@noorddev/vlak",
+  "version": "0.5.0",
+  "description": "Vlak design tokens, component registry, and CSS for product exploration. Monochrome surfaces, type, spacing, and accessible component contracts.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Noord-Ventures/vlak.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://vlak.dev",
+  "bugs": {
+    "url": "https://github.com/Noord-Ventures/vlak/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./css": {
+      "types": "./css/vlak.css.d.ts",
+      "default": "./css/vlak.css"
+    },
+    "./vlak.css": {
+      "types": "./css/vlak.css.d.ts",
+      "default": "./css/vlak.css"
+    },
+    "./css/components.css": {
+      "types": "./css/vlak.css.d.ts",
+      "default": "./css/components.css"
+    },
+    "./css/*": "./css/*",
+    "./tokens": "./tokens/vlak.tokens.json",
+    "./tokens.dtcg": "./tokens/vlak.tokens.dtcg.json",
+    "./props": "./props/props.json",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src",
+    "css",
+    "tokens",
+    "props"
+  ],
+  "devDependencies": {
+    "@types/node": "^26.4.1",
+    "esbuild": "^0.27.7",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.7"
+  },
+  "engines": {
+    "node": ">=18.18"
+  },
+  "keywords": [
+    "design-system",
+    "css",
+    "tokens",
+    "monochrome",
+    "stylex",
+    "shadcn",
+    "registry",
+    "ui-library",
+    "typescript",
+    "accessible-components",
+    "design-tokens",
+    "react-component-library"
+  ],
+  "author": "Renato Valdés Olmos",
+  "scripts": {
+    "build:css": "node --experimental-strip-types scripts/build-components.mjs && node --experimental-strip-types scripts/build.mjs && npm run build:props",
+    "build:props": "node --experimental-strip-types scripts/build-props.mjs",
+    "build:docs": "node --experimental-strip-types scripts/build-docs.mjs",
+    "build:registry": "npm run build:docs && node --experimental-strip-types scripts/build-registry.mjs",
+    "build": "npm run build:css && npm run build:registry && tsup",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "build:components": "node --experimental-strip-types scripts/build-components.mjs"
+  }
+}
