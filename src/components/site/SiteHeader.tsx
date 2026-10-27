@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button } from "@noorddev/vlak-react";
 import { site } from "@/lib/content";
 import { SearchOverlay } from "./SearchOverlay";
+import { ThemeToggle } from "./ThemeToggle";
 
 const nav = [
   { to: "/", label: "Home", exact: true },
@@ -20,13 +21,16 @@ export function SiteHeader() {
     <header>
       <div className="flex items-center justify-between gap-4 py-5 md:py-7">
         <p className="min-w-0 truncate text-base">{site.tagline}</p>
-        <button
-          type="button"
-          onClick={() => setSearchOpen(true)}
-          className="j-caps shrink-0 transition-colors hover:text-active"
-        >
-          Search
-        </button>
+        <div className="flex shrink-0 items-center gap-6">
+          <ThemeToggle />
+          <button
+            type="button"
+            onClick={() => setSearchOpen(true)}
+            className="j-caps transition-colors hover:text-active"
+          >
+            Search
+          </button>
+        </div>
       </div>
 
       <div className="j-rule grid border-b border-hairline lg:grid-cols-12">
