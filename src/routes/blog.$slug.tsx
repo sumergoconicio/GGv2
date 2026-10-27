@@ -48,6 +48,7 @@ function PostPage() {
       aside={
         <dl className="flex gap-10 pb-10 text-[0.9375rem] lg:pl-[var(--j-cell)] xl:sticky xl:top-8 xl:flex-col xl:gap-6 xl:pt-16">
           <div><dt>Story by</dt><dd className="font-semibold">{site.name}</dd></div>
+          <div><dt>Category</dt><dd className="font-semibold">{post.category}</dd></div>
           <div><dt>Discussion</dt><dd className="font-semibold">{post.comments} comments</dd></div>
         </dl>
       }
@@ -59,9 +60,6 @@ function PostPage() {
           <p>{first}</p>
           {post.quote && <blockquote>{post.quote}</blockquote>}
           {rest.map((para, k) => <p key={k}>{para}</p>)}
-          <h2 className="!mt-14 text-lg">By {site.name}</h2>
-          <p>Architectural photographer based in Rotterdam. Writing here about the work and the days around it.</p>
-          <p className="mt-10 italic">Category: <strong className="ml-1">{post.category}</strong></p>
         </div>
       </article>
       <nav aria-label="More stories" className="grid grid-cols-2 gap-6 border-t border-hairline py-8 lg:px-[var(--j-cell)]">
