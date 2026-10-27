@@ -32,7 +32,7 @@ export const Route = createFileRoute("/works/$slug")({
 function WorkPage() {
   const { work } = Route.useLoaderData();
   const idx = works.findIndex((w) => w.slug === work.slug);
-  const next = works[(idx + 1) % works.length];
+  const next = works[(idx + 1) % works.length]!;
 
   return (
     <section className="grid lg:grid-cols-12">

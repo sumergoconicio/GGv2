@@ -6,7 +6,7 @@ type Search = { cat?: Category };
 
 export const Route = createFileRoute("/works/")({
   validateSearch: (s: Record<string, unknown>): Search => {
-    const c = s.cat as Category | undefined;
+    const c = s["cat"] as Category | undefined;
     return c && (categories as readonly string[]).includes(c) ? { cat: c } : {};
   },
   head: () => ({

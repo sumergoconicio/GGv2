@@ -15,7 +15,7 @@ export const Route = createFileRoute("/")({
 });
 
 function WorkTile({ i, ratio, eager }: { i: number; ratio?: string; eager?: boolean }) {
-  const w = works[i];
+  const w = works[i]!;
   return (
     <Link to="/works/$slug" params={{ slug: w.slug }} className="group block">
       <Figure img={w.cover} caption={w.title} ratio={ratio} eager={eager} />
