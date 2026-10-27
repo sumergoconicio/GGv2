@@ -1,0 +1,2 @@
+/* Declares cascade-layer order before VLAK loads, so Tailwind reset sits below VLAK components. */
+@layer theme, base;

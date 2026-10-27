@@ -1,24 +1,57 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { works } from "@/lib/content";
+import { Figure } from "@/components/site/Figure";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "Jeanne Lupton — Architectural photographer" },
+      { name: "description", content: "Featured works by Jeanne Lupton: buildings, houses and interiors photographed in quiet light." },
+      { property: "og:title", content: "Jeanne Lupton — Architectural photographer" },
+      { property: "og:description", content: "Featured works: buildings, houses and interiors photographed in quiet light." },
+    ],
+  }),
+  component: Home,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+function WorkTile({ i, ratio, eager }: { i: number; ratio?: string; eager?: boolean | undefined }) {
+  const w = works[i]!;
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <Link to="/works/$slug" params={{ slug: w.slug }} className="group block">
+      <Figure img={w.cover} caption={w.title} ratio={ratio} eager={eager} />
+    </Link>
+  );
+}
+
+function Home() {
+  return (
+    <section className="grid lg:grid-cols-12">
+      <div className="lg:col-span-4 2xl:col-span-3">
+        <div className="border-b border-hairline py-10 lg:py-16 lg:pl-[clamp(0px,5vw,120px)] lg:pr-[var(--j-cell)]">
+          <h1 className="text-[1.75rem]">Featured works</h1>
+          <p className="mt-5 max-w-[34ch]">
+            Buildings, houses and interiors photographed in flat, patient light. Commissions for architects,
+            museums and the occasional quiet house.
+          </p>
+          <p className="mt-5 max-w-[34ch]">
+            Based in Rotterdam, working across Europe since 2016.
+          </p>
+          <Link to="/works" className="j-link mt-7 inline-block">View more works</Link>
+        </div>
+      </div>
+
+      <div className="grid gap-y-10 border-hairline py-10 lg:col-span-8 lg:border-l lg:pl-[var(--j-cell)] 2xl:col-span-9">
+        <WorkTile i={0} eager />
+        <div className="grid gap-x-[var(--j-cell)] gap-y-10 md:grid-cols-[2fr_1fr]">
+          <WorkTile i={1} ratio="3 / 2.6" />
+          <WorkTile i={2} ratio="1 / 1.85" />
+        </div>
+        <div className="grid gap-x-[var(--j-cell)] gap-y-10 md:grid-cols-3">
+          <WorkTile i={4} ratio="2 / 3" />
+          <WorkTile i={3} ratio="2 / 3" />
+          <WorkTile i={5} ratio="2 / 3" />
+        </div>
+      </div>
+    </section>
   );
 }

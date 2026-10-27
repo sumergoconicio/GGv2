@@ -1,0 +1,3 @@
+/* Reserved compatibility layer. Hover capability, press feedback, and overlay
+   reveal now live in their component leaves. Keeping paint out of this later
+   layer prevents touch resets from overriding selected or disabled states. */
