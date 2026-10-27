@@ -57,7 +57,7 @@
   --grid-image: none;
 }
 
-@layer base {
+/* Unlayered so these sit above VLAK's base layer. */
   html {
     font-size: 100%; /* 16px baseline */
   }
@@ -78,7 +78,6 @@
     background: var(--text);
     color: var(--bg);
   }
-}
 
 @utility j-frame {
   width: 100%;

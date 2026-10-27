@@ -96,6 +96,8 @@ function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
+        {/* Order cascade layers so Tailwind's reset sits below VLAK components. */}
+        <style>{"@layer theme, base;"}</style>
         <HeadContent />
       </head>
       <body>
