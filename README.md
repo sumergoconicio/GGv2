@@ -10,4 +10,4 @@ Install dependencies with `npm ci`, then start the site with `npm run dev`. Run 
 
 ## Deploy
 
-`wrangler.jsonc` configures the static site for Cloudflare Workers. Build the site, then deploy with `npx wrangler deploy`.
+Connect this repository to Cloudflare Pages. Use `main` as the production branch, `npm run build` as the build command, and `dist/client` as the output directory. Check the `pages.dev` preview before connecting `glyphsandgraphs.com` as a custom domain.
