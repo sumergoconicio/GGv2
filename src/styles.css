@@ -140,3 +140,19 @@
     line-height: 1.6;
   }
 }
+
+/* Notebook dot grid (canvas drawn by DotGrid). Colour follows VLAK ink. */
+.dot-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  color: color-mix(in srgb, var(--text) 32%, transparent);
+  --dot-grow: 0.4;
+}
+:root[data-theme="dark"] .dot-grid {
+  color: color-mix(in srgb, var(--text) 30%, transparent);
+  --dot-grow: 0.7;
+}
