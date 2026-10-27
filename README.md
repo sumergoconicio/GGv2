@@ -1,32 +1,27 @@
-# Vlak Portfolio Journal
+# Glyphs & Graphs
 
-see link: https://preview.themeforest.net/item/jeanne-minimal-photography-and-portfolio-wordpress-theme/full_screen_preview/22609094
+A static React journal built with the complete vendored VLAK design system. The public site is intended for [glyphsandgraphs.com](https://glyphsandgraphs.com). Essays, About, and Work with the International Antarctic Expedition 2017 are generated as static pages.
 
-see Vlak design system: https://github.com/Noord-Ventures/vlak
+## Run locally
 
-Hey, can you see this WordPress template? I have linked you to a live demo. I don't know if you can see it. You can click around if you want and see it. I think the VLAK design system lends itself exceptionally well to this kind of boxy design. I wonder if we can Build a blog, website, or magazine using a personal designer portfolio template that is very close to this design specification, including all the images I've pointed to and the full-screen preview I've linked you to on top of the VLAK design system.
+Use Node.js and npm. Install dependencies with `npm ci`, then run `npm run dev`. Run `npm run build` to regenerate the archive index, RSS feed, sitemap, and prerendered site in `dist/client`. Use `npx wrangler dev --local` to preview the same static assets Cloudflare will serve.
 
-The only notes I have are this gene design system, it's a WordPress theme. Sorry, it is a bit tiny; it is like using 12-pixel, 12-point fonts or something, and okay, that looks fine, and all, and it's very narrow. It's a boxy, constrained look. But we live in 2026. I think this team was designed almost eight years ago, and our sensibilities for web design have evolved since then. So in the modern era, a baseline of 16 pixels is okay. We can use Inter, or we can also try the IBM Plex family, like Condensed for titles and IBM Plex Serif or IBM Plex Sans for body, with a baseline of sixteen pixels, but still stay close and not that narrow. We can assume that typical browser should be responsive for mobile and for tablet; it's all the same template, but in the widest form we should be able to display also for screens that are a bit wider, and there should be logical breakpoints, but obviously since it's prose, I don't want it to be infinitely stretching either. So we can draw some logical breakpoints but meet the sensibilities of 2026. The underlying grid structure should be very Swiss design, maybe a bit Dutch design. If you're looking at VLAK, we can actually implement it based on the VLAK design system, but the look and feel looks like gene. Can we do that?
+## Publish writing
 
-By the way, I want the complete VLAK design system, React, node modules, components, everything to be self-contained inside this project. For maintainability reasons, I don't want an interpretation or subset; I want the full React npm package to be in this project.
+Add a Markdown file under `content/essais/YYYY/`. Use an existing essay as a frontmatter template. Set `kind: essay`, a unique `slug`, `title`, `date` in `YYYY-MM-DD` form, `archiveYear`, and a short `description`. The year folder and `archiveYear` keep the index grouped by year. The `date` controls chronology within that group. The `category` field creates a linked, static index at `/blog/category/<category-slug>`. Add images under `public/` and refer to them with absolute site paths such as `/images/photo.jpg`. `npm run build` checks metadata and includes the post automatically.
 
-This project was built with [Lovable](https://lovable.dev).
+The welcome note is `content/essais/welcome.md`. Its `pinned: true` field keeps it above every year group without a fictional 2031 publication date. Antarctica entries live under `content/travel/antarctica-2017/`, ordered by each entry's `order` field. Their calendar dates are unknown in the source archive and are left blank.
 
-## Build with Lovable
+Work features AskClaire, the 2025 BII Climate Risk Management Toolkit, International Antarctic Expedition 2017 at `/works/iae2017`, and individual year-grouped work entries including the 2014 thesis. Antarctica chapters live at `/works/iae2017/<chapter-slug>`. About uses `public/images/my-notion-face-transparent.png`.
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/fde6f137-70a1-45ae-a813-f4607e4c6c46).
+## Archive provenance
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+The Squarespace backup was imported with `scripts/import_archive.py`. It produced 72 essays, eight Antarctica entries, and 571 locally served images. `content/import-report.json` records the source file for every entry and ten differences between the archive folder year and Squarespace publication date. The original archive remains untouched. The importer requires Python with `lxml`; its two arguments are the backup root and this repository root. Running it again overwrites imported Markdown, so edit a separate draft first if you plan to reimport.
 
-## Development
+The original design request and Lovable instructions are preserved in [the design brief](docs/original-design-brief.md). The full published VLAK 0.5.0 packages remain under `vendor/vlak` and `vendor/vlak-react`.
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+## Cloudflare deployment
 
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
+`wrangler.jsonc` points Cloudflare Workers Static Assets to `dist/client`. Build with `npm ci` and `npm run build`, then deploy with `npx wrangler deploy`. The configuration includes no Worker server script. DNS for `glyphsandgraphs.com` and the Cloudflare account must be connected before public launch. Nothing in this repository automatically deploys or changes DNS.
+
+Before publishing, review the imported writing and the ten date discrepancies in `content/import-report.json`. The generated RSS feed is `/rss.xml`; the sitemap is `/sitemap.xml`.

@@ -1,0 +1,44 @@
+---
+kind: "essay"
+slug: "the-things-that-drove-him-silent"
+title: "the things that drove him silent"
+date: "2013-07-26"
+sourceDate: null
+archiveYear: 2016
+pinned: false
+category: "Metaphors"
+tags: ["life", "samsara", "growing up", "mistakes"]
+description: "Blink. That pregnant moment of first light entering weak eyes. His first impression is that the world is upside down; as blood rushes to his head the newborn babe starts life with a splitting headache. Gasp and cue the high-pitched wails."
+cover: "/archive/media/b321462f3568d8033bb8.png"
+source: "essais/2016/the-things-that-drove-him-silent.html"
+---
+
+![](/archive/media/b321462f3568d8033bb8.png)
+
+Blink. That pregnant moment of first light entering weak eyes. His first impression is that the world is upside down; as blood rushes to his head the newborn babe starts life with a splitting headache. Gasp and cue the high-pitched wails.
+
+The alien world the infant lives in, where nothing is familiar and everything is a superlative. New and long-lost, shiny and ominous, loud and curious. He was born a fearless general — not afraid to cry, not afraid to fail, not afraid to learn.
+
+Little hero at play with make-believe blades slashing at dragons and monsters alike, the noble savage pits himself against gods and demons and not the other way round. Because fun is challenge accepted, and glory is hidden beneath the veil of impossibility .
+
+The rush of righteous fury propels the small fist towards the hulking bully. This innocent violence is not a transaction of hurt but only a misguided sense of justice — poor child, precocious apostle of symmetry.
+
+Possessed by the daemon of possession, youthful fascination resonates as jealousy. Answer me this, isn’t inequality a greater crime than his heartfelt rebellion? Object of desire improperly appropriated as pride is mortgaged like a commodity.
+
+In the prolonged trial of the young man, enthusiasm is the plaintiff’s best defence but, hasty prosecution frames his suffused passion as acute malice. Alas, the young man’s remorse is only that the world does not care to speak his language.
+
+He passes the joint to the others of the pack, each lost in his own altered introspection. So much for drugs he thinks as he ever so briefly entertains the notion if the promised revelations were also dishonest marketing.
+
+Love reveals and plugs missing anatomy like lock-and-key — he feels complete. Say what you will of serotonin rushes, its psychedelic illusions expose even the most obscure beauty. He solemnly commits to composing a heartstring symphony.
+
+It isn’t easy to dare to shape reality, for even healthy ambition is met with adversity. He attempts to sculpt every dear fantasy and must inevitably abandon more than a few — yet another sucker for the propaganda of practicality.
+
+He looks up and notices the decades receding in the rearview mirror, feels the strange emptiness of opportunities lost get stronger as he pulls into the driveway of his American Debt. Sleep finds him on the couch dreaming of his abdicated throne.
+
+You know when life reminds you the things that are really important by taking them away? The irony that his blind obsession with providing for the family took him away from them weeks at a time and ultimately drove them 2 states away from him, permanently.
+
+The years have hardened him on the outside and mellowed him on the inside. He carries the weight of experience gracefully as he trudges on foreign soil, just a short get-away-from-it-all that seems to stretch the seconds or maybe that’s just the alcohol.
+
+The elder protagonist watches the world pass him by from his patio, and in that saturated mundane timelessness, rediscovers everyday awe. He resists yelling at the kids on the lawn; fuzzy shapes reappear from memories long forgotten .
+
+The beeps of the heart rate monitor fall in and out of sync with the wheezing. The old man hears none of it, lost in the half-dreams of morphine; flashes and fuzz in rapid succession to the tune of his first lullaby. He drifts to sleep for the last time.

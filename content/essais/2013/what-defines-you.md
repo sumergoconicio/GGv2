@@ -1,0 +1,40 @@
+---
+kind: "essay"
+slug: "what-defines-you"
+title: "What defines you?"
+date: "2013-02-04"
+sourceDate: null
+archiveYear: 2013
+pinned: false
+category: "Observations"
+tags: ["you", "identity", "ego", "worth", "alpha-motivation"]
+description: "I occasionally drop by the local Rants & Raves forum in Craigslist; usually there is inane banter and idle discussion. But sometimes, just sometimes, there are some thoughtful questions, of which this was one. What defines you, the anonymous poster asked."
+cover: "/archive/media/fd6140a25eb3751e0945.jpeg"
+source: "essais/2013/what-defines-you.html"
+---
+
+![](/archive/media/fd6140a25eb3751e0945.jpeg)
+
+I occasionally drop by the local Rants & Raves forum in Craigslist; usually there is inane banter and idle discussion. But sometimes, just sometimes, there are some thoughtful questions, of which this was one. What defines you, the anonymous poster asked.
+
+What defines a person?
+
+It starts with the assumption of sentience. That the hypothetical person is enlightened enough to be aware of his/her individual identity, that makes him/her stand apart from anyone else. Could it be phenotype alone? Surely our features, be they anatomical or facial, are as distinct as our names. It’s no secret that no two fingerprints are alike, no two irises are alike, among other such biological details.
+
+But identity implies a sense of ownership. And surely a sentient enlightened individual would recognize the uniqueness of such features, but may also realize it is a product of the same luck that bestowed sentience upon the individual. Surely such an enlightened sentient individual might prefer to identify with an asset that was not given unasked, unclaimed, and in all probability undeserved.
+
+The things we own, buy or make then? The things that we wear, decorate with or accessorize. Surely these things reflect the individuality that screams to be heard and seen, to be strutted around like a trophy wife. One big problem though. The gift of individual vision is also a curse of dissent and disharmony. What is nice and impressive to you may not impress another, and why should it? If every piece of flair is agreeable to everyone, then it isn’t original enough. As I said, the very idea of flair is to stand apart, and what better way than to be disagreeable?
+
+Even worse is the very real possibility that some may be agreeable, or even have proclivities for the same flair. How then is a rational unique individual to stand out among a clique of similar minds?
+
+What defines a person? What about the things we do, say or write? It seems we’re getting closer to the answer, but further from the tangible world. The things we do, say or write. Any of these things can be coloured on a moment- to- moment basis by the need to seduce, to be accepted, to impress, to convince or to throw off suspicion. Any of these things could change over the years, could become forgotten and ignored or worse yet, opposed to some new direction.
+
+Feelings? They reign over the realm of whims, wreaking havoc in their wake. No, too cloudy, too malleable.
+
+How about logic? Our rational selves, the INTP’s white angel on the right shoulder. No, too binary, too absolute.
+
+Motivations then? No. Singular please. Motivation. The alpha–motivation. Sometimes I’d like to assume this is the soul, the life-force, the primary reason to exist, the raison d’être. A manifestation of Nietzsche’s theory, that existence itself as a primordial will to power.
+
+If only there were a theory that could explain the whims of man as surely as the mythical Grand Unified Theory aims to explain the laws of the Universe. I think it’s only going to be through the understanding of the alpha- motivation. To decipher what drives a sentient enlightened individual to one path and not others. Surely then, this is the one thing that defines any one person, so succinctly yet so completely.
+
+I’d like to think my alpha-motivation is curiosity. And that unquenchable thirst for knowledge is what defines me.

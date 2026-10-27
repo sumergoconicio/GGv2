@@ -15,6 +15,9 @@ dist-ssr
 .tanstack/**
 .nitro
 *.local
+.env
+.env.*
+!.env.example
 
 # Wrangler / Cloudflare
 .wrangler/
@@ -30,3 +33,13 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Keep the full published VLAK packages available to clean clones.
+!vendor/vlak/dist/
+!vendor/vlak/dist/**
+!vendor/vlak-react/dist/
+!vendor/vlak-react/dist/**
+
+# Import tooling
+__pycache__/
+*.pyc

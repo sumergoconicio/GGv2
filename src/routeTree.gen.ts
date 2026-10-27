@@ -16,6 +16,8 @@ import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as WorksIndexRouteImport } from './routes/works.index'
 import { Route as WorksSlugRouteImport } from './routes/works.$slug'
+import { Route as BlogCategoryCategoryRouteImport } from './routes/blog.category.$category'
+import { Route as WorksIae2017SlugRouteImport } from './routes/works.iae2017.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -52,6 +54,16 @@ const WorksSlugRoute = WorksSlugRouteImport.update({
   path: '/works/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogCategoryCategoryRoute = BlogCategoryCategoryRouteImport.update({
+  id: '/blog/category/$category',
+  path: '/blog/category/$category',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorksIae2017SlugRoute = WorksIae2017SlugRouteImport.update({
+  id: '/works/iae2017/$slug',
+  path: '/works/iae2017/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -61,6 +73,8 @@ export interface FileRoutesByFullPath {
   '/works/$slug': typeof WorksSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/works/': typeof WorksIndexRoute
+  '/blog/category/$category': typeof BlogCategoryCategoryRoute
+  '/works/iae2017/$slug': typeof WorksIae2017SlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -70,6 +84,8 @@ export interface FileRoutesByTo {
   '/works/$slug': typeof WorksSlugRoute
   '/blog': typeof BlogIndexRoute
   '/works': typeof WorksIndexRoute
+  '/blog/category/$category': typeof BlogCategoryCategoryRoute
+  '/works/iae2017/$slug': typeof WorksIae2017SlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,6 +96,8 @@ export interface FileRoutesById {
   '/works/$slug': typeof WorksSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/works/': typeof WorksIndexRoute
+  '/blog/category/$category': typeof BlogCategoryCategoryRoute
+  '/works/iae2017/$slug': typeof WorksIae2017SlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +109,8 @@ export interface FileRouteTypes {
     | '/works/$slug'
     | '/blog/'
     | '/works/'
+    | '/blog/category/$category'
+    | '/works/iae2017/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +120,8 @@ export interface FileRouteTypes {
     | '/works/$slug'
     | '/blog'
     | '/works'
+    | '/blog/category/$category'
+    | '/works/iae2017/$slug'
   id:
     | '__root__'
     | '/'
@@ -109,6 +131,8 @@ export interface FileRouteTypes {
     | '/works/$slug'
     | '/blog/'
     | '/works/'
+    | '/blog/category/$category'
+    | '/works/iae2017/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -119,6 +143,8 @@ export interface RootRouteChildren {
   WorksSlugRoute: typeof WorksSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   WorksIndexRoute: typeof WorksIndexRoute
+  BlogCategoryCategoryRoute: typeof BlogCategoryCategoryRoute
+  WorksIae2017SlugRoute: typeof WorksIae2017SlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -172,6 +198,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WorksSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/category/$category': {
+      id: '/blog/category/$category'
+      path: '/blog/category/$category'
+      fullPath: '/blog/category/$category'
+      preLoaderRoute: typeof BlogCategoryCategoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/works/iae2017/$slug': {
+      id: '/works/iae2017/$slug'
+      path: '/works/iae2017/$slug'
+      fullPath: '/works/iae2017/$slug'
+      preLoaderRoute: typeof WorksIae2017SlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -183,6 +223,8 @@ const rootRouteChildren: RootRouteChildren = {
   WorksSlugRoute: WorksSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   WorksIndexRoute: WorksIndexRoute,
+  BlogCategoryCategoryRoute: BlogCategoryCategoryRoute,
+  WorksIae2017SlugRoute: WorksIae2017SlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,0 +1,28 @@
+---
+kind: "essay"
+slug: "thoughts-on-complexity"
+title: "Thoughts on complexity"
+date: "2019-06-14"
+sourceDate: null
+archiveYear: 2019
+pinned: false
+category: "Observations"
+tags: ["complexity", "failure is guaranteed", "learning system", "reality check"]
+description: "I thought it was fairly well-accepted that all models are wrong, some can be useful. Conceptually we should indeed be comfortable with the notion that there are inextricable interconnections and unknown unknowns and if that weren’t enough, the dynamics of how other agents will respond within the system over time."
+cover: "/archive/media/544233d2b4825fcdd0b9.jpeg"
+source: "essais/2019/thoughts-on-complexity.html"
+---
+
+![](/archive/media/544233d2b4825fcdd0b9.jpeg)
+
+I thought it was fairly well-accepted that all models are wrong, some can be useful.
+
+Conceptually we should indeed be comfortable with the notion that there are inextricable interconnections and unknown unknowns and if that weren’t enough, the dynamics of how other agents will respond within the system over time.
+
+The trouble comes the moment you start to build something, anything. Be it a pump, an app, a tool, a reactor - to build it in finite time to fulfill some primary goals at cost with high yield - necessarily silos the decision making process.
+
+Now within the process of building a thing, even informed by complexity, some constraints like time horizon, material availability, manpower costs etc will necessarily further limit the scope of the thing you’re building. Within these constraints, even the most sensitive engineer might resort to the Eames’ dictum “do the best for the most with the least”. And this is assuming altruistic intentions.
+
+Step into the shoes of the engineer now. Making a thing. If you’re designing object X to achieve a series of primary outcomes, then you necessarily are building a cause-effect input-process-output machine. This is necessarily a model of the system even if we don’t call it as such.
+
+Now we can inform the model as much as we can with the complex interconnections and hopefully avoid the obvious trap-archetypes that we know from experience... but I think ultimately there will remain gaps between reality and knowledge, and knowledge and application. This view necessarily means we will fail, we will make mistakes, over and over again at different levels under changing circumstances. And we will learn from those failures. But it also means we can be more accepting of ourselves and our failures. Failures are not a matter of not thinking hard enough, or not keeping enough things in mind. Complexity will overwhelm us at every turn, and we have to keep learning and acting differently... there is no ideal state where everything would have been perfect if only...

@@ -1,0 +1,60 @@
+---
+kind: "essay"
+slug: "p1fxdlkp3cnwfpt2azzh4uk1cgmpzg"
+title: "Sleeping Dogs - Hong Kong Gang Sim"
+date: "2021-08-07"
+sourceDate: null
+archiveYear: 2021
+pinned: false
+category: "Reviews"
+tags: ["sleeping dogs", "rpg", "video game", "square enix"]
+description: "I was pleasantly surprised at how good Sleeping Dogs really is. The quickest way to describe Sleeping Dogs is to say it’s a lot like Grand Theft Auto but set in Hong Kong, with a story about an undercover cop embedded in the local mafia. This description would be good enough for most gamers to figure out what to expect from the gameplay."
+cover: "/archive/media/5a75729cd50ae6282144.png"
+source: "essais/2021/p1fxdlkp3cnwfpt2azzh4uk1cgmpzg.html"
+---
+
+![Untitled.png](/archive/media/5a75729cd50ae6282144.png)
+
+Hello again from the doldrums of 202... uh what year is it even? Never mind, doesn't matter. It's gaming season again and I've been spending a lot of time in open worlds. After wrapping up on Red Dead Redemption 2, I decided to spin up Sleeping Dogs (Definitive Edition). Yes granted, this came out a while back and while the Definitive Edition does spruce up the graphics a smidge, there's no denying this is an older title. But that worked out well for me because I couldn't run the game with a stable framerate before and I could now with a newer graphics card, so I fired it up and...
+
+I was pleasantly surprised at how good Sleeping Dogs really is. The quickest way to describe Sleeping Dogs is to say it’s a lot like Grand Theft Auto but set in Hong Kong, with a story about an undercover cop embedded in the local mafia. This description would be good enough for most gamers to figure out what to expect from the gameplay. But I think the comparison to Grand Theft Auto really is a disservice to Sleeping Dogs because United Front Studios has produced a game that is in many ways narratively ***superior*** to Grand Theft Auto. Let me elaborate.
+
+The Grand Theft Auto series, for all its technical mastery in translating the memories of a living breathing American city from a specific time period into an almost photorealistic videogame analogue, is fundamentally nihilistic. Its characters believe in nothing sublime and will stand for no one other than the highest bidder. They are apathetic and unrelatable to a fault, living in a bizarro "it's ironic geddit" caricature of our reality that itself feels increasingly like dystopian fiction with each passing day. Every personality your avatars interact with seems to be completely self-aware of how shallow they are and totally a-okay with it.
+
+As a crime simulator then, GTA quickly descends into a "do crime for the sake of doing crime" experience that always left a nauseating feeling in my belly when playing the game for any extended period of time. For this reason, Grand Theft Auto IV - with Niko Bellic the Balkan immigrant just trying to get away from his past and make a new life for himself in Liberty City (the GTA analogue of New York) - was the most relatable by far, for the very reason that Niko is actually sympathetic. Yes Niko does getting involved in shady criminal dealings, but he doesn't really want to, and has no choice but to perform that mythical "one last job" to get out the thug life for good. You know, the classic tortured underdog manipulated by forces out of his control trope.
+
+So that brings me to the story of Sleeping Dogs. You play as Wei Shen, an undercover Asian-American cop with shall-we-say anger issues, trying to walk a thin line between taking down the criminal underworld from the inside and exacting revenge against the criminals who got his sister addicted to drugs and ultimately killed. Like any good double-agent yarn, the game throws missions at you from both sides of the law: moments where Wei-the-cop bugs gang hideouts to bust drug peddlers interspersed with Wei-the-gangster getting in over his head of an ongoing feud among the lieutenants of Hong Kong's most notorious gangs. All the while, his "handler" in the police force seem to have his own agenda, fully aware that Wei's barely-contained rage and penchant for playing fast-and-loose with the rules, is very likely to light the fuse on an already dangerously stacked powder keg.
+
+I've always found Hong Kong to be quite fascinating, in terms of culture, architecture, history and general vibe. And United Front's translation of Hong Kong into a living breathing game world is more than successful, in that it becomes its own character that helps Sleeping Dogs stand out even when its gameplay systems lean towards more familiar dare I say boring staples. For those familiar with Asian cinema, Hong Kong is a familiar sight, and so is the gritty cop action drama genre epitomized by films by directors like pre-Hollywood John Woo. So it delights me to report that Sleeping Dogs delivered this vibe faithfully, and that is a testament to the high production values.
+
+![Untitled (1).png](/archive/media/4a9e3b121a2b79d0557d.png)
+
+In terms of gameplay, Sleeping Dogs features the GTA staple of driving, lots of driving on lots of vehicle types on busy city roads while listening to all manner of Cantonese pop bangers. Fun! These mechanics are stable enough to be enjoyable, but hardly what I would consider challenging.
+
+When not driving, Wei is an accomplished martial artist, capable of beating down entire hives of enemies with bare fists and Bruce Lee kicks, *à la* the Arkham games. There is also some serviceable gunplay, but thankfully it never overstays its welcome. Brawling is so much more fun than cover-shooting anyway. Ultimately, none of these gameplay systems are particularly groundbreaking, but they are fun enough to remain engaged in the story without getting frustrated.
+
+![](/archive/media/2f2ecb036b13d3815c7f.png)
+
+And finally, Sleeping Dogs’ trump card is a cast that has put in commendable voice acting. This alone got me deeply immersed in the story, with every character pulling off the accent, emotion and gravitas to fully inhabit their characters and move the story along to its violent end. There's a bit of everything over the roughly 25-30 hour campaign: intrigue, friendship, loyalty, dilemma, betrayal and sweet sweet revenge.
+
+There were a couple of DLC campaigns as well; Year of the Snake was okay (more of the same gameplay as the main campaign, but with a forgettable B-plot) and Nightmare at North Point was an oriental zombies scenario so insultingly cheesy that I stopped playing it halfway.
+
+So all in all, a highly entertaining interactive yarn as far as the main campaign goes. 9/10, highly recommended. I stand by my claim that Sleeping Dogs was way more entertaining than GTA V, and I would love to see more from this IP. And contrawise, if you like GTA-style games, you should thoroughly enjoy Sleeping Dogs.
+
+Now for some reflections based on the premise of the game: the notion of undercover cops infiltrating violent gangs, blending in with the worst scum by doing violent things, and attempting to dismantle gang operations from the inside, has me intrigued. Altogether a hairy proposition, isn't it? It gets my mind reeling.
+
+First up, I wonder about urban legends of secretive government agents making deals with criminals for the greater good, inevitably incurring collateral damage and akmost always playing the "plausible deniability" card. It gets me thinking, that sometimes maybe, that is the only way to fight crime? Got to fight fire with fire, right? Find ways to bend the rules that ultimately only constrain the "good guys" but not the "bad guys". Or so the usual narrative goes.
+
+But maybe, the "bad guys" are not so much defined by their intentions, but by their lack of any moral code to speak of. Which would make anyone who is willing to cross certain unspoken lines to get what they want the "bad guys", even if it's the “good guys” claiming it was the only way. Maybe, the ends don’t justify the means.
+
+Going a bit further, I'm also struck with this nagging thought that this entire logic of infiltrating gangs with double-agents, while making for fascinating narratives, is also self-destructive in some way? Let's deconstruct the justification. The argument seems to be that we should always try to prevent violent crime whatever it takes to do so; and sometimes the only way to do that is to lure and (en)trap violent criminals by winning their trust and then double-crossing them.
+
+Firstly, this philosophy seems to assume that crime is a universal constant that will always exist, and not at all an emergent symptom of systemic failures in both the lives of victims and criminals, that can be addressed by mitigating the underlying drivers. Can we not solve crime more comprehensively and holistically by making material conditions and economic inequality less oppressive such that any advantage realised from doing criminal acts is drastically reduced?
+
+Secondly, I wonder if this logic inevitably leads to a checkmate situation where criminals are so paranoid that they become more unhinged and violent? Or where the belief that "since crime cannot be eradicated, it should be managed" would lead to a dangerous conclusion where law-enforcers make devil's bargain deals with criminals along the lines of "he may be an asshole, but at least he's ***our*** asshole for now". This is not even a hypothetical; I'm reminded of the fact that [Osama bin Laden and a young al-Qaeda force were armed, funded and trained by the USA](https://www.businessinsider.com/1993-independent-article-about-osama-bin-laden-2013-12?international=true&r=US&IR=T) to fight against Soviet influence in the 80s and 90s... only to have the arc of human history forever changed from 9/11 a decade later.
+
+And thirdly, there seems to be something so visceral about violent crime that it grabs our attention and dominates our fears. That's why every iconic cop drama from Die Hard to Hardboiled, Point Break to The Dark Knight is defined by a righteous protagonist bringing the pain to the goons who would dare to threaten our sense of physical safety and security. In contrast, white collar crime, which in my opinion is far more pervasive in its occurrence and much more damaging in terms of long-term impact on the lives of those affected, is chronically disregarded and rarely brought to light.
+
+Why is that? Why is white collar crime overlooked but concern for blue collar crime overblown? Is it because our mirror neurons process physical pain more intensely than abstract and technical loopholes, gagging at the first sight of blood but remaining strangely apathetic to nauseating bailouts that unfairly hit wage-earners' wallets while a privileged few enjoy an undeserved golden parachute? Is it because when something is on an Excel sheet and explained by a man in a suit, it seems to confer an air of legitimacy even if it is as much of a con job as hustlers working in tandem to pull off a bait and switch? Just once, I'd love for movies like The Big Short or The Wolf of Wall Street to be recognized as cautionary tales about the sociopaths who live among us, camouflaged with the veneer of respectability but no less villainous than the iconic monsters of Scarface and Natural Born Killers. I wish people were more paranoid about the rich than the poor…
+
+Anyway… Sleeping Dogs was great, you should check it out if you can. That's my review.

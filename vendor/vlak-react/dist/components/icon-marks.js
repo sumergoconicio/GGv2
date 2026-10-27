@@ -1,0 +1,474 @@
+/**
+ * Vlak icon figures. 16×16 module, optical center 8,8.
+ * Optical refinement, 11 Sep 2026. CurrentColor, open line geometry and
+ * rounded terminals; displayed stroke weight is selected by the renderer.
+ * Filled kinship fills closed geometry of the same figures. A small set of
+ * asymmetric marks has a hand-cut filled silhouette so it keeps the same
+ * optical weight as the rest of the family instead of looking half-filled.
+ * Chevron left/right: +0.25y optical nudge toward center 8,8.
+ * Arrow endpoints: balanced 90° heads with an uninterrupted wing–tip–wing
+ * subpath. The shaft meets that apex in the same painted path; it never
+ * turns into a head wing, which would create an acute miter spur.
+ * Wi-Fi uses two concentric 90° waves at a 4-unit pitch, centered on a
+ * solid source point. The line and filled families keep the same silhouette.
+ */
+
+/** Element indexes that become transparent detail cuts in the filled mark. */
+
+const p = d => ({
+  t: "path",
+  d
+});
+const r = (x, y, w, h) => ({
+  t: "rect",
+  x,
+  y,
+  w,
+  h
+});
+const o = (cx, cy, rad) => ({
+  t: "circle",
+  cx,
+  cy,
+  r: rad
+});
+const l = (x1, y1, x2, y2) => ({
+  t: "line",
+  x1,
+  y1,
+  x2,
+  y2
+});
+
+// A narrow clearance preserves the underlying symbol on either side of the slash.
+const offClearance = p("M2.616117 11.616117 L11.616117 2.616117 L13.383883 4.383883 L4.383883 13.383883 Z");
+const offSlash = p("M2.96967 11.96967 L11.96967 2.96967 L13.03033 4.03033 L4.03033 13.03033 Z");
+
+// Both arcs share the source point (8, 12.5), not independently fitted centers.
+const wifiSignal = [p("M1.636039 6.136039 A9 9 0 0 1 14.363961 6.136039"), p("M4.464466 8.964466 A5 5 0 0 1 11.535534 8.964466"), {
+  t: "circle",
+  cx: 8,
+  cy: 12.5,
+  r: 1,
+  solid: true
+}];
+
+/** Unique drawn marks. Aliases resolve elsewhere. */
+export const iconNames = ["copy", "copied", "chevron-left", "chevron-right", "close", "arrow-left", "arrow-right", "arrow-up", "arrow-down", "menu", "more", "more-h", "external", "home", "chevrons-left", "chevrons-right", "plus", "minus", "search", "filter", "sort", "edit", "trash", "share", "download", "upload", "refresh", "undo", "redo", "save", "zoom-in", "zoom-out", "link", "image", "quote", "code", "list-ordered", "mail", "message", "bell", "send", "inbox", "reply", "user", "users", "user-plus", "user-minus", "file", "file-text", "folder", "folder-open", "clipboard", "archive", "attachment", "play", "pause", "stop", "skip-back", "skip-forward", "volume", "mic", "video", "camera", "music", "info", "warning", "error", "help", "ban", "calendar", "clock", "history", "timer", "sliders", "cog", "lock", "unlock", "key", "shield", "eye", "eye-off", "cart", "bag", "credit-card", "tag", "dollar", "package", "grid", "list", "columns", "rows", "sidebar", "table", "layout", "expand", "sun", "moon", "star", "bookmark", "flag", "map-pin", "globe", "phone", "printer", "terminal", "log-in", "log-out", "grip", "power", "cloud", "database", "wifi", "panel-right", "minimize", "cut", "paste", "duplicate", "move", "unlink", "crop", "at", "hash", "user-check", "file-plus", "folder-plus", "files", "volume-off", "mic-off", "headphones", "film", "receipt", "percent", "wallet", "monitor", "smartphone", "wifi-off", "layers", "window", "trending-up", "trending-down", "compass", "map", "building", "thumbs-up", "slash", "equal", "box", "truck", "car", "van", "bicycle", "activity", "crosshair", "pin"];
+export const marks = {
+  /* Core controls */
+  copy: [p("M5.5 3 H13 V10.5"), r(3, 5.5, 7.5, 7.5)],
+  copied: [p("M3 8.25 L6.25 11.5 L13 4.5")],
+  "chevron-left": [p("M10.5 3.75 L5.5 8.25 L10.5 12.75")],
+  "chevron-right": [p("M5.5 3.75 L10.5 8.25 L5.5 12.75")],
+  close: [p("M4.5 4.5 L11.5 11.5"), p("M11.5 4.5 L4.5 11.5")],
+  /* Navigation — balanced horizontal and vertical reach around 8,8 */
+  "arrow-left": [p("M13 8 H3 M7 4 L3 8 L7 12")],
+  "arrow-right": [p("M3 8 H13 M9 4 L13 8 L9 12")],
+  "arrow-up": [p("M8 13 V3 M4 7 L8 3 L12 7")],
+  "arrow-down": [p("M8 3 V13 M4 9 L8 13 L12 9")],
+  menu: [p("M3.5 4.5 H12.5"), p("M3.5 8 H12.5"), p("M3.5 11.5 H12.5")],
+  more: [4.5, 8, 11.5].map(cy => ({
+    t: "circle",
+    cx: 8,
+    cy,
+    r: 1,
+    solid: true
+  })),
+  "more-h": [4.5, 8, 11.5].map(cx => ({
+    t: "circle",
+    cx,
+    cy: 8,
+    r: 1,
+    solid: true
+  })),
+  external: [p("M6.5 3 H3 V13 H13 V9.5"), p("M8 8 L13 3 M9 3 H13 V7")],
+  home: [p("M3.5 8 L8 3.5 L12.5 8"), p("M5 8 V12.5 H7 V10 H9 V12.5 H11 V8")],
+  "chevrons-left": [p("M8.5 3.5 L3.5 8 L8.5 12.5"), p("M12.5 3.5 L7.5 8 L12.5 12.5")],
+  "chevrons-right": [p("M3.5 3.5 L8.5 8 L3.5 12.5"), p("M7.5 3.5 L12.5 8 L7.5 12.5")],
+  /* Actions */
+  plus: [p("M8 3 V13 M3 8 H13")],
+  minus: [p("M3 8 H13")],
+  search: [o(6.75, 6.75, 4.25), p("M9.7552 9.7552 L13.5 13.5")],
+  filter: [p("M3.5 3.5 H12.5 L9.5 8 V13 L6.5 13 V8 Z")],
+  sort: [p("M3.5 4.5 H12.5"), p("M3.5 8 H10.5"), p("M3.5 11.5 H8")],
+  edit: [p("M9.5 3.5 L12.5 6.5 L6 13 H3.5 V10.5 Z"), p("M8.5 4.5 L11.5 7.5"), p("M4.5 10 L6.5 12")],
+  trash: [p("M4.5 4 H11.5"), p("M6.5 4 V3 H9.5 V4"), p("M4.5 5.5 H11.5 V13 H4.5 Z"), p("M6.5 7.5 V11"), p("M8 7.5 V11"), p("M9.5 7.5 V11")],
+  share: [o(4, 8, 1), o(12, 4.5, 1), o(12, 11.5, 1), l(4.8, 7.4, 11.2, 5.1), l(4.8, 8.6, 11.2, 10.9)],
+  download: [p("M3.5 11.5 V13 H12.5 V11.5"), p("M8 3.5 V10.5 M5.5 8 L8 10.5 L10.5 8")],
+  upload: [p("M3.5 11.5 V13 H12.5 V11.5"), p("M8 10.5 V3.5 M5.5 6 L8 3.5 L10.5 6")],
+  refresh: [p("M12 8.5 A4 4 0 1 1 8 4.5 H11 M9 2.5 L11 4.5 L9 6.5")],
+  undo: [p("M12.5 11.5 V9 A4.5 4.5 0 0 0 8 4.5 H3.5 M5.5 2.5 L3.5 4.5 L5.5 6.5")],
+  redo: [p("M3.5 11.5 V9 A4.5 4.5 0 0 1 8 4.5 H12.5 M10.5 2.5 L12.5 4.5 L10.5 6.5")],
+  save: [p("M3.5 3.5 H10.5 L12.5 5.5 V12.5 H3.5 Z"), r(5.5, 3.5, 5, 3), r(5.5, 8.5, 5, 4)],
+  "zoom-in": [o(6.75, 6.75, 4.25), p("M9.7552 9.7552 L13.5 13.5"), p("M6.75 4.75 V8.75 M4.75 6.75 H8.75")],
+  "zoom-out": [o(6.75, 6.75, 4.25), p("M9.7552 9.7552 L13.5 13.5"), p("M4.75 6.75 H8.75")],
+  /* Editing */
+  link: [r(2.5, 6, 6, 4), r(7.5, 6, 6, 4)],
+  image: [r(2.5, 3.5, 11, 9), o(5.5, 6.5, 1), p("M3.5 12 L6 8.5 L8.5 10.5 L11 7 L13.5 12")],
+  quote: [r(3.5, 4.5, 3, 3.5), p("M3.5 8 L3.5 11.5 L6.5 8"), r(9.5, 4.5, 3, 3.5), p("M9.5 8 L9.5 11.5 L12.5 8")],
+  code: [p("M6 3.5 L3 8 L6 12.5"), p("M10 3.5 L13 8 L10 12.5")],
+  "list-ordered": [p("M7 4.75 H13.5"), p("M7 11.25 H13.5"), p("M2.75 4 L4 3.25 V6.5 M2.75 6.5 H5.25"), p("M2.75 10 A1.25 1.25 0 0 1 5.25 10 L2.75 12.5 H5.25")],
+  /* Communication */
+  mail: [r(2.5, 4.5, 11, 7), p("M2.5 4.5 L8 9 L13.5 4.5")],
+  message: [p("M2.5 3.5 H13.5 V11 H8 L5.5 13.5 V11 H2.5 Z")],
+  bell: [p("M4.75 6 A3.25 3.25 0 0 1 11.25 6 V8.75 C11.25 9.75 11.75 10.5 12.5 11.5 H3.5 C4.25 10.5 4.75 9.75 4.75 8.75 Z"), p("M6.5 13 C7 14 9 14 9.5 13")],
+  send: [p("M2.5 3.5 L13.5 8 L2.5 12.5 L5.5 8 Z"), p("M5.5 8 H10.5")],
+  inbox: [p("M3.5 6.5 V12.5 H12.5 V6.5"), p("M3.5 6.5 L6.5 10 H9.5 L12.5 6.5")],
+  reply: [p("M11.5 5 V8 H3.5 M7 4.5 L3.5 8 L7 11.5")],
+  /* People */
+  user: [o(8, 4.75, 2.25), p("M3.5 13 V11.75 C3.5 10 5.5 8.75 8 8.75 C10.5 8.75 12.5 10 12.5 11.75 V13")],
+  users: [o(6, 4.75, 1.75), p("M2.5 13.5 V10.75 L6 9.25 L9.5 10.75 V13.5"), o(10.75, 4.75, 1.5), p("M9.25 13.5 V11.25 L11.75 9.75 L14 11.25 V13.5")],
+  "user-plus": [o(6, 4.75, 1.75), p("M2.5 13.5 V10.75 L6 9.25 L9.5 10.75 V13.5"), p("M12.625 6.75 V11.25"), p("M10.75 9 H14.5")],
+  "user-minus": [o(6, 4.75, 1.75), p("M2.5 13.5 V10.75 L6 9.25 L9.5 10.75 V13.5"), p("M10.75 9 H14.5")],
+  /* Files */
+  file: [p("M5 2.5 H9.5 L12.5 5.5 V13.5 H5 Z"), p("M9.5 2.5 V5.5 H12.5")],
+  "file-text": [p("M5 2.5 H9.5 L12.5 5.5 V13.5 H5 Z"), p("M9.5 2.5 V5.5 H12.5"), p("M6.5 8 H11"), p("M6.5 10 H11"), p("M6.5 12 H9.5")],
+  folder: [p("M2.5 5.5 H6 L7.5 4 H13.5 V12.5 H2.5 Z")],
+  "folder-open": [p("M2.5 6 V4.5 H6 L7.5 3 H12.5 V6"), p("M2.5 6 H13.5 L12 13 H2.5 Z")],
+  clipboard: [r(4, 3.5, 8, 10.5), r(6, 2.5, 4, 2)],
+  archive: [r(2.5, 3.5, 11, 3), p("M3.5 6.5 V13 H12.5 V6.5"), p("M6.5 8.5 H9.5")],
+  attachment: [p("M5 8 V10.5 A3 3 0 0 0 11 10.5 V4.75 A2 2 0 0 0 7 4.75 V10 A1 1 0 0 0 9 10 V6.5")],
+  /* Media */
+  play: [p("M6 3.5 L13 8 L6 12.5 Z")],
+  pause: [r(4, 3.5, 2.5, 9), r(9.5, 3.5, 2.5, 9)],
+  stop: [r(4.5, 4.5, 7, 7)],
+  "skip-back": [p("M3.5 3.5 V12.5"), p("M12.5 3.5 L6.5 8 L12.5 12.5 Z")],
+  "skip-forward": [p("M12.5 3.5 V12.5"), p("M3.5 3.5 L9.5 8 L3.5 12.5 Z")],
+  volume: [p("M3.5 6.5 H6 L9 3.5 V12.5 L6 9.5 H3.5 Z"), p("M11 5.5 A3 3 0 0 1 11 10.5")],
+  mic: [p("M6 4.5 A2 2 0 0 1 10 4.5 V7.5 A2 2 0 0 1 6 7.5 Z"), p("M4 7.5 A4 4 0 0 0 12 7.5"), p("M8 11.5 V13.5"), p("M6 13.5 H10")],
+  video: [r(2.5, 4.5, 8, 7), p("M10.5 6.5 L13.5 4.5 V11.5 L10.5 9.5")],
+  camera: [r(2.5, 4.5, 11, 7), p("M6 4.5 L7 3 H9 L10 4.5"), o(8, 8, 2)],
+  music: [o(5.5, 11.5, 1.5), o(11, 10, 1.5), p("M7 11.5 V3.5 H12.5 V10")],
+  /* Status */
+  info: [o(8, 8, 5.5), p("M8 7.5 V11"), p("M8 5 V6")],
+  warning: [p("M8 2.5 L13.5 13.5 H2.5 Z"), p("M8 6.5 V9.5"), p("M8 11.5 V12.5")],
+  error: [o(8, 8, 5.5), p("M6 6 L10 10"), p("M10 6 L6 10")],
+  help: [o(8, 8, 5.5), p("M6.5 6.5 A1.5 1.5 0 1 1 8.5 8 L8 9.5"), p("M8 11.5 V12")],
+  ban: [o(8, 8, 5.5), p("M4.5 4.5 L11.5 11.5")],
+  /* Time */
+  calendar: [r(3, 4.5, 10, 9), p("M3 7.5 H13"), p("M6 3 V5.5"), p("M10 3 V5.5")],
+  clock: [o(8, 8, 5.5), p("M8 8 L8 5"), p("M8 8 L11 9.5")],
+  history: [p("M8 12.5 C10.5 12.5 12.5 10.5 12.5 8 C12.5 5.5 10.5 3.5 8 3.5 C6 3.5 4.5 4.5 3.5 5.5 M3.5 2.5 V5.5 H6.5")],
+  timer: [p("M6.5 2.5 H9.5"), p("M8 2.5 V4"), o(8, 8.5, 4.5), p("M8 8.5 L10 7")],
+  /* Settings */
+  sliders: [p("M2.5 4.5 H13.5"), p("M2.5 8 H13.5"), p("M2.5 11.5 H13.5"), r(9.5, 3, 3, 3), r(3.5, 6.5, 3, 3), r(7.5, 10, 3, 3)],
+  cog: [p("M6.5 2 H9.5 L9.85 3.65 L11 4.3 L12.6 3.8 L14.1 6.4 L12.85 7.5 V8.5 L14.1 9.6 L12.6 12.2 L11 11.7 L9.85 12.35 L9.5 14 H6.5 L6.15 12.35 L5 11.7 L3.4 12.2 L1.9 9.6 L3.15 8.5 V7.5 L1.9 6.4 L3.4 3.8 L5 4.3 L6.15 3.65 Z"), o(8, 8, 2.25)],
+  lock: [r(4, 7, 8, 6), p("M5.5 7 V5 A2.5 2.5 0 0 1 10.5 5 V7")],
+  unlock: [r(4, 7, 8, 6), p("M5.5 7 V5 A2.5 2.5 0 0 1 10.5 5")],
+  key: [o(5.5, 10, 2.5), p("M7.5 8.5 L13.5 2.5"), p("M11 5 L13 7")],
+  shield: [p("M8 2.5 L13 5 V9 L8 13.5 L3 9 V5 Z")],
+  eye: [p("M2 8 C3.5 5.5 5.5 4.25 8 4.25 C10.5 4.25 12.5 5.5 14 8 C12.5 10.5 10.5 11.75 8 11.75 C5.5 11.75 3.5 10.5 2 8 Z"), o(8, 8, 1.75)],
+  "eye-off": [p("M2 8 C3.5 5.5 5.5 4.25 8 4.25 C10.5 4.25 12.5 5.5 14 8 C12.5 10.5 10.5 11.75 8 11.75 C5.5 11.75 3.5 10.5 2 8 Z"), o(8, 8, 1.75), p("M3.5 12.5 L12.5 3.5")],
+  /* Commerce */
+  cart: [p("M3 4 H4.5 L6 11 H12 L13.5 6 H5.5"), o(6.5, 13, 1), o(11.5, 13, 1)],
+  bag: [p("M4.5 6 H11.5 L12.5 13.5 H3.5 Z"), p("M6 6 V4.5 H10 V6")],
+  "credit-card": [r(2.5, 4.5, 11, 7), p("M2.5 7 H13.5")],
+  tag: [p("M3.5 7 L7 3.5 H13 V9.5 L9.5 13 Z"), o(10.5, 6, 1)],
+  dollar: [p("M8 3.5 V12.5"), p("M10.5 5 H6.5 V7.5 H9.5 V10.5 H5.5")],
+  package: [p("M8 2.5 L12.5 5.5 V10.5 L8 13.5 L3.5 10.5 V5.5 Z"), p("M3.5 5.5 L8 8.5 L12.5 5.5"), p("M8 8.5 V13.5")],
+  /* Layout */
+  grid: [r(2.5, 2.5, 4.5, 4.5), r(9, 2.5, 4.5, 4.5), r(2.5, 9, 4.5, 4.5), r(9, 9, 4.5, 4.5)],
+  list: [p("M5.5 4.5 H13"), p("M5.5 8 H13"), p("M5.5 11.5 H13"), p("M3 4.5 H4"), p("M3 8 H4"), p("M3 11.5 H4")],
+  columns: [r(2.5, 3.5, 5, 9), r(8.5, 3.5, 5, 9)],
+  rows: [r(2.5, 2.5, 11, 4.5), r(2.5, 9, 11, 4.5)],
+  sidebar: [r(2.5, 3.5, 11, 9), p("M6.5 3.5 V12.5")],
+  table: [r(2.5, 3.5, 11, 9), p("M2.5 7 H13.5"), p("M2.5 10.5 H13.5"), p("M6.5 3.5 V12.5")],
+  layout: [r(2.5, 3.5, 11, 9), p("M2.5 6.5 H13.5"), p("M8 6.5 V12.5")],
+  expand: [p("M3.5 6.5 V3.5 H6.5"), p("M9.5 3.5 H12.5 V6.5"), p("M12.5 9.5 V12.5 H9.5"), p("M6.5 12.5 H3.5 V9.5")],
+  /* System */
+  sun: [o(8, 8, 2.75), p("M8 2 V3.5"), p("M8 12.5 V14"), p("M2 8 H3.5"), p("M12.5 8 H14"), p("M3.7574 3.7574 L4.818 4.818"), p("M11.182 11.182 L12.2426 12.2426"), p("M12.2426 3.7574 L11.182 4.818"), p("M4.818 11.182 L3.7574 12.2426")],
+  moon: [p("M13.5 8.5 A5.5 5.5 0 1 1 7.5 2.5 A4.5 4.5 0 0 0 13.5 8.5 Z")],
+  star: [p("M8 2.5 L9.6 6.4 H13.5 L10.5 8.8 L11.6 12.8 L8 10.4 L4.4 12.8 L5.5 8.8 L2.5 6.4 H6.4 Z")],
+  bookmark: [p("M5 2.5 V13.5 L8 11 L11 13.5 V2.5 Z")],
+  flag: [p("M4.5 2.5 V13.5"), p("M4.5 2.5 H12.5 L10.5 5.5 L12.5 8.5 H4.5")],
+  "map-pin": [p("M8 2.5 A3.5 3.5 0 0 1 11.5 6 C11.5 8.5 8 13.5 8 13.5 C8 13.5 4.5 8.5 4.5 6 A3.5 3.5 0 0 1 8 2.5 Z"), o(8, 6, 1.25)],
+  globe: [o(8, 8, 5.5), p("M8 2.5 C5.5 5 5.5 11 8 13.5"), p("M8 2.5 C10.5 5 10.5 11 8 13.5"), p("M2.5 8 H13.5")],
+  phone: [r(5, 2.5, 6, 11), p("M6.5 12 H9.5")],
+  printer: [r(5.5, 2.5, 5, 5.5), p("M3.5 8 H12.5 V11.5 H3.5 Z"), p("M6 10.5 H10"), r(5.5, 11.5, 5, 2.5)],
+  terminal: [r(2.5, 3.5, 11, 9), p("M4.5 6.5 L6.5 8 L4.5 9.5"), p("M8 10 H11.5")],
+  "log-in": [p("M8.5 3.5 H13.5 V12.5 H8.5"), p("M2.5 8 H9.5 M7 5.5 L9.5 8 L7 10.5")],
+  "log-out": [p("M7.5 3.5 H2.5 V12.5 H7.5"), p("M6.5 8 H13.5 M11 5.5 L13.5 8 L11 10.5")],
+  grip: [o(5.5, 4, 0.9), o(10.5, 4, 0.9), o(5.5, 8, 0.9), o(10.5, 8, 0.9), o(5.5, 12, 0.9), o(10.5, 12, 0.9)],
+  power: [p("M8 3.5 V8"), p("M5 5.5 A4.5 4.5 0 1 0 11 5.5")],
+  cloud: [p("M4 10.5 H12.5 A2 2 0 0 0 12.5 7 A3 3 0 0 0 6.5 6.5 A2.5 2.5 0 0 0 4 10.5")],
+  database: [p("M2.5 4.5 A5.5 1.8 0 0 0 13.5 4.5 A5.5 1.8 0 0 0 2.5 4.5"), p("M2.5 4.5 V11.5"), p("M13.5 4.5 V11.5"), p("M2.5 11.5 A5.5 1.8 0 0 0 13.5 11.5"), p("M2.5 8 A5.5 1.8 0 0 0 13.5 8")],
+  wifi: wifiSignal,
+  "panel-right": [r(2.5, 3.5, 11, 9), p("M9.5 3.5 V12.5")],
+  minimize: [p("M3.5 11.5 H12.5")],
+  cut: [o(5, 11.5, 1.5), o(11, 11.5, 1.5), p("M5.5 10.2 L11 3.5"), p("M10.5 10.2 L5 3.5")],
+  paste: [r(4.5, 4.5, 8, 9), r(6, 2.5, 5, 2.5), p("M6.5 7.5 H10.5"), p("M6.5 9.75 H10.5"), p("M6.5 12 H9.5")],
+  duplicate: [r(3, 5, 8, 8), r(5.5, 2.5, 8, 8)],
+  move: [p("M8 2.5 V13.5 M2.5 8 H13.5 M6 4.5 L8 2.5 L10 4.5 M6 11.5 L8 13.5 L10 11.5 M4.5 6 L2.5 8 L4.5 10 M11.5 6 L13.5 8 L11.5 10")],
+  unlink: [r(2.5, 6, 5, 4), r(8.5, 6, 5, 4), p("M4 12 L12 4")],
+  crop: [p("M4.5 2.5 V11.5 H13.5"), p("M2.5 4.5 H11.5 V13.5")],
+  at: [o(8, 8, 2.25), p("M10.25 8 V10.5 H11.25 C12.75 10.5 13.5 9.5 13.5 8"), p("M11.5 12 A5.5 5.5 0 1 1 13.5 8")],
+  hash: [p("M6.5 3.5 L5.5 12.5"), p("M10.5 3.5 L9.5 12.5"), p("M4 6.5 H12"), p("M3.5 9.5 H11.5")],
+  "user-check": [o(6, 4.75, 1.75), p("M2.5 13.5 V10.75 L6 9.25 L9.5 10.75 V13.5"), p("M10.75 8.75 L12.25 10.25 L14.5 7.5")],
+  "file-plus": [p("M5 2.5 H9.5 L12.5 5.5 V13.5 H5 Z"), p("M9.5 2.5 V5.5 H12.5"), p("M8 7 V10.5"), p("M6.25 8.75 H9.75")],
+  "folder-plus": [p("M2.5 5.5 H6 L7.5 4 H13.5 V12.5 H2.5 Z"), p("M8 7 V10.5"), p("M6.25 8.75 H9.75")],
+  files: [r(3, 4.5, 7.5, 9), r(5.5, 2.5, 7.5, 9)],
+  "volume-off": [p("M3.5 6.5 H6 L9 3.5 V12.5 L6 9.5 H3.5 Z"), p("M3.5 12.5 L12.5 3.5")],
+  "mic-off": [p("M6 4.5 A2 2 0 0 1 10 4.5 V7.5 A2 2 0 0 1 6 7.5 Z"), p("M4 7.5 A4 4 0 0 0 12 7.5"), p("M8 11.5 V13.5"), p("M6 13.5 H10"), p("M3.5 12.5 L12.5 3.5")],
+  headphones: [p("M4 8.5 V12 H6 V8.5"), p("M10 8.5 V12 H12 V8.5"), p("M4 8.5 A4 4 0 0 1 12 8.5")],
+  film: [r(2.5, 3.5, 11, 9), p("M5.5 3.5 V12.5"), p("M10.5 3.5 V12.5"), p("M2.5 6.5 H5.5"), p("M2.5 9.5 H5.5"), p("M10.5 6.5 H13.5"), p("M10.5 9.5 H13.5")],
+  receipt: [r(4.5, 2.5, 7, 11), p("M4.5 13.5 L6 12.5 L7.5 13.5 L9 12.5 L11.5 13.5"), p("M6 6 H10"), p("M6 8.5 H10")],
+  percent: [p("M4.5 11.5 L11.5 4.5"), o(5.5, 5.5, 1.5), o(10.5, 10.5, 1.5)],
+  wallet: [r(2.5, 5.5, 11, 7), p("M2.5 5.5 L4 3.5 H13.5 V5.5"), r(9.5, 7.5, 4, 3)],
+  monitor: [r(2.5, 3.5, 11, 7.5), p("M8 11 V13"), p("M5.5 13 H10.5")],
+  smartphone: [r(5, 1.5, 6, 13), p("M7 12.5 H9")],
+  "wifi-off": [...wifiSignal, p("M3.5 12.5 L12.5 3.5")],
+  layers: [p("M8 2.5 L13.5 5.5 L8 8.5 L2.5 5.5 Z"), p("M3.5 8 L8 10.5 L12.5 8"), p("M3.5 10.5 L8 13 L12.5 10.5")],
+  window: [r(2.5, 3.5, 11, 9), p("M2.5 6.5 H13.5")],
+  "trending-up": [p("M2.5 10.5 L6.5 6.5 L9 9 L13.5 4.5 M10.5 4.5 H13.5 V7.5")],
+  "trending-down": [p("M2.5 5.5 L6.5 9.5 L9 7 L13.5 11.5 M10.5 11.5 H13.5 V8.5")],
+  compass: [o(8, 8, 5.5), p("M10.75 5.25 L9 9 L5.25 10.75 L7 7 Z"), p("M7 7 L9 9")],
+  map: [p("M2.5 4.5 L6 3.5 L10 5 L13.5 3.5 V12.5 L10 13.5 L6 12 L2.5 13.5 Z"), p("M6 3.5 V12"), p("M10 5 V13.5")],
+  building: [p("M3.5 13.5 V5 L8 2.5 L12.5 5 V13.5"), p("M3.5 13.5 H12.5"), p("M6 7 H7"), p("M9 7 H10"), p("M6 9.5 H7"), p("M9 9.5 H10"), p("M7.5 11.5 V13.5")],
+  "thumbs-up": [r(3, 7.5, 2.5, 5.5), p("M5.5 8 L7.25 5.75 L7.75 3 H9.25 L10 7.5 H12.75 L11.75 13 H5.5 Z"), p("M3.75 10.5 H5.5")],
+  slash: [p("M5 13 L11 3")],
+  equal: [p("M3.5 6 H12.5"), p("M3.5 10 H12.5")],
+  box: [r(3.5, 3.5, 9, 9)],
+  /* Transportation shares a wheel baseline and a side profile on the same module. */
+  truck: [r(1.5, 4, 8, 5.5), p("M9.5 6 H12 L14.5 8.5 V9.5 H9.5 Z"), p("M10.5 6 V8 H14"), o(4.5, 11, 1.5), o(11.5, 11, 1.5)],
+  car: [p("M1.5 9.5 V8 L3.5 7.5 L5 4.5 H10 L12 7.5 L14.5 8 V9.5 Z"), p("M3.5 7.5 H12 M7.5 4.5 V7.5"), o(4.5, 11, 1.5), o(11.5, 11, 1.5)],
+  van: [p("M1.5 4.5 H10.5 L14.5 8 V9.5 H1.5 Z"), p("M9 4.5 V9.5"), p("M10.5 5.75 V7.5 H12.5 Z"), o(4.5, 11, 1.5), o(11.5, 11, 1.5)],
+  bicycle: [o(3.5, 11, 2.5), o(12.5, 11, 2.5), p("M3.5 11 L6.5 6.5 H11 L8 11 H3.5 M6.5 6.5 L8 11"), p("M6.5 6.5 L6 4.5 M4.75 4.5 H7.5"), p("M10.5 3.5 H12.5 V5 H11 L12.5 11")],
+  activity: [p("M2.5 8 H4.5 L6.5 4 L9.5 12 L11.5 8 H13.5")],
+  crosshair: [o(8, 8, 3.5), p("M8 2.5 V4.5"), p("M8 11.5 V13.5"), p("M2.5 8 H4.5"), p("M11.5 8 H13.5"), o(8, 8, 0.6)],
+  pin: [o(8, 5.5, 2.5), p("M8 8 V13.5")]
+};
+
+/**
+ * Optical filled cuts for figures whose line construction is intentionally
+ * open. These are silhouettes of the same marks, not a second icon family.
+ * Every other mark continues to derive its fill directly from `marks`.
+ */
+export const filledMarks = {
+  truck: [marks.truck[0], marks.truck[1], p("M10.5 7 H11.7 L13.2 8.5 H10.5 Z"), marks.truck[3], marks.truck[4]],
+  car: [marks.car[0], p("M5.6 5.5 H9.45 L10.45 7 H4.85 Z"), marks.car[2], marks.car[3]],
+  van: [marks.van[0], marks.van[1], marks.van[2], marks.van[3], marks.van[4]],
+  bicycle: [marks.bicycle[0], o(3.5, 11, 1.25), marks.bicycle[1], o(12.5, 11, 1.25),
+  // Closed 1.25-unit frame members leave the wheel and frame apertures open.
+  p("M2.98 10.65 L5.98 6.15 L7.02 6.85 L4.02 11.35 Z"), r(6.5, 5.875, 4.5, 1.25), p("M10.48 6.15 L7.48 10.65 L8.52 11.35 L11.52 6.85 Z"), r(3.5, 10.375, 4.5, 1.25), p("M5.91 6.7 L7.41 11.2 L8.59 10.8 L7.09 6.3 Z"), p("M5.4 4.65 L5.9 6.65 L7.1 6.35 L6.6 4.35 Z"), r(4.75, 3.875, 2.75, 1.25), p("M10.5 2.875 H13.125 V5.625 H11 V4.375 H11.875 V4.125 H10.5 Z"), p("M10.394 5.15 L11.894 11.15 L13.106 10.85 L11.606 4.85 Z")],
+  // Keep the fold inside the paper plane so its pointed endpoint stays solid.
+  send: [marks.send[0], p("M5.5 8 H10.5")],
+  link: [r(2.25, 5.5, 6.5, 5), r(3.75, 7, 3.5, 2), r(7.25, 5.5, 6.5, 5), r(8.75, 7, 3.5, 2)],
+  unlink: [r(2.25, 5.5, 6.5, 5), r(3.75, 7, 3.5, 2), r(7.25, 5.5, 6.5, 5), r(8.75, 7, 3.5, 2), p("M4 12 L12 4")],
+  search: [marks.search[0], o(6.75, 6.75, 2.5), marks.search[1]],
+  "zoom-in": [marks.search[0], o(6.75, 6.75, 2.75), marks.search[1], p("M6.75 5.25 V8.25 M5.25 6.75 H8.25")],
+  "zoom-out": [marks.search[0], o(6.75, 6.75, 2.75), marks.search[1], p("M5.25 6.75 H8.25")],
+  "chevrons-left": [p("M7.75 3.75 L3.25 8.25 L7.75 12.75"), p("M12.75 3.75 L8.25 8.25 L12.75 12.75")],
+  "chevrons-right": [p("M3.25 3.75 L7.75 8.25 L3.25 12.75"), p("M8.25 3.75 L12.75 8.25 L8.25 12.75")],
+  home: [p("M3.5 8 L8 3.5 L12.5 8 V13 H9.5 V10 H6.5 V13 H3.5 Z")],
+  inbox: [p("M3.5 6.5 L6.5 10 H9.5 L12.5 6.5 V12.5 H3.5 Z")],
+  user: [marks.user[0], p("M3.5 13 V11.75 C3.5 10 5.5 8.75 8 8.75 C10.5 8.75 12.5 10 12.5 11.75 V13 Z")],
+  users: [o(6, 4.75, 1.75), p("M2.5 13.5 V10.75 L6 9.25 L9.5 10.75 V13.5 Z"), o(10.75, 4.75, 1.5), p("M9.25 13.5 V11.25 L11.75 9.75 L14 11.25 V13.5 Z")],
+  "user-plus": [o(6, 4.75, 1.75), p("M2.5 13.5 V10.75 L6 9.25 L9.5 10.75 V13.5 Z"), p("M12.625 6.75 V11.25"), p("M10.75 9 H14.5")],
+  "user-minus": [o(6, 4.75, 1.75), p("M2.5 13.5 V10.75 L6 9.25 L9.5 10.75 V13.5 Z"), p("M10.75 9 H14.5")],
+  trash: [p("M4 4 H12"), p("M6.25 4 V2.75 H9.75 V4"), p("M4.5 5.5 H11.5 V13 H4.5 Z"), r(5.875, 7.25, 1, 4), r(7.5, 7.25, 1, 4), r(9.125, 7.25, 1, 4)],
+  save: [p("M3.5 3.5 H10.5 L12.5 5.5 V12.5 H3.5 Z"), r(5.5, 4.5, 4, 2), r(5.5, 8.5, 5, 2.5)],
+  download: [p("M3.5 12 V13 H12.5 V12"), p("M8 3.5 V10 M5.5 7.5 L8 10 L10.5 7.5")],
+  upload: [p("M3.5 12 V13 H12.5 V12"), p("M8 10 V3.5 M5.5 6 L8 3.5 L10.5 6")],
+  cart: [p("M3 4 H4.5 L6 11 H12 L13.5 6 H5.5 Z"), o(6.5, 13, 1), o(11.5, 13, 1)],
+  flag: [p("M4.5 2.5 V13.5"), p("M4.5 2.5 H12.5 L10.5 5.5 L12.5 8.5 H4.5 Z")],
+  "map-pin": [p("M8 2.5 A3.5 3.5 0 0 1 11.5 6 C11.5 8.5 8 13.5 8 13.5 C8 13.5 4.5 8.5 4.5 6 A3.5 3.5 0 0 1 8 2.5 Z"), o(8, 6, 1.25)],
+  cloud: [p("M4 10.5 H12.5 A2 2 0 0 0 12.5 7 A3 3 0 0 0 6.5 6.5 A2.5 2.5 0 0 0 4 10.5 Z")],
+  "folder-open": [p("M2.5 6 V4.5 H6 L7.5 3 H12.5 V6"), p("M2.5 6 H13.5 L12 13 H2.5 Z"), p("M3.5 6 H12.75")],
+  clipboard: [r(4, 3.5, 8, 10.5), r(5, 5, 6, 7.5), r(6, 2.5, 4, 2)],
+  archive: [r(2.5, 3.5, 11, 3), p("M3.5 6.5 V13 H12.5 V6.5 Z"), r(6.5, 8.25, 3, 1.5)],
+  duplicate: [p("M5.5 5 V2.5 H13.5 V10.5 H11"), p("M11 5 H3 V13 H11 Z")],
+  files: [p("M5.5 4.5 V2.5 H13 V11.5 H10.5"), p("M10.5 4.5 H3 V13.5 H10.5 Z")],
+  key: [o(5.5, 10, 2.75), o(5.5, 10, 1), p("M7.5 8.5 L13.5 2.5"), p("M11 5 L13 7")],
+  database: [p("M2.5 4.5 A5.5 1.8 0 0 1 13.5 4.5 V11.5 A5.5 1.8 0 0 1 2.5 11.5 Z"), p("M3.5 7.75 A4.5 1.35 0 0 0 12.5 7.75"), p("M3.5 10.5 A4.5 1.35 0 0 0 12.5 10.5")],
+  monitor: [r(2.5, 3.5, 11, 7.5), r(3.75, 4.75, 8.5, 5), p("M8 11 V13"), p("M5.5 13 H10.5")],
+  sun: [marks.sun[0], ...marks.sun.slice(1).map(ray => ({
+    ...ray,
+    strokeWidth: 1.25
+  }))],
+  moon: [p("M13.5 8.5 A5.5 5.5 0 1 1 7.5 2.5 A4.5 4.5 0 0 0 13.5 8.5 Z")],
+  receipt: [p("M4.5 2.5 H11.5 V13.5 L10.25 12.5 L9 13.5 L7.75 12.5 L6.5 13.5 L4.5 12.5 Z"), p("M6 6 H10"), p("M6 8.5 H10")],
+  wallet: [p("M2.5 5.5 L4 3.5 H13.5 V12.5 H2.5 Z"), r(10, 8, 3, 2)],
+  compass: [o(8, 8, 5.5), o(8, 8, 4), marks.compass[1]],
+  building: [p("M3.5 13.5 V5 L8 2.5 L12.5 5 V13.5 Z"), r(5.5, 6.5, 2, 1.5), r(8.5, 6.5, 2, 1.5), r(5.5, 9.25, 2, 1.5), r(8.5, 9.25, 2, 1.5), r(7.25, 11.5, 1.5, 2)],
+  at: [p("M8 5.75 A2.25 2.25 0 1 1 8 10.25 A2.25 2.25 0 1 1 8 5.75"), p("M10.25 8 V10.5 H11.25 C12.75 10.5 13.5 9.5 13.5 8"), p("M11.5 12 A5.5 5.5 0 1 1 13.5 8")],
+  "user-check": [o(6, 4.75, 1.75), p("M2.5 13.5 V10.75 L6 9.25 L9.5 10.75 V13.5 Z"), p("M10.1 8.4 L12.1 10.4 L14.8 7.15 L14 6.5 L12 8.9 L10.85 7.75 Z")],
+  "thumbs-up": [r(3, 7.5, 2.5, 5.5), p("M5.5 8 L7.25 5.75 L7.75 3 H9.25 L10 7.5 H12.75 L11.75 13 H5.5 Z"), p("M3.75 10.5 H5.5")],
+  crosshair: [o(8, 8, 3.5), o(8, 8, 2), o(8, 8, 0.65), p("M8 2.5 V4.5"), p("M8 11.5 V13.5"), p("M2.5 8 H4.5"), p("M11.5 8 H13.5")],
+  "eye-off": [...marks.eye, offClearance, offSlash],
+  "volume-off": [marks.volume[0], offClearance, offSlash],
+  "mic-off": [...marks.mic, offClearance, offSlash],
+  "wifi-off": [...wifiSignal,
+  // A 2.5-unit clearance and a hand-cut 1.5-unit slash keep the signal
+  // recognizable. The family-wide off-state cut erases this small wave.
+  offClearance, offSlash]
+};
+
+/** At 12px, two open slots survive rasterization better than three fine cuts. */
+export const smallFilledMarks = {
+  trash: [p("M4 4 H12"), p("M6.25 4 V2.75 H9.75 V4"), p("M4.5 5.5 H11.5 V13 H4.5 Z"), r(5.75, 7.25, 1.5, 4), r(8.75, 7.25, 1.5, 4)]
+};
+export const smallFilledCutouts = {
+  trash: [3, 4]
+};
+
+/**
+ * Negative-space details for the filled family. These are punched through the
+ * solid silhouette with an SVG mask, so the detail works on every background
+ * and does not depend on light or dark theme colors.
+ */
+export const filledCutouts = {
+  truck: [2],
+  car: [1],
+  van: [1, 2],
+  bicycle: [1, 3],
+  link: [1, 3],
+  unlink: [1, 3, 4],
+  search: [1],
+  "zoom-in": [1],
+  "zoom-out": [1],
+  edit: [1, 2],
+  save: [1, 2],
+  image: [1, 2],
+  mail: [1],
+  send: [1],
+  file: [1],
+  "file-text": [1, 2, 3, 4],
+  "file-plus": [1, 2, 3],
+  trash: [3, 4, 5],
+  archive: [2],
+  clipboard: [1],
+  camera: [2],
+  film: [1, 2, 3, 4, 5, 6],
+  info: [1, 2],
+  warning: [1, 2],
+  error: [1, 2],
+  help: [1, 2],
+  ban: [1],
+  calendar: [1, 2, 3],
+  clock: [1, 2],
+  timer: [3],
+  eye: [1],
+  "eye-off": [1, 2],
+  "volume-off": [1],
+  "mic-off": [4],
+  "wifi-off": [3],
+  "credit-card": [1],
+  tag: [1],
+  package: [1, 2],
+  sidebar: [1],
+  "panel-right": [1],
+  table: [1, 2, 3],
+  layout: [1, 2],
+  window: [1],
+  "map-pin": [1],
+  globe: [1, 2, 3],
+  phone: [1],
+  printer: [2],
+  terminal: [1, 2],
+  paste: [2, 3, 4],
+  "folder-open": [2],
+  receipt: [1, 2],
+  wallet: [1],
+  cog: [1],
+  smartphone: [1],
+  compass: [1],
+  map: [1, 2],
+  "folder-plus": [1, 2],
+  database: [1, 2],
+  monitor: [1],
+  building: [1, 2, 3, 4, 5],
+  key: [1],
+  "thumbs-up": [2],
+  crosshair: [1]
+};
+export const iconAliases = {
+  check: {
+    name: "copied"
+  },
+  success: {
+    name: "copied"
+  },
+  "chevron-down": {
+    name: "chevron-right",
+    rotate: 90
+  },
+  "chevron-up": {
+    name: "chevron-right",
+    rotate: 270
+  },
+  x: {
+    name: "close"
+  },
+  settings: {
+    name: "sliders"
+  },
+  gear: {
+    name: "cog"
+  },
+  pencil: {
+    name: "edit"
+  },
+  "panel-left": {
+    name: "sidebar"
+  }
+};
+export const iconGroups = [{
+  title: "Navigation",
+  names: ["arrow-left", "arrow-right", "arrow-up", "arrow-down", "chevron-left", "chevron-right", "chevron-up", "chevron-down", "chevrons-left", "chevrons-right", "menu", "more", "more-h", "external", "home", "close", "panel-left", "panel-right", "minimize", "move"]
+}, {
+  title: "Actions",
+  names: ["plus", "minus", "search", "filter", "sort", "edit", "trash", "share", "download", "upload", "refresh", "undo", "redo", "save", "copy", "copied", "zoom-in", "zoom-out", "cut", "paste", "duplicate", "crop"]
+}, {
+  title: "Editing",
+  names: ["link", "unlink", "image", "quote", "code", "list-ordered", "at", "hash"]
+}, {
+  title: "Communication",
+  names: ["mail", "message", "bell", "send", "inbox", "reply"]
+}, {
+  title: "People",
+  names: ["user", "users", "user-plus", "user-minus", "user-check"]
+}, {
+  title: "Files",
+  names: ["file", "file-text", "file-plus", "files", "folder", "folder-open", "folder-plus", "clipboard", "archive", "attachment"]
+}, {
+  title: "Media",
+  names: ["play", "pause", "stop", "skip-back", "skip-forward", "volume", "volume-off", "mic", "mic-off", "video", "camera", "music", "headphones", "film"]
+}, {
+  title: "Status",
+  names: ["info", "warning", "error", "help", "ban", "success", "slash", "equal"]
+}, {
+  title: "Time",
+  names: ["calendar", "clock", "history", "timer"]
+}, {
+  title: "Settings",
+  names: ["sliders", "cog", "lock", "unlock", "key", "shield", "eye", "eye-off"]
+}, {
+  title: "Transportation",
+  names: ["truck", "car", "van", "bicycle"]
+}, {
+  title: "Commerce",
+  names: ["cart", "bag", "credit-card", "tag", "dollar", "package", "receipt", "percent", "wallet"]
+}, {
+  title: "Layout",
+  names: ["grid", "list", "columns", "rows", "sidebar", "panel-left", "panel-right", "table", "layout", "expand", "window", "layers"]
+}, {
+  title: "System",
+  names: ["sun", "moon", "star", "bookmark", "flag", "map-pin", "pin", "globe", "phone", "printer", "terminal", "log-in", "log-out", "grip", "power", "cloud", "database", "wifi", "wifi-off", "monitor", "smartphone", "compass", "map", "building", "box", "activity", "crosshair", "trending-up", "trending-down", "thumbs-up"]
+}];
+export function resolveIcon(name) {
+  if (name in iconAliases) {
+    const alias = iconAliases[name];
+    return {
+      mark: alias.name,
+      rotate: "rotate" in alias ? alias.rotate : undefined
+    };
+  }
+  return {
+    mark: name
+  };
+}
+export function iconLabel(name) {
+  return name.replace(/-/g, " ").replace(/^./, c => c.toUpperCase());
+}
+//# sourceMappingURL=icon-marks.js.map

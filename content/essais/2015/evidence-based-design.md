@@ -1,0 +1,159 @@
+---
+kind: "essay"
+slug: "evidence-based-design"
+title: "Evidence-based design"
+date: "2015-06-12"
+sourceDate: null
+archiveYear: 2015
+pinned: false
+category: "Design"
+tags: ["evidence-based design", "kwamecorp", "user-centricity"]
+description: "I ghostwrote this essay with my mentor from Kwamecorp to evangelize a quantifiable approach to design, inspired by the software engineering methods of Silicon Valley. Have a look-see."
+cover: "/archive/media/532c76225d73f4e02d6c.jpeg"
+source: "essais/2015/evidence-based-design.html"
+---
+
+![](/archive/media/532c76225d73f4e02d6c.jpeg)
+
+Working as an innovation agency, [Kwamecorp](http://www.kwamecorp.com/) is in a lucky position to both build projects for big corporations with plentiful resources, *and* work on small startups from the earliest concepts all the way until the release of the product. Having been through a good share of software projects, we’ve also had some that failed. In retrospect, there were a few commonalities in these cases, and in this piece, we want to share some of our findings, which have improved the way we create concepts — especially in systems and service design — in so many ways that we sometimes wonder how we worked any other way before.
+
+**With the advent of agile development, we’ve seen huge improvements** in the development of software. Not only have communication and planning dramatically improved, the design teams also benefited from the overall transparency of the process.
+
+For a long time, **a similar structured process was missing when it came to user experience (UX) and user interface (UI) creation**. With the increasing success of concepts like user-centric design, MVP and rapid prototyping, things are starting to change for the better but still, these only seem to be implemented in very few projects. So it’s time to take full advantage of these new methods of designing.
+
+From the early days, we’ve always followed a very applied approach at Kwamecorp. Our workforce consists of both UX/UI designers and software developers in equal measure, and it has worked well for us. We firmly believe that the magic of excellent engineering only happens when design and development go truly hand in hand. Also, we’ve learned many things by creating dozens of lean startups over the years. So, we channeled that combined experience into a working methodology that we call **Evidence-Based Design (EBD).**
+
+This term isn’t new — it was first coined in the medical space to create better healthcare environments. We share the belief in scientific methods and the appreciation of facts over assumptions. **In a nutshell, EBD treats design as both an art and a science.** The best designers do have good intuition but that voice in our heads is not a voice of reason, but a voice of *reasoning* — give it time! EBD acknowledges designers’ intuition as a rich source for hypotheses to be tested, and complements it with the discipline and rigour of experimentation.
+
+Our pursuit takes us to a more general method of system design with **clear explicit instructions**and a **determined set of tools**. Once established, our method is easy to follow and the advantages are manifold. It leads us to **better designs, cheaper development cycles and perhaps most importantly, happier teams**.
+
+### ***Part 1: the old (and bad) way — building on assumptions***
+
+Let me briefly describe how we saw projects being developed before. This provides a common ground to understand how things have changed and the impact of those improvements.
+
+![](/archive/media/d4693571cf149e118ea7.png)
+
+Usually projects began with a high-level description of a problem. For instance, the client might say, “*Our old intranet is crap. It lags a lot, it’s missing a lot of functions… so, a complete re-do of the system is required*”.…
+
+From that point onwards, the designers assembled focus groups or performed field surveys or user-shadowing to get an idea of the current situation and user needs. This eventually led to the creation of a massive list of personas, use cases and user stories. From that stage, the project went full-steam towards a first rough concept. In the best-case scenario, software developers came into the picture to create a comprehensive technical breakdown to assess how high or low these feature-fruits were hanging and what would reasonably fit in the allocated time and budget.
+
+The UI designers then created the first few core screens once UX architects provided them with the first drafts. The creation of the user experience can be a painful phase and in my experience, **the discomfort of creation increases with the complexity of the system.** Since the only points of evidence come from the initial user observations and/or focus groups, the factual base for the new designs remains to be very thin. The more the design process evolves, **many heated discussions evolve around the *beliefs* of how the user might behave and use it.** Common arguments you might hear would sound like these:
+
+*“I’d personally never use that. I don’t know anybody who is using that (or) I use that all the time!”*
+
+*“Project/App XYZ is using this UX with great success (or) App XYZ used that and went out of business.”*
+
+*“This is amazing, why can’t you see how great this is?”*
+
+Beware of these lines of discussion. This is poisonous ground for teamwork and I’ve personally witnessed how often egos (including my own) go out of control and team members end up getting hurt. **An environment of (all too often) “uncontrolled” creation is full of opportunities for misery.** We say “uncontrolled” because the design phase has absolutely no touch with reality, with no way or attempt to observe behaviour and gather factual evidence.
+
+Once UX/UI has been signed off, the development team would pick them up as soon as possible, trying to freeze the scope and features as early as possible. **Nothing is worse for a dev team than a moving target, with parts of the system developed in vain.**This even increases the risk of opting for mismatched software architecture, and lots of legacy code, which is a heavy burden on software stability, performance and maintainability.
+
+The first time users would actually get to see and use the software would be quite late in the process, when there is finally a running program. At this point, it was usually way too late to do any serious changes. **Any substantial modification will have to wait for version 2.0.**
+
+**The process as outlined above is deeply flawed and inefficient.**There is too long a time between talking to the people who will use the system. In the meantime, powerful cognitive biases in the human psyche lead to common traps, and in all likelihood, common mistakes.
+
+In many ways, the human mind does not like to accept its own limits of cognition and imagination. Let me put it this way: **the blind spot of intellect is the assumption that everything must make sense**. The mind is strongly aligned to find explanations and reasons for anything presented to us. Even in cases where information is purely circumstantial and the underlying facts are sparse, we often tend to “fill in” the missing gaps to exercise an illusion of control over the situation. **We often fall in love with our own idea as we spend more and more time on a single problem, and after so much sunk time and effort, we can only anticipate scenarios of success.**
+
+Without the discipline to do frequent reality checks, the chances of going astray from what is reasonable and efficient get higher and higher. After a point, it is rarely possible to make rational conclusions and usually, **the project leader ends up making executive decisions merely based on his best guesses.**
+
+![](/archive/media/39ba6a9ae7d601fc984d.jpeg)
+
+### ***Part 2: The Evidence-Based Design method— building solutions with composure***
+
+What if there was another way, which is both less risky for all stakeholders, and more satisfying throughout the process? What if we tell you it exists and it’s easy to deploy? This is not a pipe dream. In fact, **I’m happy to say none of the principles we use are really new, but their combination bears a simple and beautiful efficiency.**
+
+The whole process is broadly based on the ideas of **user-centered design**[[http://en.wikipedia.org/wiki/User-centered_design](http://en.wikipedia.org/wiki/User-centered_design)], **agile software development**[[https://fueled.com/mobile-2/fueled-agile-app-development/](https://fueled.com/mobile-2/fueled-agile-app-development/)], refined with the rigorous dedication of the **minimum viable product (MVP)** at all times [[http://en.wikipedia.org/wiki/Minimum_viable_product](http://en.wikipedia.org/wiki/Minimum_viable_product)] and finally, a rigid application of **rapid prototyping and user testing**. Let’s have a closer look at each of our ingredients.
+
+**User-centered design**
+
+User-centered design begins with the understanding that end-users have deep insight and experience within the reality the intended system wants to inhabit. It also acknowledges that designers’ insight is limited; so their role should be restricted to creation specifically within the bounds of what users can perceive as highly usable.
+
+Putting the users in the front-row and center of all our thinking, making them an intrinsic part of the design process, remedied a multitude of problems. **Designers actually stepped down from their ivory towers and seriously looked at how the system would be used in daily life by real users.**Adding users to the design process as equal partners takes full advantage of all their experience and understanding. The advent of user-centered design somehow revolutionized the way we create systems. We find it hard to understand why user-centered design is still not applied in many companies.
+
+Despite its advantages, user-centered design also bears its own problems. Recall that over-used quote, usually (but wrongly) attributed to Henry Ford: “*If I’d asked people what they wanted, they would have asked for a faster horse.*” This quote is a darling in designer circles, usually used to justify an elitist approach that only designers are sufficiently forward-thinking, knowledgeable about new technology and generally creative enough to create truly disruptive and revolutionary solutions, as if users’ opinions would somehow detract them from their goal (see also: Steve Jobs syndrome).
+
+This underlying assumption is unfortunately misguided. Even Henry Ford built his empire with a deep understanding of his users — observing how people moved between places and what industry needed to transport goods efficiently. Ford *did* care what people wanted and needed, but he also added his ingenuity to the solution. It is therefore not surprising that the first cars still looked very similar to horse wagons, not race cars.
+
+In short, too much power to the designers results in a system — however elegant — with low usability, not providing functions users really need. **Too much user integration however brings the risk that the system design will be incremental, never living up to its true potential.** User-centered design is wonderful as a design philosophy but can be too limiting to always deliver outstanding system designs. There needs to be a sweet spot between these two extremes.
+
+***Agile Design***
+
+It is in many ways surprising to observe the fantastic advancements that have happened in the organization of software development. Software engineers have been relentless in their pursuit of efficiency, improving on the outdated and somewhat flawed waterfall process. With the advent of Agile, Scrum and paired coding (to mention only a few) many developers show almost a religious following about the implementation of these new methods. The advantages and benefits are undeniable. We dare to say that there are hardly any professional companies left that do not use one methodology or the other.
+
+The design world has taken notice, but adoption has only happened as and when necessary to sync up with the rhythm of software development, almost always to deliver assets for the timely completion of sprints. **Often** **the design team** is given a head start that is vastly unstructured and then **assumes a passive, reactive role in the later stages of the system maturity.** At Kwamecorp, we figured it was about time to take these excellent concepts from software development and make use of them in the world of service design. **Our sweet spot merges user-centered design with ideas from agile development, the concept of MVP and the practice of rapid prototyping to our process.**
+
+The adaptation of Agile/Scrum to the design practice is relatively simple and straightforward. First, there is an initial planning phase to define the broad playground. This includes identifying the general purpose of the system, stakeholders, budgeting of time and resources, business intention and goals and last but not least, the underlying ethical values. These values play a special role in our design philosophy and will be examined later in more detail.
+
+**Following that, future planning is strictly applied for the upcoming sprint with very accurate objectives.**This kind of very-short-term planning actually provides many advantages. First, it takes off a lot of overhead from the planning because it’s considerably easier to plan for the next 4 weeks than for an entire system development trajectory. Secondly, it keeps the planning always up-to-date as every sprint refreshes the planning, always based on latest results. **Most importantly, this approach provides much-needed flexibility.** After each sprint the situation is evaluated again, with a new and deeper understanding of problems and opportunities. Planning the next sprint becomes much easier and more realistic. This kind of flexibility allows us to embrace change and to allow pivoting of the initial “playground definition”.
+
+***Minimum Viable Phase***
+
+To maintain a rigid focus on building systems from the most stable base we took the concept of minimum viable product (MVP) and re-defined it as the minimum viable phase for our methodology. **Each phase is planned to design only what is absolutely necessary at that point of the project, further prioritizing tasks given the time limits of each sprint.**These designs might include several variations or approaches to the same problem. Most importantly, we don’t contemplate any features or subsystems that are not relevant for that sprint — that is to say, not based on assumptions. In this way, our method selects for the most utilitarian affordances, what is critical and not just nice to have. There is a certain discipline needed, but the advantage is clarity on what’s important.
+
+If this is still abstract, I’ll try to provide an example of how we would design for a typical system. The first design sprint might focus only on core UX elements to validate the main use cases and relieve known pain points. The second sprint would consider navigation and rough system structure to begin mapping use flows for core use cases. And so on.
+
+***Rapid prototyping***
+
+The fourth element of the methodology we use rapid prototyping. We find that prototypes are absolutely crucial to complete our method. **Our imagination is limited to our experiences and often abstract, and it is certainly not shared by an entire group.** So, teams need to align their minds with reality as often as possible. Prototypes achieve this admirably. Moreover, there is a definite sense of progression between iterations of prototypes, and teams feel a joint ownership of the prototype.
+
+Prototypes also happen to be the best tool to achieve high quality user testing. Almost as a collateral benefit, they provide a highly efficient way to document progress and maintain synchronization with the development team and all other stakeholders. **For all these reasons, we end each sprint with a prototype and subsequently use that very prototype for a user testing.** I can’t express it better than Tim Brown (IDEO), when he says:
+
+*“Yet thinking with our hands, or prototyping, is a powerful strategy for design thinkers as it can generate better results faster. By actually building an idea (with materials, rather than with only our minds), we quickly learn its limitations and see the many possible directions we can take it.*
+
+*Thus prototyping shouldn’t come at the end of the process but at the beginning!”*
+
+***VOID loops***
+
+In projects at Kwamecorp, we’ve integrated these ingredients into we call VOID loops — **VOID stands for Value Oriented Innovation Design.** In the spirit of agile development, VOID loops function a lot like sprints. But there are also many differences. A VOID loop is typically a longer than a sprint, usually between 4 to 8 weeks. This depends on the complexity of tools and the needs at different VOID loop phases.
+
+Each loop begins with a round of analysis of results from user testing, and following that, a very brief loop planning. Such planning typically overlaps with the first design iterations. After 2 to 3 weeks of UX/UI development, prototyping starts in parallel. The design phase is understandably heavier on concept and UX creation in the beginning but the focus shifts quickly enough towards UI design and asset generation for the prototype. The last week is generally dedicated to thorough user testing of the prototype.
+
+![](/archive/media/163239122330f43e7a6f.png)
+
+**We go loop to loop to the point, the system is mature enough for more complex testing methods.** This is usually the time when a closed beta is a serious option. User-testing starts to yield diminishing returns, so click-tracking and growth-hacking should take over. Testing with a bigger test group in a real environment obviously yields a much higher quality of results going forward. VOID loops can still be useful in the later stages, but they should be used to design *new* functions, not for incremental improvements.
+
+We've had good experiences with short 4-week sprints at the beginning of projects, but such a fixed timeframe has proved impractical in the later stages. Unsurprisingly, the advancement in system maturity generally follows a negative exponential growth curve, ugh like the Pareto principle. Progress is a usually lot steeper in the beginning than towards the end - 80% of the work is done in just 20% of the time allocated. Approaching 100% completion however takes infinite time and effort. This tradeoff has to be accommodated in a practical manner. To have sufficient items to make proper use of the next round of user-testing, the VOID loops require more time than the design phase. So, we've extended the duration of our sprints to 6-8 weeks.
+
+![](/archive/media/09f31db884e7dd3124e0.jpeg)
+
+### ***Part 3: EBD in practice***
+
+We've developed the following **rules for the EBD method** and enforce them proactively.
+
+1. ***Design phase is structured in agile sprints.***
+2. ***Each sprint ends with a testable prototype and user testing.***
+3. ***Sprints are planned according to the MVP principle, avoiding unnecessary features.***
+4. ***Sprint planning is strictly based on last user testing results, plus any additional functionality.***
+5. ***Aim for a minimum of executive decisions; any controversies are solved by A/B testing***
+
+Before we list the positive benefits of the EBD method, let’s get the **negatives** out of the way. (Thankfully, this is a short list.) The biggest obstacle is to find a place where the management buys in to this new way of development. **Going with EBD, it can be very hard to predict a certain outcome.** Sometimes, a good stabile build can only be achieved only after two or three VOID loops, but of course there’s a long road from there to provide a satisfactory deliverable for the end-user. **In a conventional company with a strong focus on planning and control, this could be a deal breaker.** So, the primary stakeholder of the system — usually the one who pays the bills — needs to have a deep understanding that outstanding service design can’t be achieved by a timely stroke of genius, but through insights and learnings through trial and error.
+
+And now for the good bits. The advantages of the EBD methodology are manifold. The following is our attempt to list them in a concise structure.
+
+***Lower risk and higher speed***
+
+- ***very secure system foundation*** Due to the frequent validation of each sprint (void loop), the system matures in a very organic way. Each loop adds a layer of validated foundation for the next. This decreases the risk that entire parts of the system are developed in vain, ensuring that there are no unpleasant surprises when the system is released in beta.
+
+- ***early system development*** The programming of the system can now start a lot earlier because, after a few VOID loops, many design elements are already validated and can be frozen. This increases not only the overall speed but also minimizes the amount of deprecated code due to late change requests. This is tremendously helpful to get the code architecture right from the very beginning.
+
+***Structured creation phase provides high-efficiency***
+
+- ***structured discussions, less friction*** One of my personal favorite things about EBD is that the act of creation suddenly becomes a lot more fun. As alluded to earlier, the ideation phase used to generate a good amount of friction within the team. When conclusions are based on too many assumptions, executive decisions often became the only practical solution.
+
+With a structured approach for design/prototype/user testing, there is less and less need to make tough calls. Different ideas for given problems are first drafted, and a list of possible solutions are collected. When it’s time to plan the development of the prototype, this list is revisited, and items are prioritized together by the whole team. Based on these priorities, we try to prototype as many of the different solutions as realistically possible, and then put them through the A/B/C testing gauntlet.
+
+In this way, most executive decisions are replaced by hard evidence provided by the users themselves. No egos are harmed in our development process, no grudges held — even a hard-headed C-level executive could see the benefit in that.
+
+- ***always updated documentation and presentations (test synthesis, prototypes) + very easy to communicate progress to stakeholders and great to communicate with dev-teams*** Internally, the use of prototypes eliminates the risk of misunderstanding between the design and coding teams. As a bonus, it is often possible to directly build on significant chunks of prototype code and assets for the front end development of the deliverable.
+
+This method also makes it very easy to present and even send around to remote stakeholders. Frequent prototypes — and the user test results from each iteration — can themselves serve as a form of documentation in that they capture and describe the trajectory of the project and the reasons why.
+
+***More creative and better solutions***
+
+- ***improved focus*** The deep integration of users in the development process through frequent user testing keeps the design team very grounded in reality. It also keeps the scope very practical, eliminating any non-sense features from sprint one.
+- ***prototyping fosters the imagination*** Prototyping is not only essential for user testing, documentation and communication, the biggest advantage is that it nourishes our imagination. Once we have something tangible to play with, our brain is suddenly relieved from the tremendous task of filling in all the unknown gaps. This is a big cognitive overload and its absence frees the processing power to iterate on the current state or come up with new inventions. On a related note, criticism becomes genuinely constructive — more “what if”-s, less “but then”-s. There is also value in seeing a prototype badly failing in a user test. If there is a need to pivot, we want to know about it and make that transition as early as possible.
+- ***testing reduces stress and provides space for edgy features*** We’ve observed that the use of A/B testing helped to reduce our anxiety of finding the best solution for the given problem-set. It also provides a good level of confidence, that we’ve explored several approaches and found the best-performing one under current limitations. A/B testing also gives us the freedom to test even daring designs, that we would have otherwise discarded to hedge our risk.
+- ***high user fidelity and evangelists as by-product*** The users are part of the creation phase and as such, have a sense of (co-) ownership over the developed service. These users have a completely different attitude towards the system. Early problems and missing features are forgiven far more easily, and the system is perceived as something within the users’ responsibility as well. This is especially beneficial for small user groups like intra-company solutions. The implementation, which is historically always the hardest part of the system development, is tremendously facilitated. Actively involved users often help to promote the project and become the new evangelists.
+
+**We're just at the beginning of this journey, looking to further systematically develop and operationalise the Evidence Based Design methodology. In this essay, we've tried to share our initial positive experiences. We're hoping that many people will pick this up and help push EBD forward — and if you do, do share your findings with us! We'd love to hear from you.**

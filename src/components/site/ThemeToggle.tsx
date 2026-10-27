@@ -8,24 +8,50 @@ function currentTheme(): Theme {
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
-/** Switches VLAK's theme via data-theme on <html>; remembers the choice. */
+/** Show both VLAK themes and cross out the inactive choice. */
 export function ThemeToggle() {
   const [theme, setTheme] = useState<Theme | null>(null);
   useEffect(() => setTheme(currentTheme()), []);
 
-  const next: Theme = theme === "dark" ? "light" : "dark";
+  function choose(next: Theme) {
+    document.documentElement.dataset["theme"] = next;
+    try {
+      localStorage.setItem("theme", next);
+    } catch {
+      // The theme still changes when browser storage is unavailable.
+    }
+    setTheme(next);
+  }
+
+  function optionClass(option: Theme) {
+    const base =
+      "font-display text-sm font-semibold tracking-wide transition-colors hover:text-active";
+    return theme && theme !== option
+      ? `${base} text-muted-foreground line-through decoration-current`
+      : `${base} text-foreground`;
+  }
+
   return (
-    <button
-      type="button"
-      onClick={() => {
-        document.documentElement.dataset["theme"] = next;
-        try { localStorage.setItem("theme", next); } catch {}
-        setTheme(next);
-      }}
-      aria-label={`Switch to ${next} mode`}
-      className="j-caps transition-colors hover:text-active"
-    >
-      {theme === null ? "Theme" : theme === "dark" ? "Light" : "Dark"}
-    </button>
+    <div role="group" aria-label="Color theme" className="flex items-center gap-3">
+      <button
+        type="button"
+        onClick={() => choose("light")}
+        aria-pressed={theme === "light"}
+        className={optionClass("light")}
+      >
+        Paper
+      </button>
+      <span aria-hidden="true" className="text-muted-foreground">
+        /
+      </span>
+      <button
+        type="button"
+        onClick={() => choose("dark")}
+        aria-pressed={theme === "dark"}
+        className={optionClass("dark")}
+      >
+        Ink
+      </button>
+    </div>
   );
 }

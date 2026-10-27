@@ -28,7 +28,9 @@ function NotFoundComponent() {
           The page you're looking for doesn't exist or has been moved.
         </p>
         <div className="mt-6">
-          <Link to="/" className="j-link">Go home</Link>
+          <Link to="/" className="j-link">
+            Go home
+          </Link>
         </div>
       </div>
     </div>
@@ -45,7 +47,9 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">This page didn't load</h1>
+        <h1 className="text-xl font-semibold tracking-tight text-foreground">
+          This page didn't load
+        </h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Something went wrong on our end. You can try refreshing or head back home.
         </p>
@@ -59,7 +63,9 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
           >
             Try again
           </button>
-          <a href="/" className="j-link">Go home</a>
+          <a href="/" className="j-link">
+            Go home
+          </a>
         </div>
       </div>
     </div>
@@ -71,8 +77,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Jeanne Lupton — Architectural photographer" },
-      { name: "description", content: "Portfolio and journal of Jeanne Lupton, architectural photographer." },
+      { title: "Glyphs & Graphs — Naveen Srivatsav" },
+      { name: "description", content: "Essays, travel writing and work by Naveen Srivatsav." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -87,6 +93,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&family=Mrs+Saint+Delafield&display=swap",
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      {
+        rel: "alternate",
+        type: "application/rss+xml",
+        title: "Glyphs & Graphs RSS",
+        href: "/rss.xml",
+      },
     ],
   }),
   shellComponent: RootShell,

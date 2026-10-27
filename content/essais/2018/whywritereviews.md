@@ -1,0 +1,68 @@
+---
+kind: "essay"
+slug: "whywritereviews"
+title: "Why write reviews, or the art of the double take"
+date: "2018-12-02"
+sourceDate: null
+archiveYear: 2018
+pinned: false
+category: "Art & Creativity"
+tags: ["reviews", "culture", "double take", "media", "critique"]
+description: "If we can agree that most reviews have a shorter lifetime than the media they reference, then is there any benefit to taking the time to review something? I think so. We might ask what drives a person to write a review in the first place? Or maybe we should inquire what makes a reader seek out a review instead."
+cover: "/archive/media/19653e95ae6670f2d720.jpeg"
+source: "essais/2018/whywritereviews.html"
+---
+
+![](/archive/media/19653e95ae6670f2d720.jpeg)
+
+For a long time, I've had two minds about writing reviews.
+
+On the one hand, I find it somewhat impotent to give ratings to existing media. Either you like some content or you don't, that piece of media inspires certain trains of thought or it doesn't. Everyone's a critic as they say but… given the complexity of even the simplest production involving the efforts of hundreds of people, it seems almost criminal to reduce all that activity to a single numeric metric.
+
+I also find reviews to be fundamentally time-bound. As an aesthetic value, I like things that aspire to be timeless - valuable across demographics, cultures, languages, decades. Reviews may very well be a valid means for a contemporary observer to plug into pop culture conversations, thus closing the loop even as creators inevitably make art that are in themselves responses to the issues du jour. So reviews are by definition tied to a temporal bubble - or they seem to be at least. They age so quickly, and are forgotten even if the work they describe lives on. [Did you know Moby Dick got bad reviews at the time of its release](https://bookmarks.reviews/the-original-1851-reviews-of-moby-dick/)? But no one remembers the haters… and thank goodness for that. Imagine making a bad call one time and enduring the shame for eternity!
+
+On the other hand, I've recently been consuming a lot of media, from genre-defying art to classical music, cult classic films and even video games - many of which have already stood the test of time as uniquely influential works and some that may yet join such rarified company. And when I experience these works, I feel a strong compulsion to talk about them. Perhaps this is merely a primitive impulse given a modern update - tweeting “I saw this” on cyberspace platforms the same way cavemen scratched “I was here” on their cave walls.
+
+If we can agree that most reviews have a shorter lifetime than the media they reference, then is there *any* benefit in taking the time to review something? I'd like to think so. So why write reviews at all? Let's see where this question leads.
+
+> …tweeting “I saw this” on cyberspace platforms the same way cavemen scratched “I was here” on their cave walls…
+
+I suppose we can start with definitions. What separates a review from an essay or a newspaper article, a diary entry or an interview? Unlike other media, a review is by definition a companion piece - it almost never stands alone on the strength of its own words but rather relies on the media it clinically examines to justify its own existence.
+
+We might ask what drives a person to write a review in the first place? Perhaps the answer to that question is hidden in plain sight. Dissect the word "review” and what do you get? *Re* + *view*, quite literally translating to “view again". The act of writing the review itself is a symbolic act by the reviewer mentally revisiting the memories imprinted by the media. Perhaps in colloquial parlance, we might think of a review as the reviewer pleading a case to the reader to give a certain piece of content a “second chance”, at least a “second glance” if not the courtesy of a “second opinion”. Perhaps the reviewer is arguing that the media in question should rightly provoke a “double take” because a deeper look reveals *something* *more* that a superficial cursory glance might fail to unveil. What is this *something more*? Is it merely the surprise of discovering a fresh perspective transcending tired clichés, the soul-satisfying quality of intricate craftsmanship? Perhaps it lies in the subversion of expectations, a sincere and worthy challenge to deeply-held values. *Or even* the creation/release of an ideological knot that effectively affords the reader a glimpse at deeper existential questions just at the periphery…
+
+> Dissect the word "review” and what do you get? *Re* + *view*, quite literally translating to “view again".
+
+Or maybe we should inquire instead what makes a reader seek out a review. There is of course no shortage of options to squander one's time, so why would anyone choose to consume a review instead of the media itself? What value does a review provide to its reader, and more pertinently, how might a review best serve its reader? Let us count the ways…
+
+A review could be helpful to bring some media to the reader's attention. At the very least, a decent review might attempt summarise the main premises for the benefit of the time-poor. Perhaps it may tease some of the plot points so as to entice an on-the-fence reader to take the plunge. And really, isn't a friendly “*hey check this out, this thing caught my eye*” a genuinely spontaneous and deeply personal way to connect with another sentient mind in a deliriously over-stimulating world?
+
+Besides, given the sheer volume of media historically on offer, not to mention all the contemporary media being released, and not to forget all the media that future generations of creators will no doubt release, it is a hopeless guarantee that no *one* person can discover all that content within one's lifetime, let alone keep up to date. So, reviews might provide a valuable service, like guideposts for noosphere wanderers seeking destinations off the beaten path. In a brave new world where there is no shortage of distractions but time remains the ultimate bottleneck, a reviewer might try to justify why this particular recommendation is worth the time you spend on consuming it. What did the media offer the reviewer and thus what might that very same media offer you, poor FOMO-afflicted viewer?
+
+Even the typical numerical review serves a function, reductive as it may be, by tabulating an overall impression of the media being discussed. This is not to mention that the numerical score in itself is a high-efficiency abbreviation, communicating volumes with just indicative fractions - 8 out of 10, 3 out of 5 stars and so on. Just what is this undefined scale one is basing the ratings on, one has to wonder. Is it the spectrum of utilitarian hedonism? More likely we seem to be capturing a qualitative information entropy score for the media in question. In other words, how much *novelty* was the reviewer able to derive from that media? Sites like [Rotten Tomatoes](https://www.rottentomatoes.com) and [Metacritic](https://www.metacritic.com) take this drive to its logical conclusion, aggregating the novelty scores of multiple reviewers - both critics and consumers - to distill an eerie hive-mind consensus regarding the third-eye-candy potency of said media.
+
+> Just what is this undefined scale one is basing the ratings on, one has to wonder. Is it the spectrum of utilitarian hedonism?
+
+I would argue that the review is also valuable to its creator as a reflection of their own thoughts refracted by the media they consumed, their own memories and experiences that are resonant with the media in question, filtered through a voice of subjectivity uniquely their own and put to words for the world to see. Almost reminds me of [Hermann Hesse's brilliant meditation on the three kinds of readers](https://www.brainpickings.org/2016/07/11/hermann-hesse-types-of-readers/), specifically how the most advanced reader sees in the text not a portal into the mind of the writer but rather a springboard to launch into one's own largely-unexplored mental universe.
+
+Like in photography, a review might reveal more about its creator than the media it draws attention to. I certainly enjoyed [Roger Ebert's stellar reviews](https://www.rogerebert.com/great-movies) more as a way to get to know Roger Ebert than out of mere interest in the media being discussed. Thus a review is a reflection to its creator, and a refraction to its reader.
+
+A review might also facilitate a form of catharsis in the face of increasingly open-ended media that offer multiple interpretations and no easy resolutions to the viewer. While the creator may abstain from filling in these gaps, there is nothing stopping the cadre of viewers from jointly discussing it. These ensuing discussions may even be the outcome that the creator might have wanted in the first place.
+
+A review may even serve as a connective tissue between various creators and their media-creations, drawing parallels and contrasting various approaches to the same subject matter, thus introducing the reader to a buffet of new media options. In other words, reviews may have been the inspiration behind recommendation engines - “if you liked this, you may also like…”. [Maria Popova of BrainPickings fame calls this phenomenon "combinatorial creativity”](https://www.brainpickings.org/2011/08/01/networked-knowledge-combinatorial-creativity/). Here again, I see parallels between the age-old practice of visualising constellations amidst billions of stars strewn across the night sky and making conceptual connections within an extensive set of media spanning the breadth of recorded history.
+
+> After all what is an artist without an audience (plural)?
+
+Reviews of the same content at different points in time might even reflect how norms, attitudes and values change across decades and generations. As an example, in the last few years alone we've seen how generational attitudes towards cultural landmarks in the historical context of race relations are being debated and reckoned with. Who's to say decades from now our descendants won't look back and find the media we produce now just as culturally foreign as we in 2018 feel about the uptight prudishness of Victorian England, or the pharaonic supremacy of Middle Kingdom Egypt? In the same curious sense with which we bury and unearth time capsules, a review produced years if not decades after the media in question was released serves a very real and valuable purpose, precisely by identifying what has changed and equally telling, what has remained the same.
+
+A review might also provide valuable context by placing the media in question amidst a backdrop of its memetic contemporaries and its underlying historical lineage - thus allowing the reader to fully appreciate that media as part of the evolution of even bigger ideas, including their implications and manifestations in sociopolitical reality. In this way, a review might attempt put a finger on the pulse of the zeitgeist, commenting on the (un)conscious narratives which may be unspoken but nevertheless underpin the moral leanings depicted in the media. [Slavoj Zizek, my favourite living philosopher/critic famously demonstrates this in works like The Pervert's Guide](http://www.youtube.com/watch?v=TVwKjGbz60k).
+
+A review may even be a vital part of the conversation around art in the public sphere. After all what is an artist without an audience (plural)? If a piece of content aspires to be influential, even political, then it must necessarily engage its viewers publicly, not just privately. I suppose it could be argued that an institutional review - such as the reviews section of a magazine like the Economist - may represent a response to said media through the lens of a particular worldview; thus giving voice to shared perspectives which, while having been triggered by the media, may rightfully extend their influence beyond *just* the appreciation of that particular media.
+
+Reviews of controversial media thus can be seen as drawing ideological trench lines to determine which themes are acceptable and which are challenging to the adherents of certain socio-political orientations. In fact, we may infer that the media that stand the test of time are the ones that challenge or affirm the most potent ideological battlegrounds, and one way to measure their enduring legacy is to examine how many reviewers have revisited these areas time and time again. The content may not even have to go so far as to explicitly discuss wonkish policy matters to trigger fundamental discussions about what the hard-won fruits of civilization are and in which direction progress lies ahead.
+
+> …more a disclaimer than a manifesto…
+
+All these exploratory directions are not meant to be exhaustive or mandatory of course; these are merely some of the many flavours a review might employ to elevate itself beyond just watering hole small talk - to not be forgotten as quickly as it is brought up. Like I mentioned earlier, I value the timeless and perhaps even reviews can aspire to exist in this rarified domain.
+
+Oh dear, how typical. The whole point of the essay was to announce a return to writing more regularly, and that the writing may indeed refer to and reflect on the media I've been consuming. I suppose in a long-winded way that's what I've just done, but not before setting some high expectations for myself first. But really, it's more a disclaimer than a manifesto; my goal is to bootstrap thoughtful explorations on top of existing media rather than to provide media diet recommendations. So, here's looking forward to the double takes.

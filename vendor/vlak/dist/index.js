@@ -1,0 +1,9722 @@
+// src/tokens.ts
+var vlakTokens = {
+  meta: {
+    name: "Vlak",
+    description: "A minimal design system for product exploration, built on a 204px module.",
+    url: "https://vlak.dev"
+  },
+  color: {
+    light: {
+      paper: "#FAF8F2",
+      ink: "#1A1A1A",
+      gray: "#6B6B6B",
+      /** Stronger of two grid inks: Home / About 1px cell-edge cage.
+          Same family as --grid-line; not a third hue. */
+      divider: "rgba(0,0,0,0.08)",
+      /** Fills only (hover, skeleton, muted). Not a gridline. */
+      dividerSubtle: "rgba(0,0,0,0.06)",
+      /** Quieter of two grid inks: inner-page 204 + Home / About L/R
+          box margins. 0.08 caged inner pages; 0.025 was invisible.
+          0.04 still reads on paper. */
+      gridLine: "rgba(0,0,0,0.04)",
+      tableAlt: "rgba(0,0,0,0.02)",
+      /** Boundary of a form control. 3:1 against paper (WCAG 1.4.11); hairlines stay decorative. */
+      controlBorder: "rgba(0,0,0,0.42)",
+      /** Hover fill of a ghost control: paper with 10% ink, solid so edge and fill match. */
+      controlFill: "#E4E2DC"
+    },
+    dark: {
+      black: "#0E0C0A",
+      white: "#E8E8E8",
+      gray: "#949494",
+      divider: "rgba(255,255,255,0.10)",
+      dividerSubtle: "rgba(255,255,255,0.07)",
+      /** Quieter of two grid inks. 0.05 still reads on dark. */
+      gridLine: "rgba(255,255,255,0.05)",
+      tableAlt: "rgba(255,255,255,0.03)",
+      /** 3:1 against black. */
+      controlBorder: "rgba(255,255,255,0.38)",
+      /** Black with 10% white. */
+      controlFill: "#242220"
+    },
+    /** Ink → paper, the in-between steps. Monochrome: there is no accent. */
+    neutralScale: [
+      "#1A1A1A",
+      "#3D3D3D",
+      "#6B6B6B",
+      "#949494",
+      "#C4C2BD",
+      "#E8E8E8",
+      "#FAF8F2"
+    ],
+    accent: "none; emphasis comes from weight, size, and spacing"
+  },
+  type: {
+    family: "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif",
+    foundry: {
+      typeface: "Inter",
+      designer: "Rasmus Andersson",
+      license: "SIL OFL 1.1",
+      url: "https://rsms.me/inter/"
+    },
+    weights: { body: 500, heading: 600, label: 600 },
+    bodyLineHeight: 1.45,
+    lineHeight: { min: 1.2, max: 1.45 },
+    measure: { columns: 3, px: 592, characters: 66, minCharacters: 45, maxCharacters: 90 },
+    caseRule: "Never all caps; labels and eyebrows are sentence case.",
+    textScale: { default: 1, steps: [0.9, 1, 1.1, 1.25, 1.4], rule: "Reading type only; chrome stays put." },
+    scale: [
+      { name: "displayXl", px: 52, weight: 600, tracking: "-0.035em", lineHeight: 1.05 },
+      { name: "display", px: 38, weight: 600, tracking: "-0.03em", lineHeight: 1.15 },
+      { name: "title", px: 22, weight: 600, tracking: "-0.02em", lineHeight: 1.3 },
+      { name: "subhead", px: 17, weight: 500, tracking: "-0.01em", lineHeight: 1.45 },
+      { name: "body", px: 15, weight: 500, tracking: "-0.01em", lineHeight: 1.45 },
+      { name: "label", px: 13, weight: 600, tracking: "-0.01em", lineHeight: 1.3 }
+    ]
+  },
+  grid: {
+    module: 204,
+    column: 184,
+    gutter: 20,
+    pad: 20,
+    snap: "content boxes span whole 204px modules; edges step from grid line to grid line",
+    maxModules: 6,
+    maxWidth: 1244,
+    anchors: { rail: 1024, wide: 1440 },
+    mobile: {
+      breakpoint: 480,
+      columns: 2,
+      gutter: 25,
+      pad: 25,
+      columnWidth: "50vw \u2212 37.5px"
+    }
+  },
+  radius: {
+    /**
+     * Slight Vlak radius. Same token as the standalone button (`--radius-sm`).
+     * Buttons, toggles, boxes, dialogs, sheets, and drawers share this 4px.
+     * Not 8–12. Cards are a typography stack (no frame, radius 0). Callouts are
+     * hairline, radius 0. `--radius` aliases the button token.
+     */
+    small: 4,
+    /** Alias of `small`. Surfaces that already read `--radius` stay on this family. */
+    base: 4,
+    /** Page chrome, cards, icon marks, empty, and charts stay square. */
+    chrome: 0,
+    /** Steve Ruiz innerRadius (circular-corner fit), clamped at 0. */
+    concentric: "Steve Ruiz innerRadius, clamped at 0",
+    rule: "One token: --radius-sm (4px), the standalone button radius. Toggles share it. Cards are chrome-square (no frame, 0). Callouts are hairline, radius 0. Nested inners follow Steve Ruiz. Chrome stays 0."
+  },
+  icons: {
+    sizes: [12, 16, 24],
+    variants: ["line", "filled"],
+    stroke: 1.25,
+    strokes: { 12: 1, 16: 1.25, 24: 1.5 },
+    viewBox: 16,
+    center: [8, 8],
+    rule: "Line: currentColor strokes use 1px at 12, 1.25px at 16, and 1.5px at 24, with round caps and joins. Filled: solid silhouettes with transparent detail cuts. Draw at 12, 16, or 24; 12px uses simplified fine detail"
+  },
+  motion: {
+    duration: "0.1\u20130.4s",
+    response: "0.1s",
+    snappy: "0.2s",
+    deliberate: "0.4s",
+    /** Compatibility alias for response. */
+    snap: "0.1s",
+    /** Compatibility alias for snappy transitions. */
+    ease: "0.2s",
+    /** Confirmation entrances should read as deliberate, at the low end of the range. */
+    confirm: "0.3s",
+    easing: "cubic-bezier(0.3, 0, 0.2, 1)",
+    rule: "A state the user caused may ease, snap with a short curve, or confirm. Entry is not a show. Color and opacity name the change; nothing bounces.",
+    reducedMotion: "looping demos and unsolicited entry disabled under prefers-reduced-motion"
+  },
+  performance: {
+    frame: { hz120: 8.3, hz60: 16.7, unit: "ms" },
+    responseInstant: { max: 100, unit: "ms" },
+    thoughtInterruption: { at: 1e3, unit: "ms" },
+    attentionLoss: { at: 1e4, unit: "ms" },
+    rule: "A response lands within 100ms. Keep each frame under its refresh-rate budget. At 1s show progress without stealing focus; before 10s explain the wait and preserve the user's place."
+  },
+  accessibility: {
+    contrast: { ordinaryText: 4.5, largeText: 3, controls: 3 },
+    touchTarget: { width: 44, height: 44, unit: "px" },
+    rule: "Ordinary text is at least 4.5:1, large text and control boundaries are at least 3:1, and interactive targets are at least 44px by 44px."
+  },
+  breakpoints: { mobileGrid: 480, mobileLayout: 640, rail: 1024, wide: 1440, cap: 1700 },
+  /** Stacking scale. Native <dialog> and popover live in the top layer and need none of it. */
+  z: {
+    raised: 10,
+    sticky: 100,
+    float: 200,
+    overlay: 300,
+    toast: 400,
+    rule: "raised: a handle or thumb over its track. sticky: pinned chrome. float: menus, tooltips, hover cards, chart tooltips. overlay: the fixed fallback of a panel that has no top layer. toast: above everything."
+  },
+  /** A 44px minimum on every viewport. Phone increases field type to avoid zoom. */
+  control: {
+    desktop: { hit: 44, height: 44, font: 14, label: 12 },
+    phone: { hit: 44, height: 44, font: 16, label: 15 },
+    breakpoint: 640
+  }
+};
+
+// src/domains.ts
+var domainCollections = [
+  {
+    name: "civic",
+    title: "Civic",
+    description: "Components for public services, identity records, tax summaries, benefits, and applications.",
+    groups: [
+      { title: "Identity and obligations", description: "Keep the record holder, issuer, reporting period, and supplied status together.", components: ["identity-document", "tax-summary"] },
+      { title: "Access to services", description: "Explain a programme, follow an application, and collect the required evidence with explicit submission states.", components: ["benefit-program", "application-status", "evidence-checklist"] }
+    ],
+    contracts: [
+      { title: "Supply policy decisions", description: "The service supplies eligibility assessments, amounts, deadlines, and decisions. Components do not calculate tax or determine entitlement to a subsidy." },
+      { title: "Display only the identity detail needed", description: "Pass a display-safe masked identifier. Keep full identity records, document verification, and access rules in the host application." },
+      { title: "Separate a request from its result", description: "Evidence actions request work from the application. Show pending while saving, confirmed receipt after success, and an actionable error when it fails." },
+      { title: "Preserve the public record", description: "Supply the authority, reference, period, dates, and reasons that belong to the record. Missing, unavailable, and zero amounts retain distinct meanings. Examples use fictional services and records." }
+    ]
+  },
+  {
+    name: "science",
+    title: "Science",
+    description: "Components for measurements, physical quantities, microscopy acquisition, sequence inspection, experimental procedures, and spectra.",
+    groups: [
+      { title: "Measurements and quantities", description: "Keep a measured value with its unit, uncertainty, and source. Capture quantities without silently converting them.", components: ["measurement-value", "quantity-field"] },
+      { title: "Experimental work", description: "Select a sample position, follow an experimental run, and inspect a spectrum alongside the underlying values.", components: ["experiment-run", "spectrum-plot"] },
+      { title: "Microscopy", description: "Review named stage positions in an explicit coordinate frame, navigate supplied stacks and edit acquisition sequences with declared units.", components: ["stage-position-list", "stack-navigator", "acquisition-sequencer"] },
+      { title: "Genomics", description: "Enter a genomic region, inspect supplied sequence alignments and compare exact coverage counts.", components: ["genomic-region-field", "sequence-alignment", "coverage-inspector"] }
+    ],
+    contracts: [
+      { title: "Keep coordinate conventions explicit", description: "Genomic regions and supplied loci use 1-based inclusive coordinates. Alignment selections use 1-based aligned columns, including supplied gap columns. Stack values are zero-based indexes into supplied positions; the displayed ordinal starts at one. Stage positions retain immutable identifiers, supplied frame identity and per-axis units; missing coordinates are not zero. The host owns coordinate conversion and reference identity." },
+      { title: "Preserve measurement meaning", description: "Supply the unit, uncertainty label, precision, and provenance that belong to the measurement. A missing value is distinct from zero. The application owns significant-figure rules and scientific interpretation." },
+      { title: "Convert explicitly", description: "QuantityField changes the selected unit and amount independently. It does not convert units. Perform validated conversion in the application and update the complete controlled value together." },
+      { title: "Keep instrument work outside the view", description: "Stage selection requires controlled value and onValueChange props. Inclusion, order, removal and experiment actions request changes; the host supplies accepted records. Selection never confirms stage motion or acquired frames. The application controls instrument access, execution, persistence and confirmed step status." },
+      { title: "Show the evidence behind a plot", description: "Supply finite points, axis labels, units, and any peak annotations. SpectrumPlot provides a data table and does not identify substances, fit peaks, or infer scientific conclusions." }
+    ]
+  },
+  {
+    name: "creative",
+    title: "Creative tools",
+    description: "Controls for professional audio, video, and design workspaces.",
+    groups: [
+      { title: "Audio", description: "Read channel levels, adjust gain and pan, and control a named parameter with native keyboard input.", components: ["audio-meter", "channel-strip", "parameter-knob", "patchbay"] },
+      { title: "Video", description: "Enter a timecode, select a clip, seek through a sequence, and manage render jobs.", components: ["timecode-field", "clip-timeline", "render-queue"] },
+      { title: "Design", description: "Select, hide, and lock layers; inspect a colour; and edit independent or linked spacing values.", components: ["layer-stack", "color-inspector", "spacing-control"] },
+      { title: "Typography", description: "Compare supplied baseline kerning with per-pair draft offsets in declared font units.", components: ["kerning-pair-editor"] }
+    ],
+    contracts: [
+      { title: "Respect routing and typography context", description: "Patchbay edits a matrix of compatible supplied source and destination ports; the host supplies additional block reasons and confirmed routing. KerningPairEditor keeps missing baseline values distinct from zero and previews only the supplied glyph pair with an additional offset, without rewriting the font or its shaping tables." },
+      { title: "Connect controls to an engine", description: "Callbacks express edits and requested actions. The host application owns audio processing, playback, timeline editing, undo history, and render execution. Demo controls update local state." },
+      { title: "Declare units and time bases", description: "Audio meter levels use the supplied decibel scale. ClipTimeline uses an explicit seconds or frames unit. TimecodeField supports integer non-drop frame rates from 1 to 99; fractional and drop-frame workflows require a different timecode implementation." },
+      { title: "Keep missing data visible", description: "Missing meter levels, unknown job progress, unset colours, and empty spacing values remain distinct from zero. Pass confirmed render status back after cancel or retry actions complete." },
+      { title: "Support precise keyboard edits", description: "Parameter controls retain native input semantics. Timeline clips have separate accessible selection controls, and layer visibility and locking use named buttons. Geometry and swatches accompany readable values." }
+    ]
+  },
+  {
+    name: "engineering",
+    title: "Industrial",
+    description: "Controls for operator alarms and machining coordinate records.",
+    groups: [
+      { title: "Industrial operations", description: "Review alarm lifecycle fields and prepare fixture offsets alongside actual controller readings.", components: ["alarm-panel", "work-offset-panel"] }
+    ],
+    contracts: [
+      { title: "Preserve independent states", description: "Alarm condition, acknowledgement and shelving are independent. Unknown states remain distinct from inactive states." },
+      { title: "Separate drafts from controller readings", description: "WorkOffsetPanel shows host-supplied machine and work coordinates, active system and offset state. Changing a draft does not infer new positions, activate another system or zero suspended offsets. The host supplies offsets for each selected system." },
+      { title: "Confirm actions in the host", description: "Callbacks request alarm actions or an offset update. The application owns permissions, controller access, machine interlocks, audit records, persistence and confirmed results. These examples use local state and supplied fictional readings." }
+    ]
+  },
+  {
+    name: "geospatial",
+    title: "Geospatial",
+    description: "Controls for coordinate reference assignment, datum transformation selection and raster band configuration.",
+    groups: [
+      { title: "Coordinates and transformations", description: "Keep coordinate values, axis order and reference identity together; select a supplied transformation with its accuracy and grid availability.", components: ["coordinate-reference-field", "datum-transform-picker"] },
+      { title: "Raster display", description: "Assign source bands to display channels and edit explicit stretch bounds without modifying source pixels.", components: ["raster-band-mixer"] }
+    ],
+    contracts: [
+      { title: "Assignment is distinct from reprojection", description: "Changing the selected reference leaves entered coordinates unchanged. The host owns validated reprojection, axis-order conversion, reference lookup and any transformation grid files." },
+      { title: "Explain unavailable transformations", description: "Supply source and destination references, candidate operations, accuracy labels, area-of-use context and grid availability. Missing prerequisites remain visible with reasons rather than silently selecting a fallback." },
+      { title: "Keep rendering in the host", description: "RasterBandMixer emits band and stretch configuration. The application loads pixels, handles no-data values, computes statistics and renders the image. Unit changes and displayed limits never imply a conversion of source values." }
+    ]
+  },
+  {
+    name: "robotics",
+    title: "Robotics",
+    description: "Controls for robot joint targets, recorded poses and mission plans.",
+    groups: [
+      { title: "State and targets", description: "Inspect independently reported poses and joint readings while editing explicit target values.", components: ["joint-panel", "robot-pose"] },
+      { title: "Mission planning", description: "Order supplied mission steps and request actions without inventing execution status.", components: ["robot-mission-queue"] }
+    ],
+    contracts: [
+      { title: "Keep coordinate frames explicit", description: "Every pose belongs to a supplied frame, timestamp and orientation representation. Components display exact values and do not transform frames, normalize quaternions or infer an orientation convention." },
+      { title: "Keep reported state separate from targets", description: "Joint targets do not update reported positions. The application supplies joint limits, accepts or rejects target requests and returns confirmed state. Missing limits or readings remain visible." },
+      { title: "Execute in the controller", description: "The host owns robot connectivity, permissions, motion planning, collision checks, interlocks and mission execution. Reordering a plan or requesting an action is not evidence that a robot moved." }
+    ]
+  },
+  {
+    name: "electronics",
+    title: "Circuitry",
+    description: "Controls for board pad inspection, design-rule results and assembly variants.",
+    groups: [
+      { title: "Board inspection", description: "Keep pad identity, nets, layers and geometry together; inspect supplied rule violations with their recorded status.", components: ["pad-inspector", "design-rule-results"] },
+      { title: "Assembly variants", description: "Inspect population, bill-of-materials inclusion and placement inclusion independently for every reference and variant.", components: ["assembly-variant-matrix"] }
+    ],
+    contracts: [
+      { title: "Preserve independent assembly flags", description: "Population, bill-of-materials inclusion and placement inclusion are separate supplied flags. An unspecified state is not false and no flag silently rewrites another." },
+      { title: "Read geometry without inferring connectivity", description: "Pad numbers, net assignments, layer names, shapes and dimensions come from the board model. Missing data remains explicit; these views do not run a netlist, router or geometry engine." },
+      { title: "Keep rule results tied to their source", description: "The host provides violation severity, status, location and available resolution actions. A resolve request does not establish that a board passes its rules; return confirmed results after the board model changes and checks rerun." }
+    ]
+  },
+  {
+    name: "microbiology",
+    title: "Microbiology",
+    description: "Components for well plates, supplied colony annotations and culture observation records.",
+    groups: [
+      { title: "Plates and annotations", description: "Select a supplied well or colony marker while retaining exact recorded sample and source-count context.", components: ["well-plate", "colony-plate"] },
+      { title: "Culture observations", description: "Keep sample identity, supplied medium and condition labels, dated observations and recording actions together.", components: ["culture-log"] }
+    ],
+    contracts: [
+      { title: "Distinguish annotations from source counts", description: "A colony marker is an annotation, not a detected organism. The supplied source count remains separate from marker totals. Missing coordinates or counts are not zero, and no segmentation or colony detection runs in the view." },
+      { title: "Preserve observation provenance", description: "The host supplies sample and culture identity, observation timestamps, status and conditions. Sorting requires explicit timestamp offsets; unknown times remain explicit. These components do not infer contamination, species or culture outcomes." },
+      { title: "Record through the host", description: "Actions request application work. The host owns recording, audit history and confirmed status. Example cultures and conditions are supplied display records, not laboratory procedures or recommendations." }
+    ]
+  }
+];
+
+// src/health.ts
+var healthWorkflows = [
+  {
+    title: "Readings and observations",
+    description: "Keep a reading with its unit, source, collection time, and result status. Compare only against the reference interval supplied with that result.",
+    components: ["health-metric", "reference-range", "lab-results", "symptom-diary"]
+  },
+  {
+    title: "Daily wellbeing",
+    description: "Collect a check-in, record a routine, review a sleep period, and follow personal goals as a bar or concentric rings. Keep unrecorded days and gaps visible.",
+    components: ["check-in", "habit-tracker", "sleep-timeline", "activity-goal", "activity-rings"]
+  },
+  {
+    title: "Care workflows",
+    description: "Keep patient identity and recorded context together. Show the supplied medication schedule, appointment details, and care tasks with explicit action states.",
+    components: ["patient-banner", "medication-schedule", "appointment-card", "care-plan"]
+  }
+];
+var healthDataContract = [
+  {
+    title: "Preserve missing information",
+    description: "Zero is a reading. Missing, pending, unavailable, skipped, and not recorded describe different states. Pass the state explicitly and retain the original value."
+  },
+  {
+    title: "Keep context with a value",
+    description: "Supply units, source, collection time, display labels, and the relevant time zone. Format dates in the application so the server and browser show the same appointment or measurement time."
+  },
+  {
+    title: "Supply clinical meaning",
+    description: "The application supplies result flags, reference intervals, medication instructions, and care priorities. These components present that information; they do not calculate diagnoses, recommend doses, or classify a person from a reading."
+  },
+  {
+    title: "Confirm recorded actions",
+    description: "Medication and care-plan callbacks express a requested action. Keep the item pending while saving, show the confirmed state after success, and preserve the prior record when saving fails."
+  },
+  {
+    title: "Use text as well as geometry",
+    description: "Status is written in words. Ranges and timelines include text equivalents. Check-ins use named native choices, and controls retain keyboard access and 44px targets."
+  },
+  {
+    title: "Connect the product boundary",
+    description: "The host application owns identity, access control, persistence, audit history, and any health-record integration. Examples use fictional records and local demonstration state."
+  }
+];
+
+// src/radius.ts
+function innerRadius(outerRadius, padding, _options = {}) {
+  if (!Number.isFinite(outerRadius) || outerRadius <= 0) return 0;
+  if (!Number.isFinite(padding) || padding <= 0) return outerRadius;
+  return Math.max(0, outerRadius - padding);
+}
+function concentricInner(outer, padding) {
+  return innerRadius(outer, padding);
+}
+function concentricOuter(inner, padding) {
+  return Math.max(0, inner) + Math.max(0, padding);
+}
+var concentricInnerCss = "max(0px, calc(var(--rs-out) - var(--rs-gap)))";
+
+// src/registry-ios.ts
+var iosComponents = [
+  {
+    "name": "ios-navigation-bar",
+    "title": "iOS navigation bar",
+    "description": "Compact or large-title navigation with circular actions and an optional vertical rail.",
+    "registryDependencies": [
+      "icons"
+    ],
+    "snippet": '<header class="rs-ios-navigation-bar"><div class="rs-ios-navigation-bar-row"><button class="rs-ios-navigation-bar-button rs-ios-navigation-bar-back" type="button" aria-label="Back">\u2190</button><h2 class="rs-ios-navigation-bar-title">Notes</h2><div class="rs-ios-navigation-bar-actions"><button class="rs-ios-navigation-bar-button" type="button">Done</button></div></div></header>',
+    "example": 'import { IOSNavigationBar } from "@noorddev/vlak-react";\n\n<IOSNavigationBar title="Notes" onBack={() => history.back()} actions={[{ id: "done", label: "Done", type: "submit", form: "note-editor" }]} />',
+    "usage": {
+      "use": [
+        "A compact app title, a large root-screen title, or a trailing vertical action rail.",
+        "Pass native button properties to actions, including disabled, form and type."
+      ],
+      "avoid": [
+        "Primary destination switching; use the iOS tab bar.",
+        "More actions than fit comfortably in the available width."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Shift+Tab",
+        "does": "Moves through enabled Back and action buttons."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Activates a focused action with native button behavior."
+      }
+    ],
+    "a11y": [
+      "Back and icon actions have accessible labels. Each target is at least 44px.",
+      "Instance-scoped action IDs avoid collisions; buttonId permits explicit references."
+    ],
+    "aliases": [
+      "UIKit navigation bar",
+      "UINavigationBar",
+      "iOS toolbar",
+      "Duo vertical toolbar"
+    ],
+    "category": "ios",
+    "classes": [
+      "rs-ios-navigation-bar",
+      "rs-ios-navigation-bar-vertical",
+      "rs-ios-navigation-bar-row",
+      "rs-ios-navigation-bar-leading",
+      "rs-ios-navigation-bar-rail",
+      "rs-ios-navigation-bar-actions",
+      "rs-ios-navigation-bar-actions-vertical",
+      "rs-ios-navigation-bar-title",
+      "rs-ios-navigation-bar-large-title",
+      "rs-ios-navigation-bar-vertical-title",
+      "rs-ios-navigation-bar-button",
+      "rs-ios-navigation-bar-back",
+      "rs-ios-navigation-bar-icon-button",
+      "rs-ios-navigation-bar-disabled"
+    ],
+    "css": [
+      "components/ios-navigation-bar.css"
+    ],
+    "react": "components/ios-navigation-bar.tsx"
+  },
+  {
+    "name": "ios-tab-bar",
+    "title": "iOS tab bar",
+    "description": "Floating peer tabs with icon labels, roving focus and horizontal or vertical placement.",
+    "registryDependencies": [],
+    "snippet": '<div class="rs-ios-tab-bar" role="tablist" aria-label="Music"><button class="rs-ios-tab-bar-tab rs-ios-tab-bar-active" role="tab" aria-selected="true" tabindex="0">Library</button><button class="rs-ios-tab-bar-tab" role="tab" aria-selected="false" tabindex="-1">Search</button></div>',
+    "example": 'import { IOSTabBar } from "@noorddev/vlak-react";\n\n<IOSTabBar defaultValue="library" label="Music" items={[{ id: "library", label: "Library", panelId: "library-panel" }, { id: "search", label: "Search", panelId: "search-panel" }]} />',
+    "usage": {
+      "use": [
+        "A small set of peer views in an app, with content managed by the parent.",
+        "Provide panelId and optional buttonId to associate tabs with tabpanels."
+      ],
+      "avoid": [
+        "Unrelated commands; use iOS navigation bar actions.",
+        "Hiding labels on a vertical rail without recognizable icons."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Shift+Tab",
+        "does": "Enters or leaves the tab bar through its selected tab."
+      },
+      {
+        "keys": "Arrows, Home, End",
+        "does": "Moves and selects enabled tabs, wrapping at the ends; horizontal arrows respect text direction."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Selects the focused tab."
+      }
+    ],
+    "a11y": [
+      "Exposes tablist, tab and selected state. Disabled tabs are skipped.",
+      "Vertical icon tabs retain their labels for assistive technology. IDs are unique per instance."
+    ],
+    "aliases": [
+      "UITabBar",
+      "iOS bottom navigation",
+      "Duo tab rail"
+    ],
+    "category": "ios",
+    "classes": [
+      "rs-ios-tab-bar",
+      "rs-ios-tab-bar-vertical",
+      "rs-ios-tab-bar-symbol",
+      "rs-ios-tab-bar-vertical-label",
+      "rs-ios-tab-bar-tab",
+      "rs-ios-tab-bar-active",
+      "rs-ios-tab-bar-tab-vertical",
+      "rs-ios-tab-bar-disabled"
+    ],
+    "css": [
+      "components/ios-tab-bar.css"
+    ],
+    "react": "components/ios-tab-bar.tsx"
+  },
+  {
+    "name": "ios-search-field",
+    "title": "iOS search field",
+    "description": "A 48px search capsule with a native input and a separate clear action.",
+    "registryDependencies": [
+      "icons"
+    ],
+    "snippet": '<div class="rs-ios-search-field"><input class="rs-ios-search-field-input" type="search" aria-label="Search notes" placeholder="Search" /></div>',
+    "example": 'import { IOSSearchField } from "@noorddev/vlak-react";\n\n<IOSSearchField name="q" aria-label="Search notes" placeholder="Search" onValueChange={query => console.log(query)} />',
+    "usage": {
+      "use": [
+        "Search within a list, app or document.",
+        "Use onValueChange to respond to both typing and the clear button."
+      ],
+      "avoid": [
+        "Treating a placeholder as the only accessible label.",
+        "A noneditable search launcher; use a button."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Shift+Tab",
+        "does": "Moves between the native search input and the clear button when text is present."
+      },
+      {
+        "keys": "Enter, Space on Clear",
+        "does": "Clears the text and returns focus to the input."
+      },
+      {
+        "keys": "Enter in the input",
+        "does": "Uses the enclosing form\u2019s native submit behavior."
+      }
+    ],
+    "a11y": [
+      "A native search input accepts labels, form attributes, required, disabled and readOnly.",
+      "Clearing is a 44px action; native form reset is supported and canceled reset is respected."
+    ],
+    "aliases": [
+      "UISearchBar",
+      "UISearchTextField",
+      "iOS search input"
+    ],
+    "category": "ios",
+    "classes": [
+      "rs-ios-search-field",
+      "rs-ios-search-field-disabled",
+      "rs-ios-search-field-symbol",
+      "rs-ios-search-field-input",
+      "rs-ios-search-field-clear"
+    ],
+    "css": [
+      "components/ios-search-field.css"
+    ],
+    "react": "components/ios-search-field.tsx"
+  },
+  {
+    "name": "ios-switch",
+    "title": "iOS switch",
+    "description": "A native checkbox with a 64px pill track, translating thumb and a 44px hit height.",
+    "registryDependencies": [],
+    "snippet": '<span class="rs-ios-switch"><span class="rs-ios-switch-track" aria-hidden="true"></span><span class="rs-ios-switch-thumb" aria-hidden="true"></span><input class="rs-ios-switch-input" type="checkbox" role="switch" aria-label="Wi-Fi" /></span>',
+    "example": 'import { IOSSwitch } from "@noorddev/vlak-react";\n\n<IOSSwitch name="wifi" aria-label="Wi-Fi" defaultChecked onCheckedChange={checked => console.log(checked)} />',
+    "usage": {
+      "use": [
+        "An immediately applied on/off preference.",
+        "Associate it with a visible label or an aria-label."
+      ],
+      "avoid": [
+        "A choice among several alternatives; use the iOS segmented control.",
+        "A submit command that needs a button."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Shift+Tab",
+        "does": "Moves focus to or away from an enabled switch."
+      },
+      {
+        "keys": "Space",
+        "does": "Toggles the native checkbox."
+      }
+    ],
+    "a11y": [
+      "A native checkbox with switch semantics retains form submission, required and disabled behavior.",
+      "Fill and thumb position both communicate state. Reduced motion removes thumb travel; forced colors keeps the boundary visible."
+    ],
+    "aliases": [
+      "UISwitch",
+      "iOS toggle"
+    ],
+    "category": "ios",
+    "classes": [
+      "rs-ios-switch",
+      "rs-ios-switch-disabled",
+      "rs-ios-switch-track",
+      "rs-ios-switch-on",
+      "rs-ios-switch-thumb",
+      "rs-ios-switch-thumb-on",
+      "rs-ios-switch-input"
+    ],
+    "css": [
+      "components/ios-switch.css"
+    ],
+    "react": "components/ios-switch.tsx"
+  },
+  {
+    "name": "ios-list",
+    "title": "iOS list",
+    "description": "Inset list groups with labels, descriptions, leading symbols and independent trailing controls.",
+    "registryDependencies": [
+      "icons"
+    ],
+    "snippet": '<section class="rs-ios-list" aria-labelledby="settings-heading"><h3 class="rs-ios-list-title" id="settings-heading">Settings</h3><div class="rs-ios-list-group"><button class="rs-ios-list-row rs-ios-list-row-action" type="button"><span class="rs-ios-list-row-copy">General</span></button></div></section>',
+    "example": 'import { IOSList, IOSListRow, IOSSwitch } from "@noorddev/vlak-react";\n\n<IOSList title="Connections"><IOSListRow label={<label htmlFor="wifi">Wi-Fi</label>} trailing={<IOSSwitch id="wifi" defaultChecked />} /><IOSListRow label="Network details" disclosure onClick={() => console.log("Open network")} /></IOSList>',
+    "usage": {
+      "use": [
+        "Grouped settings, preferences and navigation rows.",
+        "Omit onClick for rows containing an interactive trailing input."
+      ],
+      "avoid": [
+        "Nesting a switch or another interactive element inside an action row.",
+        "Using a clickable row for plain informational content."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Shift+Tab",
+        "does": "Moves through action rows and the controls inside static rows."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Activates a focused action row as a native button."
+      }
+    ],
+    "a11y": [
+      "Group headings label their sections. Static rows are not unnecessary focus stops.",
+      "Action rows use native buttons with disabled behavior and at least a 52px height."
+    ],
+    "aliases": [
+      "UITableView grouped",
+      "iOS settings list",
+      "Inset grouped list"
+    ],
+    "category": "ios",
+    "classes": [
+      "rs-ios-list",
+      "rs-ios-list-title",
+      "rs-ios-list-group",
+      "rs-ios-list-footer",
+      "rs-ios-list-row",
+      "rs-ios-list-row-action",
+      "rs-ios-list-row-disabled",
+      "rs-ios-list-row-leading",
+      "rs-ios-list-row-copy",
+      "rs-ios-list-row-description",
+      "rs-ios-list-row-trailing"
+    ],
+    "css": [
+      "components/ios-list.css"
+    ],
+    "react": "components/ios-list.tsx"
+  },
+  {
+    "name": "ios-segmented-control",
+    "title": "iOS segmented control",
+    "description": "A pill-shaped single choice with a full selected fill, radio semantics and arrow-key selection.",
+    "registryDependencies": [],
+    "snippet": '<div class="rs-ios-segmented-control" role="radiogroup" aria-label="Calendar view"><button class="rs-ios-segmented-control-item rs-ios-segmented-control-selected" role="radio" aria-checked="true" tabindex="0">Day</button><button class="rs-ios-segmented-control-item" role="radio" aria-checked="false" tabindex="-1">Month</button></div>',
+    "example": 'import { IOSSegmentedControl } from "@noorddev/vlak-react";\n\n<IOSSegmentedControl name="view" label="Calendar view" defaultValue="day" items={[{ id: "day", label: "Day" }, { id: "week", label: "Week" }, { id: "month", label: "Month" }]} />',
+    "usage": {
+      "use": [
+        "A small set of mutually exclusive modes or filters.",
+        "Use name to include the selected value in form data."
+      ],
+      "avoid": [
+        "Navigation among independent application destinations; use the iOS tab bar.",
+        "Many options that require a long horizontal scroll."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Shift+Tab",
+        "does": "Enters or leaves the group through its selected option."
+      },
+      {
+        "keys": "Arrows, Home, End",
+        "does": "Moves and selects enabled options; horizontal arrows respect text direction."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Selects the focused option."
+      }
+    ],
+    "a11y": [
+      "Named radiogroup with one tab stop, explicit checked state and disabled options.",
+      "Native form reset is supported; reduced motion and forced colors retain readable selection."
+    ],
+    "aliases": [
+      "UISegmentedControl",
+      "iOS segmented picker"
+    ],
+    "category": "ios",
+    "classes": [
+      "rs-ios-segmented-control",
+      "rs-ios-segmented-control-item",
+      "rs-ios-segmented-control-selected",
+      "rs-ios-segmented-control-disabled"
+    ],
+    "css": [
+      "components/ios-segmented-control.css"
+    ],
+    "react": "components/ios-segmented-control.tsx"
+  },
+  {
+    "name": "ios-slider",
+    "title": "iOS slider",
+    "description": "A native range input with a quiet track, pill thumb and synchronized stepped values.",
+    "registryDependencies": [],
+    "snippet": '<div class="rs-ios-slider"><span class="rs-ios-slider-track" aria-hidden="true"><span class="rs-ios-slider-fill" style="width:50%"></span><span class="rs-ios-slider-thumb" style="inset-inline-start:50%"></span></span><input class="rs-ios-slider-input" type="range" min="0" max="100" value="50" aria-label="Volume" /></div>',
+    "example": 'import { IOSSlider } from "@noorddev/vlak-react";\n\n<IOSSlider name="volume" aria-label="Volume" min={0} max={100} defaultValue={40} onValueChange={value => console.log(value)} />',
+    "usage": {
+      "use": [
+        "A bounded numeric level such as volume, brightness or playback intensity.",
+        "Provide min, max and step when the range is discrete."
+      ],
+      "avoid": [
+        "Values that need precise text entry without an accompanying numeric field.",
+        "Multiple independent values; use separate labeled sliders."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Shift+Tab",
+        "does": "Moves focus to or away from the native range input."
+      },
+      {
+        "keys": "Arrows, Home, End",
+        "does": "Uses the browser\u2019s native range stepping and boundary behavior."
+      }
+    ],
+    "a11y": [
+      "The ref reaches the native range input, with min, max, step, name and disabled attributes.",
+      "Value and fill are normalized to the same valid step. The invisible native input keeps a 44px target."
+    ],
+    "aliases": [
+      "UISlider",
+      "iOS volume slider"
+    ],
+    "category": "ios",
+    "classes": [
+      "rs-ios-slider",
+      "rs-ios-slider-disabled",
+      "rs-ios-slider-track",
+      "rs-ios-slider-fill",
+      "rs-ios-slider-thumb",
+      "rs-ios-slider-input"
+    ],
+    "css": [
+      "components/ios-slider.css"
+    ],
+    "react": "components/ios-slider.tsx"
+  },
+  {
+    "name": "ios-sheet",
+    "title": "iOS sheet",
+    "description": "A native modal bottom sheet with a centered title, grabber and deliberate entrance.",
+    "registryDependencies": [
+      "icons"
+    ],
+    "snippet": '<dialog class="rs-ios-sheet" aria-labelledby="sheet-title"><div class="rs-ios-sheet-handle" aria-hidden="true"></div><header class="rs-ios-sheet-header"><span></span><h2 class="rs-ios-sheet-title" id="sheet-title">Edit note</h2><button class="rs-ios-sheet-close" type="button" aria-label="Close sheet">\xD7</button></header><div class="rs-ios-sheet-body">Note content</div></dialog>',
+    "example": 'import { IOSSheet } from "@noorddev/vlak-react";\n\n<IOSSheet title="Edit note" open={open} onOpenChange={setOpen} description="Changes stay on this device."><form id="note-editor">\u2026</form></IOSSheet>',
+    "usage": {
+      "use": [
+        "A focused modal task presented from the bottom edge.",
+        "Keep the sheet mounted to preserve form drafts while closed."
+      ],
+      "avoid": [
+        "Claiming the grabber is draggable; it is a visual indicator.",
+        "Using a modal for ordinary page navigation or passive status."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Shift+Tab",
+        "does": "Uses the native modal focus trap."
+      },
+      {
+        "keys": "Escape",
+        "does": "Requests closing unless dismissable is false or onCancel prevents it."
+      },
+      {
+        "keys": "Enter, Space on Close",
+        "does": "Closes a dismissable sheet and restores its trigger when still available."
+      }
+    ],
+    "a11y": [
+      "The native dialog is named by its title and optionally described by its description.",
+      "Focus restores on close and unmount; reduced motion removes the entrance animation. Nondismissable sheets omit the close control."
+    ],
+    "aliases": [
+      "UISheetPresentationController",
+      "iOS bottom sheet",
+      "iOS modal sheet"
+    ],
+    "category": "ios",
+    "classes": [
+      "rs-ios-sheet",
+      "rs-ios-sheet-open",
+      "rs-ios-sheet-handle",
+      "rs-ios-sheet-header",
+      "rs-ios-sheet-title",
+      "rs-ios-sheet-close",
+      "rs-ios-sheet-body",
+      "rs-ios-sheet-description"
+    ],
+    "css": [
+      "components/ios-sheet.css"
+    ],
+    "react": "components/ios-sheet.tsx"
+  }
+];
+
+// src/registry-android.ts
+var androidComponents = [
+  {
+    "name": "android-app-bar",
+    "title": "Android app bar",
+    "description": "A Material app bar with a title, navigation action and trailing actions in Vlak tones.",
+    "category": "android",
+    "classes": [
+      "rs-android-app-bar",
+      "rs-android-app-bar-medium",
+      "rs-android-app-bar-navigation",
+      "rs-android-app-bar-title",
+      "rs-android-app-bar-leading-title",
+      "rs-android-app-bar-medium-title",
+      "rs-android-app-bar-actions",
+      "rs-android-app-bar-action"
+    ],
+    "css": [
+      "components/android-app-bar.css"
+    ],
+    "react": "components/android-app-bar.tsx",
+    "registryDependencies": [
+      "icons"
+    ],
+    "snippet": '<header class="rs-android-app-bar"><div class="rs-android-app-bar-navigation"><button class="rs-android-app-bar-action" type="button" aria-label="Go back">\u2190</button></div><h2 class="rs-android-app-bar-title">Documents</h2><div class="rs-android-app-bar-actions"><button class="rs-android-app-bar-action" type="button" aria-label="More actions">\u22EF</button></div></header>',
+    "example": 'import { AndroidAppBar, AndroidAppBarAction, Icon } from "@noorddev/vlak-react";\n\n<AndroidAppBar title="Documents" navigation={<AndroidAppBarAction aria-label="Go back" onClick={goBack}><Icon name="arrow-left" /></AndroidAppBarAction>} />',
+    "usage": {
+      "use": [
+        "Top-level Android screens with a title and a small set of actions.",
+        "A medium app bar when the screen needs a larger title."
+      ],
+      "avoid": [
+        "Page navigation with more destinations than fit in an app bar."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Moves between enabled actions."
+      },
+      {
+        "keys": "Enter or Space",
+        "does": "Activates the focused action."
+      }
+    ],
+    "a11y": [
+      "Uses a native header and a level-two heading.",
+      "Label icon-only actions with aria-label.",
+      "Action buttons keep a 48-pixel target and a visible keyboard focus indicator."
+    ],
+    "aliases": [
+      "Material top app bar",
+      "Android toolbar",
+      "Material 3 top app bar"
+    ]
+  },
+  {
+    "name": "android-navigation",
+    "title": "Android navigation",
+    "description": "Material destination indicators for a bottom navigation bar or vertical rail.",
+    "category": "android",
+    "classes": [
+      "rs-android-navigation",
+      "rs-android-navigation-list",
+      "rs-android-navigation-rail",
+      "rs-android-navigation-item",
+      "rs-android-navigation-control",
+      "rs-android-navigation-current",
+      "rs-android-navigation-disabled",
+      "rs-android-navigation-indicator",
+      "rs-android-navigation-active-indicator",
+      "rs-android-navigation-label"
+    ],
+    "css": [
+      "components/android-navigation.css"
+    ],
+    "react": "components/android-navigation.tsx",
+    "registryDependencies": [],
+    "snippet": '<nav class="rs-android-navigation" aria-label="Workspace"><ul class="rs-android-navigation-list"><li class="rs-android-navigation-item"><button class="rs-android-navigation-control rs-android-navigation-current" type="button" aria-current="page"><span class="rs-android-navigation-indicator rs-android-navigation-active-indicator" aria-hidden="true">\u2302</span><span class="rs-android-navigation-label">Home</span></button></li><li class="rs-android-navigation-item"><button class="rs-android-navigation-control" type="button"><span class="rs-android-navigation-indicator" aria-hidden="true">\u25A1</span><span class="rs-android-navigation-label">Files</span></button></li></ul></nav>',
+    "example": 'import { AndroidNavigation } from "@noorddev/vlak-react";\n\n<AndroidNavigation aria-label="Workspace" items={[{ value: "home", label: "Home" }, { value: "files", label: "Files" }, { value: "settings", label: "Settings" }]} defaultValue="home" onValueChange={setScreen} />',
+    "usage": {
+      "use": [
+        "Three to five destinations at the bottom of a compact Android layout.",
+        "A vertical destination rail beside a wider workspace."
+      ],
+      "avoid": [
+        "Tabs that switch between panels within the same page."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Moves between enabled destinations."
+      },
+      {
+        "keys": "Left or Right arrow",
+        "does": "Moves focus in a horizontal bar, respecting text direction."
+      },
+      {
+        "keys": "Up or Down arrow",
+        "does": "Moves focus in a vertical rail."
+      },
+      {
+        "keys": "Home or End",
+        "does": "Focuses the first or last enabled destination."
+      },
+      {
+        "keys": "Enter or Space",
+        "does": "Activates a button destination; native links use Enter."
+      }
+    ],
+    "a11y": [
+      "A labelled nav contains native buttons or links in a list.",
+      "aria-current marks the active destination; arrow keys only move focus.",
+      "Disabled destinations cannot activate and are skipped by arrow keys."
+    ],
+    "aliases": [
+      "Material navigation bar",
+      "Android navigation rail",
+      "bottom navigation",
+      "Material 3 navigation bar"
+    ]
+  },
+  {
+    "name": "android-search-bar",
+    "title": "Android search bar",
+    "description": "A rounded Material search field with a leading icon and a clear action.",
+    "category": "android",
+    "classes": [
+      "rs-android-search-bar",
+      "rs-android-search-bar-disabled",
+      "rs-android-search-input",
+      "rs-android-search-icon",
+      "rs-android-search-clear"
+    ],
+    "css": [
+      "components/android-search-bar.css"
+    ],
+    "react": "components/android-search-bar.tsx",
+    "registryDependencies": [
+      "icons"
+    ],
+    "snippet": '<div class="rs-android-search-bar"><span class="rs-android-search-icon" aria-hidden="true">\u2315</span><input class="rs-android-search-input" type="search" aria-label="Search documents" placeholder="Search documents" /></div>',
+    "example": 'import { AndroidSearchBar } from "@noorddev/vlak-react";\n\n<AndroidSearchBar aria-label="Search documents" placeholder="Search documents" value={query} onValueChange={setQuery} />',
+    "usage": {
+      "use": [
+        "Searching a collection within an Android screen.",
+        "A 56-pixel search surface with a clear action."
+      ],
+      "avoid": [
+        "Selecting an option from autocomplete suggestions; use a combobox for that behavior."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Focuses the search field and its clear action when present."
+      },
+      {
+        "keys": "Escape",
+        "does": "Clears an editable query and keeps focus in the field."
+      },
+      {
+        "keys": "Enter",
+        "does": "Uses the enclosing form's native submit behavior."
+      }
+    ],
+    "a11y": [
+      "Uses input type search with native input attributes and ref.",
+      "Provide a visible label or aria-label; a placeholder is not a label.",
+      "The clear action follows the input onChange path, also calls onValueChange and returns focus to the field.",
+      "Uncontrolled values follow native form reset."
+    ],
+    "aliases": [
+      "Material search bar",
+      "Android search field",
+      "search input",
+      "Material 3 search bar"
+    ]
+  },
+  {
+    "name": "android-switch",
+    "title": "Android switch",
+    "description": "A Material switch with a 52-by-32 track and an expanding thumb, built on a native checkbox.",
+    "category": "android",
+    "classes": [
+      "rs-android-switch",
+      "rs-android-switch-checked"
+    ],
+    "css": [
+      "components/android-switch.css"
+    ],
+    "react": "components/android-switch.tsx",
+    "registryDependencies": [],
+    "snippet": '<label for="android-sync">Background sync</label> <input class="rs-android-switch rs-android-switch-checked" id="android-sync" name="sync" type="checkbox" role="switch" checked aria-checked="true" />',
+    "example": 'import { AndroidSwitch } from "@noorddev/vlak-react";\n\n<label htmlFor="sync">Background sync</label>\n<AndroidSwitch id="sync" name="sync" checked={enabled} onCheckedChange={setEnabled} />',
+    "usage": {
+      "use": [
+        "A binary Android preference that takes effect immediately."
+      ],
+      "avoid": [
+        "Selecting one option from a mutually exclusive group."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Focuses the switch when enabled."
+      },
+      {
+        "keys": "Space",
+        "does": "Toggles the switch."
+      }
+    ],
+    "a11y": [
+      "Uses a native checkbox with role switch and a 52-by-48 target.",
+      "Associate a visible label using htmlFor, or provide aria-label.",
+      "Supports native names, values, required state, disabled state and form reset.",
+      "The thumb changes position and size in addition to the filled track."
+    ],
+    "aliases": [
+      "Material switch",
+      "Android toggle",
+      "Expressive switch",
+      "Material 3 switch"
+    ]
+  },
+  {
+    "name": "android-list",
+    "title": "Android list",
+    "description": "Segmented Material list rows with leading content, supporting text and independent trailing controls.",
+    "category": "android",
+    "classes": [
+      "rs-android-list",
+      "rs-android-list-row",
+      "rs-android-list-body",
+      "rs-android-list-action",
+      "rs-android-list-two-line",
+      "rs-android-list-three-line",
+      "rs-android-list-leading",
+      "rs-android-list-copy",
+      "rs-android-list-headline",
+      "rs-android-list-secondary",
+      "rs-android-list-trailing"
+    ],
+    "css": [
+      "components/android-list.css"
+    ],
+    "react": "components/android-list.tsx",
+    "registryDependencies": [
+      "android-switch"
+    ],
+    "snippet": '<ul class="rs-android-list" aria-label="Connections"><li class="rs-android-list-row"><button class="rs-android-list-body rs-android-list-action rs-android-list-two-line" type="button"><span class="rs-android-list-copy"><span class="rs-android-list-headline">Wi-Fi</span><span class="rs-android-list-secondary">Studio network</span></span></button><span class="rs-android-list-trailing">Connected</span></li><li class="rs-android-list-row"><div class="rs-android-list-body"><span class="rs-android-list-copy"><span class="rs-android-list-headline">Device name</span></span></div><span class="rs-android-list-trailing">Pixel</span></li></ul>',
+    "example": 'import { AndroidList, AndroidListRow, AndroidSwitch } from "@noorddev/vlak-react";\n\n<AndroidList aria-label="Connections">\n  <AndroidListRow headline="Wi-Fi" supportingText="Studio network" onAction={openNetworks} trailing={<AndroidSwitch aria-label="Wi-Fi enabled" defaultChecked />} />\n  <AndroidListRow headline="Device name" supportingText="Pixel" />\n</AndroidList>',
+    "usage": {
+      "use": [
+        "Grouped Android settings and one-, two- or three-line content rows.",
+        "A row action beside an independent trailing switch."
+      ],
+      "avoid": [
+        "Tabular data where users compare aligned columns."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Moves between row actions and independent trailing controls."
+      },
+      {
+        "keys": "Enter or Space",
+        "does": "Activates a focused row button."
+      }
+    ],
+    "a11y": [
+      "Native ul and li preserve list structure.",
+      "Only rows with onAction become buttons; static rows add no tab stop.",
+      "Trailing controls are siblings of the row button, so interactive elements are never nested.",
+      "Decorative leading content is hidden from assistive technology."
+    ],
+    "aliases": [
+      "Material list item",
+      "Android settings row",
+      "Expressive segmented list",
+      "Material 3 list"
+    ]
+  },
+  {
+    "name": "android-chip",
+    "title": "Android chip",
+    "description": "A Material filter chip with a filled selection state and a checkmark.",
+    "category": "android",
+    "classes": [
+      "rs-android-chip",
+      "rs-android-chip-selected",
+      "rs-android-chip-icon"
+    ],
+    "css": [
+      "components/android-chip.css"
+    ],
+    "react": "components/android-chip.tsx",
+    "registryDependencies": [
+      "icons"
+    ],
+    "snippet": '<button class="rs-android-chip rs-android-chip-selected" type="button" aria-pressed="true"><span class="rs-android-chip-icon" aria-hidden="true">\u2713</span>Unread</button>',
+    "example": 'import { AndroidChip } from "@noorddev/vlak-react";\n\n<AndroidChip selected={unread} onSelectedChange={setUnread}>Unread</AndroidChip>',
+    "usage": {
+      "use": [
+        "Independent filters that users can select and clear."
+      ],
+      "avoid": [
+        "Mutually exclusive navigation or status labels with no action."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Focuses each enabled filter."
+      },
+      {
+        "keys": "Enter or Space",
+        "does": "Toggles the focused filter."
+      }
+    ],
+    "a11y": [
+      "A native button exposes selection through aria-pressed.",
+      "The checkmark and filled surface distinguish selection without hue.",
+      "The compact chip keeps a 48-pixel hit area."
+    ],
+    "aliases": [
+      "Material filter chip",
+      "Android filter chip",
+      "selectable chip",
+      "Material 3 filter chip"
+    ]
+  },
+  {
+    "name": "android-fab",
+    "title": "Android floating action button",
+    "description": "A Material floating action button with an optional extended text label.",
+    "category": "android",
+    "classes": [
+      "rs-android-fab",
+      "rs-android-fab-extended",
+      "rs-android-fab-icon"
+    ],
+    "css": [
+      "components/android-fab.css"
+    ],
+    "react": "components/android-fab.tsx",
+    "registryDependencies": [
+      "icons"
+    ],
+    "snippet": '<button class="rs-android-fab rs-android-fab-extended" type="button"><span class="rs-android-fab-icon" aria-hidden="true">+</span>New document</button>',
+    "example": 'import { AndroidFab, Icon } from "@noorddev/vlak-react";\n\n<AndroidFab icon={<Icon name="plus" size={24} />} onClick={createDocument}>New document</AndroidFab>',
+    "usage": {
+      "use": [
+        "The principal creation action on an Android screen."
+      ],
+      "avoid": [
+        "Several equally prominent actions on one screen."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Focuses the enabled action."
+      },
+      {
+        "keys": "Enter or Space",
+        "does": "Activates the action."
+      }
+    ],
+    "a11y": [
+      "Uses a native button with a target of at least 56 pixels.",
+      "Provide aria-label when omitting the visible text label.",
+      "Does not submit a form unless type submit is explicit."
+    ],
+    "aliases": [
+      "Material FAB",
+      "Android extended FAB",
+      "floating action button",
+      "Material 3 floating action button"
+    ]
+  },
+  {
+    "name": "android-sheet",
+    "title": "Android bottom sheet",
+    "description": "A native modal bottom sheet with Material geometry, accessible naming and focus restoration.",
+    "category": "android",
+    "classes": [
+      "rs-android-sheet",
+      "rs-android-sheet-open",
+      "rs-android-sheet-handle",
+      "rs-android-sheet-close",
+      "rs-android-sheet-title",
+      "rs-android-sheet-body"
+    ],
+    "css": [
+      "components/android-sheet.css"
+    ],
+    "react": "components/android-sheet.tsx",
+    "registryDependencies": [
+      "dialog",
+      "icons"
+    ],
+    "snippet": '<dialog class="rs-android-sheet" aria-labelledby="android-sheet-title"><span class="rs-android-sheet-handle" aria-hidden="true"></span><button class="rs-android-sheet-close" type="button" aria-label="Close">\xD7</button><h2 class="rs-android-sheet-title" id="android-sheet-title">Connection settings</h2><p class="rs-android-sheet-body">Choose how this device connects.</p></dialog>',
+    "example": 'import { AndroidSheet, AndroidSheetTitle, AndroidSheetBody } from "@noorddev/vlak-react";\n\n<AndroidSheet open={open} onOpenChange={setOpen}>\n  <AndroidSheetTitle>Connection settings</AndroidSheetTitle>\n  <AndroidSheetBody>Choose how this device connects.</AndroidSheetBody>\n</AndroidSheet>',
+    "usage": {
+      "use": [
+        "Contextual Android controls that temporarily cover the lower screen.",
+        "A focused choice or short task with a clear way to dismiss it."
+      ],
+      "avoid": [
+        "Permanent side navigation or long documents."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab or Shift+Tab",
+        "does": "Moves through the modal's controls using native dialog focus containment."
+      },
+      {
+        "keys": "Escape",
+        "does": "Requests dismissal when dismissable is enabled."
+      },
+      {
+        "keys": "Enter or Space",
+        "does": "Activates the focused control."
+      }
+    ],
+    "a11y": [
+      "Native dialog showModal supplies the top layer, inert background and focus containment.",
+      "Title and body parts connect aria-labelledby and aria-describedby automatically.",
+      "Closing returns focus to the connected opener.",
+      "The handle is decorative; this sheet does not promise a drag gesture.",
+      "Supports controlled open state or defaultOpen; onOpenChange reports dismissal."
+    ],
+    "aliases": [
+      "Material modal bottom sheet",
+      "Android bottom sheet",
+      "modal sheet",
+      "Material 3 bottom sheet"
+    ]
+  }
+];
+
+// src/registry-ai-chat-controls.ts
+var aiChatControlComponents = [
+  {
+    name: "context-usage",
+    title: "Context usage",
+    category: "ai",
+    description: "A native disclosure of context occupancy, token categories and estimated costs from application-supplied rates or model catalogs.",
+    classes: ["rs-context-usage", "rs-context-usage-body", "rs-context-usage-metadata", "rs-context-usage-list", "rs-context-usage-row", "rs-context-usage-value"],
+    css: ["components/context-usage.css"],
+    react: "components/context-usage.tsx",
+    registryDependencies: ["collapsible", "progress"],
+    snippet: '<details class="rs-context-usage rs-disclosure"><summary class="rs-disclosure-summary">Context usage \xB7 25%</summary><div class="rs-context-usage-body"><p class="rs-context-usage-metadata">512 of 2,048 tokens</p></div></details>',
+    example: 'import { ContextUsage, type ContextPricingCatalog } from "@noorddev/vlak-react";\n\nexport function ContextExample({ modelId, catalog }: {\n  modelId: string;\n  catalog: ContextPricingCatalog;\n}) {\n  return <ContextUsage\n    modelId={modelId}\n    catalog={catalog}\n    usedTokens={1500}\n    usage={{ inputTokens: 1000, outputTokens: 500, cachedInputTokens: 200, reasoningTokens: 100 }}\n  />;\n}',
+    usage: { use: ["Supply usedTokens and maxTokens for context occupancy; usage supplies separate input, output, reasoning and cached-input counts.", "pricing accepts inputPerMillion, outputPerMillion, reasoningPerMillion, cacheReadPerMillion and optional currency. No model catalog or prices are fetched.", "Pass modelId and a supplied Tokenlens or models.dev catalog to resolve a model name, context limit, and rates. Explicit model, maxTokens, and pricing replace their resolved counterparts.", "resolveContextPricing exposes the same lookup for application composition. Qualified provider/model ids select provider pricing; a providerless id must match exactly one model.", "Catalog context tiers require the actual input token count through usage.inputTokens, or inputTokens in resolver options. Unknown, ambiguous, or invalid metadata remains unavailable.", "Cached input is a subset of input; reasoning is a subset of output. Separate rates replace the parent rate for those subsets rather than adding duplicate charges.", "Missing or invalid data displays Unavailable. Costs are estimates from the supplied rates, not provider billing totals.", "Use open/onToggle for a controlled native disclosure or defaultOpen for the initial state. CSS-only markup shows supplied values."], avoid: ["Treating missing token counts or unknown pricing as zero.", "Displaying rates without verifying them in the application that supplies them."] },
+    keyboard: [{ keys: "Tab", does: "Focuses the native disclosure summary" }, { keys: "Enter, Space", does: "Opens or closes usage details" }],
+    a11y: ["The summary exposes current occupancy in text. The shared Progress names the token range and clamps its visual extent.", "Unknown limits omit the meter; usage above the supplied limit retains the real count and an explanation.", "Native details attributes and its ref are forwarded."],
+    aliases: ["AI Elements Context", "Token usage", "Context window", "Token cost", "ContextUsage"]
+  },
+  {
+    name: "model-selector",
+    title: "Model selector",
+    category: "ai",
+    description: "Searches a supplied model catalog by name, provider and capabilities, with metadata and controlled selection.",
+    classes: ["rs-model-selector", "rs-model-selector-label", "rs-model-selector-option", "rs-model-selector-icon", "rs-model-selector-text", "rs-model-selector-metadata", "rs-model-selector-detail", "rs-model-selector-description"],
+    css: ["components/model-selector.css"],
+    react: "components/model-selector.tsx",
+    registryDependencies: ["combobox", "input"],
+    snippet: '<div class="rs-model-selector"><label class="rs-model-selector-label" for="model">Model</label><select class="rs-input" id="model"><option>Swift \xB7 Example provider</option><option>Vision \xB7 Example provider</option></select></div>',
+    example: '"use client";\nimport { useState } from "react";\nimport { ModelSelector } from "@noorddev/vlak-react";\n\nexport function ModelPicker({ priceLabel }: { priceLabel?: string }) {\n  const [modelId, setModelId] = useState("swift");\n  return <ModelSelector value={modelId} onValueChange={setModelId} models={[\n    { id: "swift", name: "Swift", provider: "Your provider", capabilities: ["Text", "Fast"], contextWindow: 32000 },\n    { id: "vision", name: "Vision", provider: "Your provider", capabilities: ["Images"], priceLabel },\n  ]} />;\n}',
+    usage: { use: ["Supply stable model ids and current provider metadata. Search includes names, descriptions, providers and capabilities.", "Use value/onValueChange for an application-owned selection or defaultValue for local selection.", "Supply icon as decorative React content, contextWindow as a token count and priceLabel as application-verified text.", "Disabled models remain visible but cannot be selected. A removed controlled selection is explained rather than silently replaced.", "CSS-only markup provides native selection; the React composition adds searchable metadata."], avoid: ["Assuming the picker downloads models, calls a provider or updates an SDK connection.", "Hardcoding provider prices into the library."] },
+    keyboard: [{ keys: "Type", does: "Filters model names and supplied metadata" }, { keys: "Arrow Down, Arrow Up, Home, End", does: "Navigates available matches, skipping disabled models" }, { keys: "Enter", does: "Selects the highlighted available model" }, { keys: "Escape", does: "Closes the list and retains selection" }],
+    a11y: ["A visible label names the shared Combobox. Disabled matches expose aria-disabled and are skipped during navigation.", "Provider icons are decorative; model names and capability text remain readable.", "The selected model detail has a subtle 1px frame and 4px corners. Native div attributes and ref pass through."],
+    aliases: ["AI Elements Model Selector", "Model picker", "Provider models", "LLM selector"]
+  },
+  {
+    name: "sources",
+    title: "Sources",
+    category: "ai",
+    description: "A counted native disclosure of application-supplied references, descriptions and supporting quotes.",
+    classes: ["rs-sources", "rs-sources-list", "rs-sources-link", "rs-sources-description", "rs-sources-quote", "rs-sources-empty"],
+    css: ["components/sources.css"],
+    react: "components/sources.tsx",
+    registryDependencies: ["collapsible", "references"],
+    snippet: '<details class="rs-sources rs-disclosure"><summary class="rs-disclosure-summary">Sources (1)</summary><ol class="rs-refs rs-sources-list"><li class="rs-cite-item"><a class="rs-sources-link" href="https://example.com/brief" target="_blank" rel="noopener noreferrer">Project brief</a></li></ol></details>',
+    example: 'import { Sources } from "@noorddev/vlak-react";\n\n<Sources defaultOpen sources={[\n  { id: "brief", title: "Project brief", url: "https://example.com/brief", description: "Scope and owners", quote: "Every decision has an owner." },\n]} />',
+    usage: { use: ["Present the references an application used to support an answer.", "Supply stable ids, titles, URLs and optional descriptions or exact source quotes.", "The native disclosure composes Refs and RefItem. Use open/onToggle or defaultOpen for disclosure state.", "Web URLs and document-relative links are accepted; executable schemes are not rendered as links.", "Links open a new tab with opener isolation. CSS-only markup retains native disclosure and link behavior."], avoid: ["Presenting an unverified model-generated URL as an independently checked source.", "Fetching sources or inferring quotations inside the component."] },
+    keyboard: [{ keys: "Tab", does: "Reaches the source summary and visible reference links" }, { keys: "Enter, Space", does: "Opens or closes the native source disclosure" }, { keys: "Enter on a link", does: "Opens the chosen reference in a new tab" }],
+    a11y: ["The summary includes the number of supplied references. An ordered list preserves source order and optional blockquotes identify quoted text.", "Source links have 44px minimum height and identify new-tab behavior in their accessible name.", "Native details attributes and its ref are forwarded."],
+    aliases: ["AI Elements Sources", "Source list", "References", "Citations"]
+  },
+  {
+    name: "inline-citation",
+    title: "Inline citation",
+    category: "ai",
+    description: "A quiet inline source trigger opening a counted, keyboard-navigable preview with links, descriptions and quotes.",
+    classes: ["rs-inline-citation", "rs-inline-citation-trigger", "rs-inline-citation-panel", "rs-inline-citation-header", "rs-inline-citation-navigation", "rs-inline-citation-count", "rs-inline-citation-title", "rs-inline-citation-link", "rs-inline-citation-description", "rs-inline-citation-quote"],
+    css: ["components/inline-citation.css"],
+    react: "components/inline-citation.tsx",
+    registryDependencies: ["button", "icons", "sources"],
+    snippet: '<span class="rs-inline-citation">Read the brief<button class="rs-btn-subtle rs-btn-sm rs-inline-citation-trigger" type="button" aria-label="View 2 sources" aria-haspopup="dialog" aria-expanded="false">[2]</button></span>',
+    example: 'import { InlineCitation } from "@noorddev/vlak-react";\n\n<p>The brief names an owner for every decision. <InlineCitation sources={[\n  { id: "brief", title: "Project brief", url: "https://example.com/brief", quote: "Every decision has an owner." },\n  { id: "notes", title: "Review notes", url: "https://example.com/notes", description: "The next review" },\n]} /></p>',
+    usage: { use: ["Attach one or more application-supplied sources to a specific claim.", "The count and quote change as the reader navigates sources; index/onIndexChange can make source selection application-owned.", "Use open/onOpenChange or defaultOpen for preview state. Empty source arrays disable the trigger.", "The preview is portaled outside the text paragraph, follows the trigger and stays inside the viewport.", "CSS-only markup provides a named trigger; opening, focus and source navigation require React or application code."], avoid: ["Hiding citations behind pointer-only hover behavior.", "Treating a source card as proof that the application verified the linked content."] },
+    keyboard: [{ keys: "Enter, Space", does: "Opens the source dialog or activates its focused control" }, { keys: "Arrow Left, Arrow Right", does: "Moves through sources, following text direction" }, { keys: "Home, End", does: "Moves to the first or last source" }, { keys: "Escape", does: "Closes the preview and restores trigger focus" }, { keys: "Tab, Shift+Tab", does: "Moves through preview controls and returns to document focus order at its boundaries" }],
+    a11y: ["The 44px trigger exposes its source count, dialog relationship and expanded state.", "The nonmodal dialog receives focus on open. Its source position uses a status region; boundary navigation remains focusable with aria-disabled.", "Close and Escape restore trigger focus; outside interaction dismisses without stealing focus.", "Links identify new-tab behavior. Native span attributes, class/style and the span ref are forwarded."],
+    aliases: ["AI Elements Inline Citation", "Citation card", "Source preview", "Citation carousel"]
+  },
+  {
+    name: "open-in-chat",
+    title: "Open in chat",
+    category: "ai",
+    description: "Explicit provider links that encode a supplied prompt for ChatGPT, Claude, Cursor, Scira, T3 Chat and v0.",
+    classes: ["rs-open-in-chat", "rs-open-in-chat-list", "rs-open-in-chat-link", "rs-open-in-chat-note"],
+    css: ["components/open-in-chat.css"],
+    react: "components/open-in-chat.tsx",
+    registryDependencies: ["collapsible", "sources"],
+    snippet: '<details class="rs-open-in-chat rs-disclosure"><summary class="rs-disclosure-summary">Open in chat</summary><ul class="rs-open-in-chat-list"><li><a class="rs-open-in-chat-link" href="https://claude.ai/new?q=Review+the+brief" target="_blank" rel="noopener noreferrer">Claude</a></li></ul></details>',
+    example: 'import { OpenInChat } from "@noorddev/vlak-react";\n\n<OpenInChat prompt="Review the brief and suggest the next step." providers={["chatgpt", "claude", "cursor"]} />',
+    usage: { use: ["Offer an explicit handoff of supplied text to another application.", "Choose providers from chatgpt, claude, cursor, scira, t3, v0 and github. GitHub requires a separate githubUrl; it does not treat the prompt as a URL.", "Prompt query parameters use the browser's query encoder. Native links preserve browser open-in-new-tab behavior.", "No prompt is sent when the component renders or opens; the selected provider is contacted only after link activation.", "Provider handoff addresses are based on the pinned AI Elements reference and may evolve. The provider controls what happens after navigation."], avoid: ["Claiming that opening a provider link has submitted or generated a response.", "Including conversation content in prompt that the application does not intend to hand off."] },
+    keyboard: [{ keys: "Tab", does: "Reaches the native disclosure and its provider links" }, { keys: "Enter, Space", does: "Opens or closes provider choices" }, { keys: "Enter on a link", does: "Opens that provider in a new tab" }],
+    a11y: ["The disclosure and every provider link have readable names. New-tab behavior is included in link labels.", "Links have 44px minimum height, visible focus and rel=noopener noreferrer.", "Native details attributes and the details ref pass through; CSS-only markup retains native disclosure and links."],
+    aliases: ["AI Elements Open in Chat", "OpenIn", "ChatGPT handoff", "Claude handoff", "Provider prompt links"]
+  }
+];
+
+// src/registry-ai-code-tools.ts
+var aiCodeTools = [
+  {
+    "name": "terminal",
+    "title": "Terminal",
+    "description": "Renders streamed console output with incremental ANSI attributes and optional original colors.",
+    "category": "ai",
+    "classes": [
+      "rs-terminal",
+      "rs-terminal-header",
+      "rs-terminal-title",
+      "rs-terminal-status",
+      "rs-terminal-content",
+      "rs-terminal-pre",
+      "rs-terminal-cursor",
+      "rs-terminal-footer",
+      "rs-terminal-run",
+      "rs-terminal-bold",
+      "rs-terminal-dim",
+      "rs-terminal-italic",
+      "rs-terminal-underline",
+      "rs-terminal-strike",
+      "rs-terminal-underline-strike",
+      "rs-terminal-inverse",
+      "rs-terminal-colors"
+    ],
+    "css": [
+      "components/terminal.css"
+    ],
+    "react": "components/terminal.tsx",
+    "registryDependencies": [
+      "button",
+      "snippet"
+    ],
+    "snippet": '<section class="rs-terminal" aria-label="Terminal"><header class="rs-terminal-header"><span class="rs-terminal-title">Terminal</span><span class="rs-terminal-status" role="status">Output complete</span></header><div class="rs-terminal-content" tabindex="0" role="group" aria-label="Terminal output"><pre class="rs-terminal-pre"><span class="rs-terminal-run rs-terminal-bold">2 tests passed</span></pre></div></section>',
+    "example": 'import { Terminal } from "@noorddev/vlak-react";\n\n<Terminal output={"\\u001b[1m2 tests passed\\u001b[0m\\n"} streaming={false} />',
+    "usage": {
+      "use": [
+        "Pass the growing output string to retain partial terminal escape sequences across updates.",
+        "The monochrome default preserves bold, italic, underline, strike and inverse states. Set ansiColors to display supplied 16-color, 256-color and truecolor values.",
+        "Provide onClear to request clearing application state. Copy preserves the complete original output, including escape sequences.",
+        "maxCharacters bounds visible source; maxHeight creates a named keyboard-scrollable region."
+      ],
+      "avoid": [
+        "Treating this output viewer as a shell, process runner or cursor-addressable terminal emulator.",
+        "Assuming output text can execute OSC clipboard commands or turn itself into active links. Such sequences are discarded.",
+        "Forcing follow-scroll while a reader is inspecting earlier output."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Tab reaches copy, optional clear, jump-to-latest and the output region."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Enter or Space activates the focused button. Scroll keys move the focused output region."
+      }
+    ],
+    "a11y": [
+      "Only the short streaming status is live; token output remains ordinary readable text.",
+      "Reader scroll position is preserved until they return to the end or activate Latest output.",
+      "The cursor is decorative and stops animating with reduced motion.",
+      "Original terminal colors are explicit opt-in and revert to system colors in forced-colors mode. Text remains escaped React content."
+    ],
+    "aliases": [
+      "AI Elements Terminal",
+      "ANSI output",
+      "Console output"
+    ]
+  },
+  {
+    "name": "stack-trace",
+    "title": "Stack trace",
+    "description": "Parses JavaScript error frames into function names, file locations and internal-frame labels.",
+    "category": "ai",
+    "classes": [
+      "rs-stack-trace",
+      "rs-stack-trace-header",
+      "rs-stack-trace-heading",
+      "rs-stack-trace-title",
+      "rs-stack-trace-message",
+      "rs-stack-trace-content",
+      "rs-stack-trace-list",
+      "rs-stack-trace-location",
+      "rs-stack-trace-note",
+      "rs-stack-trace-frame",
+      "rs-stack-trace-internal"
+    ],
+    "css": [
+      "components/stack-trace.css"
+    ],
+    "react": "components/stack-trace.tsx",
+    "registryDependencies": [
+      "button",
+      "collapsible",
+      "snippet"
+    ],
+    "snippet": '<article class="rs-stack-trace" aria-label="TypeError"><header class="rs-stack-trace-header"><div class="rs-stack-trace-heading"><span class="rs-stack-trace-title">TypeError</span><p class="rs-stack-trace-message">Draft must contain text</p></div></header><div class="rs-stack-trace-content"><details class="rs-disclosure" open><summary class="rs-disclosure-summary">1 stack frame</summary><ol class="rs-stack-trace-list"><li class="rs-stack-trace-frame"><span>sendPrompt</span><span>src/composer.tsx:42:5</span></li></ol></details></div></article>',
+    "example": 'import { StackTrace } from "@noorddev/vlak-react";\n\n<StackTrace trace={"TypeError: Draft must contain text\\n  at sendPrompt (src/composer.tsx:42:5)\\n  at node:internal/process/task_queues:95:5"} defaultOpen />',
+    "usage": {
+      "use": [
+        "Inspect supplied V8, Node, Firefox or Safari stack frames, preserving Windows drive names and URL paths.",
+        "Use onFilePathClick to navigate to a file, line and column; unknown frame text remains readable.",
+        "Use open/onOpenChange for controlled disclosure and maxFrames to bound displayed frames. Copy retains the full raw trace."
+      ],
+      "avoid": [
+        "Executing a file path or inferring its contents from an error frame.",
+        "Assuming every runtime stack syntax can be parsed; unsupported frame text is retained."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Tab reaches raw-trace copy, the frame disclosure and optional location buttons."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Enter or Space activates copy, toggles the frame summary or requests navigation to a location."
+      }
+    ],
+    "a11y": [
+      "Error type and message are visible text; internal frames have a readable label rather than opacity alone.",
+      "Native disclosure semantics expose expanded state.",
+      "All file callbacks are explicit user actions; parsing never opens files."
+    ],
+    "aliases": [
+      "AI Elements Stack Trace",
+      "JavaScript error",
+      "Error frames"
+    ]
+  },
+  {
+    "name": "sandbox",
+    "title": "Sandbox",
+    "description": "Combines a tool-status disclosure with keyboard-accessible code and output tabs.",
+    "category": "ai",
+    "classes": [
+      "rs-sandbox",
+      "rs-sandbox-content",
+      "rs-sandbox-output"
+    ],
+    "css": [
+      "components/sandbox.css"
+    ],
+    "react": "components/sandbox.tsx",
+    "registryDependencies": [
+      "tool-call",
+      "code-block",
+      "tabs"
+    ],
+    "snippet": '<details class="rs-tool-call rs-sandbox" open><summary class="rs-tool-call-summary"><span class="rs-tool-call-title">Check generated module</span><span class="rs-tool-call-state">Complete</span></summary><div class="rs-tool-call-body"><div class="rs-sandbox-content"><pre class="rs-sandbox-output">2 checks passed</pre></div></div></details>',
+    "example": 'import { Sandbox } from "@noorddev/vlak-react";\n\n<Sandbox title="Check generated module" state="complete" code="export const ready = true;" language="TypeScript" output="2 checks passed" />',
+    "usage": {
+      "use": [
+        "Display supplied generated code and the result of an application-owned run.",
+        "Use tab/onTabChange or defaultTab to select code or output.",
+        "Supply codeContent to compose an optional syntax renderer, and output for text or structured React results."
+      ],
+      "avoid": [
+        "Treating this display surface as a code executor or isolation boundary.",
+        "Reporting a successful run before the application supplies that state."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Tab reaches the native disclosure, active tab and controls inside the selected panel."
+      },
+      {
+        "keys": "Arrow keys, Home, End, Enter, Space",
+        "does": "Arrow keys, Home and End move between code/output tabs; Enter or Space activates the focused control."
+      }
+    ],
+    "a11y": [
+      "ToolCall supplies a named 44px summary, status text and subtle 4px surface.",
+      "Tabs provide a named tablist and labelled panels; hidden panels do not stay in the tab order.",
+      "Output strings are escaped preformatted text and can be read without repeated live announcements."
+    ],
+    "aliases": [
+      "AI Elements Sandbox",
+      "Code execution result",
+      "Code and output"
+    ]
+  },
+  {
+    "name": "web-preview",
+    "title": "Web preview",
+    "description": "Provides URL navigation, a sandboxed iframe and a collapsible console of supplied log messages.",
+    "category": "ai",
+    "classes": [
+      "rs-web-preview",
+      "rs-web-preview-navigation",
+      "rs-web-preview-address",
+      "rs-web-preview-body",
+      "rs-web-preview-status",
+      "rs-web-preview-console",
+      "rs-web-preview-logs",
+      "rs-web-preview-log",
+      "rs-web-preview-level",
+      "rs-web-preview-message"
+    ],
+    "css": [
+      "components/web-preview.css"
+    ],
+    "react": "components/web-preview.tsx",
+    "registryDependencies": [
+      "button",
+      "icons",
+      "input",
+      "collapsible",
+      "widget"
+    ],
+    "snippet": '<section class="rs-web-preview" aria-label="Calendar preview"><div class="rs-web-preview-body"><iframe class="rs-widget-embed" title="Calendar preview" src="about:blank" sandbox="allow-scripts allow-forms" loading="lazy" referrerpolicy="no-referrer"></iframe></div><p class="rs-web-preview-status" role="status">Preview loaded.</p></section>',
+    "example": 'import { WebPreview } from "@noorddev/vlak-react";\n\n<WebPreview title="Generated page" defaultUrl="about:blank" frameProps={{ height: 320 }} logs={[{ level: "info", message: "Preview ready" }]} />',
+    "usage": {
+      "use": [
+        "Preview a supplied http/https URL, local path or about:blank.",
+        "Use url/onUrlChange for controlled navigation. Optional onBack/onForward callbacks and canGoBack/canGoForward flags let the host own history.",
+        "Pass frameProps for explicit iframe permissions and native load/error events; the default does not grant same-origin access.",
+        "Supply logs from a trusted application channel. maxLogEntries bounds the visible console tail."
+      ],
+      "avoid": [
+        "Evaluating JavaScript URLs or embedding executable data URLs in the address field.",
+        "Claiming automatic console capture from a cross-origin iframe.",
+        "Treating iframe load as proof that a provider page accepted framing or successfully ran its application."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Tab reaches enabled navigation controls, the address, iframe and console disclosure."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Enter in the address field requests navigation; Enter or Space activates the focused button."
+      }
+    ],
+    "a11y": [
+      "The iframe, address, navigation form and console list have accessible names.",
+      "URL validation is visible and invalid protocols never reach iframe src.",
+      "Controlled navigation leaves the previous source in place until the host supplies a new url.",
+      "Log levels use text and messages are escaped; history and external application behavior remain host-owned."
+    ],
+    "aliases": [
+      "AI Elements Web Preview",
+      "Generated page preview",
+      "Iframe console"
+    ]
+  },
+  {
+    "name": "jsx-preview",
+    "title": "Jsx preview",
+    "description": "Renders registered components and plain data expressions from streamed JSX through an optional parser.",
+    "category": "ai",
+    "classes": [
+      "rs-jsx-preview",
+      "rs-jsx-preview-content",
+      "rs-jsx-preview-status",
+      "rs-jsx-preview-error"
+    ],
+    "css": [
+      "components/jsx-preview.css"
+    ],
+    "react": "components/jsx-preview.tsx",
+    "registryDependencies": [],
+    "snippet": '<div class="rs-jsx-preview"><div class="rs-jsx-preview-content"><section aria-label="Review summary"><p>3 findings are ready for review.</p></section></div></div>',
+    "example": `import { JSXPreview } from "@noorddev/vlak-react/components/jsx-preview";
+
+<JSXPreview jsx={'<section aria-label="Review summary"><p>{count} findings are ready.</p></section>'} bindings={{ count: 3 }} />`,
+    "usage": {
+      "use": [
+        "Install the optional react-jsx-parser, acorn and acorn-jsx dependencies and import the component subpath.",
+        "Register trusted display components and pass plain data bindings. Application components own their internal interactive controls.",
+        "Set streaming for simple tag completion and last-valid-content fallback while an expression is incomplete.",
+        "Use fallback/onError for invalid completed source or a registered component that throws."
+      ],
+      "avoid": [
+        "Treating this component as an arbitrary JavaScript sandbox or exposing side-effectful components that execute operations during render.",
+        "Passing functions, getters, prototype objects or secrets through bindings.",
+        "Expecting function calls, arrow functions, spreads, event attributes, active markup or dynamic link targets to be interpreted. Use application components or an isolated external preview for those cases."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Tab follows the normal order of controls and safe links produced by registered components."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Keyboard behavior inside a registered component belongs to that component."
+      }
+    ],
+    "a11y": [
+      "Acorn validates the data-expression subset before react-jsx-parser interprets it; no host eval is used.",
+      "Function calls, prototype access, active tags and unsafe attributes are rejected rather than executed.",
+      "Bindings have bounded depth and size and are copied without invoking accessors.",
+      "Invalid completed previews show an alert; streaming updates retain the last valid preview and use a short status message.",
+      "The parser mounts after hydration; styling remains inside a contained 4px surface."
+    ],
+    "aliases": [
+      "AI Elements JSX Preview",
+      "Generated React preview",
+      "JSX widgets"
+    ],
+    "reactImport": "@noorddev/vlak-react/components/jsx-preview",
+    "dependencies": [
+      "react-jsx-parser@^2.4.1",
+      "acorn@^8.15.0",
+      "acorn-jsx@^5.3.2"
+    ]
+  }
+];
+
+// src/registry-ai-attachments.ts
+var aiAttachments = [
+  {
+    "name": "attachments",
+    "title": "Attachments",
+    "description": "A responsive file list with image, audio, and video previews, file metadata, removal, and application-owned upload states.",
+    "category": "ai",
+    "classes": [
+      "rs-attachments",
+      "rs-attachments-grid",
+      "rs-attachments-inline",
+      "rs-attachments-list",
+      "rs-attachment-inline",
+      "rs-attachment-list",
+      "rs-attachment-thumbnail-inline",
+      "rs-attachment-detail-inline",
+      "rs-attachment-media-inline",
+      "rs-attachment",
+      "rs-attachment-row",
+      "rs-attachment-thumbnail",
+      "rs-attachment-file-icon",
+      "rs-attachment-info",
+      "rs-attachment-name",
+      "rs-attachment-detail",
+      "rs-attachment-action",
+      "rs-attachment-media",
+      "rs-attachment-link",
+      "rs-attachment-status",
+      "rs-attachment-progress"
+    ],
+    "css": [
+      "components/attachments.css"
+    ],
+    "react": "components/attachments.tsx",
+    "registryDependencies": [
+      "button",
+      "icons"
+    ],
+    "snippet": '<ul class="rs-attachments" aria-label="Attachments"><li class="rs-attachment"><div class="rs-attachment-row"><div class="rs-attachment-info"><p class="rs-attachment-name">Project brief.txt</p><p class="rs-attachment-detail">text/plain \xB7 342 bytes</p></div></div></li></ul>',
+    "example": '"use client";\nimport { useState } from "react";\nimport { Attachment, Attachments, Button } from "@noorddev/vlak-react";\n\nexport function DraftFiles() {\n  const [visible, setVisible] = useState(true);\n  return visible ? <Attachments>\n    <Attachment data={{ id: "brief", name: "Project brief.txt", mediaType: "text/plain", size: 342 }} onRemove={() => setVisible(false)} />\n  </Attachments> : <Button variant="subtle" onClick={() => setVisible(true)}>Reset file</Button>;\n}',
+    "usage": {
+      "use": [
+        "Compose Attachment items inside Attachments for files in a message, a draft, or a tool result.",
+        "Choose grid, inline, or list layout through variant. Items inherit that layout and can override it individually.",
+        "Supply stable data IDs, readable filenames, media types, and optional web or local preview addresses.",
+        "Use useFileAttachments with a browser File array to create local previews with automatic cleanup.",
+        "Set status, progress, error, and onRetry from an application upload process. Native audio and video controls let the reader start playback.",
+        "Use preview for application-specific media content, including captions and transcripts where available."
+      ],
+      "avoid": [
+        "Treating removal or retry controls as an upload service. The application owns those operations.",
+        "Passing untrusted script addresses, or revoking preview addresses created by a different owner."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Reaches file links, native media controls, retry, and remove actions."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Activates the focused file action or native media control."
+      }
+    ],
+    "a11y": [
+      "The named list preserves file grouping. Filenames identify file links and action buttons.",
+      "Images use decorative thumbnails beside their readable filenames. Audio and video use named native controls without autoplay.",
+      "Upload status and errors are announced separately from file content. Determinate progress has a file-specific accessible name.",
+      "Removal and retry have 44px targets and visible focus inherited from Button. Native list and item attributes, className, style, and refs pass through.",
+      "useFileAttachments preserves file identity and revokes owned preview addresses when files are removed or the owner unmounts."
+    ],
+    "aliases": [
+      "AI Elements Attachments",
+      "File attachments",
+      "Attachment preview",
+      "Message files"
+    ]
+  }
+];
+
+// src/registry-ai-work-patterns.ts
+var aiWorkPatterns = [
+  {
+    "name": "shimmer",
+    "title": "Shimmer",
+    "description": "A monochrome moving highlight over progress text, with reduced-motion and forced-color fallbacks.",
+    "category": "ai",
+    "classes": [
+      "rs-shimmer",
+      "rs-shimmer-active"
+    ],
+    "css": [
+      "components/shimmer.css"
+    ],
+    "react": "components/shimmer.tsx",
+    "registryDependencies": [],
+    "snippet": '<span class="rs-shimmer rs-shimmer-active">Reading the brief</span>',
+    "example": 'import { Shimmer } from "@noorddev/vlak-react";\n\nexport function ReadingStatus({ streaming }: { streaming: boolean }) {\n  return <Shimmer active={streaming}>Reading the brief</Shimmer>;\n}',
+    "usage": {
+      "use": [
+        "Use short progress text while the application is working. Duration is in seconds; spread is a bounded percentage.",
+        "Set active=false to keep the same text without animation."
+      ],
+      "avoid": [
+        "Using animation as the only indication of progress."
+      ]
+    },
+    "keyboard": [],
+    "a11y": [
+      "Reduced motion and forced colors keep the text static and readable.",
+      "Text remains available to assistive technology; use an application status region for meaningful progress changes."
+    ],
+    "aliases": [
+      "Shimmer",
+      "AI Elements Shimmer",
+      "Streaming progress text"
+    ]
+  },
+  {
+    "name": "plan",
+    "title": "Plan",
+    "description": "A collapsible proposed plan with streaming title treatment, actions, and supporting context.",
+    "category": "ai",
+    "classes": [
+      "rs-plan",
+      "rs-plan-description",
+      "rs-plan-actions",
+      "rs-plan-footer"
+    ],
+    "css": [
+      "components/plan.css"
+    ],
+    "react": "components/plan.tsx",
+    "registryDependencies": [
+      "reasoning",
+      "shimmer"
+    ],
+    "snippet": '<details class="rs-plan" open><summary>Review plan</summary><ol><li>Read the brief</li><li>Check owners</li></ol></details>',
+    "example": 'import { Plan, Button } from "@noorddev/vlak-react";\n\nexport function ReviewPlan({ streaming, onApprove }: { streaming: boolean; onApprove: () => void }) {\n  return <Plan title="Review plan" description="Two steps" streaming={streaming} actions={<Button variant="subtle" disabled={streaming} onClick={onApprove}>Approve plan</Button>}>\n    <ol><li>Read the brief</li><li>Check owners</li></ol>\n  </Plan>;\n}',
+    "usage": {
+      "use": [
+        "Supply plan content and application-owned actions. The title and description shimmer only while streaming.",
+        "The native disclosure starts open; open/defaultOpen/onOpenChange preserve controlled and uncontrolled usage."
+      ],
+      "avoid": [
+        "Treating a displayed plan as executed work."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Moves through the supplied native controls in reading order"
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Activates focused buttons and disclosure summaries"
+      }
+    ],
+    "a11y": [
+      "Native attributes, className, style, and the forwarded ref reach the outer element.",
+      "Interactive content requires accessible names; progress text is not announced for every streamed token."
+    ],
+    "aliases": [
+      "Plan",
+      "AI Elements Plan",
+      "Agent plan"
+    ]
+  },
+  {
+    "name": "task",
+    "title": "Task",
+    "description": "A default-open task disclosure with supplied item states and file references.",
+    "category": "ai",
+    "classes": [
+      "rs-task",
+      "rs-task-list",
+      "rs-task-item",
+      "rs-task-active",
+      "rs-task-file"
+    ],
+    "css": [
+      "components/task.css"
+    ],
+    "react": "components/task.tsx",
+    "registryDependencies": [
+      "reasoning"
+    ],
+    "snippet": '<details class="rs-task" open><summary>Read sources</summary><ul class="rs-task-list"><li class="rs-task-item">Read launch-brief.md</li></ul></details>',
+    "example": 'import { Task } from "@noorddev/vlak-react";\n\n<Task title="Read sources" items={[{ id: "brief", content: "Read the launch brief", state: "complete", file: "launch-brief.md" }]} />',
+    "usage": {
+      "use": [
+        "Supply pending, active, and complete items with optional file badges.",
+        "Use children for additional supplied task content."
+      ],
+      "avoid": [
+        "Expecting this display to run tasks or infer their completion."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Moves through the supplied native controls in reading order"
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Activates focused buttons and disclosure summaries"
+      }
+    ],
+    "a11y": [
+      "Native attributes, className, style, and the forwarded ref reach the outer element.",
+      "Interactive content requires accessible names; progress text is not announced for every streamed token."
+    ],
+    "aliases": [
+      "Task",
+      "AI Elements Task",
+      "Task disclosure"
+    ]
+  },
+  {
+    "name": "thought-steps",
+    "title": "Thought steps",
+    "description": "A collapsible sequence of work summaries, with step states, source badges, images, and captions.",
+    "category": "ai",
+    "classes": [
+      "rs-thought-steps",
+      "rs-thought-steps-list",
+      "rs-thought-steps-step",
+      "rs-thought-steps-detail",
+      "rs-thought-steps-title",
+      "rs-thought-steps-active",
+      "rs-thought-steps-sources",
+      "rs-thought-steps-figure",
+      "rs-thought-steps-caption"
+    ],
+    "css": [
+      "components/thought-steps.css"
+    ],
+    "react": "components/thought-steps.tsx",
+    "registryDependencies": [
+      "reasoning"
+    ],
+    "snippet": '<details class="rs-thought-steps"><summary>Review summary</summary><ol class="rs-thought-steps-list"><li class="rs-thought-steps-step">Checked the supplied source</li></ol></details>',
+    "example": 'import { ThoughtSteps } from "@noorddev/vlak-react";\n\n<ThoughtSteps title="Review summary" defaultOpen steps={[{ id: "source", title: "Read the brief", state: "complete", description: "Checked the supplied scope and owners." }, { id: "review", title: "Compare responsibilities", state: "active" }]} />',
+    "usage": {
+      "use": [
+        "Present application-supplied work summaries and the evidence supporting each step.",
+        "Use sources, content, image, caption, and icon slots for richer evidence; images need meaningful alt text."
+      ],
+      "avoid": [
+        "Exposing private model reasoning or inventing an explanation of hidden model internals."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Moves through the supplied native controls in reading order"
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Activates focused buttons and disclosure summaries"
+      }
+    ],
+    "a11y": [
+      "Native attributes, className, style, and the forwarded ref reach the outer element.",
+      "Interactive content requires accessible names; progress text is not announced for every streamed token."
+    ],
+    "aliases": [
+      "Chain of thought",
+      "AI Elements ChainOfThought"
+    ]
+  },
+  {
+    "name": "checkpoint",
+    "title": "Checkpoint",
+    "description": "A conversation marker with an async restore action, retry feedback, and stable cancellation.",
+    "category": "ai",
+    "classes": [
+      "rs-checkpoint",
+      "rs-checkpoint-line",
+      "rs-checkpoint-error"
+    ],
+    "css": [
+      "components/checkpoint.css"
+    ],
+    "react": "components/checkpoint.tsx",
+    "registryDependencies": [
+      "button"
+    ],
+    "snippet": '<div class="rs-checkpoint"><span class="rs-checkpoint-line"></span><span>Before editing</span><button class="rs-btn-subtle" type="button">Restore checkpoint</button><span class="rs-checkpoint-line"></span></div>',
+    "example": 'import { Checkpoint } from "@noorddev/vlak-react";\n\nexport function SavedCheckpoint({ onRestore }: { onRestore: () => void | Promise<void> }) {\n  return <Checkpoint label="Before editing" onRestore={onRestore} />;\n}',
+    "usage": {
+      "use": [
+        "Mark a saved point in history and supply onRestore to restore it.",
+        "A rejected promise keeps the restore action available and explains the failure."
+      ],
+      "avoid": [
+        "Assuming the component saves model or tool state. The application owns persistence and restoration."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Moves through the supplied native controls in reading order"
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Activates focused buttons and disclosure summaries"
+      }
+    ],
+    "a11y": [
+      "Native attributes, className, style, and the forwarded ref reach the outer element.",
+      "Interactive content requires accessible names; progress text is not announced for every streamed token."
+    ],
+    "aliases": [
+      "Checkpoint",
+      "AI Elements Checkpoint",
+      "Restore checkpoint"
+    ]
+  },
+  {
+    "name": "suggestions",
+    "title": "Suggestions",
+    "description": "A wrapping or horizontally scrollable collection of prompt buttons with subtle outlines and 4px corners.",
+    "category": "ai",
+    "classes": [
+      "rs-suggestions",
+      "rs-suggestions-wrap",
+      "rs-suggestions-item"
+    ],
+    "css": [
+      "components/suggestions.css"
+    ],
+    "react": "components/suggestions.tsx",
+    "registryDependencies": [
+      "button"
+    ],
+    "snippet": '<div class="rs-suggestions" role="group" aria-label="Suggested prompts"><button class="rs-suggestions-item rs-btn-ghost" type="button">Review the brief</button></div>',
+    "example": '"use client";\nimport { useState } from "react";\nimport { MessageComposer, Suggestions, Suggestion, type ComposedMessage } from "@noorddev/vlak-react";\n\nexport function SuggestedPrompts({ onSend }: { onSend: (message: ComposedMessage) => void | Promise<void> }) {\n  const [draft, setDraft] = useState("");\n  return <>\n    <Suggestions wrap>\n      <Suggestion value="Review the launch brief" onSelect={setDraft}>Review brief</Suggestion>\n      <Suggestion value="Find missing owners" onSelect={setDraft} />\n    </Suggestions>\n    <MessageComposer compact value={draft} onValueChange={setDraft} onSend={onSend} />\n  </>;\n}',
+    "usage": {
+      "use": [
+        "Offer short suggested prompts using value and onSelect. Display text may be shorter than the submitted value.",
+        "The collection scrolls horizontally by default; wrap places buttons on multiple lines."
+      ],
+      "avoid": [
+        "Making suggestions look like completed or submitted messages."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Moves through the supplied native controls in reading order"
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Activates focused buttons and disclosure summaries"
+      }
+    ],
+    "a11y": [
+      "Native attributes, className, style, and the forwarded ref reach the outer element.",
+      "Interactive content requires accessible names; progress text is not announced for every streamed token."
+    ],
+    "aliases": [
+      "AI Elements Suggestion",
+      "Suggested prompts"
+    ]
+  },
+  {
+    "name": "work-queue",
+    "title": "Work queue",
+    "description": "Collapsible prompt and todo sections with completion counts, attachments, and item actions.",
+    "category": "ai",
+    "classes": [
+      "rs-work-queue",
+      "rs-work-queue-section",
+      "rs-work-queue-list",
+      "rs-work-queue-item",
+      "rs-work-queue-row",
+      "rs-work-queue-content",
+      "rs-work-queue-complete",
+      "rs-work-queue-actions",
+      "rs-work-queue-detail"
+    ],
+    "css": [
+      "components/work-queue.css"
+    ],
+    "react": "components/work-queue.tsx",
+    "registryDependencies": [
+      "reasoning",
+      "checkbox"
+    ],
+    "snippet": '<section class="rs-work-queue" aria-label="Work queue"><details class="rs-work-queue-section" open><summary>Next steps, 0 of 1 complete</summary><ul class="rs-work-queue-list"><li class="rs-work-queue-item">Review the brief</li></ul></details></section>',
+    "example": '"use client";\nimport { useState } from "react";\nimport { WorkQueue } from "@noorddev/vlak-react";\n\nexport function ReviewQueue() {\n  const [completed, setCompleted] = useState(false);\n  return <WorkQueue sections={[{ id: "todos", title: "Next steps", items: [\n    { id: "review", content: "Review the brief", completed },\n  ] }]} onItemCheckedChange={(_sectionId, _itemId, checked) => setCompleted(checked)} />;\n}',
+    "usage": {
+      "use": [
+        "Group queued prompts and todo items in sections with stable ids.",
+        "Supply onItemCheckedChange to make completion interactive; the supplied items remain authoritative.",
+        "Use attachments and actions slots for each item. The component displays counts from supplied completion state."
+      ],
+      "avoid": [
+        "Using a queue display to schedule or execute work."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Moves through the supplied native controls in reading order"
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Activates focused buttons and disclosure summaries"
+      }
+    ],
+    "a11y": [
+      "Native attributes, className, style, and the forwarded ref reach the outer element.",
+      "Interactive content requires accessible names; progress text is not announced for every streamed token."
+    ],
+    "aliases": [
+      "AI Elements Queue",
+      "Prompt queue"
+    ]
+  },
+  {
+    "name": "generated-image",
+    "title": "Generated image",
+    "description": "Displays a supplied generated-image result with alt text and responsive 4px corners.",
+    "category": "ai",
+    "classes": [
+      "rs-generated-image"
+    ],
+    "css": [
+      "components/generated-image.css"
+    ],
+    "react": "components/generated-image.tsx",
+    "registryDependencies": [],
+    "snippet": '<img class="rs-generated-image" src="/example.png" alt="Generated project diagram" />',
+    "example": 'import { GeneratedImage, type GeneratedImageData } from "@noorddev/vlak-react";\n\nexport function WorkflowImage({ image }: { image: GeneratedImageData }) {\n  return <GeneratedImage image={image} alt="Project workflow diagram" />;\n}',
+    "usage": {
+      "use": [
+        "Adapt a provider result containing base64 image bytes and a supported image media type.",
+        "Use native width and height to reserve space. Image generation and fetching remain application-owned."
+      ],
+      "avoid": [
+        "Omitting meaningful alt text for informative results."
+      ]
+    },
+    "keyboard": [],
+    "a11y": [
+      "Native attributes, className, style, and the forwarded ref reach the outer element.",
+      "Interactive content requires accessible names; progress text is not announced for every streamed token."
+    ],
+    "aliases": [
+      "AI Elements Image",
+      "Generated image result"
+    ]
+  },
+  {
+    "name": "conversation-export",
+    "title": "Conversation export",
+    "description": "Downloads a Markdown snapshot from explicit message text, attachments, and structured tool results.",
+    "category": "ai",
+    "classes": [
+      "rs-btn-subtle"
+    ],
+    "css": ["components/button.css"],
+    "react": "components/conversation-export.tsx",
+    "registryDependencies": [
+      "button"
+    ],
+    "snippet": '<button class="rs-btn-subtle" type="button">Download conversation</button>',
+    "example": 'import { ConversationDownload } from "@noorddev/vlak-react";\n\n<ConversationDownload title="Project review" messages={[{ role: "user", content: "Review the brief" }, { role: "assistant", parts: [{ type: "text", text: "Two owners are missing." }] }]} />',
+    "usage": {
+      "use": [
+        "Pass explicit message data to serializeConversation or ConversationDownload. No rendered DOM is scraped.",
+        "Use serializePart for application-specific export formatting. The download owns and releases its object URLs."
+      ],
+      "avoid": [
+        "Coercing arbitrary message objects into strings or claiming persistence from a local download."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Moves through the supplied native controls in reading order"
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Activates focused buttons and disclosure summaries"
+      }
+    ],
+    "a11y": [
+      "Native attributes, className, style, and the forwarded ref reach the outer element.",
+      "Interactive content requires accessible names; progress text is not announced for every streamed token."
+    ],
+    "aliases": [
+      "Conversation download",
+      "Markdown export"
+    ]
+  },
+  {
+    "name": "response-editor",
+    "title": "Response editor",
+    "description": "A multiline message editor that preserves failed drafts and ignores cancelled saves.",
+    "category": "ai",
+    "classes": [
+      "rs-response-editor",
+      "rs-response-editor-actions",
+      "rs-response-editor-error"
+    ],
+    "css": [
+      "components/response-editor.css"
+    ],
+    "react": "components/response-editor.tsx",
+    "registryDependencies": [
+      "button",
+      "textarea"
+    ],
+    "snippet": '<form class="rs-response-editor" aria-label="Edit message"><label>Message<textarea>Review the brief</textarea></label><div class="rs-response-editor-actions"><button class="rs-btn-subtle" type="submit">Save message</button></div></form>',
+    "example": 'import { ResponseEditor } from "@noorddev/vlak-react";\n\nexport function EditMessage({ text, onSave, onCancel }: {\n  text: string;\n  onSave: (text: string) => void | Promise<void>;\n  onCancel: () => void;\n}) {\n  return <ResponseEditor text={text} onSave={onSave} onCancel={onCancel} />;\n}',
+    "usage": {
+      "use": [
+        "Edit a supplied message with an application-owned async save. Failed saves preserve the draft.",
+        "Compose this editor with ResponseBranch when editing produces another response version. The application owns regenerate requests and history.",
+        "Escape or Cancel invalidates local pending feedback and calls onCancel."
+      ],
+      "avoid": [
+        "Treating local cancellation as cancellation of a backend operation; pass and manage that signal in the application."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Moves through the supplied native controls in reading order"
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Activates focused buttons and disclosure summaries"
+      },
+      {
+        "keys": "Escape",
+        "does": "Cancels the editor and invalidates pending feedback"
+      }
+    ],
+    "a11y": [
+      "Native attributes, className, style, and the forwarded ref reach the outer element.",
+      "Interactive content requires accessible names; progress text is not announced for every streamed token."
+    ],
+    "aliases": [
+      "Response editor",
+      "Edit message",
+      "Regenerate response"
+    ]
+  }
+];
+
+// src/registry-ai-workflow.ts
+var aiWorkflowComponents = [{
+  name: "workflow-canvas",
+  title: "Workflow canvas",
+  description: "An interactive graph with draggable nodes, connections, viewport controls, anchored panels, and node actions.",
+  category: "ai",
+  classes: ["rs-workflow-canvas", "rs-workflow-canvas-node", "rs-workflow-canvas-selected", "rs-workflow-canvas-header", "rs-workflow-canvas-title", "rs-workflow-canvas-description", "rs-workflow-canvas-content", "rs-workflow-canvas-footer", "rs-workflow-canvas-handle", "rs-workflow-canvas-dot", "rs-workflow-canvas-edge", "rs-workflow-canvas-temporary", "rs-workflow-canvas-animated", "rs-workflow-canvas-endpoint", "rs-workflow-canvas-panel", "rs-workflow-canvas-controls"],
+  css: ["components/workflow-canvas.css"],
+  react: "components/workflow-canvas.tsx",
+  reactImport: "@noorddev/vlak-react/components/workflow-canvas",
+  dependencies: ["@xyflow/react"],
+  styles: ["@noorddev/vlak-react/workflow.css"],
+  registryDependencies: ["button", "canvas-controls", "toolbar"],
+  snippet: '<section class="rs-workflow-canvas" aria-label="Workflow"><div class="rs-workflow-canvas-node"><header class="rs-workflow-canvas-header"><div class="rs-workflow-canvas-title">Review brief</div></header><div class="rs-workflow-canvas-content">Summarize the supplied document.</div></div></section>',
+  example: '"use client";\nimport "@noorddev/vlak-react/workflow.css";\nimport { addEdge, useNodesState, useEdgesState, type Edge } from "@xyflow/react";\nimport { WorkflowCanvas, WorkflowControls, WorkflowPanel, type WorkflowGraphNode } from "@noorddev/vlak-react/components/workflow-canvas";\n\nexport function ReviewWorkflow() {\n  const [nodes, , onNodesChange] = useNodesState<WorkflowGraphNode>([\n    { id: "brief", type: "vlak", position: { x: 0, y: 0 }, data: { title: "Read brief", target: false } },\n    { id: "review", type: "vlak", position: { x: 380, y: 0 }, data: { title: "Review", source: false } },\n  ]);\n  const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);\n  return <WorkflowCanvas nodes={nodes} edges={edges} onNodesChange={onNodesChange} onEdgesChange={onEdgesChange}\n    onConnect={connection => setEdges(current => addEdge({ ...connection, type: "vlak" }, current))}>\n    <WorkflowControls />\n    <WorkflowPanel position="top-left">Review workflow</WorkflowPanel>\n  </WorkflowCanvas>;\n}',
+  usage: {
+    use: ["Import this optional entry and its stylesheet only where a graph is needed. React Flow is an optional peer dependency.", "Supply nodes, edges, and change callbacks for a controlled graph, or defaultNodes and defaultEdges for engine-owned state. The application persists and executes the graph.", "Use type=vlak for the supplied node and edge renderers. Custom nodeTypes can compose WorkflowNode and WorkflowToolbar; custom connection lines can use WorkflowConnection.", "WorkflowPanel anchors overlays in six viewport positions. WorkflowToolbar stays anchored to a selected node and composes Vlak's keyboard-aware Toolbar.", "WorkflowControls binds the existing CanvasControls to pan, zoom, fit, reset, and interaction lock. React Flow props remain available, including connection validation, viewport changes, and accessibility configuration.", "For copied source, import @xyflow/react/dist/base.css in a CSS layer named vlak.engine before vlak.components. The package's workflow.css supplies that ordering.", "Set an explicit height through style when the default 32rem does not suit the container. Use a separate form or Patchbay when users need keyboard-only creation of connections."],
+    avoid: ["Using Flow, an ordered pipeline layout, as an interactive graph engine.", "Turning off React Flow's keyboard accessibility without supplying equivalent controls.", "Treating a connected graph as executed work. Execution, persistence, permissions, and undo history belong to the application."]
+  },
+  keyboard: [
+    { keys: "Tab", does: "Focuses nodes, edges, viewport controls, and supplied actions" },
+    { keys: "Enter, Space", does: "Selects a focused node or edge through React Flow" },
+    { keys: "Arrow keys", does: "Moves a selected, draggable node; moves between actions inside the node toolbar" },
+    { keys: "Delete, Backspace", does: "Deletes selected graph elements through the supplied change callbacks" },
+    { keys: "Escape", does: "Cancels the current graph selection or connection gesture" }
+  ],
+  a11y: ["React Flow supplies keyboard movement, focusable nodes and edges, instruction text, and movement announcements. ariaLabelConfig can localize those messages.", "Visible connection handles have 44px pointer targets. The application should provide a form-based connection action for keyboard-only creation.", "The node action Toolbar retains its single Tab stop and arrow-key focus movement.", "Animated edges stop moving with reduced motion. Surfaces use Vlak paper, ink, hairlines, and 4px corners."],
+  aliases: ["AI Elements Canvas", "AI Elements Connection", "AI Elements Controls", "AI Elements Edge", "AI Elements Node", "AI Elements Panel", "AI Elements Toolbar", "React Flow", "WorkflowCanvas", "WorkflowNode", "WorkflowEdge", "WorkflowConnection", "WorkflowControls", "WorkflowPanel", "WorkflowToolbar", "Interactive graph"]
+}];
+
+// src/registry-ai-rich-response.ts
+var aiRichResponse = [
+  {
+    "name": "response-markdown",
+    "title": "Response markdown",
+    "description": "Renders streaming markdown, tables, code, math, and diagrams with Vlak typography and safe default links.",
+    "category": "ai",
+    "classes": [
+      "rs-response-markdown-paragraph",
+      "rs-response-markdown-strong",
+      "rs-response-markdown-list",
+      "rs-response-markdown-item",
+      "rs-response-markdown-quote",
+      "rs-response-markdown-inline",
+      "rs-response-markdown-link",
+      "rs-response-markdown-image",
+      "rs-response-markdown-image-description",
+      "rs-response-markdown-table-region",
+      "rs-response-markdown-table",
+      "rs-response-markdown-th",
+      "rs-response-markdown-td",
+      "rs-response-markdown-rule",
+      "rs-response-markdown-diagram",
+      "rs-response-markdown-diagram-viewport",
+      "rs-response-markdown-diagram-art",
+      "rs-response-markdown-diagram-header",
+      "rs-response-markdown-diagram-title",
+      "rs-response-markdown-diagram-action",
+      "rs-response-markdown-diagram-icon",
+      "rs-response-markdown-summary",
+      "rs-response-markdown-feedback",
+      "rs-response-markdown",
+      "rs-response-markdown-h1",
+      "rs-response-markdown-h2",
+      "rs-response-markdown-h3",
+      "rs-response-markdown-h4",
+      "rs-response-markdown-h5",
+      "rs-response-markdown-h6"
+    ],
+    "css": [
+      "components/response-markdown.css"
+    ],
+    "react": "components/response-markdown.tsx",
+    "reactImport": "@noorddev/vlak-react/components/response-markdown",
+    "dependencies": [
+      "streamdown@^2.6.0",
+      "shiki@^3.19.0",
+      "@streamdown/math@^1.0.2",
+      "@streamdown/cjk@^1.0.3",
+      "mermaid@^11.12.2",
+      "katex@^0.16.27"
+    ],
+    "styles": [
+      "katex/dist/katex.min.css"
+    ],
+    "registryDependencies": [
+      "highlighted-code",
+      "button"
+    ],
+    "snippet": '<div class="rs-response-markdown"><p class="rs-response-markdown-paragraph">Give each decision a <strong class="rs-response-markdown-strong">clear owner</strong> and a next step.</p></div>',
+    "example": 'import { Response } from "@noorddev/vlak-react";\nimport { ResponseMarkdown } from "@noorddev/vlak-react/components/response-markdown";\nimport "katex/dist/katex.min.css";\n\n<Response status="streaming">\n  <ResponseMarkdown streaming>{"Give each decision a **clear owner**."}</ResponseMarkdown>\n</Response>',
+    "usage": {
+      "use": [
+        "Pass the current response text and streaming=true while receiving it. Completed content uses static parsing.",
+        "Use the optional renderer subpath and install its documented dependencies. It needs no model vendor or Tailwind runtime.",
+        "Import the documented KaTeX stylesheet to render equations and local math fonts correctly.",
+        "Set imageOrigins to exact permitted origins when response images should load. Otherwise image descriptions remain readable.",
+        "Use trusted components overrides for application-specific rendering. Native root attributes, styles, and refs are preserved."
+      ],
+      "avoid": [
+        "Passing model-authored markup through a custom component that injects it as trusted content.",
+        "Assuming the renderer starts a model request, persists a message, or executes displayed code.",
+        "Importing renderer code into the root component package when a lightweight application does not use it."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Reaches links, scrollable tables and code, diagram controls, and the native source disclosure."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Activates the focused code or diagram button; the native source summary expands or collapses."
+      }
+    ],
+    "a11y": [
+      "Changing response text stays outside a live region. Compose with Response for short response status announcements.",
+      "Headings, lists, tables, readable code, and math retain semantic markup. Tables and code are keyboard-scrollable.",
+      "Raw markup is disabled and sanitized. Links allow web and mail protocols; other protocols and incomplete links remain inert text.",
+      "Math uses KaTeX with its default trust restrictions. Diagrams load only after a complete fence and use strict rendering with source fallback.",
+      "Diagram zoom controls have descriptive names, 44px targets, and visible focus. Invalid or oversized diagrams preserve their source."
+    ],
+    "aliases": [
+      "AI Elements MessageResponse",
+      "Streamdown",
+      "Markdown response",
+      "Streaming markdown",
+      "Math response",
+      "Mermaid response"
+    ]
+  },
+  {
+    "name": "highlighted-code",
+    "title": "Highlighted code",
+    "description": "Monochrome syntax highlighting with lazy grammars, exact-source copy and download, and a scrollable code region.",
+    "category": "ai",
+    "classes": [
+      "rs-highlighted-code",
+      "rs-highlighted-code-header",
+      "rs-highlighted-code-language",
+      "rs-highlighted-code-actions",
+      "rs-highlighted-code-action",
+      "rs-highlighted-code-icon",
+      "rs-highlighted-code-pre",
+      "rs-highlighted-code-line",
+      "rs-highlighted-code-number",
+      "rs-highlighted-code-status",
+      "rs-highlighted-code-token",
+      "rs-highlighted-code-muted",
+      "rs-highlighted-code-bold",
+      "rs-highlighted-code-italic"
+    ],
+    "css": [
+      "components/highlighted-code.css"
+    ],
+    "react": "components/highlighted-code.tsx",
+    "reactImport": "@noorddev/vlak-react/components/highlighted-code",
+    "dependencies": [
+      "shiki@^3.19.0"
+    ],
+    "registryDependencies": [
+      "button"
+    ],
+    "snippet": '<figure class="rs-highlighted-code"><figcaption class="rs-highlighted-code-header"><span class="rs-highlighted-code-language">typescript</span></figcaption><pre class="rs-highlighted-code-pre" tabindex="0" role="group" aria-label="typescript source"><code>const ready = true;</code></pre></figure>',
+    "example": 'import { HighlightedCode } from "@noorddev/vlak-react/components/highlighted-code";\n\n<HighlightedCode code={"const ready = true;"} language="typescript" filename="review.ts" lineNumbers />',
+    "usage": {
+      "use": [
+        "Source returned by an assistant or supplied by an application that benefits from syntax structure.",
+        "Pass streaming=true for unfinished blocks. Highlighting begins when the block settles.",
+        "Set filename for code downloads. Copy and download always use the original supplied code.",
+        "Unknown languages, large source, and unavailable grammars remain readable plain text."
+      ],
+      "avoid": [
+        "Expecting this component to execute code or to fetch a source file.",
+        "Applying colored syntax themes outside the monochrome design system."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Reaches copy, download, and the scrollable source region."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Copies or downloads the source through the focused button."
+      }
+    ],
+    "a11y": [
+      "Source is rendered as escaped React text, including highlighted tokens. Decorative line numbers do not enter the accessible text.",
+      "Copy feedback appears only after the clipboard request resolves. Failure remains visible and can be retried.",
+      "A 44px target and visible focus outline support keyboard use. The source region is named and scrollable.",
+      "Highlighting is lazy, has bounded full-source caching, and ignores stale results after content changes. Native figure attributes and its ref pass through."
+    ],
+    "aliases": [
+      "AI Elements CodeBlock",
+      "Shiki code block",
+      "Syntax highlighting"
+    ]
+  },
+  {
+    "name": "response-branch",
+    "title": "Response branch",
+    "description": "Navigates saved response alternatives with stable identity, previous and next controls, and a readable position.",
+    "category": "ai",
+    "classes": [
+      "rs-response-branch",
+      "rs-response-branch-content",
+      "rs-response-branch-controls",
+      "rs-response-branch-action",
+      "rs-response-branch-icon",
+      "rs-response-branch-position",
+      "rs-response-branch-empty"
+    ],
+    "css": [
+      "components/response-branch.css"
+    ],
+    "react": "components/response-branch.tsx",
+    "registryDependencies": [
+      "button"
+    ],
+    "snippet": '<div class="rs-response-branch"><div class="rs-response-branch-content" id="branch-content"><p>Give each decision an owner and a next step.</p></div><div class="rs-response-branch-controls" role="group" aria-label="Response alternatives"><button class="rs-btn-subtle rs-response-branch-action" type="button" disabled aria-label="Previous response" aria-controls="branch-content">\u2039</button><span class="rs-response-branch-position" role="status" aria-live="polite">1 / 2</span><button class="rs-btn-subtle rs-response-branch-action" type="button" aria-label="Next response" aria-controls="branch-content">\u203A</button></div></div>',
+    "example": 'import { Response, ResponseBranch } from "@noorddev/vlak-react";\n\n<ResponseBranch branches={[\n  { id: "first", content: <Response>Give each decision an owner.</Response> },\n  { id: "second", content: <Response>Start with a clear review flow.</Response> },\n]} />',
+    "usage": {
+      "use": [
+        "Compare existing assistant responses or application-supplied alternatives without losing their identity.",
+        "Use value and onValueChange for application-owned selection, or defaultValue for an initial preference.",
+        "Keep branch IDs stable when responses are reordered or new alternatives arrive.",
+        "Compose retry and editing actions in branch content. The application owns generation, persistence, and conversation history."
+      ],
+      "avoid": [
+        "Assuming changing a branch calls a model, deletes a response, or rewrites subsequent messages.",
+        "Using array position as a persistent branch identity."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Reaches available previous and next buttons and interactive content in the selected response."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Requests the adjacent response through the focused native button."
+      }
+    ],
+    "a11y": [
+      "The named control group exposes descriptive 44px buttons. Boundary controls are disabled.",
+      "A short polite status announces the selected position, while message content stays outside the live region.",
+      "Only the selected response is rendered. Controlled values stay authoritative until the application accepts a request.",
+      "Empty and single-branch states omit navigation. Native root attributes, className, style, and the div ref pass through."
+    ],
+    "aliases": [
+      "AI Elements MessageBranch",
+      "Response alternatives",
+      "Message versions",
+      "Response pagination"
+    ]
+  }
+];
+
+// src/registry-ai-voice.ts
+var aiVoiceComponents = [
+  {
+    name: "audio-player",
+    title: "Audio player",
+    category: "ai",
+    description: "Native audio playback for remote files and generated speech, with composable controls, bounded skip seeking, volume, and recoverable errors.",
+    classes: ["rs-audio-player", "rs-audio-player-heading", "rs-audio-player-controls", "rs-audio-player-row", "rs-audio-player-volume", "rs-audio-player-status", "rs-audio-player-transcript"],
+    css: ["components/audio-player.css"],
+    react: "components/audio-player.tsx",
+    registryDependencies: ["button", "button-group", "slider", "media-scrubber", "icons"],
+    snippet: '<div class="rs-audio-player" role="region" aria-label="Spoken brief"><h3 class="rs-audio-player-heading">Spoken brief</h3><audio controls aria-label="Spoken brief" src="/brief.wav"></audio><p class="rs-audio-player-transcript">The brief is ready for review.</p></div>',
+    example: 'import { AudioPlayer, AudioPlayerControls, type GeneratedSpeechAudio } from "@noorddev/vlak-react";\n\nexport function SpokenBrief({ speech, transcript }: { speech: GeneratedSpeechAudio; transcript: string }) {\n  return <AudioPlayer title="Spoken brief" data={speech} transcript={transcript}>\n    <AudioPlayerControls seekOffset={5} />\n  </AudioPlayer>;\n}',
+    usage: { use: ["Supply src for a file or data with base64 and an audio mediaType for generated speech.", "The default controls support play, pause, skip backward and forward, seeking, mute, and volume.", "Replace children with AudioPlayerControls or application controls using useAudioPlayer inside the player.", "Supply a readable transcript for spoken content. Provider generation and authorization remain application-owned.", "The forwarded ref reaches the native audio element; onTimeChange can synchronize Transcription.", "Source changes stop the old element and discard stale playback results. CSS-only markup uses native audio controls."], avoid: ["Autoplaying generated speech without user activation.", "Treating this component as a speech generation API."] },
+    keyboard: [{ keys: "Tab", does: "Moves through playback, seeking, and volume controls" }, { keys: "Enter, Space", does: "Activates playback, skip, mute, or retry" }, { keys: "Arrow keys, Home, End", does: "Adjusts the focused native seek or volume range" }],
+    a11y: ["The player is a region named by its title, and icon buttons have explicit accessible labels and 44px targets.", "Playback failures use a status region and permit retry. Native events own playback state.", "The subtle 1px frame uses 4px corners; focus and forced-colors controls retain distinct outlines."],
+    aliases: ["AI Elements Audio Player", "Generated speech", "AudioPlayerControls", "Speech playback"]
+  },
+  {
+    name: "mic-selector",
+    title: "Mic selector",
+    category: "ai",
+    description: "Searches available microphone inputs with explicit permission activation, device-change updates, and recoverable selection states.",
+    classes: ["rs-mic-selector", "rs-mic-selector-label", "rs-mic-selector-actions", "rs-mic-selector-message"],
+    css: ["components/mic-selector.css"],
+    react: "components/mic-selector.tsx",
+    registryDependencies: ["button", "combobox", "input"],
+    snippet: '<div class="rs-mic-selector"><label class="rs-mic-selector-label" for="microphone">Microphone</label><select id="microphone" class="rs-input"><option>System microphone</option></select><p class="rs-mic-selector-message">Selecting an input does not start recording.</p></div>',
+    example: '"use client";\nimport { useState } from "react";\nimport { MicSelector } from "@noorddev/vlak-react";\n\nexport function MicrophonePicker() {\n  const [deviceId, setDeviceId] = useState("");\n  return <MicSelector label="Microphone" value={deviceId} onValueChange={setDeviceId} />;\n}',
+    usage: { use: ["Select a device before application-owned recording.", "useAudioDevices enumerates without opening a microphone; requestAccess asks for permission only when activated.", "Input labels may be unavailable until the user allows access. Temporary permission streams are released.", "Keep value controlled to preserve a selected device across device-change events.", "CSS-only markup requires application code for discovery and capture permissions."], avoid: ["Assuming selection starts recording or guarantees that a disconnected device remains usable.", "Requesting microphone permission automatically when rendering a page."] },
+    keyboard: [{ keys: "Type", does: "Filters the microphone list" }, { keys: "Arrow Down, Arrow Up, Enter", does: "Navigates and chooses an available microphone" }, { keys: "Escape", does: "Closes the selection list" }, { keys: "Tab, Enter, Space", does: "Reaches and activates permission or refresh controls" }],
+    a11y: ["A visible label names the combobox. Loading, permission errors, and disconnection are announced through a status region.", "Keyboard filtering comes from the shared Combobox. Permission and refresh actions use native 44px buttons.", "Native div attributes and the root ref are forwarded."],
+    aliases: ["AI Elements Mic Selector", "Microphone picker", "Audio input", "useAudioDevices"]
+  },
+  {
+    name: "speech-input",
+    title: "Speech input",
+    category: "ai",
+    description: "Starts and stops native speech capture, with final text, optional interim results, and application transcription of recorded audio.",
+    classes: ["rs-speech-input", "rs-speech-input-message", "rs-speech-input-icon"],
+    css: ["components/speech-input.css"],
+    react: "components/speech-input.tsx",
+    registryDependencies: ["button"],
+    snippet: '<span class="rs-speech-input"><button class="rs-btn-subtle" type="button" aria-pressed="false">Start speech input</button><span class="rs-speech-input-message" role="status">Speech capture requires application code.</span></span>',
+    example: `import { SpeechInput } from "@noorddev/vlak-react";
+
+export function Dictation({ onTranscript, endpoint }: {
+  onTranscript: (text: string) => void;
+  endpoint: string; // The application's audio transcription endpoint.
+}) {
+  return <SpeechInput lang="en-US" onTranscript={onTranscript}
+    onAudioRecorded={async (audio, { signal }) => {
+      const body = new FormData();
+      body.append("audio", audio);
+      const response = await fetch(endpoint, { method: "POST", body, signal });
+      if (!response.ok) throw new Error("Transcription failed. Try again.");
+      const result: unknown = await response.json();
+      if (!result || typeof result !== "object" || !("text" in result) || typeof result.text !== "string") {
+        throw new Error("The transcription response must contain text.");
+      }
+      return result.text;
+    }}
+  />;
+}`,
+    usage: { use: ["Capture speech only after the user activates the button. Stop processes the recording; Cancel discards pending capture or transcription.", "Native speech recognition is feature-detected. Supply onAudioRecorded for browsers that need a MediaRecorder transcription fallback.", "The fallback negotiates an available media type and passes actual audio bytes plus an AbortSignal to the application.", "Use mode=recording and deviceId for a specific input. Recognition mode follows the browser's input choice.", "maxDuration defaults to 120 seconds; configuration changes and unmount cancel owned capture resources.", "Provider credentials and transcription requests belong to the application. CSS-only markup does not record audio."], avoid: ["Claiming browser speech recognition always works offline.", "Automatically sending transcribed text to a conversation without the application's send action."] },
+    keyboard: [{ keys: "Tab", does: "Focuses the speech control when available" }, { keys: "Enter, Space", does: "Starts, stops, or cancels speech input according to its current state" }],
+    a11y: ["The native button has a state-specific label, aria-pressed, and a 44px target.", "A described status region explains listening, processing, unavailable support and recoverable errors.", "The button ref and native button attributes pass through. Unsupported capture is disabled with an explanation.", "Owned streams, listeners, recognition and processing are canceled on cleanup; late results are ignored."],
+    aliases: ["AI Elements Speech Input", "Voice input", "Dictation", "MediaRecorder", "Speech recognition"]
+  },
+  {
+    name: "voice-selector",
+    title: "Voice selector",
+    category: "ai",
+    description: "Searches application-supplied voice names and metadata, with controlled selection and optional audio preview playback.",
+    classes: ["rs-voice-selector", "rs-voice-selector-label", "rs-voice-selector-option", "rs-voice-selector-metadata", "rs-voice-selector-detail", "rs-voice-selector-message"],
+    css: ["components/voice-selector.css"],
+    react: "components/voice-selector.tsx",
+    registryDependencies: ["button", "combobox", "input"],
+    snippet: '<div class="rs-voice-selector"><label class="rs-voice-selector-label" for="voice">Voice</label><select class="rs-input" id="voice"><option>Mina \xB7 English</option><option>Noor \xB7 Dutch</option></select></div>',
+    example: '"use client";\nimport { useState } from "react";\nimport { VoiceSelector } from "@noorddev/vlak-react";\n\nexport function VoicePicker({ sampleUrl }: { sampleUrl?: string }) {\n  const [voiceId, setVoiceId] = useState("mina");\n  return <VoiceSelector value={voiceId} onValueChange={setVoiceId} voices={[\n    { id: "mina", name: "Mina", provider: "Your provider", language: "English", attributes: ["Warm"], previewSrc: sampleUrl, previewText: "A short sample of this voice." },\n    { id: "noor", name: "Noor", provider: "Your provider", language: "Dutch" },\n  ]} />;\n}',
+    usage: { use: ["Supply provider voice records; name, provider, language, description and attributes all participate in search.", "Use value/onValueChange or defaultValue for voice selection.", "Supply previewSrc for a real audio sample and previewText for speech's text alternative.", "Sample playback begins only after Preview voice. Selection changes or unmount stop this selector's previous sample.", "CSS-only markup provides selection paint; search and sample playback need application code."], avoid: ["Assuming this picker fetches a provider catalog or changes a speech engine by itself.", "Inferring voice metadata instead of using the provider's supplied descriptions."] },
+    keyboard: [{ keys: "Type", does: "Filters voice names and supplied metadata" }, { keys: "Arrow Down, Arrow Up, Enter", does: "Navigates and selects a voice" }, { keys: "Escape", does: "Closes the voice list" }, { keys: "Enter, Space", does: "Starts or stops the selected voice sample" }],
+    a11y: ["The visible label names the shared Combobox; disabled voices are skipped by keyboard navigation.", "Preview errors use a status region and permit retry. Samples never autoplay.", "The selected voice's metadata uses a subtle 1px frame with 4px corners. Native div attributes and ref are forwarded."],
+    aliases: ["AI Elements Voice Selector", "Voice picker", "Voice preview", "TTS voice"]
+  },
+  {
+    name: "transcription",
+    title: "Transcription",
+    category: "ai",
+    description: "Displays timestamped speech segments, highlights playback time, and optionally seeks a player through accessible phrase controls.",
+    classes: ["rs-transcription", "rs-transcription-viewport", "rs-transcription-list", "rs-transcription-segment", "rs-transcription-interactive", "rs-transcription-active", "rs-transcription-time", "rs-transcription-speaker", "rs-transcription-empty"],
+    css: ["components/transcription.css"],
+    react: "components/transcription.tsx",
+    registryDependencies: ["button", "media-scrubber"],
+    snippet: '<div class="rs-transcription"><div class="rs-transcription-viewport" role="group" aria-label="Transcript" tabindex="0"><ol class="rs-transcription-list"><li><div class="rs-transcription-segment rs-transcription-active" aria-current="true"><span class="rs-transcription-time">0:00</span><span>The brief is ready for review.</span></div></li></ol></div></div>',
+    example: '"use client";\nimport { useRef, useState } from "react";\nimport { Transcription } from "@noorddev/vlak-react";\n\nexport function TimedTranscript({ src }: { src: string }) {\n  const audioRef = useRef<HTMLAudioElement>(null);\n  const [time, setTime] = useState(0);\n  return <>\n    <audio ref={audioRef} src={src} controls aria-label="Spoken brief" onTimeUpdate={event => setTime(event.currentTarget.currentTime)} />\n    <Transcription currentTime={time} onSeek={seconds => {\n      if (audioRef.current) audioRef.current.currentTime = seconds;\n    }} segments={[\n      { id: "opening", startSecond: 0, endSecond: 4, speaker: "Mina", text: "The brief is ready for review." },\n      { id: "next", startSecond: 4, endSecond: 8, text: "Each decision has an owner and a next step." },\n    ]} />\n  </>;\n}',
+    usage: { use: ["Supply stable segment ids, text and finite non-negative timestamps in seconds.", "currentTime controls highlighting. Only activating a segment invokes onSeek; playback updates never trigger seek feedback loops.", "Without onSeek the transcript is noninteractive text. Empty or invalid segments are omitted.", "autoScroll is off by default. When enabled it follows active text until the reader scrolls or interacts, then offers Follow transcript.", "CSS-only markup displays supplied text and states; synchronization requires application code."], avoid: ["Treating supplied text as a live transcription service.", "Forcing the viewport back to the active phrase after the reader scrolls away."] },
+    keyboard: [{ keys: "Tab", does: "Reaches the transcript region and optional phrase seek controls" }, { keys: "Arrow keys, Page Up, Page Down, Home, End", does: "Scrolls the focused region and pauses automatic following" }, { keys: "Enter, Space", does: "Seeks to the focused phrase or resumes following" }],
+    a11y: ["A named region contains an ordered list, timestamps and optional speaker labels.", "Active text exposes aria-current and a full selected fill. Seek buttons have 44px minimum height and visible focus.", "Following moves only this transcript's scroll position; it never steals focus or announces each playback tick."],
+    aliases: ["AI Elements Transcription", "Timed transcript", "Speech segments", "Transcript seek"]
+  },
+  {
+    name: "persona",
+    title: "Persona",
+    category: "ai",
+    description: "Native monochrome waveform, fluid orb, and ring visuals with five conversational states, live intensity, and a custom renderer.",
+    classes: ["rs-persona", "rs-persona-visual", "rs-persona-bar", "rs-persona-running", "rs-persona-listening", "rs-persona-thinking", "rs-persona-speaking", "rs-persona-asleep", "rs-persona-orb", "rs-persona-orb-surface", "rs-persona-rings", "rs-persona-ring"],
+    css: ["components/persona.css"],
+    react: "components/persona.tsx",
+    registryDependencies: [],
+    snippet: '<div class="rs-persona rs-persona-thinking" role="img" aria-label="Assistant: thinking" data-state="thinking" data-variant="orb" style="width:48px;height:48px"><span class="rs-persona-orb" aria-hidden="true"><span class="rs-persona-orb-surface"></span></span></div>',
+    example: 'import { Persona, type PersonaState, type PersonaVariant, type PersonaVisualContext } from "@noorddev/vlak-react";\nimport type { ReactNode } from "react";\n\nexport function AssistantPersona({ state = "idle", variant = "orb", intensity, paused, renderVisual }: {\n  state?: PersonaState;\n  variant?: PersonaVariant;\n  intensity?: number;\n  paused?: boolean;\n  renderVisual?: (context: PersonaVisualContext) => ReactNode;\n}) {\n  return <Persona state={state} variant={variant} intensity={intensity} paused={paused}\n    size={48} label="Assistant" renderVisual={renderVisual} />;\n}',
+    usage: { use: ["Drive state from actual application recording, generation and playback events.", "Choose waveform, orb, or rings. Waveform remains the default. All five states work with each native visual without an external graphics runtime.", "Supply intensity from zero to one for measured input or output energy; it is clamped, and asleep always settles to zero. Otherwise each state provides a representative intensity.", "Motion pauses when offscreen, the document is hidden, paused is true, or state is asleep. Reduced motion and forced colors keep a static visual.", "onMotionChange reports the effective motion policy initially and when it changes. It does not report asset loading or custom engine playback events.", "Supply children for static custom content, or renderVisual for state, normalized size and intensity, and animated. A custom graphics renderer should honor animated and release its own resources.", "CSS-only markup shows a static representative visual; the React component manages visibility and user preference changes.", "Omit label for a decorative visual beside an already named response. Add label to expose the visual and state as an image."], avoid: ["Mounting a separate graphics runtime for every historical message.", "Using animation alone to communicate an error or progress that needs readable text."] },
+    keyboard: [],
+    a11y: ["The default is decorative. A supplied label exposes a named image including the current conversational state.", "Animation respects reduced motion, forced colors, viewport visibility and document visibility.", "The component forwards native div attributes, class/style and ref; it does not request audio permissions or play speech."],
+    aliases: ["AI Elements Persona", "AI avatar", "Assistant visual", "Voice state", "Orb"]
+  }
+];
+
+// src/registry-ai-code.ts
+var aiCode = [
+  {
+    "name": "agent",
+    "title": "Agent",
+    "description": "Inspects an agent\u2019s model, instructions, tool definitions and output schema in a 4px surface.",
+    "category": "ai",
+    "classes": [
+      "rs-agent",
+      "rs-agent-header",
+      "rs-agent-title",
+      "rs-agent-content",
+      "rs-agent-section",
+      "rs-agent-label",
+      "rs-agent-instructions",
+      "rs-agent-description"
+    ],
+    "css": [
+      "components/agent.css"
+    ],
+    "react": "components/agent.tsx",
+    "registryDependencies": [
+      "badge",
+      "collapsible",
+      "code-block",
+      "json-viewer"
+    ],
+    "snippet": '<article class="rs-agent" aria-label="Agent Code reviewer"><header class="rs-agent-header"><span class="rs-agent-title">Code reviewer</span></header><div class="rs-agent-content"><div class="rs-agent-section"><span class="rs-agent-label">Instructions</span><div class="rs-agent-instructions">Review the supplied diff and cite relevant files.</div></div></div></article>',
+    "example": 'import { Agent } from "@noorddev/vlak-react";\n\n<Agent name="Code reviewer" model="Workspace model" instructions="Review the supplied diff." tools={[{ name: "read_file", inputSchema: { type: "object", properties: { path: { type: "string" } } } }]} outputSchema="type Review = { summary: string }" />',
+    "usage": {
+      "use": [
+        "Inspect supplied model configuration, instructions and named tools before starting work.",
+        "Use renderSchema to supply a syntax renderer; objects use the bounded JsonViewer by default and strings use CodeBlock."
+      ],
+      "avoid": [
+        "Executing tool definitions or treating displayed instructions as authorization.",
+        "Assuming this component calls a model or highlights source without a supplied renderer."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Tab reaches tool disclosures and schema controls."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Enter or Space on a summary expands or collapses a tool schema."
+      }
+    ],
+    "a11y": [
+      "An article has an accessible agent name; model and tool identities are visible text.",
+      "Native tool disclosures provide keyboard access. The default object viewer does not invoke getters.",
+      "Instructions accept React content; applications configure any Markdown renderer they supply."
+    ],
+    "aliases": [
+      "AI Elements Agent",
+      "Agent configuration",
+      "Tool definitions"
+    ]
+  },
+  {
+    "name": "artifact",
+    "title": "Artifact",
+    "description": "Frames generated content with header actions, an optional scroll region and a close request.",
+    "category": "ai",
+    "classes": [
+      "rs-artifact",
+      "rs-artifact-header",
+      "rs-artifact-heading",
+      "rs-artifact-title",
+      "rs-artifact-description",
+      "rs-artifact-actions",
+      "rs-artifact-content",
+      "rs-artifact-footer"
+    ],
+    "css": [
+      "components/artifact.css"
+    ],
+    "react": "components/artifact.tsx",
+    "registryDependencies": [
+      "button",
+      "icons"
+    ],
+    "snippet": '<section class="rs-artifact" aria-labelledby="artifact-title"><header class="rs-artifact-header"><div class="rs-artifact-heading"><span class="rs-artifact-title" id="artifact-title">Review notes</span><div class="rs-artifact-description">Draft 1</div></div></header><div class="rs-artifact-content"><p>Retain the original draft when sending fails.</p></div><footer class="rs-artifact-footer">Local draft</footer></section>',
+    "example": 'import { Artifact, Button } from "@noorddev/vlak-react";\n\nexport function ReviewArtifact({ onRevise }: { onRevise: () => void }) {\n  return <Artifact title="Review notes" description="Draft 1" maxHeight="20rem" actions={<Button variant="subtle" onClick={onRevise}>Revise draft</Button>} footer="Local draft">\n    <p>Retain the original draft when sending fails.</p>\n  </Artifact>;\n}',
+    "usage": {
+      "use": [
+        "Generated documents, code or previews with actions placed in their header.",
+        "Pass onClose to request dismissal; the application controls visibility and restores focus to the opener.",
+        "Set maxHeight to create a keyboard-reachable scroll region for long content."
+      ],
+      "avoid": [
+        "Treating the container as a renderer or code execution environment.",
+        "Removing the view after close without returning focus to a useful control."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Tab reaches supplied actions, the labelled close control and a height-limited content region."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Enter or Space activates the focused button."
+      }
+    ],
+    "a11y": [
+      "A section is named by its visible title, unless a custom accessible name is supplied.",
+      "The close control uses an icon, a descriptive accessible label and a 44px target.",
+      "Content remains mounted until the application accepts the close request."
+    ],
+    "aliases": [
+      "AI Elements Artifact",
+      "Generated document",
+      "Artifact panel"
+    ]
+  },
+  {
+    "name": "commit",
+    "title": "Commit",
+    "description": "Shows a commit message, full-hash copy, author and time, with expandable changed files.",
+    "category": "ai",
+    "classes": [
+      "rs-commit",
+      "rs-commit-header",
+      "rs-commit-heading",
+      "rs-commit-message",
+      "rs-commit-metadata",
+      "rs-commit-content",
+      "rs-commit-list",
+      "rs-commit-file",
+      "rs-commit-path",
+      "rs-commit-count"
+    ],
+    "css": [
+      "components/commit.css"
+    ],
+    "react": "components/commit.tsx",
+    "registryDependencies": [
+      "badge",
+      "button",
+      "collapsible",
+      "snippet"
+    ],
+    "snippet": '<article class="rs-commit" aria-label="Commit a1b2c3d"><header class="rs-commit-header"><div class="rs-commit-heading"><span class="rs-commit-message">Retain failed drafts</span><div class="rs-commit-metadata"><code>a1b2c3d</code><span>Mina</span></div></div></header><div class="rs-commit-content"><details class="rs-disclosure"><summary class="rs-disclosure-summary">1 changed file</summary><ul class="rs-commit-list"><li class="rs-commit-file"><code class="rs-commit-path">src/composer.tsx</code><span class="rs-commit-count">18 additions</span></li></ul></details></div></article>',
+    "example": 'import { Commit } from "@noorddev/vlak-react";\n\n<Commit hash="a1b2c3d4e5f60718293a4b5c6d7e8f901234abcd" message="Retain failed drafts" author="Mina" timestamp="2026-09-09T10:20:00Z" defaultOpen files={[{ path: "src/composer.tsx", status: "modified", additions: 18, deletions: 4 }]} />',
+    "usage": {
+      "use": [
+        "Inspect a supplied commit and its changed files.",
+        "Use onFileSelect for navigation or an inline diff; the callback receives the full file record.",
+        "Supply timeLabel for application-localized or relative time. The fallback is a stable UTC timestamp."
+      ],
+      "avoid": [
+        "Running git commands or fetching file content from a display component.",
+        "Passing a shortened hash when the copy action must return the complete revision."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Tab reaches copy, the file disclosure and optional file buttons."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Enter or Space activates copy, disclosure or the focused file callback."
+      }
+    ],
+    "a11y": [
+      "The article includes the shortened hash in its accessible name while copy uses the complete supplied hash.",
+      "Change status and additions/deletions use text, independent of color.",
+      "Timestamp uses a machine-readable time element. Invalid dates are omitted."
+    ],
+    "aliases": [
+      "AI Elements Commit",
+      "Git commit",
+      "Changed files"
+    ]
+  },
+  {
+    "name": "environment-variables",
+    "title": "Environment variables",
+    "description": "Masks environment values by default, with deliberate reveal, value copy and quoted shell exports.",
+    "category": "ai",
+    "classes": [
+      "rs-environment-variables",
+      "rs-environment-variables-header",
+      "rs-environment-variables-title",
+      "rs-environment-variables-list",
+      "rs-environment-variables-row",
+      "rs-environment-variables-name",
+      "rs-environment-variables-value",
+      "rs-environment-variables-controls",
+      "rs-environment-variables-note",
+      "rs-environment-variables-footer"
+    ],
+    "css": [
+      "components/environment-variables.css"
+    ],
+    "react": "components/environment-variables.tsx",
+    "registryDependencies": [
+      "button",
+      "snippet"
+    ],
+    "snippet": '<section class="rs-environment-variables" aria-labelledby="environment-title"><header class="rs-environment-variables-header"><span class="rs-environment-variables-title" id="environment-title">Environment variables</span></header><dl class="rs-environment-variables-list"><div class="rs-environment-variables-row"><dt class="rs-environment-variables-name"><code>MODEL_NAME</code></dt><dd class="rs-environment-variables-value"><span role="img" aria-label="Value hidden">\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022</span></dd></div></dl></section>',
+    "example": 'import { EnvironmentVariables } from "@noorddev/vlak-react";\n\n<EnvironmentVariables variables={[{ name: "MODEL_NAME", value: "workspace-model", required: true }, { name: "EXAMPLE_TOKEN", value: "example-only" }]} />',
+    "usage": {
+      "use": [
+        "Review supplied settings with masked initial values and explicit reveal controls.",
+        "Use showValues and onShowValuesChange for controlled visibility; per-row reveals reset when the value changes.",
+        "Copy a value or all portable shell exports. Export generation rejects invalid assignment names and quotes shell metacharacters."
+      ],
+      "avoid": [
+        "Treating visual masking as secret storage; values still exist in application memory.",
+        "Using duplicate variable names or copying secret values without a user action."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Tab reaches show-all, per-row reveal and copy controls."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Enter or Space activates a focused control; the show-all button exposes its pressed state."
+      }
+    ],
+    "a11y": [
+      "The section and every reveal/copy control have descriptive names.",
+      "Hidden values are absent from rendered text and labelled as hidden; values are never placed in title or data attributes.",
+      "Clipboard success follows the resolved write, failures remain actionable, and pending writes cannot report success for changed data."
+    ],
+    "aliases": [
+      "AI Elements Environment Variables",
+      "Environment settings",
+      "Secret values"
+    ]
+  },
+  {
+    "name": "package-info",
+    "title": "Package info",
+    "description": "Compares current and proposed package versions with change type and expandable dependencies.",
+    "category": "ai",
+    "classes": [
+      "rs-package-info",
+      "rs-package-info-header",
+      "rs-package-info-name",
+      "rs-package-info-versions",
+      "rs-package-info-description",
+      "rs-package-info-list",
+      "rs-package-info-actions"
+    ],
+    "css": [
+      "components/package-info.css"
+    ],
+    "react": "components/package-info.tsx",
+    "registryDependencies": [
+      "badge",
+      "collapsible"
+    ],
+    "snippet": '<article class="rs-package-info" aria-label="Package @example/review-ui"><header class="rs-package-info-header"><code class="rs-package-info-name">@example/review-ui</code></header><div class="rs-package-info-versions"><span>Current 1.2.0</span><strong>Proposed 1.3.0</strong></div><p class="rs-package-info-description">Adds draft recovery.</p></article>',
+    "example": 'import { PackageInfo } from "@noorddev/vlak-react";\n\n<PackageInfo name="@example/review-ui" currentVersion="1.2.0" newVersion="1.3.0" changeType="minor" description="Adds draft recovery." dependencies={[{ name: "react", version: "^19.0.0", kind: "peer" }]} />',
+    "usage": {
+      "use": [
+        "Review package additions, removals or version changes before an application performs them.",
+        "Supply explicit changeType and dependency kinds; the component does not infer semantic version compatibility.",
+        "Use actions for application-owned install, compare or inspection controls."
+      ],
+      "avoid": [
+        "Assuming displayed package metadata is fetched, resolved or installed automatically."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Tab reaches dependency disclosure and supplied actions."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Enter or Space toggles the dependency summary."
+      }
+    ],
+    "a11y": [
+      "Current and proposed version labels remain explicit to screen readers.",
+      "Change type uses text instead of color alone.",
+      "Dependency expansion uses a native details element."
+    ],
+    "aliases": [
+      "AI Elements Package Info",
+      "Dependency change",
+      "Package version"
+    ]
+  },
+  {
+    "name": "schema-display",
+    "title": "Schema display",
+    "description": "Displays an endpoint\u2019s method, path, parameters and nested request and response schemas.",
+    "category": "ai",
+    "classes": [
+      "rs-schema-display",
+      "rs-schema-display-header",
+      "rs-schema-display-path",
+      "rs-schema-display-content",
+      "rs-schema-display-description",
+      "rs-schema-display-list",
+      "rs-schema-display-property",
+      "rs-schema-display-line",
+      "rs-schema-display-note"
+    ],
+    "css": [
+      "components/schema-display.css"
+    ],
+    "react": "components/schema-display.tsx",
+    "registryDependencies": [
+      "badge",
+      "collapsible"
+    ],
+    "snippet": '<article class="rs-schema-display" aria-label="POST /reviews"><header class="rs-schema-display-header"><span class="rs-badge-muted">POST</span><code class="rs-schema-display-path">/reviews</code></header><div class="rs-schema-display-content"><details class="rs-disclosure" open><summary class="rs-disclosure-summary">Request body</summary><ul class="rs-schema-display-list"><li class="rs-schema-display-property"><div class="rs-schema-display-line"><code>diff</code><span class="rs-badge-muted">string</span><strong class="rs-schema-display-note">Required</strong></div></li></ul></details></div></article>',
+    "example": 'import { SchemaDisplay } from "@noorddev/vlak-react";\n\n<SchemaDisplay method="POST" path="/projects/{projectId}/reviews" parameters={[{ name: "projectId", type: "string", required: true, location: "path" }]} requestBody={[{ name: "diff", type: "string", required: true }]} responseBody={[{ name: "id", type: "string", required: true }]} />',
+    "usage": {
+      "use": [
+        "Endpoint documentation with parameter locations, required fields, nested objects and array item schemas.",
+        "Use maxDepth and maxNodes to bound rendering of large schemas; defaults are 6 levels and 200 properties.",
+        "Adapt an API specification to SchemaProperty records before rendering."
+      ],
+      "avoid": [
+        "Treating this view as an OpenAPI validator or request executor.",
+        "Embedding markup in endpoint paths; strings are deliberately rendered as text."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Tab reaches each native schema summary."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Enter or Space toggles parameters, bodies and nested properties."
+      }
+    ],
+    "a11y": [
+      "Endpoint method and path name the article, while types, locations and required flags are readable text.",
+      "Recursive references, depth limits and omitted properties have explicit labels.",
+      "Paths and descriptions are escaped React text; no markup interpolation is used."
+    ],
+    "aliases": [
+      "AI Elements Schema Display",
+      "API endpoint",
+      "Request schema"
+    ]
+  },
+  {
+    "name": "snippet",
+    "title": "Snippet",
+    "description": "Presents a compact selectable command with a decorative prefix and exact-value copy action.",
+    "category": "ai",
+    "classes": [
+      "rs-snippet-copy",
+      "rs-snippet-status",
+      "rs-snippet",
+      "rs-snippet-prefix",
+      "rs-snippet-code"
+    ],
+    "css": [
+      "components/snippet.css"
+    ],
+    "react": "components/snippet.tsx",
+    "registryDependencies": [
+      "button",
+      "icons"
+    ],
+    "snippet": '<figure class="rs-snippet" aria-label="Install command"><span class="rs-snippet-prefix" aria-hidden="true">$</span><code class="rs-snippet-code" tabindex="0">pnpm add @noorddev/vlak-react</code></figure>',
+    "example": 'import { Snippet } from "@noorddev/vlak-react";\n\n<Snippet code="pnpm add @noorddev/vlak-react" prefix="$" label="Install command" />',
+    "usage": {
+      "use": [
+        "A short command or source reference where the copy value should preserve whitespace.",
+        "Reuse SnippetCopy for named exact-value actions in developer views.",
+        "Supply onCopy for a host clipboard adapter; omit it to use the browser clipboard."
+      ],
+      "avoid": [
+        "Claiming syntax highlighting or command execution from a selectable code line.",
+        "Including a shell prompt in code when it should only be a decorative prefix."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Tab reaches the scrollable code and 44px copy button."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Enter or Space requests clipboard copy from the focused button."
+      }
+    ],
+    "a11y": [
+      "The prefix is decorative and is excluded from copied source.",
+      "Copy reports success only after completion, errors remain visible, and duplicate pending requests are locked.",
+      "Changing the source invalidates stale clipboard feedback. Native attributes, className, style and refs are forwarded."
+    ],
+    "aliases": [
+      "AI Elements Snippet",
+      "Command line",
+      "Copy command"
+    ]
+  },
+  {
+    "name": "test-results",
+    "title": "Test results",
+    "description": "Displays suites, derived pass/fail/skip totals, elapsed time and failure details with optional retries.",
+    "category": "ai",
+    "classes": [
+      "rs-test-results-test",
+      "rs-test-results-line",
+      "rs-test-results-name",
+      "rs-test-results-note",
+      "rs-test-results-error",
+      "rs-test-results",
+      "rs-test-results-header",
+      "rs-test-results-title",
+      "rs-test-results-summary",
+      "rs-test-results-progress",
+      "rs-test-results-content",
+      "rs-test-results-list"
+    ],
+    "css": [
+      "components/test-results.css"
+    ],
+    "react": "components/test-results.tsx",
+    "registryDependencies": [
+      "badge",
+      "button",
+      "collapsible",
+      "code-block"
+    ],
+    "snippet": '<section class="rs-test-results" aria-labelledby="tests-title"><header class="rs-test-results-header"><span class="rs-test-results-title" id="tests-title">Test results</span><div class="rs-test-results-summary" role="status"><span class="rs-badge-solid">1 passed</span><span class="rs-badge-muted">1 failed</span><span class="rs-test-results-note">2 of 2 complete</span></div><progress class="rs-test-results-progress" value="2" max="2" aria-label="Tests completed"></progress></header><div class="rs-test-results-content"><p class="rs-test-results-note">Open a suite to inspect its results.</p></div></section>',
+    "example": 'import { TestResults } from "@noorddev/vlak-react";\n\n<TestResults suites={[{ id: "composer", name: "Composer", tests: [{ id: "send", name: "Sends a prompt", status: "passed", duration: 82 }, { id: "retry", name: "Retains failed drafts", status: "failed", error: "Expected the original draft.", stack: "at retryTest (composer.test.tsx:38:3)" }] }]} duration={428} />',
+    "usage": {
+      "use": [
+        "Render supplied test suites, durations in milliseconds and per-test failures.",
+        "Provide onRetry to request another run; new application data determines the resulting status.",
+        "Counts and completion progress derive from the displayed tests, including skipped and running states."
+      ],
+      "avoid": [
+        "Executing tests or marking them passed merely because a retry callback resolves.",
+        "Announcing full changing logs through a live region."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Tab reaches suite/failure disclosures, retry actions and stack copy controls."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Enter or Space toggles disclosures or requests retry for the focused failed test."
+      }
+    ],
+    "a11y": [
+      "Text labels distinguish all five states without color dependence.",
+      "A concise atomic status announces totals; failure text remains ordinary readable content.",
+      "The named native progress element avoids a zero maximum for empty results.",
+      "Retries prevent duplicate activation, retain actionable failure feedback and ignore stale completion after data changes."
+    ],
+    "aliases": [
+      "AI Elements Test Results",
+      "Test runner output",
+      "Suite results"
+    ]
+  }
+];
+
+// src/registry-ai.ts
+var aiComponents = [
+  {
+    name: "chat",
+    title: "Chat",
+    description: "A subtle 1px outline with 4px corners, a named header, scrollable conversation, and a composer anchored below the history.",
+    category: "ai",
+    classes: ["rs-chat", "rs-chat-header", "rs-chat-heading", "rs-chat-title", "rs-chat-description", "rs-chat-actions", "rs-chat-history", "rs-chat-composer", "rs-chat-footer"],
+    css: ["components/chat.css"],
+    react: "components/chat.tsx",
+    registryDependencies: ["conversation"],
+    snippet: `<section class="rs-chat" aria-labelledby="project-chat-title"><header class="rs-chat-header"><div class="rs-chat-heading"><span class="rs-chat-title" id="project-chat-title">Project brief</span><div class="rs-chat-description">Ask about the current draft</div></div></header><div class="rs-chat-history rs-conversation" style="height:28rem"><div class="rs-conversation-viewport" role="log" aria-label="Project brief messages" aria-live="off" tabindex="0" style="max-height:100%"><div class="rs-conversation-content"><p>You: What needs to change?</p><p>Assistant: Name the owner and next step.</p></div></div></div><div class="rs-chat-composer"><form aria-label="Message composer" style="display:flex;align-items:flex-end;gap:4px"><textarea aria-label="Message" name="message" rows="1" style="flex:1;min-width:0;min-height:44px;max-height:10rem"></textarea><button type="submit" aria-label="Send message" style="width:44px;height:44px;flex:none"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" aria-hidden="true"><path d="M8 12.5v-9M4.5 7 8 3.5 11.5 7" /></svg></button></form></div></section>`,
+    example: 'import { Chat, MessageComposer, Reasoning, Response, ResponseActions, type ComposedMessage } from "@noorddev/vlak-react";\n\nexport function ProjectChat({ onSend, generating, onStop }: {\n  onSend: (message: ComposedMessage) => void | Promise<void>;\n  generating: boolean;\n  onStop: () => void;\n}) {\n  return <Chat title="Project brief" description="Ask about the current draft" conversationLabel="Project brief messages" historyHeight="28rem"\n    composer={<MessageComposer compact maxRows={6} sendOnEnter onSend={onSend} generating={generating} onStop={onStop} />}>\n    <Response from="user">What needs to change?</Response>\n    <Response actions={<ResponseActions text="Name the owner and next step." />}>\n      <Reasoning variant="inline" title="Reviewed the brief" status="complete">\n        <p>Checked the supplied scope and responsibilities.</p>\n      </Reasoning>\n      <p>Name the owner and next step.</p>\n    </Response>\n  </Chat>;\n}',
+    usage: {
+      use: ["A complete chat surface with a stable header and composer around scrolling messages.", "Supply Response elements as children and MessageComposer through the composer slot. Compact mode starts on one line, uses icon send and stop controls, and grows up to maxRows.", "Set historyHeight to reserve message space and let the frame fill its container width.", "Use actions for header controls and footer for supporting text below the composer.", "CSS-only markup provides the frame and native scrolling; following, draft growth, and send handling require React or application code."],
+      avoid: ["Nesting another Conversation inside the supplied children.", "Using this component to connect a model, store messages, or execute tools.", "Using a fixed page overlay when the surrounding application needs to control placement."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves through supplied header actions, the message history, and composer controls" },
+      { keys: "Arrow keys, Page Up, Page Down", does: "Scrolls the focused history using native browser behavior" },
+      { keys: "Enter, Space", does: "Activates Jump to latest and returns focus to the history" }
+    ],
+    a11y: ["The section is named by its visible title unless an accessible name override is supplied.", "conversationLabel names the scrollable message log independently of the frame.", "The built-in Conversation keeps its live region off and preserves the reader's position when they scroll back.", "The composer and its supporting footer remain outside the scrollable history.", "Native attributes and the forwarded ref reach the outer section. The application supplies accessible controls in the actions and composer slots."],
+    aliases: ["AI chat", "Chat interface", "Chat panel", "Assistant chat", "Chat shell"]
+  },
+  {
+    name: "conversation",
+    title: "Conversation",
+    description: "Keeps a scrollable message history at the latest response until the reader scrolls back.",
+    category: "ai",
+    classes: ["rs-conversation", "rs-conversation-viewport", "rs-conversation-content", "rs-conversation-footer"],
+    css: ["components/conversation.css"],
+    react: "components/conversation.tsx",
+    registryDependencies: ["button"],
+    snippet: `<div class="rs-conversation"><div class="rs-conversation-viewport" role="log" aria-label="Conversation" aria-live="off" tabindex="0" style="max-height:28rem"><div class="rs-conversation-content"><p>You: Summarize this document.</p><p>Assistant: The document has three sections.</p></div></div></div>`,
+    example: 'import { Conversation, MessageComposer, Response, ResponseActions, type ComposedMessage } from "@noorddev/vlak-react";\n\nexport function DocumentConversation({ onSend, generating, onStop }: {\n  onSend: (message: ComposedMessage) => void | Promise<void>;\n  generating: boolean;\n  onStop: () => void;\n}) {\n  return <>\n    <Conversation label="Document conversation" maxHeight="28rem">\n      <Response from="user">Summarize this document.</Response>\n      <Response actions={<ResponseActions text="The document has three sections." />}>\n        <p>The document has three sections.</p>\n      </Response>\n    </Conversation>\n    <MessageComposer compact maxRows={6} sendOnEnter onSend={onSend} generating={generating} onStop={onStop} />\n  </>;\n}',
+    usage: {
+      use: ["A message history whose contents grow during a streamed response.", "Keep MessageComposer outside the scrollable history.", "Set autoScroll={false} to keep scrolling entirely manual.", "CSS-only markup provides native scrolling; following and the jump action require React or application code."],
+      avoid: ["Putting an entire workbench in the message log.", "Using this component to fetch messages, render Markdown, or own a model connection."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Focuses the scrollable log and its interactive contents" },
+      { keys: "Arrow keys, Page Up, Page Down", does: "Scrolls the focused history using native browser behavior" },
+      { keys: "Enter, Space", does: "Activates Jump to latest and returns focus to the history" }
+    ],
+    a11y: ["The message log has a supplied accessible label and a keyboard entry point.", "The log uses aria-live=off; use Response status announcements rather than announcing every streamed token.", "New content follows only while the reader is within 24px of the end. Scrolling back preserves the reading position.", "Jump to latest is a native 44px Button. Automatic scrolling is immediate and never moves focus.", "The ref and native attributes reach the outer div; maxHeight sets the inner scrollable history."],
+    aliases: ["AI Elements Conversation", "Chat history", "Message log", "Auto scroll", "Chatbot"]
+  },
+  {
+    name: "widget",
+    title: "Widget",
+    description: "A surface with a subtle 1px outline and 4px corners for React content and provider iframes, with attribution, data states, actions, and supporting context.",
+    category: "ai",
+    classes: ["rs-widget", "rs-widget-header", "rs-widget-icon", "rs-widget-heading", "rs-widget-title", "rs-widget-provider", "rs-widget-label", "rs-widget-content", "rs-widget-description", "rs-widget-state", "rs-widget-message", "rs-widget-actions", "rs-widget-footer", "rs-widget-embed"],
+    css: ["components/widget.css"],
+    react: "components/widget.tsx",
+    registryDependencies: ["button"],
+    snippet: '<section class="rs-widget" aria-labelledby="widget-title" data-status="ready"><header class="rs-widget-header"><div class="rs-widget-heading"><span class="rs-widget-title" id="widget-title">Recent files</span><div class="rs-widget-provider">Connected drive</div></div></header><div class="rs-widget-content"><p class="rs-widget-message">Project brief \xB7 Updated today</p></div><div class="rs-widget-footer">Supplied by the connected application</div></section>',
+    example: 'import { Button, Widget, WidgetEmbed, type WidgetStatus } from "@noorddev/vlak-react";\n\nexport function ConnectedWidgets({ status, onRetry, onOpenFiles, embedUrl }: {\n  status: WidgetStatus;\n  onRetry: () => void | Promise<void>;\n  onOpenFiles: () => void;\n  embedUrl: string;\n}) {\n  return <>\n    <Widget title="Recent files" provider="Connected drive" status={status} onRetry={onRetry}\n      emptyMessage="No files match this request." errorMessage="The drive could not be reached."\n      actions={<Button variant="subtle" onClick={onOpenFiles}>Open files</Button>} footer="Updated just now">\n      <p>Project brief \xB7 Ready for review</p>\n    </Widget>\n    <Widget title="Project board" provider="Connected board">\n      <WidgetEmbed title="Project board from the connected provider" src={embedUrl} height={360} />\n    </Widget>\n  </>;\n}',
+    usage: {
+      use: ["Present application data and third-party results with the same title, provider, content, action, and footer slots.", "Map your integration's result to ready, loading, empty, or error. Supply rendered React content in children for the ready state.", "Use WidgetEmbed in children for a provider iframe. Supply its embed address, a descriptive title, and an explicit height; the default height is 320px.", "WidgetEmbed fills the available width and defaults to lazy loading, no-referrer, and a sandbox allowing scripts and forms. Set sandbox and allow for the provider's application-approved permissions.", "Show the source in provider and an update time or other context in footer.", "Use subtle Button actions and subtle ToggleGroup controls for supporting actions and visible view choices within a widget.", "Use onRetry for an application-owned reload. Update status when data arrives; the widget does not fetch data or infer success.", "CSS-only markup supplies the frame; data transitions and retry handling require React or application code."],
+      avoid: ["Treating this surface as a connector, authentication flow, or tool execution engine.", "Passing untrusted markup or model-selected component names directly into rendered content.", "Assuming the parent stylesheet can style a cross-origin iframe's interior. Provider theming, messaging, and automatic height coordination belong to the application integration.", "Hiding consequential actions inside a widget without the application's normal confirmation step."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves through provider links, ready content, supplied actions, and the error state's retry button" },
+      { keys: "Enter, Space", does: "Activates the focused retry button or supplied native button" },
+      { keys: "Tab inside an embed", does: "Follows the provider document's native focus order; its keyboard interactions are supplied by that document" }
+    ],
+    a11y: ["The section is named by its visible title unless an accessible name override is supplied.", "Empty and loading messages use a status region; failures use an alert. Progress remains outside a busy region so it can be announced promptly.", "A rejected retry remains readable and permits another attempt. Pending retries prevent duplicate activation, and changed data states invalidate stale retry results.", "The decorative icon is hidden from assistive technology. Provider content and supplied actions remain in the normal reading and tab order.", "WidgetEmbed requires a title that identifies the embedded document. The provider supplies the document's accessible content and keyboard behavior.", "Native section attributes, className, style, and the section ref are forwarded. WidgetEmbed forwards native iframe attributes, permission overrides, and the iframe ref. The application supplies accessible content and controls for each integration."],
+    aliases: ["AI widget", "Tool result card", "Connected service widget", "Integration widget", "Generative UI", "WidgetEmbed", "Embedded widget", "iframe"]
+  },
+  {
+    name: "response-actions",
+    title: "Response actions",
+    description: "Selectable subtle 44px icon controls for copying, reading aloud, rating through a combined feedback menu, and sharing an assistant response.",
+    category: "ai",
+    classes: ["rs-response-actions-bar", "rs-response-actions-selected", "rs-response-actions-icon", "rs-response-actions-status", "rs-response-actions-menu"],
+    css: ["components/response-actions.css"],
+    react: "components/response-actions.tsx",
+    registryDependencies: ["button", "dropdown-menu"],
+    snippet: '<div class="rs-response-actions-bar" role="group" aria-label="Response actions"><button class="rs-btn-subtle rs-btn-icon" type="button" aria-label="Copy response" title="Copy response"><svg class="rs-response-actions-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="1"/><path d="M16 8V3H4v13h4"/></svg></button><button class="rs-btn-subtle rs-btn-icon" type="button" aria-label="Read aloud" title="Read aloud"><svg class="rs-response-actions-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="m11 4-6 5H2v6h3l6 5V4ZM15 8a6 6 0 0 1 0 8"/></svg></button><button class="rs-btn-subtle rs-btn-icon" type="button" aria-label="Rate response" title="Rate response" aria-haspopup="menu" aria-expanded="false"><svg class="rs-response-actions-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M1 7h3v7H1zM4 7l3-5c1.5 0 2 1 1 4h4a1 1 0 0 1 1 1l-1.5 6a1 1 0 0 1-1 .8H4M23 17h-3v-7h3zM20 17l-3 5c-1.5 0-2-1-1-4h-4a1 1 0 0 1-1-1l1.5-6a1 1 0 0 1 1-.8H20"/></svg></button><button class="rs-btn-subtle rs-btn-icon" type="button" aria-label="Share response" title="Share response"><svg class="rs-response-actions-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M12 16V2m-5 5 5-5 5 5M5 12H3v10h18V12h-2"/></svg></button><span class="rs-response-actions-status" role="status" aria-live="polite" aria-atomic="true"></span></div>',
+    example: '"use client";\nimport { useState } from "react";\nimport { Response, ResponseActions, type ResponseAction, type ResponseFeedback } from "@noorddev/vlak-react";\n\nconst controls: readonly ResponseAction[] = ["copy", "read", "feedback", "share"];\n\nexport function AnswerActions() {\n  const [feedback, setFeedback] = useState<ResponseFeedback>(null);\n  const answer = "The brief now names one owner and one next step.";\n  return <Response actions={<ResponseActions text={answer} actions={controls} feedback={feedback} onFeedback={setFeedback} />}>\n    <p>{answer}</p>\n  </Response>;\n}',
+    usage: {
+      use: ["Place in the actions slot of Response and supply the same plain text the reader sees.", "actions chooses the built-in controls and their display and keyboard order: copy, read, feedback, share. The default includes all four; duplicates are ignored. Add custom controls as children.", "Each action composes a subtle icon Button. Muted text turns to ink on hover while the surface stays transparent.", "The combined feedback icon opens helpful and unhelpful choices. Selecting the checked choice again clears it.", "Use onFeedback to persist positive, negative, or cleared feedback. A rejected promise keeps the previous selection available for retry.", "Use feedback for controlled selection or defaultFeedback for an initial local selection.", "Supply onShare for an application-owned share flow. Otherwise the browser shares the text or copies it when native sharing is unavailable.", "Read aloud uses browser speech only after activation. onReadingChange can coordinate an avatar with narration. Removing read stops owned narration; removing feedback closes its menu.", "CSS-only markup supplies named controls; clipboard, speech, the feedback menu, and sharing require React or application code."],
+      avoid: ["Adding copyText to the same Response, which would duplicate its copy control.", "Assuming local feedback has been stored on a server without supplying onFeedback.", "Passing raw markup as text or automatically starting narration when a message appears."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves through the available copy, narration, feedback, and share controls" },
+      { keys: "Enter, Space", does: "Activates the focused action or feedback choice; choosing the checked feedback item again clears it" },
+      { keys: "Arrow Down, Arrow Up", does: "Opens feedback on the first or last choice, then moves between choices" },
+      { keys: "Home, End", does: "Moves to the first or last feedback choice" },
+      { keys: "Escape", does: "Closes the feedback menu and returns focus to its trigger" },
+      { keys: "Tab", does: "Closes the feedback menu and moves focus to the next action" }
+    ],
+    a11y: ["Every icon button has a readable name and title, a 44px target, and a visible focus outline.", "One Rate response trigger exposes its expanded menu state. Helpful and unhelpful menu choices expose aria-checked and remain mutually exclusive.", "The menu moves focus between choices and returns focus on selection or Escape. Outside interaction dismisses it without stealing focus.", "A polite, atomic status region announces completed actions and recoverable errors. Clipboard success is reported only after the write resolves.", "Read aloud is disabled when browser speech is unavailable and becomes Stop reading while this response is narrated. Replacing the text or unmounting stops this component's narration.", "Pending asynchronous actions prevent duplicate activation. The feedback trigger remains focusable with aria-disabled while saving. Replacing the response text closes its menu and invalidates stale results.", "The group accepts native div attributes, children for extra actions, className, style, and a forwarded div ref."],
+    aliases: ["AI response actions", "Message toolbar", "Read aloud", "Message feedback", "Thumbs up", "Thumbs down"]
+  }
+];
+
+// src/registry-ai-actions.ts
+var aiActions = [
+  {
+    name: "tool-call",
+    title: "Tool call",
+    description: "Shows tool input, output, and execution state in a native disclosure with a subtle 1px outline, 4px corners, and a 44px summary.",
+    category: "ai",
+    classes: ["rs-tool-call", "rs-tool-call-summary", "rs-tool-call-title", "rs-tool-call-state", "rs-tool-call-indicator", "rs-tool-call-body", "rs-tool-call-section", "rs-tool-call-label", "rs-tool-call-value", "rs-tool-call-code", "rs-tool-call-error"],
+    css: ["components/tool-call.css"],
+    react: "components/tool-call.tsx",
+    registryDependencies: [],
+    snippet: '<details class="rs-tool-call" open><summary class="rs-tool-call-summary"><span class="rs-tool-call-title">Search documents</span><span class="rs-tool-call-state" role="status">Complete</span><svg class="rs-tool-call-indicator" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg></summary><div class="rs-tool-call-body"><div class="rs-tool-call-section"><p class="rs-tool-call-label">Output</p><pre class="rs-tool-call-code">Three matching documents</pre></div></div></details>',
+    example: 'import { ToolCall } from "@noorddev/vlak-react";\n\n<ToolCall title="Search documents" state="complete" input={JSON.stringify({ query: "Renewal terms" }, null, 2)} output="Three matching documents" defaultOpen />',
+    usage: {
+      use: ["Showing application-supplied tool activity within a conversation.", "Queued, running, complete, or error states with optional input, output, and additional content."],
+      avoid: ["Executing a tool or granting permission; the application owns execution and authorization.", "Passing raw objects or booleans as display content; serialize them or use your own renderer."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Focuses the native disclosure summary and any interactive content when expanded." },
+      { keys: "Enter, Space", does: "Requests expansion or collapse through the browser's native summary behavior." }
+    ],
+    a11y: [
+      "The native details and summary expose expansion state. The summary has a 44px minimum target and visible focus outline.",
+      "The decorative 16px chevron points right when closed and down when open. Forced colors retain a system color outline and readable controls.",
+      "State is visible text in a polite status; error text has an alert role. No color is needed to distinguish states.",
+      "Strings and numbers are rendered as escaped preformatted text. Empty strings and zero are retained; React nodes remain application-rendered content.",
+      "open is authoritative when controlled; onOpenChange reports requested changes. defaultOpen sets the initial uncontrolled state. The ref reaches details and native attributes pass through.",
+      "The component displays the supplied execution state and never runs a tool itself."
+    ],
+    aliases: ["ToolCall", "AI Elements Tool", "Tool invocation", "Tool result", "Function call"]
+  },
+  {
+    name: "confirmation",
+    title: "Confirmation",
+    description: "Collects approval or rejection in a surface with a subtle 1px outline and 4px corners, with async recording, error recovery, and 44px actions.",
+    category: "ai",
+    classes: ["rs-confirmation", "rs-confirmation-title", "rs-confirmation-context", "rs-confirmation-actions", "rs-confirmation-action", "rs-confirmation-status", "rs-confirmation-error"],
+    css: ["components/confirmation.css"],
+    react: "components/confirmation.tsx",
+    registryDependencies: ["button"],
+    snippet: '<section class="rs-confirmation" aria-labelledby="approval-title"><p id="approval-title" class="rs-confirmation-title">Include the appendix?</p><div class="rs-confirmation-context">Adds the supplied appendix to the proposed draft.</div><div class="rs-confirmation-actions"><button class="rs-btn-primary rs-confirmation-action" type="button">Confirm</button><button class="rs-btn-ghost rs-confirmation-action" type="button">Reject</button></div><p class="rs-confirmation-status" role="status">Awaiting your decision</p></section>',
+    example: 'import { Confirmation } from "@noorddev/vlak-react";\n\nexport function AppendixApproval({ recordApproval }: {\n  recordApproval: (approved: boolean) => void | Promise<void>;\n}) {\n  return <Confirmation title="Include the appendix?" onConfirm={() => recordApproval(true)} onReject={() => recordApproval(false)}>\n    Adds the supplied appendix to the proposed draft. Review it before continuing.\n  </Confirmation>;\n}',
+    usage: {
+      use: ["Reviewing a proposed action before the application proceeds.", "Awaiting successful recording of approval or rejection, with a retry when its callback fails."],
+      avoid: ["Treating approval recorded as proof that the proposed action has executed.", "Authorizing solely in the browser; application and server code must validate the requested action and its permissions."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves between Confirm and Reject while a decision can be made." },
+      { keys: "Enter, Space", does: "Activates the focused decision or retry button without submitting an enclosing form." }
+    ],
+    a11y: [
+      "A native section is named by the visible title. Children supply context for the proposed action.",
+      "Pending recording exposes aria-busy, disables both actions, and prevents duplicate callback submissions.",
+      "Only a successful callback records accepted or rejected status. A failed callback leaves the proposal pending, reports an alert, and offers Try again for that decision.",
+      "status and onStatusChange support application-controlled decisions; defaultStatus sets the uncontrolled initial decision. A changed controlled status invalidates an older pending callback result.",
+      "A successfully recorded controlled decision stays locked until status changes. Use a new React key for a new proposal; a pending prop alone cannot resubmit an acknowledged decision.",
+      "The status announces Approval recorded or Rejected. This component records a decision; application code owns tool execution. The ref reaches the section, and native attributes pass through."
+    ],
+    aliases: ["Confirmation", "AI Elements Confirmation", "Tool approval", "Action approval", "Human in the loop"]
+  }
+];
+
+// src/registry-ai-response.ts
+var aiResponse = [
+  {
+    name: "response",
+    title: "Response",
+    description: "Presents user messages in right-aligned soft bubbles and assistant responses on the left, with speaker identity, avatars, status, actions, and a custom layout API.",
+    category: "ai",
+    classes: ["rs-response", "rs-response-user", "rs-response-header", "rs-response-identity", "rs-response-avatar", "rs-response-author", "rs-response-status", "rs-response-content", "rs-response-error", "rs-response-actions", "rs-response-copy", "rs-response-copy-status"],
+    css: ["components/response.css"],
+    react: "components/response.tsx",
+    registryDependencies: [],
+    snippet: '<article class="rs-response" aria-labelledby="response-author"><div class="rs-response-header"><div class="rs-response-identity"><span class="rs-response-avatar" aria-hidden="true"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor"><circle cx="10" cy="10" r="7" /></svg></span><span class="rs-response-author" id="response-author">Assistant</span></div><span class="rs-response-status" role="status" aria-live="polite" aria-atomic="true">Complete</span></div><div class="rs-response-content"><p>The lease renews on 1 October.</p></div></article>',
+    example: '"use client";\nimport { Persona, Response, ResponseActions, useResponse } from "@noorddev/vlak-react";\n\nfunction CompletedActions({ text }: { text: string }) {\n  const { status } = useResponse();\n  return status === "complete" ? <ResponseActions text={text} /> : null;\n}\n\nexport function LeaseExchange() {\n  return <>\n    <Response from="user">When does the lease renew?</Response>\n    <Response from="assistant" status="complete"\n      avatar={<Persona variant="orb" size={20} />}\n      actions={<CompletedActions text="The lease renews on 1 October." />}\n      renderLayout={({ avatar, author, status, content, error, actions }) =>\n        <div style={{ display: "grid", gridTemplateColumns: "auto minmax(0, 1fr)", gap: 12 }}>\n          {avatar}\n          <div style={{ minWidth: 0 }}>\n            <div style={{ display: "flex", justifyContent: "space-between", gap: 12 }}>{author}{status}</div>\n            {content}{error}{actions}\n          </div>\n        </div>}\n    >\n      <p>The lease renews on <strong>1 October</strong>.</p>\n    </Response>\n  </>;\n}',
+    usage: {
+      use: [
+        "A user or assistant message whose content and response status come from the application.",
+        "Pass plain text or rendered React content as children. To render markdown, supply an external markdown renderer in the children slot and configure its content and link safety in your application.",
+        "Place ResponseActions in actions for icon controls that copy, narrate, rate, and share the response. Omit copyText when using that action bar.",
+        "Use avatar for an application-owned visual and renderLayout to rearrange ResponseParts. Render the complete header or its avatar, author, and status parts once; retain content, errors, and actions.",
+        "useResponse reads speaker, author, status, statusLabel, and errorMessage from a descendant. It requires a surrounding Response.",
+        "Use actions for other application-owned controls. Provide copyText for a standalone copy button when a full action bar is not needed."
+      ],
+      avoid: [
+        "Assuming this component calls a model or parses markdown. It does neither.",
+        "Putting changing token content in statusLabel. Reserve that label for short phase changes.",
+        "Injecting untrusted markup or unsafe links through an external renderer."
+      ]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Reaches the optional copy button, supplied actions, and links in the rendered content." },
+      { keys: "Enter, Space on Copy response", does: "Copies the explicit copyText value and reports success only after the clipboard write resolves." }
+    ],
+    a11y: [
+      "A semantic article is named by its visible speaker. from identifies user or assistant without taking over the native role attribute.",
+      "Custom layouts retain a fallback article name. Keep the supplied status part so phase changes remain announced, and give a non-text custom author an explicit accessible name when needed.",
+      "Status is a separate polite, atomic live region. Changing response tokens are ordinary readable content and do not repeat the whole message through a live region.",
+      "The streaming, complete, error, and stopped states are supplied by the application. An errorMessage is visible when status is error; the short response status announces the failure.",
+      "Copy is shown only with copyText. Clipboard denial or unavailability reports a readable failure and allows retry. Pending writes prevent duplicate activation, and stale writes cannot announce success for new content.",
+      "The 44px copy control has a focus outline and forced-colors styling. Native article attributes, className, style, and the article ref are forwarded."
+    ],
+    aliases: ["AI response", "Chat message", "Assistant message", "AI Elements Message", "Streaming response"]
+  },
+  {
+    name: "reasoning",
+    title: "Reasoning",
+    description: "A native disclosure for supplied work summaries, with a chevron and 44px control. Panels use a subtle 1px outline and 4px corners.",
+    category: "ai",
+    classes: ["rs-reasoning", "rs-reasoning-inline", "rs-reasoning-summary", "rs-reasoning-summary-inline", "rs-reasoning-indicator", "rs-reasoning-title", "rs-reasoning-title-inline", "rs-reasoning-status", "rs-reasoning-content"],
+    css: ["components/reasoning.css"],
+    react: "components/reasoning.tsx",
+    registryDependencies: [],
+    snippet: '<details class="rs-reasoning"><summary class="rs-reasoning-summary"><svg class="rs-reasoning-indicator" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m9 6 6 6-6 6" /></svg><span class="rs-reasoning-title">Work summary</span><span class="rs-reasoning-status" role="status" aria-live="polite" aria-atomic="true">Complete</span></summary><div class="rs-reasoning-content"><p>Compared the renewal clause with the notice period.</p></div></details>',
+    example: 'import { Reasoning } from "@noorddev/vlak-react";\n\n<Reasoning variant="inline" title="Reviewed the brief" status="complete">\n  <p>Compared the supplied brief with the previous revision.</p>\n</Reasoning>',
+    usage: {
+      use: [
+        "Optional task progress, tool activity summaries, or explanatory text supplied by your application.",
+        "Use variant=inline for activity within a message. Its padded summary changes text color on hover; the default panel uses a subtle 1px outline and 4px corners.",
+        "Use open and onOpenChange for controlled disclosure, or defaultOpen for an initial preference.",
+        "Keep title to non-interactive content so the native summary remains one clear disclosure control."
+      ],
+      avoid: [
+        "Inventing private model thinking or inferring hidden chain-of-thought from a response. Supply a supported public summary or task progress instead.",
+        "Treating status as a timer or automatically closing the disclosure when work completes. The reader owns their open state.",
+        "Streaming long text into statusLabel. Put the evolving summary in children."
+      ]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Focuses the native summary, then any interactive content in the expanded details." },
+      { keys: "Enter, Space", does: "Toggles the focused summary. In controlled mode, requests the next open value through onOpenChange." }
+    ],
+    a11y: [
+      "Native details and summary expose disclosure state and keyboard behavior without a custom widget.",
+      "The decorative chevron points right when closed and down when open; it is hidden from assistive technology.",
+      "The summary target is at least 44px with a visible focus outline and system colors in forced-colors mode.",
+      "Only the short status phrase is a polite, atomic live region; body updates are available in the normal reading order.",
+      "Status changes never close or open the disclosure. Controlled open values remain authoritative even when a change request is not accepted.",
+      "Native details attributes, onToggle, className, style, and the details ref are forwarded. The application supplies the summary and status; no model reasoning is generated or inferred."
+    ],
+    aliases: ["AI Elements Reasoning", "Work summary", "AI progress disclosure", "Task summary"]
+  }
+];
+
+// src/registry-data-additions.ts
+var dataAdditions = [
+  {
+    "name": "description-list",
+    "title": "Description list",
+    "description": "Aligns semantic labels and values in a responsive description list.",
+    "category": "content",
+    "classes": [
+      "rs-description-list",
+      "rs-description-list-row",
+      "rs-description-list-label",
+      "rs-description-list-value"
+    ],
+    "css": [
+      "components/description-list.css"
+    ],
+    "react": "components/description-list.tsx",
+    "registryDependencies": [],
+    "snippet": '<dl class="rs-description-list"><div class="rs-description-list-row"><dt class="rs-description-list-label">Estimated range</dt><dd class="rs-description-list-value">386 km</dd></div></dl>',
+    "example": 'import { DescriptionList } from "@noorddev/vlak-react";\n\n<DescriptionList items={[{ id: "range", label: "Estimated range", value: "386 km" }, { id: "battery", label: "Battery", value: "84%" }]} />',
+    "usage": {
+      "use": [
+        "Read-only properties, specifications, and account details."
+      ],
+      "avoid": [
+        "Editable properties; use PropertyGrid."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Enter, Space",
+        "does": "Links or controls supplied as values keep their native keyboard behavior."
+      }
+    ],
+    "a11y": [
+      "Uses dl, dt, and dd; labels and values remain in reading order on small screens."
+    ],
+    "aliases": [
+      "DescriptionList"
+    ]
+  },
+  {
+    "name": "metric",
+    "title": "Metric",
+    "description": "Displays a numeric reading with tabular figures and aligned units.",
+    "category": "content",
+    "classes": [
+      "rs-metric",
+      "rs-metric-label",
+      "rs-metric-reading",
+      "rs-metric-value",
+      "rs-metric-unit",
+      "rs-metric-detail"
+    ],
+    "css": [
+      "components/metric.css"
+    ],
+    "react": "components/metric.tsx",
+    "registryDependencies": [],
+    "snippet": '<div class="rs-metric"><p class="rs-metric-label">Estimated range</p><div class="rs-metric-reading"><span class="rs-metric-value">386</span><span class="rs-metric-unit">km</span></div></div>',
+    "example": 'import { Metric } from "@noorddev/vlak-react";\n\n<Metric label="Estimated range" value={386} unit="km" description="Ready for your next journey" comparison="18 km more than yesterday" />',
+    "usage": {
+      "use": [
+        "Dashboard readings, vehicle status, and concise numeric comparisons."
+      ],
+      "avoid": [
+        "Full data series; use Charts."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "None",
+        "does": "Static reading; no additional keyboard stop."
+      }
+    ],
+    "a11y": [
+      "The label, formatted value, and unit are readable text. Provide a text equivalent for an optional trend graphic."
+    ],
+    "aliases": [
+      "Metric"
+    ]
+  },
+  {
+    "name": "activity-timeline",
+    "title": "Activity timeline",
+    "description": "Lists timestamped events with actors and optional expandable details.",
+    "category": "content",
+    "classes": [
+      "rs-activity-timeline",
+      "rs-activity-timeline-event",
+      "rs-activity-timeline-time",
+      "rs-activity-timeline-title",
+      "rs-activity-timeline-body",
+      "rs-activity-timeline-summary"
+    ],
+    "css": [
+      "components/activity-timeline.css"
+    ],
+    "react": "components/activity-timeline.tsx",
+    "registryDependencies": [],
+    "snippet": '<ol class="rs-activity-timeline"><li class="rs-activity-timeline-event"><time class="rs-activity-timeline-time" datetime="2026-09-05T10:00:00Z">5 September, 10:00</time><div><p class="rs-activity-timeline-title">Revision published</p></div></li></ol>',
+    "example": 'import { ActivityTimeline } from "@noorddev/vlak-react";\n\n<ActivityTimeline events={[{ id: "release", title: "Revision published", dateTime: "2026-09-05T10:00:00Z", actor: "Studio", description: "Updated the vehicle controls", details: "Numeric baselines and playback spacing are now shared." }]} />',
+    "usage": {
+      "use": [
+        "Audit history, project activity, and chronological event records."
+      ],
+      "avoid": [
+        "Steps toward a goal; use Stepper or TaskProgress."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Enter, Space",
+        "does": "Tab reaches each summary; Enter or Space expands the native disclosure."
+      }
+    ],
+    "a11y": [
+      "An ordered list with machine-readable time elements. Optional details use native disclosure semantics."
+    ],
+    "aliases": [
+      "ActivityTimeline"
+    ]
+  },
+  {
+    "name": "code-block",
+    "title": "Code block",
+    "description": "Shows source text with optional line numbers, wrapping, and copy feedback.",
+    "category": "content",
+    "classes": [
+      "rs-code-block",
+      "rs-code-block-header",
+      "rs-code-block-pre",
+      "rs-code-block-wrap",
+      "rs-code-block-line",
+      "rs-code-block-number",
+      "rs-code-block-status"
+    ],
+    "css": [
+      "components/code-block.css"
+    ],
+    "react": "components/code-block.tsx",
+    "registryDependencies": [
+      "button"
+    ],
+    "snippet": '<figure class="rs-code-block"><figcaption class="rs-code-block-header">TypeScript</figcaption><pre class="rs-code-block-pre" tabindex="0" aria-label="TypeScript source"><code>const range = 386;</code></pre></figure>',
+    "example": 'import { CodeBlock } from "@noorddev/vlak-react";\n\n<CodeBlock language="TypeScript" code={"const range = 386;\\nconst unit = \\"km\\";"} lineNumbers />',
+    "usage": {
+      "use": [
+        "Installation commands, code samples, and technical documents."
+      ],
+      "avoid": [
+        "Comparing revisions; use DiffViewer."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Enter, Space",
+        "does": "Tab reaches the copy action and scrollable source; Enter or Space copies."
+      }
+    ],
+    "a11y": [
+      "Line numbers are decorative. Copy completion and failure are announced only after the operation resolves."
+    ],
+    "aliases": [
+      "CodeBlock"
+    ]
+  },
+  {
+    "name": "json-viewer",
+    "title": "Json viewer",
+    "description": "Inspects structured data with bounded nested disclosures and path search.",
+    "category": "content",
+    "classes": [
+      "rs-json-viewer",
+      "rs-json-viewer-tools",
+      "rs-json-viewer-body",
+      "rs-json-viewer-summary",
+      "rs-json-viewer-children",
+      "rs-json-viewer-value",
+      "rs-json-viewer-note"
+    ],
+    "css": [
+      "components/json-viewer.css"
+    ],
+    "react": "components/json-viewer.tsx",
+    "registryDependencies": [
+      "button",
+      "input"
+    ],
+    "snippet": '<div class="rs-json-viewer" role="region" aria-label="Vehicle data"><div class="rs-json-viewer-body"><details open><summary class="rs-json-viewer-summary">vehicle: Object</summary><div class="rs-json-viewer-children"><p class="rs-json-viewer-value">range: 386</p></div></details></div></div>',
+    "example": 'import { JSONViewer } from "@noorddev/vlak-react";\n\n<JSONViewer label="Vehicle data" data={{ vehicle: { range: 386, battery: 84 }, connected: true }} />',
+    "usage": {
+      "use": [
+        "Inspecting API responses, configuration, and nested records."
+      ],
+      "avoid": [
+        "Editing structured data; use a form or editor."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Enter, Space",
+        "does": "Tab reaches search, expand/collapse controls, and summaries; Enter or Space toggles a disclosure."
+      }
+    ],
+    "a11y": [
+      "Uses native details rather than a partial tree role. Depth, entry, total node, and string length limits disclose truncation; circular references are labeled. Inspection does not invoke getters. Search covers the displayed, bounded data."
+    ],
+    "aliases": [
+      "JSONViewer"
+    ]
+  },
+  {
+    "name": "diff-viewer",
+    "title": "Diff viewer",
+    "description": "Compares text revisions in unified or split rows with explicit change labels.",
+    "category": "content",
+    "classes": [
+      "rs-diff-viewer",
+      "rs-diff-viewer-header",
+      "rs-diff-viewer-tools",
+      "rs-diff-viewer-scroll",
+      "rs-diff-viewer-table",
+      "rs-diff-viewer-cell",
+      "rs-diff-viewer-change",
+      "rs-diff-viewer-number"
+    ],
+    "css": [
+      "components/diff-viewer.css"
+    ],
+    "react": "components/diff-viewer.tsx",
+    "registryDependencies": [
+      "button"
+    ],
+    "snippet": '<div class="rs-diff-viewer"><div class="rs-diff-viewer-scroll" tabindex="0" role="region" aria-label="Changes"><table class="rs-diff-viewer-table"><caption>Changes</caption><thead><tr><th scope="col">Change</th><th scope="col">Content</th></tr></thead><tbody><tr class="rs-diff-viewer-change"><th scope="row">Added</th><td class="rs-diff-viewer-cell">range: 386</td></tr></tbody></table></div></div>',
+    "example": 'import { DiffViewer } from "@noorddev/vlak-react";\n\n<DiffViewer label="Configuration changes" before={"range: 368\\nbattery: 84"} after={"range: 386\\nbattery: 84"} />',
+    "usage": {
+      "use": [
+        "Reviewing configuration, document, or code changes."
+      ],
+      "avoid": [
+        "Rich document editing or merging conflicts."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Enter, Space",
+        "does": "Tab reaches layout buttons, the scrollable comparison, and page controls; Enter or Space switches layout or moves between line pages."
+      }
+    ],
+    "a11y": [
+      "Table headers and explicit Added/Removed labels communicate changes without color. Large replacements use a bounded coarse diff. At most 200 rows render per page by default; pageSize is capped at 1000, with page ranges announced and all lines reachable through navigation."
+    ],
+    "aliases": [
+      "DiffViewer"
+    ]
+  },
+  {
+    "name": "error-summary",
+    "title": "Error summary",
+    "description": "Summarizes invalid fields and moves focus to their inputs.",
+    "category": "feedback",
+    "classes": [
+      "rs-error-summary",
+      "rs-error-summary-title",
+      "rs-error-summary-list",
+      "rs-error-summary-link"
+    ],
+    "css": [
+      "components/error-summary.css"
+    ],
+    "react": "components/error-summary.tsx",
+    "registryDependencies": [],
+    "snippet": '<div class="rs-error-summary" role="alert" aria-labelledby="error-title" tabindex="-1"><h2 id="error-title" class="rs-error-summary-title">Check the following fields</h2><ul class="rs-error-summary-list"><li><a class="rs-error-summary-link" href="#email">Enter an email address</a></li></ul></div>',
+    "example": 'import { ErrorSummary } from "@noorddev/vlak-react";\n\n<ErrorSummary errors={[{ id: "email", message: "Enter an email address" }]} />',
+    "usage": {
+      "use": [
+        "Failed form submissions with errors across several fields."
+      ],
+      "avoid": [
+        "Validation on every keystroke; keep inline field feedback nearby."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Enter, Space",
+        "does": "Tab reaches each field link; Enter focuses the corresponding input."
+      }
+    ],
+    "a11y": [
+      "Uses role alert with a heading. autoFocus is opt-in for failed submission, not continuous validation."
+    ],
+    "aliases": [
+      "ErrorSummary"
+    ]
+  },
+  {
+    "name": "notification-center",
+    "title": "Notification center",
+    "description": "Keeps persistent notifications with read, unread, action, and dismissal state.",
+    "category": "feedback",
+    "classes": [
+      "rs-notification-center",
+      "rs-notification-center-header",
+      "rs-notification-center-title",
+      "rs-notification-center-list",
+      "rs-notification-center-item",
+      "rs-notification-center-unread",
+      "rs-notification-center-detail",
+      "rs-notification-center-actions"
+    ],
+    "css": [
+      "components/notification-center.css"
+    ],
+    "react": "components/notification-center.tsx",
+    "registryDependencies": [
+      "button"
+    ],
+    "snippet": '<section class="rs-notification-center" aria-label="Notifications"><ul class="rs-notification-center-list"><li class="rs-notification-center-item rs-notification-center-unread"><h3 class="rs-notification-center-title">Export ready</h3><p class="rs-notification-center-detail">Unread</p></li></ul></section>',
+    "example": 'import { NotificationCenter } from "@noorddev/vlak-react";\n\n<NotificationCenter defaultValue={[{ id: "export", title: "Export ready", description: "Your study is ready to download" }, { id: "invite", title: "Studio invitation", read: true }]} />',
+    "usage": {
+      "use": [
+        "An inbox of persistent application notifications."
+      ],
+      "avoid": [
+        "Ephemeral confirmation; use Toast."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Enter, Space",
+        "does": "Tab reaches read, action, and dismiss buttons; Enter or Space activates."
+      }
+    ],
+    "a11y": [
+      "Unread state is also exposed in text and control names. User changes are announced through a polite status."
+    ],
+    "aliases": [
+      "NotificationCenter"
+    ]
+  },
+  {
+    "name": "task-progress",
+    "title": "Task progress",
+    "description": "Tracks long-running work with phases, honest progress, cancellation, and retry.",
+    "category": "feedback",
+    "classes": [
+      "rs-task-progress",
+      "rs-task-progress-title",
+      "rs-task-progress-bar",
+      "rs-task-progress-detail",
+      "rs-task-progress-phases",
+      "rs-task-progress-phase",
+      "rs-task-progress-actions"
+    ],
+    "css": [
+      "components/task-progress.css"
+    ],
+    "react": "components/task-progress.tsx",
+    "registryDependencies": [
+      "button"
+    ],
+    "snippet": '<section class="rs-task-progress" aria-label="Exporting study"><h2 class="rs-task-progress-title">Exporting study</h2><p role="status">In progress</p><progress class="rs-task-progress-bar" aria-label="Export progress" max="100" value="42"></progress></section>',
+    "example": 'import { TaskProgress } from "@noorddev/vlak-react";\n\n<TaskProgress label="Exporting study" state="running" value={42} elapsedSeconds={12} phases={[{ id: "prepare", label: "Prepare", state: "complete" }, { id: "render", label: "Render", state: "active" }, { id: "package", label: "Package", state: "pending" }]} />',
+    "usage": {
+      "use": [
+        "Exports, uploads, background processing, and recoverable operations."
+      ],
+      "avoid": [
+        "A brief loading indicator; use Spinner."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Enter, Space",
+        "does": "Tab reaches cancel or retry when supplied; Enter or Space invokes the callback."
+      }
+    ],
+    "a11y": [
+      "Native progress supports unknown completion when value is omitted. State changes are announced, elapsed seconds are not repeatedly announced."
+    ],
+    "aliases": [
+      "TaskProgress"
+    ]
+  },
+  {
+    "name": "connection-status",
+    "title": "Connection status",
+    "description": "Communicates connecting, connected, offline, and reconnecting states.",
+    "category": "feedback",
+    "classes": [
+      "rs-connection-status",
+      "rs-connection-status-label",
+      "rs-connection-status-detail"
+    ],
+    "css": [
+      "components/connection-status.css"
+    ],
+    "react": "components/connection-status.tsx",
+    "registryDependencies": [
+      "button",
+      "icons"
+    ],
+    "snippet": '<div class="rs-connection-status"><span class="rs-connection-status-label" role="status">Connected</span><span class="rs-connection-status-detail">Changes are synchronized</span></div>',
+    "example": 'import { ConnectionStatus } from "@noorddev/vlak-react";\n\n<ConnectionStatus state="connected" description="Changes are synchronized" />',
+    "usage": {
+      "use": [
+        "Network-dependent controls and synchronization status."
+      ],
+      "avoid": [
+        "Inferring server connectivity from browser online status alone."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Enter, Space",
+        "does": "Tab reaches retry when offline and a callback is supplied; Enter or Space retries."
+      }
+    ],
+    "a11y": [
+      "State is visible text announced politely. Retry completion does not assume the connection recovered."
+    ],
+    "aliases": [
+      "ConnectionStatus"
+    ]
+  }
+];
+
+// src/registry-navigation-additions.ts
+var navigationAdditions = [
+  {
+    "name": "tree-view",
+    "title": "Tree view",
+    "description": "Navigates a hierarchy with expansion, single selection, and roving focus.",
+    "category": "navigation",
+    "classes": [
+      "rs-tree-view",
+      "rs-tree-view-group",
+      "rs-tree-view-item",
+      "rs-tree-view-selected",
+      "rs-tree-view-disabled",
+      "rs-tree-view-spacer",
+      "rs-tree-view-disclosure",
+      "rs-tree-view-label",
+      "rs-tree-view-icon"
+    ],
+    "css": [
+      "components/tree-view.css"
+    ],
+    "react": "components/tree-view.tsx",
+    "registryDependencies": [
+      "icons"
+    ],
+    "snippet": '<ul class="rs-tree-view" role="tree" aria-label="Studies"><li role="none"><div class="rs-tree-view-item rs-tree-view-selected" role="treeitem" aria-selected="true" aria-level="1" tabindex="0">Drive</div></li></ul>',
+    "example": 'import { TreeView } from "@noorddev/vlak-react";\n\n<TreeView label="Studies" defaultExpanded={["studies"]} defaultValue="drive" nodes={[{ id: "studies", label: "Studies", children: [{ id: "drive", label: "Drive" }, { id: "orbit", label: "Orbit" }] }, { id: "archive", label: "Archive" }]} />',
+    "usage": {
+      "use": [
+        "File trees, nested assets, and hierarchical selection."
+      ],
+      "avoid": [
+        "A flat list of destination links; use Sidebar."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Arrows, Home, End, Enter, Space, letters",
+        "does": "Arrows navigate and expand/collapse; Enter or Space selects; typing finds a visible label."
+      }
+    ],
+    "a11y": [
+      "One tree item is in the Tab sequence. Level, position, selected, expanded, and disabled state are explicit."
+    ],
+    "aliases": [
+      "TreeView",
+      "File tree",
+      "AI Elements File Tree",
+      "Directory tree"
+    ]
+  },
+  {
+    "name": "toolbar",
+    "title": "Toolbar",
+    "description": "Groups actions behind one Tab stop with arrow-key navigation.",
+    "category": "actions",
+    "classes": [
+      "rs-toolbar",
+      "rs-toolbar-vertical",
+      "rs-toolbar-pressed"
+    ],
+    "css": [
+      "components/toolbar.css"
+    ],
+    "react": "components/toolbar.tsx",
+    "registryDependencies": [
+      "button",
+      "icons"
+    ],
+    "snippet": '<div class="rs-toolbar" role="toolbar" aria-label="Editing"><button class="rs-btn-ghost" tabindex="0">Copy</button><button class="rs-btn-ghost" tabindex="-1">Undo</button></div>',
+    "example": 'import { Toolbar } from "@noorddev/vlak-react";\n\n<Toolbar label="Editing" actions={[{ id: "copy", label: "Copy", icon: "copy", onAction: () => {} }, { id: "undo", label: "Undo", icon: "undo", onAction: () => {} }]} />',
+    "usage": {
+      "use": [
+        "Editor commands and collections of related actions."
+      ],
+      "avoid": [
+        "A simple joined visual group with independent Tab stops; use ButtonGroup."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, arrows, Home, End, Enter, Space",
+        "does": "Tab enters once; arrows and Home/End move between enabled actions; Enter/Space activates."
+      }
+    ],
+    "a11y": [
+      "Exposes a named toolbar with orientation and pressed state. Disabled actions are skipped during roving navigation."
+    ],
+    "aliases": [
+      "Toolbar"
+    ]
+  },
+  {
+    "name": "bottom-navigation",
+    "title": "Bottom navigation",
+    "description": "Presents mobile destinations with current state and safe-area spacing.",
+    "category": "navigation",
+    "classes": [
+      "rs-bottom-navigation",
+      "rs-bottom-navigation-list",
+      "rs-bottom-navigation-link",
+      "rs-bottom-navigation-current"
+    ],
+    "css": [
+      "components/bottom-navigation.css"
+    ],
+    "react": "components/bottom-navigation.tsx",
+    "registryDependencies": [
+      "icons"
+    ],
+    "snippet": '<nav class="rs-bottom-navigation" aria-label="Primary navigation"><ul class="rs-bottom-navigation-list"><li><a class="rs-bottom-navigation-link rs-bottom-navigation-current" href="/" aria-current="page">Home</a></li><li><a class="rs-bottom-navigation-link" href="/docs/">Docs</a></li></ul></nav>',
+    "example": 'import { BottomNavigation } from "@noorddev/vlak-react";\n\n<BottomNavigation current="interfaces" items={[{ id: "components", label: "Components", href: "/components/", icon: "grid" }, { id: "interfaces", label: "Interfaces", href: "/interfaces/", icon: "layout" }, { id: "docs", label: "Docs", href: "/docs/", icon: "file-text" }]} />',
+    "usage": {
+      "use": [
+        "Three to five primary destinations in a mobile product."
+      ],
+      "avoid": [
+        "Action commands or large collections of destinations."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Enter",
+        "does": "Tab moves through native links; Enter follows the destination."
+      }
+    ],
+    "a11y": [
+      "A named navigation landmark and aria-current page indicate the active destination. Count badges are readable text."
+    ],
+    "aliases": [
+      "BottomNavigation"
+    ]
+  },
+  {
+    "name": "overflow-list",
+    "title": "Overflow list",
+    "description": "Keeps priority actions visible and moves excess actions into a menu.",
+    "category": "actions",
+    "classes": [
+      "rs-overflow-list",
+      "rs-overflow-list-measure",
+      "rs-overflow-list-sample",
+      "rs-overflow-list-more"
+    ],
+    "css": [
+      "components/overflow-list.css"
+    ],
+    "react": "components/overflow-list.tsx",
+    "registryDependencies": [
+      "button",
+      "dropdown-menu"
+    ],
+    "snippet": '<div class="rs-overflow-list" role="group" aria-label="Actions"><button class="rs-btn-ghost">Copy</button><div class="rs-overflow-list-more"><button class="rs-btn-ghost" aria-haspopup="menu">More actions</button></div></div>',
+    "example": 'import { OverflowList } from "@noorddev/vlak-react";\n\n<OverflowList maxVisible={2} items={[{ id: "copy", label: "Copy", onAction: () => {} }, { id: "duplicate", label: "Duplicate", onAction: () => {} }, { id: "archive", label: "Archive", onAction: () => {} }]} />',
+    "usage": {
+      "use": [
+        "Responsive action rows where order also establishes priority."
+      ],
+      "avoid": [
+        "Hiding critical navigation or a form's only submit action."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Enter, Space, arrows, Escape",
+        "does": "Native visible buttons activate normally. The overflow uses DropdownMenu keyboard navigation and Escape."
+      }
+    ],
+    "a11y": [
+      "Overflow actions remain in a named menu. Hidden measurement text is excluded from accessibility."
+    ],
+    "aliases": [
+      "OverflowList"
+    ]
+  },
+  {
+    "name": "filter-bar",
+    "title": "Filter bar",
+    "description": "Shows active filters with individual removal, reset, and a result count.",
+    "category": "patterns",
+    "classes": [
+      "rs-filter-bar",
+      "rs-filter-bar-count"
+    ],
+    "css": [
+      "components/filter-bar.css"
+    ],
+    "react": "components/filter-bar.tsx",
+    "registryDependencies": [
+      "button",
+      "icons"
+    ],
+    "snippet": '<div class="rs-filter-bar" role="group" aria-label="Active filters"><button class="rs-btn-ghost" aria-label="Remove Alkmaar filter">Alkmaar \xD7</button><span class="rs-filter-bar-count" role="status">12 results</span></div>',
+    "example": 'import { FilterBar } from "@noorddev/vlak-react";\n\n<FilterBar defaultValue={[{ id: "city", label: "Alkmaar" }, { id: "status", label: "Published" }]} resultCount={12} />',
+    "usage": {
+      "use": [
+        "Search results and data views with multiple active filters."
+      ],
+      "avoid": [
+        "Editing complex logic directly; use QueryBuilder."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Enter, Space",
+        "does": "Tab reaches remove/reset actions; Enter or Space applies changes and returns focus to the group."
+      }
+    ],
+    "a11y": [
+      "Removal buttons name their filters. Result count is a polite status; children can supply labeled filter editors."
+    ],
+    "aliases": [
+      "FilterBar"
+    ]
+  },
+  {
+    "name": "query-builder",
+    "title": "Query builder",
+    "description": "Builds nested filter conditions from fields, operators, and values.",
+    "category": "patterns",
+    "classes": [
+      "rs-query-builder",
+      "rs-query-builder-group",
+      "rs-query-builder-legend",
+      "rs-query-builder-rule",
+      "rs-query-builder-actions",
+      "rs-query-builder-summary"
+    ],
+    "css": [
+      "components/query-builder.css"
+    ],
+    "react": "components/query-builder.tsx",
+    "registryDependencies": [
+      "button",
+      "input",
+      "native-select"
+    ],
+    "snippet": '<div class="rs-query-builder"><fieldset class="rs-query-builder-group"><legend class="rs-query-builder-legend">Filter conditions</legend><p class="rs-query-builder-summary">Name contains "Drive"</p></fieldset></div>',
+    "example": 'import { QueryBuilder } from "@noorddev/vlak-react";\n\n<QueryBuilder fields={[{ id: "name", label: "Name" }, { id: "range", label: "Range", type: "number" }]} defaultValue={{ id: "root", combinator: "and", rules: [{ id: "rule", field: "name", operator: "contains", value: "Drive" }] }} />',
+    "usage": {
+      "use": [
+        "User-defined filters and conditional rule sets."
+      ],
+      "avoid": [
+        "Executing SQL or trusting the summary as a database query."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Enter, Space, native select keys",
+        "does": "Native fields handle entry and selection; buttons add or remove rules/groups."
+      }
+    ],
+    "a11y": [
+      "Fieldsets name nested groups. Every editor has a label and a human-readable expression summary is available."
+    ],
+    "aliases": [
+      "QueryBuilder"
+    ]
+  },
+  {
+    "name": "sortable-list",
+    "title": "Sortable list",
+    "description": "Reorders items with drag handles, move buttons, and keyboard shortcuts.",
+    "category": "content",
+    "classes": [
+      "rs-sortable-list",
+      "rs-sortable-list-item",
+      "rs-sortable-list-content",
+      "rs-sortable-list-actions",
+      "rs-sortable-list-status"
+    ],
+    "css": [
+      "components/sortable-list.css"
+    ],
+    "react": "components/sortable-list.tsx",
+    "registryDependencies": [
+      "button",
+      "icons"
+    ],
+    "snippet": '<ol class="rs-sortable-list" aria-label="Reorder items"><li class="rs-sortable-list-item"><div class="rs-sortable-list-content">Research</div><div class="rs-sortable-list-actions"><button class="rs-btn-ghost" aria-label="Move Research down">Move down</button></div></li></ol>',
+    "example": 'import { SortableList } from "@noorddev/vlak-react";\n\n<SortableList defaultValue={[{ id: "research", label: "Research" }, { id: "design", label: "Design" }, { id: "build", label: "Build" }]} />',
+    "usage": {
+      "use": [
+        "Ordering tasks, workflow steps, and priority lists."
+      ],
+      "avoid": [
+        "Cross-column status changes alone; use KanbanBoard."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Enter, Space, Alt+Arrow up/down",
+        "does": "Move buttons work with Enter/Space; Alt with Up/Down on a handle changes its position."
+      }
+    ],
+    "a11y": [
+      "Each move action names the item; position changes are announced and focus stays with the moved item."
+    ],
+    "aliases": [
+      "SortableList"
+    ]
+  },
+  {
+    "name": "virtual-list",
+    "title": "Virtual list",
+    "description": "Windows large fixed-height collections while preserving focused rows.",
+    "category": "content",
+    "classes": [
+      "rs-virtual-list",
+      "rs-virtual-list-canvas",
+      "rs-virtual-list-item",
+      "rs-virtual-list-empty"
+    ],
+    "css": [
+      "components/virtual-list.css"
+    ],
+    "react": "components/virtual-list.tsx",
+    "registryDependencies": [],
+    "snippet": '<div class="rs-virtual-list" role="list" aria-label="Records" style="height:264px"><div class="rs-virtual-list-canvas" role="none" style="height:44px"><div class="rs-virtual-list-item" role="listitem" tabindex="0" aria-posinset="1" aria-setsize="1" style="height:44px">Record 1</div></div></div>',
+    "example": 'import { VirtualList } from "@noorddev/vlak-react";\n\n<VirtualList label="Records" height={264} items={Array.from({ length: 200 }, (_, index) => ({ id: String(index), label: `Record ${index + 1}` }))} />',
+    "usage": {
+      "use": [
+        "Large collections where fixed-height rows are an acceptable constraint."
+      ],
+      "avoid": [
+        "Short lists or variable-height content without a fixed row contract."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Arrow up/down, Home, End",
+        "does": "A row enters the Tab sequence; arrows and Home/End scroll and focus rows. Nested controls keep their own keys."
+      }
+    ],
+    "a11y": [
+      "List items expose total size and position. Focused rows are retained when outside the visible window."
+    ],
+    "aliases": [
+      "VirtualList"
+    ]
+  },
+  {
+    "name": "master-detail",
+    "title": "Master detail",
+    "description": "Links selection to a detail panel with a mobile back path.",
+    "category": "patterns",
+    "classes": [
+      "rs-master-detail",
+      "rs-master-detail-list",
+      "rs-master-detail-list-hidden",
+      "rs-master-detail-panel",
+      "rs-master-detail-panel-hidden",
+      "rs-master-detail-title",
+      "rs-master-detail-description",
+      "rs-master-detail-back",
+      "rs-master-detail-button",
+      "rs-master-detail-selected"
+    ],
+    "css": [
+      "components/master-detail.css"
+    ],
+    "react": "components/master-detail.tsx",
+    "registryDependencies": [
+      "button",
+      "icons"
+    ],
+    "snippet": '<div class="rs-master-detail"><div class="rs-master-detail-list" role="group" aria-label="Studies"><button class="rs-master-detail-button rs-master-detail-selected" aria-pressed="true">Drive</button></div><section class="rs-master-detail-panel" aria-label="Drive details"><h2 class="rs-master-detail-title">Drive</h2><p>Vehicle controls</p></section></div>',
+    "example": 'import { MasterDetail } from "@noorddev/vlak-react";\n\n<MasterDetail label="Studies" items={[{ id: "drive", label: "Drive", description: "Vehicle controls", detail: <p>Range, energy, and media in one shared grid.</p> }, { id: "orbit", label: "Orbit", description: "Observation network", detail: <p>Track assets and their current passes.</p> }]} />',
+    "usage": {
+      "use": [
+        "Inboxes, asset browsers, and list/detail workspaces."
+      ],
+      "avoid": [
+        "Independent panels without a selection relationship; use Split."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Enter, Space",
+        "does": "Select an item with its button; focus moves to the detail heading. Mobile Back restores focus to its list item."
+      }
+    ],
+    "a11y": [
+      "Native selected buttons and a named detail region. Mobile layout preserves an explicit return path."
+    ],
+    "aliases": [
+      "MasterDetail"
+    ]
+  },
+  {
+    "name": "property-grid",
+    "title": "Property grid",
+    "description": "Aligns editable labels, values, units, and hints in an inspector.",
+    "category": "patterns",
+    "classes": [
+      "rs-property-grid",
+      "rs-property-grid-row",
+      "rs-property-grid-label",
+      "rs-property-grid-control",
+      "rs-property-grid-note"
+    ],
+    "css": [
+      "components/property-grid.css"
+    ],
+    "react": "components/property-grid.tsx",
+    "registryDependencies": [
+      "input",
+      "native-select",
+      "switch"
+    ],
+    "snippet": '<div class="rs-property-grid" role="group" aria-label="Properties"><div class="rs-property-grid-row"><label class="rs-property-grid-label" for="property-name">Name</label><div class="rs-property-grid-control"><input class="rs-input" id="property-name" value="Drive" /></div></div></div>',
+    "example": 'import { PropertyGrid } from "@noorddev/vlak-react";\n\n<PropertyGrid defaultValue={{ name: "Drive", range: 386, enabled: true }} fields={[{ id: "name", label: "Name" }, { id: "range", label: "Range", type: "number", unit: "km", min: 0 }, { id: "enabled", label: "Connected", type: "switch" }]} />',
+    "usage": {
+      "use": [
+        "Inspector panels and dense settings with mixed field types."
+      ],
+      "avoid": [
+        "Read-only facts; use DescriptionList."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, native field keys, Space",
+        "does": "Native text/number/select fields keep their editing keys; Space toggles a switch."
+      }
+    ],
+    "a11y": [
+      "Each row labels its actual control and associates its hint. Native numeric constraints remain available to forms."
+    ],
+    "aliases": [
+      "PropertyGrid"
+    ]
+  }
+];
+
+// src/registry-input-additions.ts
+var inputAdditions = [
+  {
+    "name": "number-field",
+    "title": "Number field",
+    "description": "Edits a numeric value with native validation, units, and bounded 44px increase and decrease actions.",
+    "category": "forms",
+    "classes": [
+      "rs-number-field",
+      "rs-number-field-label",
+      "rs-number-field-row",
+      "rs-number-field-input",
+      "rs-number-field-unit",
+      "rs-number-field-action",
+      "rs-number-field-controls",
+      "rs-number-field-controls-stacked"
+    ],
+    "registryDependencies": [
+      "input",
+      "button"
+    ],
+    "snippet": '<div class="rs-number-field"><label class="rs-number-field-label" for="cabin-temperature">Cabin temperature</label><div class="rs-number-field-row"><input class="rs-input rs-number-field-input" id="cabin-temperature" type="number" min="16" max="28" value="20" aria-describedby="cabin-unit" /><span class="rs-number-field-unit" id="cabin-unit">\xB0C</span><div class="rs-number-field-controls"><button class="rs-btn-ghost rs-number-field-action" type="button" aria-label="Decrease value">\u2212</button><button class="rs-btn-ghost rs-number-field-action" type="button" aria-label="Increase value">+</button></div></div></div>',
+    "example": 'import { NumberField } from "@noorddev/vlak-react";\n\n<NumberField label="Cabin temperature" name="temperature" defaultValue={20} min={16} max={28} step={0.5} unit="\xB0C" controlsPlacement="stacked" />',
+    "usage": {
+      "use": [
+        "Numeric quantities that need visible stepping, native bounds, or a unit.",
+        "Stacked controls when increase belongs above decrease at the end of a reading."
+      ],
+      "avoid": [
+        "A continuous interval with two endpoints; use RangeSlider.",
+        "Codes and identifiers, which may have leading zeroes; use Input."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Moves between the number field and available step actions."
+      },
+      {
+        "keys": "Arrow up, Arrow down",
+        "does": "Uses the browser's native numeric stepping while the input is focused."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Activates a focused increase or decrease button."
+      }
+    ],
+    "a11y": [
+      "The forwarded ref reaches the native number input; label, native form attributes, and name reach that input.",
+      "min, max, and step use native validity. The buttons clamp at bounds; typed values retain native validation feedback.",
+      "A cleared field reports null. value/defaultValue/onValueChange support controlled and uncontrolled use; form reset restores uncontrolled defaults.",
+      "The unit is linked as a description. Each step action has a name and a 44px target."
+    ],
+    "aliases": [
+      "NumberField",
+      "Number input",
+      "Numeric stepper",
+      "Quantity field"
+    ],
+    "css": [
+      "components/number-field.css"
+    ],
+    "react": "components/number-field.tsx"
+  },
+  {
+    "name": "range-slider",
+    "title": "Range slider",
+    "description": "Sets an ordered numeric interval with two named native range controls and visible endpoint values.",
+    "category": "forms",
+    "classes": [
+      "rs-range-slider",
+      "rs-range-slider-legend",
+      "rs-range-slider-row",
+      "rs-range-slider-label",
+      "rs-range-slider-input",
+      "rs-range-slider-output"
+    ],
+    "registryDependencies": [
+      "field"
+    ],
+    "snippet": '<fieldset class="rs-range-slider"><legend class="rs-range-slider-legend">Budget</legend><div class="rs-range-slider-row"><label class="rs-range-slider-label" for="budget-from">From</label><input class="rs-range-slider-input" id="budget-from" type="range" min="0" max="800" value="120" /><output class="rs-range-slider-output" for="budget-from">120</output></div><div class="rs-range-slider-row"><label class="rs-range-slider-label" for="budget-to">To</label><input class="rs-range-slider-input" id="budget-to" type="range" min="120" max="800" value="420" /><output class="rs-range-slider-output" for="budget-to">420</output></div></fieldset>',
+    "example": 'import { RangeSlider } from "@noorddev/vlak-react";\n\n<RangeSlider label="Budget" name="budget" defaultValue={[120, 420]} min={0} max={800} step={20} formatValue={(value) => `\u20AC${value}`} />',
+    "usage": {
+      "use": [
+        "A numeric lower and upper bound such as budget or duration.",
+        "Separate labeled tracks when each endpoint needs clear keyboard and touch access."
+      ],
+      "avoid": [
+        "A single setting; use Slider.",
+        "Time-based seeking with buffered media; use MediaScrubber."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Moves between the lower and upper native range inputs."
+      },
+      {
+        "keys": "Arrow keys, Home, End",
+        "does": "Uses the browser's native range stepping within the other endpoint's bounds."
+      }
+    ],
+    "a11y": [
+      "Uses a fieldset and legend with a separate label and visible output for each endpoint; each input has a 44px-high target.",
+      "Each endpoint's native min/max prevents crossing. formatValue also supplies aria-valuetext.",
+      "With name, native form values are submitted as name[0] and name[1]. Uncontrolled values reset with the form.",
+      "The ref reaches the fieldset; Field hint and error descriptions reach the group."
+    ],
+    "aliases": [
+      "RangeSlider",
+      "Interval selector",
+      "Min max slider",
+      "Dual range"
+    ],
+    "css": [
+      "components/range-slider.css"
+    ],
+    "react": "components/range-slider.tsx"
+  },
+  {
+    "name": "multi-select",
+    "title": "Multi-select",
+    "description": "Selects multiple predefined options from a searchable native disclosure with named checkboxes.",
+    "category": "forms",
+    "classes": [
+      "rs-multi-select",
+      "rs-multi-select-legend",
+      "rs-multi-select-trigger",
+      "rs-multi-select-panel",
+      "rs-multi-select-options",
+      "rs-multi-select-option",
+      "rs-multi-select-selected",
+      "rs-multi-select-empty",
+      "rs-multi-select-clear"
+    ],
+    "registryDependencies": [
+      "input",
+      "button",
+      "checkbox",
+      "icons",
+      "field"
+    ],
+    "snippet": '<fieldset class="rs-multi-select"><legend class="rs-multi-select-legend">Cities</legend><details><summary class="rs-multi-select-trigger">Select options</summary><div class="rs-multi-select-panel"><label class="rs-multi-select-option"><input type="checkbox" name="cities" value="alkmaar" /> Alkmaar</label><label class="rs-multi-select-option"><input type="checkbox" name="cities" value="bergen" /> Bergen</label></div></details></fieldset>',
+    "example": 'import { MultiSelect } from "@noorddev/vlak-react";\n\n<MultiSelect label="Cities" name="cities" options={[{ value: "alkmaar", label: "Alkmaar" }, { value: "bergen", label: "Bergen" }, { value: "castricum", label: "Castricum" }]} defaultValue={["alkmaar"]} />',
+    "usage": {
+      "use": [
+        "Multiple values from a known option set.",
+        "A compact summary that expands to filterable checkbox choices."
+      ],
+      "avoid": [
+        "Freeform values; use TagInput.",
+        "One option only; use Select or NativeSelect."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Enter, Space",
+        "does": "Opens or closes the native summary, or toggles the focused checkbox."
+      },
+      {
+        "keys": "Tab",
+        "does": "Moves through search, available checkboxes, and clear selection."
+      },
+      {
+        "keys": "Escape",
+        "does": "Closes the disclosure and returns focus to its summary."
+      }
+    ],
+    "a11y": [
+      "Uses native details and checkboxes instead of exposing an incomplete listbox interaction.",
+      "The legend names the field; each checkbox has its own visible name. Selected rows change fill across the full surface.",
+      "Disabled options cannot change; clear preserves disabled selections. Empty search results are announced politely.",
+      "With name, selected values are submitted as repeated fields. The ref reaches the fieldset; uncontrolled selections reset with the form."
+    ],
+    "aliases": [
+      "MultiSelect",
+      "Multiple select",
+      "Checkbox picker"
+    ],
+    "css": [
+      "components/multi-select.css"
+    ],
+    "react": "components/multi-select.tsx"
+  },
+  {
+    "name": "tag-input",
+    "title": "Tag input",
+    "description": "Creates and removes freeform text tokens with paste splitting, duplicate prevention, and validation.",
+    "category": "forms",
+    "classes": [
+      "rs-tag-input",
+      "rs-tag-input-label",
+      "rs-tag-input-list",
+      "rs-tag-input-tag",
+      "rs-tag-input-remove",
+      "rs-tag-input-row",
+      "rs-tag-input-input",
+      "rs-tag-input-add",
+      "rs-tag-input-feedback"
+    ],
+    "registryDependencies": [
+      "input",
+      "button",
+      "icons",
+      "field"
+    ],
+    "snippet": '<div class="rs-tag-input"><label class="rs-tag-input-label" for="project-tags">Project tags</label><ul class="rs-tag-input-list" aria-label="Current tags"><li class="rs-tag-input-tag">Design<button class="rs-btn-ghost rs-tag-input-remove" type="button" aria-label="Remove Design">\xD7</button></li></ul><div class="rs-tag-input-row"><input class="rs-input rs-tag-input-input" id="project-tags" placeholder="Add a tag" /><button class="rs-btn-ghost rs-tag-input-add" type="button">Add</button></div></div>',
+    "example": 'import { TagInput } from "@noorddev/vlak-react";\n\n<TagInput label="Project tags" name="tags" defaultValue={["Research", "Design"]} maxTags={5} validate={(tag) => tag.length > 24 ? "Use 24 characters or fewer" : undefined} />',
+    "usage": {
+      "use": [
+        "Short freeform labels, recipients, or keywords.",
+        "Comma-separated or newline-separated pasted values that should become distinct tokens."
+      ],
+      "avoid": [
+        "A fixed vocabulary; use MultiSelect.",
+        "Long prose; use Textarea."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Enter, comma",
+        "does": "Commits a trimmed draft as a tag without submitting the form."
+      },
+      {
+        "keys": "Backspace in an empty input",
+        "does": "Focuses the last tag's remove button."
+      },
+      {
+        "keys": "Escape",
+        "does": "Clears the current draft and its error."
+      },
+      {
+        "keys": "Tab, Enter, Space",
+        "does": "Reaches and activates named Add and Remove buttons."
+      }
+    ],
+    "a11y": [
+      "The forwarded ref reaches the text input. Each 44px remove target is named with its tag.",
+      "Exact duplicate tags are ignored; validate and maxTags reject an addition while preserving the draft and exposing an alert.",
+      "Hidden fields submit each tag under name. Form reset restores uncontrolled tags and clears the draft.",
+      "Keyboard composition is respected; Enter does not commit while an input method is composing text."
+    ],
+    "aliases": [
+      "TagInput",
+      "Token input",
+      "Chips input",
+      "Freeform tags"
+    ],
+    "css": [
+      "components/tag-input.css"
+    ],
+    "react": "components/tag-input.tsx"
+  },
+  {
+    "name": "date-range-picker",
+    "title": "Date range picker",
+    "description": "Collects start and end dates with two native date editors, shared constraints, and 44px controls.",
+    "category": "forms",
+    "classes": [
+      "rs-date-range-picker",
+      "rs-date-range-picker-legend",
+      "rs-date-range-picker-fields",
+      "rs-date-range-picker-input"
+    ],
+    "registryDependencies": [
+      "input",
+      "field"
+    ],
+    "snippet": '<fieldset class="rs-date-range-picker"><legend class="rs-date-range-picker-legend">Stay</legend><div class="rs-date-range-picker-fields"><label>Start date<input class="rs-input rs-date-range-picker-input" type="date" name="stay[start]" value="2026-09-08" /></label><label>End date<input class="rs-input rs-date-range-picker-input" type="date" name="stay[end]" min="2026-09-08" value="2026-09-12" /></label></div></fieldset>',
+    "example": 'import { DateRangePicker } from "@noorddev/vlak-react";\n\n<DateRangePicker label="Stay" name="stay" defaultValue={{ start: "2026-09-08", end: "2026-09-12" }} min="2026-09-01" required />',
+    "usage": {
+      "use": [
+        "A start/end date range that should use the platform's date editor and calendar picker.",
+        "Forms that submit ISO calendar dates without time-zone conversion."
+      ],
+      "avoid": [
+        "A single date; use DatePicker or Calendar.",
+        "Time-of-day selection; use TimeField."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Moves through the two native date editors and their platform picker controls."
+      },
+      {
+        "keys": "Arrow keys",
+        "does": "Edits the active date segment according to the browser's native behavior."
+      }
+    ],
+    "a11y": [
+      "Uses a fieldset/legend and a separately labeled native date input for each endpoint. The browser owns each date popup.",
+      "Values use year-month-day strings, for example 2026-09-06. A new start after the old end clears the end; end's minimum follows the start.",
+      "min, max, and required use native constraint validation. A supplied inverted controlled range is marked invalid.",
+      "With name, form fields are name[start] and name[end]. The ref reaches the fieldset; uncontrolled values reset with the form."
+    ],
+    "aliases": [
+      "DateRangePicker",
+      "Date interval",
+      "Start and end dates"
+    ],
+    "css": [
+      "components/date-range-picker.css"
+    ],
+    "react": "components/date-range-picker.tsx"
+  },
+  {
+    "name": "time-field",
+    "title": "Time field",
+    "description": "Edits a time using the platform's localized time control with native bounds and second-based steps.",
+    "category": "forms",
+    "classes": [
+      "rs-time-field"
+    ],
+    "registryDependencies": [
+      "input"
+    ],
+    "snippet": '<label>Start time<input class="rs-input rs-time-field" type="time" name="start-time" value="09:30" min="09:00" max="18:00" step="900" /></label>',
+    "example": 'import { TimeField } from "@noorddev/vlak-react";\n\n<TimeField label="Start time" name="start-time" defaultValue="09:30" min="09:00" max="18:00" step={900} hint="Appointments start every 15 minutes" />',
+    "usage": {
+      "use": [
+        "A time of day with browser-native locale and keyboard behavior.",
+        "Minutes or seconds, with the native step measured in seconds."
+      ],
+      "avoid": [
+        "An elapsed duration; use NumberField with units.",
+        "A calendar date; use DatePicker."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, arrow keys",
+        "does": "Uses the browser's time segment navigation and native stepping."
+      },
+      {
+        "keys": "Typing",
+        "does": "Edits the active hour, minute, or second segment according to the platform."
+      }
+    ],
+    "a11y": [
+      "Wraps Input, preserving label, hint, error, native form attributes, disabled/readOnly and the forwarded input ref.",
+      "Values use HH:mm or HH:mm:ss; the visible editor follows the browser's locale and 12/24-hour preference.",
+      "No date or time-zone conversion is performed. Controlled/uncontrolled state and form reset are supported."
+    ],
+    "aliases": [
+      "TimeField",
+      "Time input",
+      "Time picker"
+    ],
+    "css": [
+      "components/time-field.css"
+    ],
+    "react": "components/time-field.tsx"
+  },
+  {
+    "name": "file-upload",
+    "title": "File upload",
+    "description": "Collects validated files through browse or drop, with optional upload progress, cancellation, and retry.",
+    "category": "forms",
+    "classes": [
+      "rs-file-upload",
+      "rs-file-upload-drop",
+      "rs-file-upload-drag",
+      "rs-file-upload-input",
+      "rs-file-upload-title",
+      "rs-file-upload-description",
+      "rs-file-upload-list",
+      "rs-file-upload-item",
+      "rs-file-upload-row",
+      "rs-file-upload-name",
+      "rs-file-upload-actions",
+      "rs-file-upload-action",
+      "rs-file-upload-status"
+    ],
+    "registryDependencies": [
+      "button",
+      "progress"
+    ],
+    "snippet": '<div class="rs-file-upload"><div class="rs-file-upload-drop"><span class="rs-file-upload-title">Choose files</span><span class="rs-file-upload-description" id="files-hint">Drop files here or browse</span><input class="rs-file-upload-input" type="file" multiple aria-label="Choose files" aria-describedby="files-hint" /></div></div>',
+    "example": 'import { FileUpload } from "@noorddev/vlak-react";\n\n<FileUpload label="Project files" name="attachments" accept=".pdf,.txt" maxFiles={5} maxSize={10 * 1024 * 1024} description="PDF or text, up to 10 MB each" />',
+    "usage": {
+      "use": [
+        "Validated attachment queues with native file browsing and drag-and-drop.",
+        "Provide onUpload when the app has a transport; it receives an AbortSignal and progress callback."
+      ],
+      "avoid": [
+        "Assuming files upload automatically; without onUpload this only collects selected files.",
+        "Client checks as security enforcement; validate uploaded files again on the server."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Enter, Space",
+        "does": "Reaches the native file picker and labeled Remove, Cancel, and Retry actions."
+      }
+    ],
+    "a11y": [
+      "The native file input covers the drop target, remains keyboard-focusable, and receives the forwarded ref.",
+      "Rejected types, sizes and counts produce readable errors. Upload status is announced; progress bars are named with the file.",
+      "The app supplies onUpload(file, { signal, onProgress }). Cancel aborts the signal; errors retain the file and expose Retry.",
+      "With name, the browser's formdata event appends the accepted queue to native FormData. Use multipart/form-data for native file submission. Disabled queues are omitted.",
+      "Form reset restores uncontrolled files, clears errors and aborts active uploads. Unmount aborts outstanding transports."
+    ],
+    "aliases": [
+      "FileUpload",
+      "Drop zone",
+      "Attachment upload",
+      "File input"
+    ],
+    "css": [
+      "components/file-upload.css"
+    ],
+    "react": "components/file-upload.tsx"
+  },
+  {
+    "name": "transfer-list",
+    "title": "Transfer list",
+    "description": "Assigns options between available and selected lists using native checkboxes and explicit move actions.",
+    "category": "forms",
+    "classes": [
+      "rs-transfer-list",
+      "rs-transfer-list-legend",
+      "rs-transfer-list-columns",
+      "rs-transfer-list-panel",
+      "rs-transfer-list-heading",
+      "rs-transfer-list-options",
+      "rs-transfer-list-item",
+      "rs-transfer-list-actions",
+      "rs-transfer-list-action",
+      "rs-transfer-list-empty",
+      "rs-transfer-list-status"
+    ],
+    "registryDependencies": [
+      "checkbox",
+      "button"
+    ],
+    "snippet": '<fieldset class="rs-transfer-list"><legend class="rs-transfer-list-legend">Assign cities</legend><div class="rs-transfer-list-columns"><fieldset class="rs-transfer-list-panel"><legend class="rs-transfer-list-heading">Available</legend><label class="rs-transfer-list-item"><input type="checkbox" /> Alkmaar</label></fieldset><div class="rs-transfer-list-actions"><button class="rs-btn-ghost" type="button">Add selected</button><button class="rs-btn-ghost" type="button">Remove selected</button></div><fieldset class="rs-transfer-list-panel"><legend class="rs-transfer-list-heading">Selected</legend><p class="rs-transfer-list-empty">No options</p></fieldset></div></fieldset>',
+    "example": 'import { TransferList } from "@noorddev/vlak-react";\n\n<TransferList label="Coverage areas" name="areas" options={[{ value: "alkmaar", label: "Alkmaar" }, { value: "bergen", label: "Bergen" }, { value: "castricum", label: "Castricum" }]} defaultValue={["alkmaar"]} />',
+    "usage": {
+      "use": [
+        "Assigning a visible subset from a manageable option list.",
+        "Work where available and assigned options should stay visible together."
+      ],
+      "avoid": [
+        "Very large lists; use searchable MultiSelect.",
+        "Ordering selected records; use SortableList."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Space",
+        "does": "Moves through and marks native checkbox options."
+      },
+      {
+        "keys": "Enter, Space on a move action",
+        "does": "Adds or removes the marked options; marked state clears after the move."
+      }
+    ],
+    "a11y": [
+      "A top-level fieldset names the task; available and selected lists have distinct legends and counts.",
+      "Every option and move action has a 44px target. Disabled options stay fixed; unavailable moves are disabled.",
+      "The selected count is a polite status. Hidden fields submit each selected value under name.",
+      "The ref reaches the fieldset. Form reset restores uncontrolled values and clears marked options."
+    ],
+    "aliases": [
+      "TransferList",
+      "Dual listbox",
+      "Assignment lists"
+    ],
+    "css": [
+      "components/transfer-list.css"
+    ],
+    "react": "components/transfer-list.tsx"
+  },
+  {
+    "name": "inline-edit",
+    "title": "Inline edit",
+    "description": "Switches a text value into an editor with explicit save and cancel, validation, and optional async persistence.",
+    "category": "forms",
+    "classes": [
+      "rs-inline-edit",
+      "rs-inline-edit-row",
+      "rs-inline-edit-label",
+      "rs-inline-edit-value",
+      "rs-inline-edit-input",
+      "rs-inline-edit-action",
+      "rs-inline-edit-error"
+    ],
+    "registryDependencies": [
+      "input",
+      "button"
+    ],
+    "snippet": '<div class="rs-inline-edit"><span class="rs-inline-edit-label">Project name</span><div class="rs-inline-edit-row"><span class="rs-inline-edit-value">Field study</span><button class="rs-btn-ghost rs-inline-edit-action" type="button" aria-label="Edit Project name">Edit</button></div></div>',
+    "example": 'import { InlineEdit } from "@noorddev/vlak-react";\n\n<InlineEdit label="Project name" name="project" defaultValue="Field study" validate={(value) => value.trim() ? undefined : "Enter a project name"} />',
+    "usage": {
+      "use": [
+        "A short text value edited in its reading context.",
+        "Provide onSave to await persistence before committing a new value."
+      ],
+      "avoid": [
+        "Long-form writing; use Textarea.",
+        "Implicit save-on-blur flows; this requires an explicit save."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Enter, Space on Edit",
+        "does": "Opens the editor, focuses the input and selects its text."
+      },
+      {
+        "keys": "Enter in the editor",
+        "does": "Validates and saves without submitting the enclosing form."
+      },
+      {
+        "keys": "Escape in the editor",
+        "does": "Discards the draft and returns focus to Edit."
+      }
+    ],
+    "a11y": [
+      "The input is named by the visible label. Save errors preserve the draft and appear as alerts.",
+      "Successful save and cancel return focus to Edit. Pending saves disable duplicate actions and expose aria-busy.",
+      "Hidden name submits only the committed value. Form reset restores uncontrolled defaults and discards drafts; late pending responses do not reapply them.",
+      "The forwarded ref reaches the root div. No nested form is introduced."
+    ],
+    "aliases": [
+      "InlineEdit",
+      "Editable text",
+      "Click to edit"
+    ],
+    "css": [
+      "components/inline-edit.css"
+    ],
+    "react": "components/inline-edit.tsx"
+  },
+  {
+    "name": "rating",
+    "title": "Rating",
+    "description": "Collects a discrete numeric score with 44px native radio choices and an optional clear action.",
+    "category": "forms",
+    "classes": [
+      "rs-rating",
+      "rs-rating-legend",
+      "rs-rating-choices",
+      "rs-rating-choice",
+      "rs-rating-selected",
+      "rs-rating-input",
+      "rs-rating-clear"
+    ],
+    "registryDependencies": [
+      "button"
+    ],
+    "snippet": '<fieldset class="rs-rating"><legend class="rs-rating-legend">Usefulness</legend><div class="rs-rating-choices"><label class="rs-rating-choice">1<input class="rs-rating-input" type="radio" name="usefulness" value="1" aria-label="1 of 3" /></label><label class="rs-rating-choice rs-rating-selected">2<input class="rs-rating-input" type="radio" name="usefulness" value="2" aria-label="2 of 3" checked /></label><label class="rs-rating-choice">3<input class="rs-rating-input" type="radio" name="usefulness" value="3" aria-label="3 of 3" /></label></div></fieldset>',
+    "example": 'import { Rating } from "@noorddev/vlak-react";\n\n<Rating label="How useful was this?" name="usefulness" max={5} defaultValue={4} getLabel={(value, max) => `${value} out of ${max}`} />',
+    "usage": {
+      "use": [
+        "An explicit score on a short, ordered scale.",
+        "Clearable feedback where no rating is distinct from the lowest score."
+      ],
+      "avoid": [
+        "Unordered choices; use Radio.",
+        "Large or continuous numeric ranges; use Slider or NumberField."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Enters the native radio group at its current choice and reaches Clear."
+      },
+      {
+        "keys": "Arrow keys",
+        "does": "Moves and selects among the native radio choices."
+      },
+      {
+        "keys": "Space",
+        "does": "Selects a focused radio or activates Clear."
+      }
+    ],
+    "a11y": [
+      "The fieldset legend names the score; getLabel gives each choice a complete name such as 3 of 5.",
+      "Selection changes the full choice surface. Each choice is 44px with a 4px corner and a visible focus outline.",
+      "Zero means no rating. max is limited to 1\u201310 whole choices. required uses native radio-group validation.",
+      "name submits the selected score. The ref reaches the fieldset; uncontrolled values reset with the form."
+    ],
+    "aliases": [
+      "Rating",
+      "Score input",
+      "Rating group"
+    ],
+    "css": [
+      "components/rating.css"
+    ],
+    "react": "components/rating.tsx"
+  }
+];
+
+// src/registry-media-additions.ts
+var mediaAdditions = [
+  {
+    "name": "playback-controls",
+    "title": "Playback controls",
+    "description": "Groups named play, pause, previous, next, and stop controls with 44px targets.",
+    "category": "actions",
+    "registryDependencies": [
+      "button",
+      "icons"
+    ],
+    "snippet": '<div class="rs-playback-controls" role="group" aria-label="Playback controls"><button class="rs-btn-primary rs-playback-action" type="button" aria-label="Play">Play</button></div>',
+    "example": 'import { PlaybackControls } from "@noorddev/vlak-react";\n\n<PlaybackControls playing={playing} onPlayingChange={setPlaying} onPrevious={restartTrack} previousLabel="Restart track" onNext={skipAhead} nextLabel="Skip ahead" />',
+    "usage": {
+      "use": [
+        "Transport controls beside media metadata or inside a player.",
+        "Custom previous and next labels when actions restart or seek."
+      ],
+      "avoid": [
+        "A media source by itself; use MediaPlayer to bind to audio or video."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Shift+Tab",
+        "does": "Moves between enabled transport buttons."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Activates the focused transport action."
+      }
+    ],
+    "a11y": [
+      "Every icon button has a state-aware accessible name.",
+      "Optional previous, next, and stop actions render only when supplied.",
+      "The containing group has a customisable label; disabled actions use native disabled buttons."
+    ],
+    "aliases": [
+      "PlaybackControls",
+      "Transport controls",
+      "Media controls"
+    ],
+    "classes": [
+      "rs-playback-controls",
+      "rs-playback-action"
+    ],
+    "css": [
+      "components/playback-controls.css"
+    ],
+    "react": "components/playback-controls.tsx"
+  },
+  {
+    "name": "media-scrubber",
+    "title": "Media scrubber",
+    "description": "Seeks through media in seconds with elapsed time, buffering, chapters, and optional previews.",
+    "category": "forms",
+    "registryDependencies": [
+      "slider",
+      "native-select"
+    ],
+    "snippet": '<div class="rs-media-scrubber"><input type="range" min="0" max="240" value="42" aria-label="Playback position" aria-valuetext="0:42 of 4:00" /><div class="rs-media-scrubber-times"><span>0:42</span><span>4:00</span></div></div>',
+    "example": 'import { MediaScrubber } from "@noorddev/vlak-react";\n\n<MediaScrubber value={position} duration={240} buffered={180} onValueChange={setPosition} chapters={[{ time: 0, label: "Opening" }, { time: 90, label: "The detail" }]} />',
+    "usage": {
+      "use": [
+        "A media timeline where values are seconds.",
+        "Chapter navigation or supplied thumbnail previews."
+      ],
+      "avoid": [
+        "An arbitrary numeric setting; use Slider."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Arrow keys, Home, End",
+        "does": "Uses the native range input to seek within the duration."
+      },
+      {
+        "keys": "Tab",
+        "does": "Moves to the optional native chapter selector; selecting a chapter seeks to its start."
+      }
+    ],
+    "a11y": [
+      "The range announces elapsed and total time with aria-valuetext.",
+      "Unknown or invalid duration disables seeking.",
+      "Previews are visual supplements; the native range supplies the equivalent position text."
+    ],
+    "aliases": [
+      "MediaScrubber",
+      "Seek bar",
+      "Media timeline"
+    ],
+    "classes": [
+      "rs-media-scrubber",
+      "rs-media-scrubber-times",
+      "rs-media-scrubber-track",
+      "rs-media-scrubber-rail",
+      "rs-media-scrubber-buffered",
+      "rs-media-scrubber-slider",
+      "rs-media-scrubber-preview",
+      "rs-media-scrubber-chapters"
+    ],
+    "css": [
+      "components/media-scrubber.css"
+    ],
+    "react": "components/media-scrubber.tsx"
+  },
+  {
+    "name": "media-player",
+    "title": "Media player",
+    "description": "Connects native audio or video to playback, seeking, captions, speed, volume, and full screen.",
+    "category": "patterns",
+    "registryDependencies": [
+      "button",
+      "icons",
+      "slider",
+      "native-select",
+      "playback-controls",
+      "media-scrubber"
+    ],
+    "snippet": '<div class="rs-media-player" role="region" aria-label="Film"><h3 class="rs-media-player-title">Film</h3><video class="rs-media-player-media" controls aria-label="Film"><track kind="captions" src="captions.vtt" srclang="en" label="English" /></video></div>',
+    "example": 'import { MediaPlayer } from "@noorddev/vlak-react";\n\n<MediaPlayer src="/film.mp4" title="A closer look" tracks={[{ src: "/film-en.vtt", srcLang: "en", label: "English", default: true }]} transcript={<p>A text transcript of the film.</p>} />',
+    "usage": {
+      "use": [
+        "Playing an actual audio or video source with consistent controls.",
+        "Media with captions and a supplied text transcript."
+      ],
+      "avoid": [
+        "DRM, adaptive streaming protocols, or a video editing timeline."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Shift+Tab",
+        "does": "Moves through transport, seeking, volume, speed, captions, and available full-screen actions."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Activates buttons; range and select controls retain native keyboard behavior."
+      },
+      {
+        "keys": "Escape",
+        "does": "Exits browser full screen."
+      }
+    ],
+    "a11y": [
+      "Native controls remain available before hydration.",
+      "Supply caption tracks for spoken video and a transcript where appropriate.",
+      "Load and play failures are announced; retry preserves access to the player.",
+      "Full screen is shown only when the browser supplies the API."
+    ],
+    "aliases": [
+      "MediaPlayer",
+      "Audio player",
+      "Video player"
+    ],
+    "classes": [
+      "rs-media-player",
+      "rs-media-player-media",
+      "rs-media-player-title",
+      "rs-media-player-controls",
+      "rs-media-player-action",
+      "rs-media-player-icon-action",
+      "rs-media-player-volume",
+      "rs-media-player-select",
+      "rs-media-player-status",
+      "rs-media-player-transcript",
+      "rs-media-player-summary"
+    ],
+    "css": [
+      "components/media-player.css"
+    ],
+    "react": "components/media-player.tsx"
+  },
+  {
+    "name": "waveform",
+    "title": "Waveform",
+    "description": "Displays supplied audio amplitudes with optional seeking and editable selection bounds.",
+    "category": "content",
+    "registryDependencies": [
+      "slider"
+    ],
+    "snippet": '<div class="rs-waveform"><svg class="rs-waveform-plot" viewBox="0 0 80 48" role="img" aria-label="Audio waveform"><path d="M0 24 H10 V10 H12 V38 H14 V24 H30 V4 H32 V44 H34 V24 H80" fill="none" stroke="currentColor" /></svg></div>',
+    "example": 'import { Waveform } from "@noorddev/vlak-react";\n\n<Waveform samples={[0.2, 0.5, 0.8, 0.3, 0.7, 0.4]} label="Interview waveform" value={position} onValueChange={setPosition} region={region} onRegionChange={setRegion} />',
+    "usage": {
+      "use": [
+        "A supplied waveform for an audio recording.",
+        "Seeking or selecting an interval in normalised zero-to-one coordinates."
+      ],
+      "avoid": [
+        "Generating or decoding audio data; provide amplitude samples."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Arrow keys, Home, End",
+        "does": "Operates the native seek range and optional selection start and end ranges."
+      }
+    ],
+    "a11y": [
+      "Static waveforms have a labelled image role.",
+      "Interactive waveforms announce percentage and selection endpoints.",
+      "Long inputs are reduced to no more than 240 peak bars to bound SVG rendering cost."
+    ],
+    "aliases": [
+      "Waveform",
+      "Audio waveform",
+      "Audio region"
+    ],
+    "classes": [
+      "rs-waveform",
+      "rs-waveform-stage",
+      "rs-waveform-plot",
+      "rs-waveform-input",
+      "rs-waveform-region",
+      "rs-waveform-region-controls",
+      "rs-waveform-label",
+      "rs-waveform-bar",
+      "rs-waveform-played"
+    ],
+    "css": [
+      "components/waveform.css"
+    ],
+    "react": "components/waveform.tsx"
+  },
+  {
+    "name": "image-viewer",
+    "title": "Image viewer",
+    "description": "Inspects an image collection with zoom, navigation, and a native dialog lightbox.",
+    "category": "patterns",
+    "registryDependencies": [
+      "button",
+      "icons",
+      "canvas-controls",
+      "dialog"
+    ],
+    "snippet": '<div class="rs-image-viewer" role="region" aria-label="Image viewer"><div class="rs-image-viewer-canvas"><img class="rs-image-viewer-image" src="image.jpg" alt="Describe the image" /></div><p class="rs-image-viewer-caption">Image caption</p></div>',
+    "example": 'import { ImageViewer } from "@noorddev/vlak-react";\n\n<ImageViewer images={[{ src: "/front.jpg", alt: "Front cover", caption: "Front cover" }, { src: "/back.jpg", alt: "Back cover", caption: "Back cover" }]} />',
+    "usage": {
+      "use": [
+        "Examining a finite collection of labelled images.",
+        "Inline preview with an optional focused lightbox."
+      ],
+      "avoid": [
+        "Editing pixels or drawing annotations; use an image editor."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Arrow left, Arrow right",
+        "does": "Changes images when the image canvas is focused."
+      },
+      {
+        "keys": "Tab, Enter, Space",
+        "does": "Operates image navigation and zoom controls."
+      },
+      {
+        "keys": "Escape",
+        "does": "Closes the native lightbox and returns focus to its opener."
+      }
+    ],
+    "a11y": [
+      "Each image requires alt text.",
+      "Native dialog supplies modal focus behavior; visible errors replace broken image output.",
+      "Navigation buttons disable at collection boundaries."
+    ],
+    "aliases": [
+      "ImageViewer",
+      "Lightbox",
+      "Image gallery"
+    ],
+    "classes": [
+      "rs-image-viewer",
+      "rs-image-viewer-canvas",
+      "rs-image-viewer-plane",
+      "rs-image-viewer-image",
+      "rs-image-viewer-controls",
+      "rs-image-viewer-navigation",
+      "rs-image-viewer-action",
+      "rs-image-viewer-caption",
+      "rs-image-viewer-modal"
+    ],
+    "css": [
+      "components/image-viewer.css"
+    ],
+    "react": "components/image-viewer.tsx"
+  },
+  {
+    "name": "canvas-controls",
+    "title": "Canvas controls",
+    "description": "Adjusts bounded zoom and exposes fit and reset actions for a canvas.",
+    "category": "actions",
+    "registryDependencies": [
+      "button",
+      "icons"
+    ],
+    "snippet": '<div class="rs-canvas-controls" role="group" aria-label="Canvas controls"><button class="rs-btn-ghost rs-canvas-action" type="button" aria-label="Zoom out">\u2212</button><output class="rs-canvas-zoom" aria-label="Zoom level">100%</output><button class="rs-btn-ghost rs-canvas-action" type="button" aria-label="Zoom in">+</button></div>',
+    "example": 'import { CanvasControls } from "@noorddev/vlak-react";\n\n<CanvasControls zoom={zoom} onZoomChange={setZoom} minZoom={0.25} maxZoom={4} onFit={fitCanvas} onReset={resetPan} />',
+    "usage": {
+      "use": [
+        "A canvas, diagram, map, or image with application-owned transforms."
+      ],
+      "avoid": [
+        "Rendering or panning the canvas; these controls emit zoom and action callbacks."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Enter, Space",
+        "does": "Operates zoom, optional fit, and reset buttons."
+      }
+    ],
+    "a11y": [
+      "Zoom has a visible numeric reading.",
+      "Limits disable the corresponding zoom action.",
+      "All actions keep at least a 44px target."
+    ],
+    "aliases": [
+      "CanvasControls",
+      "Zoom controls",
+      "Viewport controls"
+    ],
+    "classes": [
+      "rs-canvas-controls",
+      "rs-canvas-action",
+      "rs-canvas-zoom"
+    ],
+    "css": [
+      "components/canvas-controls.css"
+    ],
+    "react": "components/canvas-controls.tsx"
+  },
+  {
+    "name": "message-composer",
+    "title": "Message composer",
+    "description": "Composes a compact growing draft with validated file previews, paste and drop, screenshot capture, and retained drafts on failure.",
+    "category": "patterns",
+    "registryDependencies": [
+      "textarea",
+      "button",
+      "icons",
+      "attachments"
+    ],
+    "snippet": '<form class="rs-message-composer" aria-label="Message"><label>Message<textarea class="rs-textarea" placeholder="Write a message\u2026"></textarea></label><div class="rs-message-composer-actions"><button class="rs-btn-primary" type="submit">Send</button></div></form>',
+    "example": '"use client";\nimport { Button, MessageComposer, useMessageComposer, type ComposedMessage } from "@noorddev/vlak-react";\n\nfunction ClearDraft() {\n  const draft = useMessageComposer();\n  return <Button variant="subtle" size="sm" disabled={draft.disabled || !draft.value}\n    onClick={() => { draft.setValue(""); draft.focus(); }}>Clear draft</Button>;\n}\n\nexport function ProjectComposer({ onSend, generating = false, onStop }: {\n  onSend: (message: ComposedMessage) => void | Promise<void>;\n  generating?: boolean;\n  onStop?: () => void;\n}) {\n  return <MessageComposer compact maxRows={6} sendOnEnter onSend={onSend}\n    generating={generating} onStop={onStop} tools={<ClearDraft />}\n    textareaProps={{ "aria-label": "Ask about the project", autoComplete: "off" }}\n    allowAttachments accept="image/*,.pdf" maxFiles={4}\n    maxFileSize={10 * 1024 * 1024} allowScreenshot />;\n}',
+    "usage": {
+      "use": [
+        "Chat, comments, or a support reply.",
+        "Async submission that must preserve a draft when it fails.",
+        "Application-owned response generation with a Stop response action.",
+        "Use compact for a single-line draft with inline icon actions. The field grows with wrapping and newlines, then scrolls at maxRows, which defaults to six lines.",
+        "The compact field shrinks when text is removed or a successful send clears it, and remeasures when its available width changes.",
+        "Use files, defaultFiles, and onFilesChange to lift attachment selection alongside controlled text.",
+        "Picker, paste, and drop share accept, maxFiles, maxFileSize, and multiple validation. onAttachmentError receives rejected files and reasons.",
+        "Use tools for model selectors or application controls, and renderAttachments for custom preview composition.",
+        "useMessageComposer reads the current draft, files, previews, pending and generation state, and validated commands from a descendant. It requires a surrounding MessageComposer.",
+        "renderLayout receives MessageComposerParts and state to arrange input, submit, attach, screenshot, attachments, and tools. Render input and submit once; hidden file selection and feedback remain owned by the form.",
+        "textareaProps forwards native attributes, events, and a merged ref to the actual field. Prevent a keyboard event default to override its shortcut; required draft and submission behavior stay in the composer.",
+        "Enable globalDrop on one composer per page when file drops outside the field should attach there. allowScreenshot adds explicit browser screen selection when supported."
+      ],
+      "avoid": [
+        "An arbitrary multi-field form or uploading files without a message.",
+        "Calling useMessageComposer outside its provider or invoking commands while rendering. Run commands from user actions or application effects.",
+        "Assuming browser file checks replace the application upload policy or that attachment selection uploads files automatically."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Cmd+Enter, Ctrl+Enter",
+        "does": "Submits the draft when no send or response generation is in progress."
+      },
+      {
+        "keys": "Enter, Shift+Enter",
+        "does": "With sendOnEnter enabled, Enter submits and Shift+Enter inserts a line; IME composition never submits."
+      },
+      {
+        "keys": "Tab, Enter, Space",
+        "does": "Operates attachment, send, and stop actions."
+      }
+    ],
+    "a11y": [
+      "The textarea has a visible label by default. Compact mode uses the same accessible name and a visually hidden shortcut description.",
+      "Sending prevents duplicate submission; results are announced.",
+      "Only a successful send clears the draft and attachments; failures retain both.",
+      "generating replaces Send with Stop response but keeps the next draft editable. onStop requests application cancellation; it does not cancel network activity itself.",
+      "Compact icon actions retain readable names, titles, and 44px targets. Failed sends remain visible beneath the field; other status updates are available to assistive technology.",
+      "Rejected attachments remain visible in an alert. File previews have named remove controls and preserve object addresses until removal.",
+      "Screenshot capture starts only from its button, uses the browser chooser, and stops display tracks after capture, cancellation, or unmount.",
+      "If controlled text or files change during a pending send, successful completion clears only the submitted draft and files that still match.",
+      "Custom layouts retain the form, validation, shortcuts, and feedback. Keep the provided field and action names and their natural reading order."
+    ],
+    "aliases": [
+      "MessageComposer",
+      "Chat input",
+      "Comment composer",
+      "AI Elements PromptInput",
+      "Prompt input",
+      "AI chat composer"
+    ],
+    "classes": [
+      "rs-message-composer",
+      "rs-message-composer-compact",
+      "rs-message-composer-row",
+      "rs-message-composer-area",
+      "rs-message-composer-actions",
+      "rs-message-composer-action",
+      "rs-message-composer-icon-action",
+      "rs-message-composer-files",
+      "rs-message-composer-file",
+      "rs-message-composer-hint",
+      "rs-message-composer-input",
+      "rs-message-composer-sr-only",
+      "rs-message-composer-tools",
+      "rs-message-composer-drag"
+    ],
+    "css": [
+      "components/message-composer.css"
+    ],
+    "react": "components/message-composer.tsx"
+  },
+  {
+    "name": "file-browser",
+    "title": "File browser",
+    "description": "Explores a supplied file hierarchy through folders, breadcrumbs, search, and list or grid views.",
+    "category": "patterns",
+    "registryDependencies": [
+      "icons",
+      "input",
+      "tree-view"
+    ],
+    "snippet": '<div class="rs-file-browser" role="region" aria-label="Files"><nav aria-label="Folder breadcrumbs">Files</nav><ul class="rs-file-browser-list"><li><button class="rs-file-browser-item" type="button" aria-pressed="false">Cover.pdf</button></li></ul></div>',
+    "example": 'import { FileBrowser } from "@noorddev/vlak-react";\n\n<FileBrowser entries={[{ id: "design", name: "Design", kind: "folder", children: [{ id: "cover", name: "Cover.pdf", kind: "file", size: "1.2 MB" }] }]} onOpen={openFile} />',
+    "usage": {
+      "use": [
+        "Browsing a supplied file tree and choosing a file.",
+        "Folder-local search with consistent selection in list and grid views."
+      ],
+      "avoid": [
+        "Direct filesystem access or cloud storage sync; the application supplies data and actions."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Arrow keys, Home, End, type-ahead",
+        "does": "Navigates the folder tree using its roving focus behavior."
+      },
+      {
+        "keys": "Tab, Enter, Space",
+        "does": "Uses breadcrumbs, selects files, switches view, and activates Open selected."
+      }
+    ],
+    "a11y": [
+      "Folder tree, breadcrumbs, search, and file collection each have names.",
+      "label names the region and its landmarks; rootLabel supplies the visible root folder name.",
+      "Selected files use aria-pressed and a full surface change.",
+      "Files can be opened by an explicit keyboard-operable action as well as double click."
+    ],
+    "aliases": [
+      "FileBrowser",
+      "File explorer",
+      "Asset browser"
+    ],
+    "classes": [
+      "rs-file-browser",
+      "rs-file-browser-toolbar",
+      "rs-file-browser-breadcrumbs",
+      "rs-file-browser-path",
+      "rs-file-browser-crumb-item",
+      "rs-file-browser-crumb",
+      "rs-file-browser-crumb-current",
+      "rs-file-browser-action",
+      "rs-file-browser-body",
+      "rs-file-browser-tree",
+      "rs-file-browser-content",
+      "rs-file-browser-list",
+      "rs-file-browser-grid",
+      "rs-file-browser-name",
+      "rs-file-browser-meta",
+      "rs-file-browser-empty",
+      "rs-file-browser-view-active",
+      "rs-file-browser-item",
+      "rs-file-browser-tile",
+      "rs-file-browser-selected"
+    ],
+    "css": [
+      "components/file-browser.css"
+    ],
+    "react": "components/file-browser.tsx"
+  },
+  {
+    "name": "kanban-board",
+    "title": "Kanban board",
+    "description": "Moves and reorders cards across named columns with drag and keyboard alternatives.",
+    "category": "patterns",
+    "registryDependencies": [
+      "native-select",
+      "button",
+      "icons"
+    ],
+    "snippet": '<div class="rs-kanban-board" role="region" aria-label="Board"><div class="rs-kanban-columns"><section class="rs-kanban-column"><h3 class="rs-kanban-heading">In progress</h3><p class="rs-kanban-card">Review the proof</p></section></div></div>',
+    "example": 'import { KanbanBoard } from "@noorddev/vlak-react";\n\n<KanbanBoard columns={[{ id: "todo", label: "To do" }, { id: "doing", label: "In progress" }, { id: "done", label: "Done" }]} value={cards} onValueChange={setCards} />',
+    "usage": {
+      "use": [
+        "Finite work items moving through named states.",
+        "Column changes and ordering that should remain keyboard accessible."
+      ],
+      "avoid": [
+        "A large virtualised issue tracker or automatic workflow rules."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Alt+Arrow up, Alt+Arrow down",
+        "does": "Reorders the focused card handle within its column."
+      },
+      {
+        "keys": "Tab, Enter, Space",
+        "does": "Operates move up and down buttons and each card's native destination selector."
+      }
+    ],
+    "a11y": [
+      "Every column is a named section; card counts are visible.",
+      "A native destination selector is the keyboard alternative to dragging across columns.",
+      "Moves are announced and disabled cards remain immovable."
+    ],
+    "aliases": [
+      "KanbanBoard",
+      "Task board",
+      "Workflow board"
+    ],
+    "classes": [
+      "rs-kanban-board",
+      "rs-kanban-columns",
+      "rs-kanban-column",
+      "rs-kanban-heading",
+      "rs-kanban-list",
+      "rs-kanban-card",
+      "rs-kanban-card-header",
+      "rs-kanban-title",
+      "rs-kanban-detail",
+      "rs-kanban-controls",
+      "rs-kanban-destination",
+      "rs-kanban-reorder",
+      "rs-kanban-action",
+      "rs-kanban-status",
+      "rs-kanban-help"
+    ],
+    "css": [
+      "components/kanban-board.css"
+    ],
+    "react": "components/kanban-board.tsx"
+  },
+  {
+    "name": "scheduler",
+    "title": "Scheduler",
+    "description": "Plans events in agenda, week, or month views with date navigation and accessible rescheduling.",
+    "category": "patterns",
+    "registryDependencies": [
+      "button",
+      "icons",
+      "input",
+      "native-select",
+      "dialog"
+    ],
+    "snippet": '<div class="rs-scheduler" role="region" aria-label="Schedule"><h3 class="rs-scheduler-title">Monday, 7 September</h3><ol class="rs-scheduler-list"><li class="rs-scheduler-event"><span>Review</span><span class="rs-scheduler-time">09:00\u201309:30</span></li></ol></div>',
+    "example": 'import { Scheduler } from "@noorddev/vlak-react";\n\n<Scheduler events={events} defaultValue={new Date("2026-09-07T12:00:00Z")} timeZone="Europe/Amsterdam" defaultView="week" onSlotSelect={createEvent} onEventSelect={openEvent} onEventMove={rescheduleEvent} />',
+    "usage": {
+      "use": [
+        "An event collection in agenda, week, or month views, using a named timeZone or the browser zone.",
+        "Selecting a new event time or rescheduling while preserving duration."
+      ],
+      "avoid": [
+        "Recurrence expansion or conflict enforcement; prepare those in the application."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Enter, Space",
+        "does": "Operates date navigation, event buttons, scheduling actions, and view selection."
+      },
+      {
+        "keys": "Escape",
+        "does": "Closes the rescheduling dialog and returns focus to the triggering action."
+      }
+    ],
+    "a11y": [
+      "Month view is a native table with weekday headers.",
+      "Week columns and navigation are named; native date and time inputs retain platform behavior.",
+      "Rescheduling uses a named native dialog and announces the new time.",
+      "Event Date values and callbacks are instants; date and time inputs use the displayed zone. Invalid intervals and nonexistent daylight-saving times are rejected. Repeated times choose the earlier occurrence.",
+      "Server rendering uses a stable loading shell until hydration so browser time zones and the current date cannot cause a hydration mismatch."
+    ],
+    "aliases": [
+      "Scheduler",
+      "Event calendar",
+      "Agenda"
+    ],
+    "classes": [
+      "rs-scheduler",
+      "rs-scheduler-toolbar",
+      "rs-scheduler-action",
+      "rs-scheduler-title",
+      "rs-scheduler-scroll",
+      "rs-scheduler-week",
+      "rs-scheduler-date",
+      "rs-scheduler-month",
+      "rs-scheduler-weekday",
+      "rs-scheduler-list",
+      "rs-scheduler-event",
+      "rs-scheduler-event-button",
+      "rs-scheduler-time",
+      "rs-scheduler-empty",
+      "rs-scheduler-form",
+      "rs-scheduler-day",
+      "rs-scheduler-selected",
+      "rs-scheduler-cell",
+      "rs-scheduler-outside"
+    ],
+    "css": [
+      "components/scheduler.css"
+    ],
+    "react": "components/scheduler.tsx"
+  }
+];
+
+// src/registry-health-observations.ts
+var healthObservations = [
+  {
+    name: "health-metric",
+    title: "Health metric",
+    description: "A supplied health reading, unit, time and source with explicit pending, unavailable and stale states.",
+    category: "health",
+    classes: ["rs-health-metric", "rs-health-metric-label", "rs-health-metric-reading", "rs-health-metric-value", "rs-health-metric-unit", "rs-health-metric-status", "rs-health-metric-meta", "rs-health-metric-description"],
+    css: ["components/health-metric.css"],
+    react: "components/health-metric.tsx",
+    registryDependencies: [],
+    snippet: `<div class="rs-health-metric" data-status="stale">
+  <p class="rs-health-metric-label">Resting heart rate</p>
+  <p class="rs-health-metric-reading"><span class="rs-health-metric-value">64</span> <span class="rs-health-metric-unit">bpm</span></p>
+  <p class="rs-health-metric-status">Last recorded, stale</p>
+  <p class="rs-health-metric-meta"><time datetime="2026-09-05T07:20:00+02:00">5 Sep, 07:20 CEST</time><span>Wrist sensor</span></p>
+</div>`,
+    example: `import { HealthMetric } from "@noorddev/vlak-react";
+
+<HealthMetric
+  label="Resting heart rate"
+  value={64}
+  unit="bpm"
+  status="stale"
+  dateTime="2026-09-05T07:20:00+02:00"
+  timeLabel="5 Sep, 07:20 CEST"
+  source="Wrist sensor"
+  description="Waiting for the next device sync"
+/>
+<HealthMetric label="Sleep duration" status="pending" />`,
+    usage: {
+      use: ["Patient summaries and wellness dashboards with a known source for each reading.", "Pass status from the application's data policy; the component does not infer freshness.", "Pass timeLabel with the relevant timezone when a human-readable time is needed."],
+      avoid: ["Deriving a diagnosis, clinical flag or urgency from the number.", "Using zero as a placeholder for missing data; omit value instead."]
+    },
+    keyboard: [],
+    a11y: ["Visible labels, units, status, source and time accompany the reading.", "Zero is preserved; empty strings and non-finite values become unavailable. Pending and unavailable states suppress any supplied reading.", "Stale values remain visible with a textual stale label. No clinical status is calculated.", "A native time element preserves the supplied machine-readable timestamp. Native attributes and the div ref pass through.", "The component adds no live region or tab stop. The application can announce updates in context."],
+    aliases: ["Vital sign", "Vital metric", "Health reading", "Patient observation", "Biometric card", "Wellness metric"]
+  },
+  {
+    name: "reference-range",
+    title: "Reference range",
+    description: "Positions a supplied numeric reading against caller-supplied reference bounds, with a complete text equivalent.",
+    category: "health",
+    classes: ["rs-reference-range", "rs-reference-range-head", "rs-reference-range-label", "rs-reference-range-value", "rs-reference-range-track", "rs-reference-range-interval", "rs-reference-range-marker", "rs-reference-range-bounds", "rs-reference-range-bound-value", "rs-reference-range-description"],
+    css: ["components/reference-range.css"],
+    react: "components/reference-range.tsx",
+    registryDependencies: [],
+    snippet: `<div class="rs-reference-range">
+  <p class="rs-reference-range-head"><span class="rs-reference-range-label">Reported measurement</span><span class="rs-reference-range-value">24 units</span></p>
+  <div class="rs-reference-range-track" aria-hidden="true"><span class="rs-reference-range-interval"></span><span class="rs-reference-range-marker" style="inset-inline-start:44%"></span></div>
+  <p class="rs-reference-range-bounds"><span>Supplied reference interval</span><span class="rs-reference-range-bound-value">20\u201330 units</span></p>
+</div>`,
+    example: `import { ReferenceRange } from "@noorddev/vlak-react";
+
+<ReferenceRange
+  label="Reported measurement"
+  value={24}
+  minimum={20}
+  maximum={30}
+  unit="units"
+  rangeLabel="Supplied reference interval"
+/>
+<ReferenceRange label="One-sided interval" value={8} maximum={10} unit="units" />`,
+    usage: {
+      use: ["Display numeric bounds supplied by the responsible laboratory or data source.", "Pass valueLabel to format the reading and rangeLabel to identify the source of the interval.", "One-sided intervals are textual; a marker requires two finite, ordered bounds."],
+      avoid: ["Hard-coding a universal normal interval across patients, methods or units.", "Using the marker to indicate a diagnosis, treatment decision or calculated clinical status.", "Comparing a value and bounds expressed in different units."]
+    },
+    keyboard: [],
+    a11y: ["The reading, unit and reference interval are visible as text; decorative geometry is aria-hidden.", "The reference band spans 20% to 80% of the track from the reading direction's start. Outlying markers clamp to the track and have a textual above or below description.", "Missing, non-finite, equal and reversed bounds never produce an invalid marker position. Missing results are named explicitly.", "A one-sided interval is rendered as at least or up to without inventing a second bound.", "The marker remains visible in forced colors. There is no animation, interactive control or clinical classification."],
+    aliases: ["Reference interval", "Lab range", "Result range", "Observation range", "Biomarker interval"]
+  },
+  {
+    name: "lab-results",
+    title: "Lab results",
+    description: "A named collection of supplied laboratory results with units, reference intervals, report times and amendment notes.",
+    category: "health",
+    classes: ["rs-lab-results", "rs-lab-results-item", "rs-lab-results-head", "rs-lab-results-name", "rs-lab-results-status", "rs-lab-results-reading", "rs-lab-results-reading-label", "rs-lab-results-reading-value", "rs-lab-results-unit", "rs-lab-results-note", "rs-lab-results-time"],
+    css: ["components/lab-results.css"],
+    react: "components/lab-results.tsx",
+    registryDependencies: ["reference-range"],
+    snippet: `<ul class="rs-lab-results" aria-label="Latest report">
+  <li class="rs-lab-results-item" data-status="amended"><div class="rs-lab-results-head"><p class="rs-lab-results-name">Reported measurement</p><p class="rs-lab-results-status">Amended</p></div><p class="rs-lab-results-reading"><span class="rs-lab-results-reading-label">Result</span><span class="rs-lab-results-reading-value">24 <span class="rs-lab-results-unit">units</span></span></p><p class="rs-lab-results-note">Replaces the earlier report</p></li>
+  <li class="rs-lab-results-item" data-status="pending"><div class="rs-lab-results-head"><p class="rs-lab-results-name">Additional analysis</p><p class="rs-lab-results-status">Pending</p></div></li>
+</ul>`,
+    example: `import { LabResults } from "@noorddev/vlak-react";
+
+<LabResults label="Latest report" results={[
+  { id: "reported", name: "Reported measurement", value: 24, unit: "units", minimum: 20, maximum: 30, status: "amended", note: "Replaces the earlier report" },
+  { id: "analysis", name: "Additional analysis", status: "pending" },
+  { id: "sample", name: "Sample analysis", status: "unavailable", note: "The laboratory did not release a result" },
+]} />`,
+    usage: {
+      use: ["Review numeric and qualitative results from an existing report.", "Supply report states and flags from the source; the component never derives them from a reading.", "Attach note to explain an amendment or unavailable result; provide stable result ids."],
+      avoid: ["Calculating diagnoses, critical-result alerts or treatment recommendations.", "Implying that final means clinically normal or that an amended value is the original report.", "Using the synthetic example values as clinical reference intervals."]
+    },
+    keyboard: [],
+    a11y: ["The root is a native list named by label, with one item per result and a forwarded list ref.", "Final, pending, unavailable and amended states are explicit text; caller-supplied flags supplement the report state.", "Pending and unavailable results hide any supplied value. Zero and qualitative result strings remain valid readings.", "Numeric reference intervals reuse ReferenceRange, including its visible text equivalent and invalid-bound handling.", "An amended report without a reading explicitly says result unavailable. No live announcements are added automatically."],
+    aliases: ["Laboratory report", "Lab panel", "Test results", "Patient results", "Pathology results", "Diagnostic report"]
+  },
+  {
+    name: "symptom-diary",
+    title: "Symptom diary",
+    description: "A chronological record of supplied symptoms and intensity descriptions, with notes and 44px native detail disclosures.",
+    category: "health",
+    classes: ["rs-symptom-diary", "rs-symptom-diary-item", "rs-symptom-diary-time", "rs-symptom-diary-content", "rs-symptom-diary-head", "rs-symptom-diary-symptom", "rs-symptom-diary-intensity", "rs-symptom-diary-body", "rs-symptom-diary-summary", "rs-symptom-diary-actions"],
+    css: ["components/symptom-diary.css"],
+    react: "components/symptom-diary.tsx",
+    registryDependencies: [],
+    snippet: `<ol class="rs-symptom-diary" aria-label="Recent symptom entries"><li class="rs-symptom-diary-item">
+  <time class="rs-symptom-diary-time" datetime="2026-09-06T09:00:00+02:00">6 Sep, 09:00 CEST</time>
+  <div class="rs-symptom-diary-content"><div class="rs-symptom-diary-head"><p class="rs-symptom-diary-symptom">Headache</p><p class="rs-symptom-diary-intensity">Mild, self-reported</p></div><p class="rs-symptom-diary-body">Recorded after breakfast</p><details><summary class="rs-symptom-diary-summary" aria-label="Details for Headache, 6 Sep at 09:00 CEST">Details</summary><p class="rs-symptom-diary-body">No additional context recorded</p></details></div>
+</li></ol>`,
+    example: `import { SymptomDiary } from "@noorddev/vlak-react";
+
+<SymptomDiary aria-label="Recent symptom entries" order="newest" entries={[
+  { id: "morning", symptom: "Headache", dateTime: "2026-09-06T09:00:00+02:00", timeLabel: "6 Sep, 09:00 CEST", intensity: "Mild, self-reported", notes: "Recorded after breakfast", details: "No additional context recorded" },
+  { id: "evening", symptom: "Fatigue", dateTime: "2026-09-05T18:30:00+02:00", timeLabel: "5 Sep, 18:30 CEST", intensity: "Noticeable, self-reported", notes: "Recorded at the end of the workday" },
+]} />`,
+    usage: {
+      use: ["Read patient-entered symptom history without converting their descriptions into a diagnosis.", "Supply intensity in words or with a named scale; the component does not create severity categories.", "Use actions for application-owned edit or review controls with accessible names and 44px targets."],
+      avoid: ["Triage, diagnosis or urgency inferred from diary text.", "Assuming a missing diary entry means that no symptom occurred.", "Passing ambiguous timestamps; use ISO timestamps with an explicit offset and timeLabel for display."]
+    },
+    keyboard: [{ keys: "Tab", does: "Focuses each detail summary and any supplied actions" }, { keys: "Enter, Space", does: "Opens or closes a focused native detail disclosure" }],
+    a11y: ["A native ordered list preserves chronological structure. Order defaults to newest first and never mutates the supplied entries.", "Equal timestamps retain input order; invalid timestamps sort last and have no invalid datetime attribute.", "Each disclosure has a unique default name combining symptom and display time; detailsLabel can supply a more precise name.", "Native details and summary provide keyboard toggling. Summaries have 44px targets and a 2px focus ring.", "Intensity and context remain readable text. There are no inferred clinical flags or automatic announcements."],
+    aliases: ["Symptom journal", "Patient diary", "Symptom history", "Pain diary", "Health journal", "Patient-reported outcomes"]
+  }
+];
+
+// src/registry-health-wellness.ts
+var healthWellness = [
+  {
+    name: "check-in",
+    title: "Check-in",
+    description: "Collects one supplied text answer with native radio controls, 44px targets, and an explicit unanswered state.",
+    category: "health",
+    classes: ["rs-check-in", "rs-check-in-legend", "rs-check-in-description", "rs-check-in-choices", "rs-check-in-choice", "rs-check-in-selected", "rs-check-in-unavailable", "rs-check-in-input", "rs-check-in-clear"],
+    css: ["components/check-in.css"],
+    react: "components/check-in.tsx",
+    registryDependencies: ["button"],
+    snippet: `<fieldset class="rs-check-in"><legend class="rs-check-in-legend">How is your energy?</legend><p class="rs-check-in-description">Choose the answer that fits right now.</p><div class="rs-check-in-choices"><label class="rs-check-in-choice"><span>Low</span><input class="rs-check-in-input" type="radio" name="energy" value="low" /></label><label class="rs-check-in-choice rs-check-in-selected"><span>Steady</span><input class="rs-check-in-input" type="radio" name="energy" value="steady" checked /></label><label class="rs-check-in-choice"><span>High</span><input class="rs-check-in-input" type="radio" name="energy" value="high" /></label></div><button class="rs-btn-ghost rs-btn-sm rs-check-in-clear" type="button">Clear answer</button></fieldset>`,
+    example: `import { CheckIn } from "@noorddev/vlak-react";
+
+<CheckIn label="How is your energy?" description="Choose the answer that fits right now." name="energy" options={[{ value: "low", label: "Low" }, { value: "steady", label: "Steady" }, { value: "high", label: "High" }]} defaultValue={null} />`,
+    usage: {
+      use: ["A daily mood, comfort, or energy check-in with application-owned wording.", "Unique option values and explicit labels for every answer.", "value, defaultValue, and onValueChange with null for an unanswered check-in; name and form submit the selected string."],
+      avoid: ["Inventing a clinical questionnaire, diagnostic interpretation, or score from the selected position.", "Treating an unanswered check-in as a negative answer."]
+    },
+    keyboard: [{ keys: "Tab", does: "Moves into the native radio group and then to the available clear action." }, { keys: "Arrow keys, Space", does: "Uses native radio selection; read-only answers prevent changes." }, { keys: "Enter, Space", does: "Activates the focused clear action." }],
+    a11y: ["A fieldset and legend name the answer group; native radios use visible text labels and share a name.", "Every answer covers at least 44px in each dimension, with a focus ring and full-fill selection. Vlak Button supplies the optional clear action.", "Descriptions reach the group and each answer. Read-only controls retain the submitted value and announce their unavailable state.", "Disabled controls do not submit; required uses native radio validation. Form reset restores uncontrolled defaults and preserves controlled values.", "The forwarded ref reaches the fieldset; native fieldset attributes, className, and style pass through."],
+    aliases: ["CheckIn", "Mood check-in", "Energy check-in", "Wellness check-in", "Text rating", "Self report"]
+  },
+  {
+    name: "habit-tracker",
+    title: "Habit tracker",
+    description: "Shows dated complete, missed, skipped, and unrecorded states, with controlled completion actions and a responsive week view.",
+    category: "health",
+    classes: ["rs-habit-tracker", "rs-habit-tracker-label", "rs-habit-tracker-description", "rs-habit-tracker-days", "rs-habit-tracker-day", "rs-habit-tracker-date", "rs-habit-tracker-control", "rs-habit-tracker-complete", "rs-habit-tracker-unavailable", "rs-habit-tracker-static", "rs-habit-tracker-mark"],
+    css: ["components/habit-tracker.css"],
+    react: "components/habit-tracker.tsx",
+    registryDependencies: [],
+    snippet: `<div class="rs-habit-tracker" role="group" aria-labelledby="habit-label"><p class="rs-habit-tracker-label" id="habit-label">Evening walk</p><ul class="rs-habit-tracker-days"><li class="rs-habit-tracker-day"><span class="rs-habit-tracker-date">Mon 7 Sep</span><div class="rs-habit-tracker-control rs-habit-tracker-complete rs-habit-tracker-static"><span class="rs-habit-tracker-mark" aria-hidden="true">\u2713</span><span>Complete</span></div></li><li class="rs-habit-tracker-day"><span class="rs-habit-tracker-date">Tue 8 Sep</span><div class="rs-habit-tracker-control rs-habit-tracker-static"><span class="rs-habit-tracker-mark" aria-hidden="true">\xB7</span><span>Unrecorded</span></div></li></ul></div>`,
+    example: `import { useState } from "react";
+import { HabitTracker } from "@noorddev/vlak-react";
+import type { HabitDay } from "@noorddev/vlak-react";
+
+function WalkingRecord() {
+  const [days, setDays] = useState<HabitDay[]>([
+    { date: "2026-09-07", label: "Mon 7 Sep", status: "complete" },
+    { date: "2026-09-08", label: "Tue 8 Sep", status: "unrecorded" },
+  ]);
+  return <HabitTracker label="Evening walk" days={days} onDayChange={(date, status) => setDays((records) => records.map((day) => day.date === date ? { ...day, status } : day))} />;
+}`,
+    usage: {
+      use: ["A week of application-owned habit records, supplied in the intended order.", "Explicit date labels and stable date keys, with no inferred current day or timezone.", "onDayChange to request complete or clear completion to unrecorded; the application updates days and owns persistence."],
+      avoid: ["Inferring missed days from absent records or calculating a punitive streak.", "Assuming a click has been saved without updating and persisting the supplied data."]
+    },
+    keyboard: [{ keys: "Tab", does: "Moves through enabled completion controls when onDayChange is supplied." }, { keys: "Enter, Space", does: "Requests completion, or clears an existing completion to unrecorded." }],
+    a11y: ["A named group contains an ordered display of supplied day records; every status remains visible as text.", "Completion controls have stable accessible names, aria-pressed, and descriptions that announce complete, missed, skipped, or unrecorded.", "Controls are at least 44px in each dimension; the responsive grid wraps on narrow screens.", "Without onDayChange or with readOnly, records render as static text. Disabled controls do not call onDayChange.", "The forwarded ref and native attributes reach the root div."],
+    aliases: ["HabitTracker", "Habit calendar", "Wellness log", "Daily completion", "Habit grid"]
+  },
+  {
+    name: "sleep-timeline",
+    title: "Sleep timeline",
+    description: "Displays supplied sleep, wake, and unknown intervals with explicit time labels, monochrome segments, and a complete text record.",
+    category: "health",
+    classes: ["rs-sleep-timeline", "rs-sleep-timeline-caption", "rs-sleep-timeline-label", "rs-sleep-timeline-description", "rs-sleep-timeline-chart", "rs-sleep-timeline-segment", "rs-sleep-timeline-asleep", "rs-sleep-timeline-awake", "rs-sleep-timeline-unknown", "rs-sleep-timeline-axis", "rs-sleep-timeline-list", "rs-sleep-timeline-interval", "rs-sleep-timeline-period"],
+    css: ["components/sleep-timeline.css"],
+    react: "components/sleep-timeline.tsx",
+    registryDependencies: [],
+    snippet: `<figure class="rs-sleep-timeline"><figcaption class="rs-sleep-timeline-caption"><span class="rs-sleep-timeline-label">Last night</span></figcaption><div class="rs-sleep-timeline-chart" aria-hidden="true"><span class="rs-sleep-timeline-segment rs-sleep-timeline-asleep" style="width:75%"></span><span class="rs-sleep-timeline-segment rs-sleep-timeline-awake" style="width:25%"></span></div><div class="rs-sleep-timeline-axis"><span>22:30</span><span>06:30</span></div><ul class="rs-sleep-timeline-list"><li class="rs-sleep-timeline-interval"><span>Asleep</span><span class="rs-sleep-timeline-period">22:30 to 04:30</span></li><li class="rs-sleep-timeline-interval"><span>Awake</span><span class="rs-sleep-timeline-period">04:30 to 06:30</span></li></ul></figure>`,
+    example: `import { SleepTimeline } from "@noorddev/vlak-react";
+
+<SleepTimeline label="Last night" description="Recorded intervals, local time" start={0} end={480} startLabel="22:30" endLabel="06:30" intervals={[
+  { id: "sleep-1", start: 0, end: 240, startLabel: "22:30", endLabel: "02:30", state: "asleep" },
+  { id: "wake-1", start: 240, end: 255, startLabel: "02:30", endLabel: "02:45", state: "awake" },
+  { id: "sleep-2", start: 270, end: 480, startLabel: "03:00", endLabel: "06:30", state: "asleep" },
+]} />`,
+    usage: {
+      use: ["Display-only sleep records from a caller-owned source, using minute offsets on a single timeline.", "Explicit boundary labels that include the date and timezone when needed.", "Gaps remain unrecorded; supplied unknown intervals retain their unknown state."],
+      avoid: ["Inferring sleep stages, diagnosis, or sleep quality from the supplied intervals.", "Silently clipping out-of-window records, merging overlaps, or filling missing time with sleep."]
+    },
+    keyboard: [],
+    a11y: ["A native figure and caption introduce the record. The decorative chart is hidden from assistive technology.", "Every supplied interval and unrecorded gap has a visible text equivalent with start and end labels.", "Overlapping, invalid, or out-of-window intervals produce a visible explanation and suppress the chart while preserving supplied text.", "Sleep, wake, and unknown segments use distinct monochrome fills and boundaries; forced-colors retains a dotted unknown marker.", "The forwarded ref and native attributes reach the figure."],
+    aliases: ["SleepTimeline", "Sleep log", "Sleep chart", "Sleep interval", "Sleep record", "Wellness timeline"]
+  },
+  {
+    name: "activity-goal",
+    title: "Activity goal",
+    description: "Shows a supplied activity amount and target with native progress, visible units, and distinct missing-data states.",
+    category: "health",
+    classes: ["rs-activity-goal", "rs-activity-goal-label", "rs-activity-goal-description", "rs-activity-goal-value", "rs-activity-goal-target", "rs-activity-goal-progress"],
+    css: ["components/activity-goal.css"],
+    react: "components/activity-goal.tsx",
+    registryDependencies: [],
+    snippet: `<div class="rs-activity-goal"><p class="rs-activity-goal-label" id="walking-goal">Walking</p><p class="rs-activity-goal-description">Your personal goal for today</p><p class="rs-activity-goal-value">24 <span class="rs-activity-goal-target">of 30 min</span></p><progress class="rs-activity-goal-progress" value="24" max="30" aria-labelledby="walking-goal" aria-valuetext="24 of 30 min">24 of 30 min</progress></div>`,
+    example: `import { ActivityGoal } from "@noorddev/vlak-react";
+
+<ActivityGoal label="Walking" description="Your personal goal for today" current={24} target={30} unit="min" />
+<ActivityGoal label="Water recorded" current={null} target={null} unit="ml" />`,
+    usage: {
+      use: ["Movement, hydration, or another activity with a caller-supplied amount, unit, and positive target.", "null for missing current data or an unset target; zero remains a valid recorded amount.", "Actual values above the target remain visible while the native bar stops at its maximum."],
+      avoid: ["Adding default health recommendations or interpreting goal completion as a clinical outcome.", "An indeterminate loading state; missing data is explicitly labelled and has no progress bar."]
+    },
+    keyboard: [],
+    a11y: ["The native progress element is named by the visible label, aria-label, or aria-labelledby; aria-valuetext includes the actual amount, target, and unit.", "Missing, non-finite, negative amounts and non-positive targets have explicit text states and never produce a misleading bar or NaN attributes.", "Goal reached and goal exceeded remain text, with no color-only completion signal.", "The forwarded ref and native attributes reach the root div; descriptions are linked to progress."],
+    aliases: ["ActivityGoal", "Activity progress", "Movement goal", "Hydration goal", "Step goal", "Wellness goal"]
+  }
+];
+
+// src/registry-health-care.ts
+var healthCare = [
+  {
+    name: "patient-banner",
+    title: "Patient banner",
+    description: "Keeps a supplied patient identity, identifiers, and recorded context together in a responsive band.",
+    category: "health",
+    classes: ["rs-patient-banner", "rs-patient-banner-name", "rs-patient-banner-identifiers", "rs-patient-banner-field", "rs-patient-banner-label", "rs-patient-banner-value", "rs-patient-banner-context", "rs-patient-banner-missing"],
+    css: ["components/patient-banner.css"],
+    react: "components/patient-banner.tsx",
+    registryDependencies: [],
+    snippet: '<div class="rs-patient-banner" role="group" aria-label="Robin Ellis"><p class="rs-patient-banner-name">Robin Ellis</p><dl class="rs-patient-banner-identifiers"><div class="rs-patient-banner-field"><dt class="rs-patient-banner-label">Patient ID</dt><dd class="rs-patient-banner-value">Demo 042</dd></div></dl><dl class="rs-patient-banner-context"><div class="rs-patient-banner-field"><dt class="rs-patient-banner-label">Allergies</dt><dd class="rs-patient-banner-value">Not reviewed</dd></div></dl></div>',
+    example: 'import { PatientBanner } from "@noorddev/vlak-react";\n\n<PatientBanner patientName="Robin Ellis" identifiers={[{ id: "record", label: "Patient ID", value: "Demo 042" }]} contextItems={[{ id: "allergies", label: "Allergies", value: "Not reviewed" }, { id: "language", label: "Preferred language", value: "English, as recorded" }]} />',
+    usage: {
+      use: ["Patient record headers and care workspaces where identity and recorded context must stay together.", "Supply explicit values such as Unknown, Not reviewed, or None recorded according to the actual source record."],
+      avoid: ["Inferring age from a birth date or treating missing context as no allergies.", "Urgent notifications that need a live announcement; the banner is static context."]
+    },
+    keyboard: [{ keys: "None", does: "Static identity and description lists add no keyboard stop. Any supplied child controls keep their native behavior." }],
+    a11y: ["The patient name labels a group; identifiers and context use dl, dt, and dd in reading order.", "Unknown and none-recorded distinctions are supplied as visible text. Empty defaults describe missing data without making clinical claims.", "The root forwards its div ref, native attributes, className, and style."],
+    aliases: ["PatientBanner", "Patient header", "Patient summary", "Clinical context", "EHR header"]
+  },
+  {
+    name: "medication-schedule",
+    title: "Medication schedule",
+    description: "Lists supplied medication, dose, time, and recorded status with controlled 44px recording actions.",
+    category: "health",
+    classes: ["rs-medication-schedule", "rs-medication-schedule-header", "rs-medication-schedule-zone", "rs-medication-schedule-list", "rs-medication-schedule-row", "rs-medication-schedule-time", "rs-medication-schedule-body", "rs-medication-schedule-name", "rs-medication-schedule-detail", "rs-medication-schedule-status", "rs-medication-schedule-actions", "rs-medication-schedule-action", "rs-medication-schedule-empty"],
+    css: ["components/medication-schedule.css"],
+    react: "components/medication-schedule.tsx",
+    registryDependencies: ["button"],
+    snippet: '<div class="rs-medication-schedule" role="group" aria-label="Medication schedule"><div class="rs-medication-schedule-header"><span>14 September</span><span class="rs-medication-schedule-zone">Europe/Amsterdam, UTC+02:00</span></div><ol class="rs-medication-schedule-list"><li class="rs-medication-schedule-row"><span class="rs-medication-schedule-time">08:00</span><div class="rs-medication-schedule-body"><p class="rs-medication-schedule-name">Example medication</p><p class="rs-medication-schedule-detail">Dose supplied by the care team</p><p class="rs-medication-schedule-status">Not recorded</p></div></li></ol></div>',
+    example: 'import { MedicationSchedule } from "@noorddev/vlak-react";\n\n<MedicationSchedule dateLabel="14 September" timeZone="Europe/Amsterdam, UTC+02:00" items={[{ id: "morning", name: "Example medication", dose: "Dose supplied by the care team", timeLabel: "08:00", status: "Not recorded", instructions: "Instructions supplied by the care team" }]} />\n\n// For editing, pass explicit item.actions and onAction(itemId, actionId).\n// The caller persists the choice, sets item.pending, and supplies the new status.',
+    usage: {
+      use: ["Displaying an existing medication schedule and requesting explicit record updates.", "Supply timezone, dosing text, instructions, action labels, and recorded statuses from the application."],
+      avoid: ["Calculating doses, suggesting medication, guessing overdue entries, or declaring a record saved from a click alone.", "Treating an empty list as evidence that a patient takes no medication."]
+    },
+    keyboard: [{ keys: "Tab", does: "Moves between enabled recording buttons when onAction and item actions are supplied." }, { keys: "Enter, Space", does: "Requests the selected recording action. Pending or disabled rows cannot request changes." }],
+    a11y: ["Rows remain in supplied order in an ordered list. Optional dateTime values are passed through unchanged.", "Action names include the visible action label and medication name. Each action is described by its scheduled time, dose, and recorded status to distinguish repeated doses. Buttons have at least 44px targets.", "Pending state remains visible alongside the existing status, uses aria-busy and a polite status region, and disables recording actions.", "No internal persistence or automatic success state. Without onAction the schedule is read-only."],
+    aliases: ["MedicationSchedule", "Medication list", "Medication record", "Dose log", "Medication administration record"]
+  },
+  {
+    name: "appointment-card",
+    title: "Appointment card",
+    description: "Groups supplied appointment time, timezone, clinician, location, and status with an optional action slot.",
+    category: "health",
+    classes: ["rs-appointment-card", "rs-appointment-card-header", "rs-appointment-card-title", "rs-appointment-card-status", "rs-appointment-card-when", "rs-appointment-card-date", "rs-appointment-card-time", "rs-appointment-card-details", "rs-appointment-card-field", "rs-appointment-card-label", "rs-appointment-card-value", "rs-appointment-card-actions"],
+    css: ["components/appointment-card.css"],
+    react: "components/appointment-card.tsx",
+    registryDependencies: [],
+    snippet: '<div class="rs-appointment-card" role="group" aria-label="Care team check-in"><div class="rs-appointment-card-header"><p class="rs-appointment-card-title">Care team check-in</p><span class="rs-appointment-card-status">Confirmed</span></div><div class="rs-appointment-card-when"><span class="rs-appointment-card-date">18 September 2026</span><span class="rs-appointment-card-time">10:30\u201311:00 \xB7 Europe/Amsterdam, UTC+02:00</span></div><dl class="rs-appointment-card-details"><div class="rs-appointment-card-field"><dt class="rs-appointment-card-label">Clinician</dt><dd class="rs-appointment-card-value">Alex Morgan</dd></div><div class="rs-appointment-card-field"><dt class="rs-appointment-card-label">Location</dt><dd class="rs-appointment-card-value">Room 04, demo clinic</dd></div></dl></div>',
+    example: 'import { AppointmentCard } from "@noorddev/vlak-react";\n\n<AppointmentCard appointmentTitle="Care team check-in" dateLabel="18 September 2026" timeLabel="10:30\u201311:00" timeZone="Europe/Amsterdam, UTC+02:00" dateTime="2026-09-18T10:30:00+02:00" clinician="Alex Morgan" location="Room 04, demo clinic" status="Confirmed" />\n\n// Supply children for real navigation links or application-owned actions.',
+    usage: {
+      use: ["Confirmed, proposed, cancelled, or otherwise explicitly supplied appointments.", "Add real links or buttons as children when navigation or an action is available."],
+      avoid: ["Inferring confirmation, converting timezones, or deriving a relative date from the system clock.", "Rendering placeholder Join, Cancel, or Reschedule buttons without working actions."]
+    },
+    keyboard: [{ keys: "Tab, Enter, Space", does: "Supplied links and buttons retain their native keyboard interactions. The card adds no tab stop." }],
+    a11y: ["Appointment title names a group. Date, time, timezone, and status are text; clinician and location use a description list.", "Missing clinician and location are explicitly labelled as not supplied.", "Use native action controls with accessible names and at least 44px targets in the children slot.", "Native root attributes and the div ref pass through. The caller owns status updates and announcements."],
+    aliases: ["AppointmentCard", "Visit card", "Booking card", "Care appointment", "Consultation details"]
+  },
+  {
+    name: "care-plan",
+    title: "Care plan",
+    description: "Lists supplied care tasks, owners, due labels, and statuses with controlled completion requests.",
+    category: "health",
+    classes: ["rs-care-plan", "rs-care-plan-description", "rs-care-plan-list", "rs-care-plan-row", "rs-care-plan-title", "rs-care-plan-check", "rs-care-plan-detail", "rs-care-plan-metadata", "rs-care-plan-field", "rs-care-plan-label", "rs-care-plan-value", "rs-care-plan-pending", "rs-care-plan-empty"],
+    css: ["components/care-plan.css"],
+    react: "components/care-plan.tsx",
+    registryDependencies: ["checkbox"],
+    snippet: '<div class="rs-care-plan" role="group" aria-label="Care plan"><ul class="rs-care-plan-list"><li class="rs-care-plan-row"><p class="rs-care-plan-title">Confirm the next visit</p><dl class="rs-care-plan-metadata"><div class="rs-care-plan-field"><dt class="rs-care-plan-label">Owner</dt><dd class="rs-care-plan-value">Robin Ellis</dd></div><div class="rs-care-plan-field"><dt class="rs-care-plan-label">Due</dt><dd class="rs-care-plan-value">17 September</dd></div><div class="rs-care-plan-field"><dt class="rs-care-plan-label">Status</dt><dd class="rs-care-plan-value">Open</dd></div></dl></li></ul></div>',
+    example: 'import { CarePlan } from "@noorddev/vlak-react";\n\n<CarePlan tasks={[{ id: "visit", title: "Confirm the next visit", owner: "Robin Ellis", dueLabel: "17 September", status: "Open", completed: false }]} />\n\n// Pass onCompletedChange(taskId, completed) to request changes.\n// The caller persists completion and supplies updated tasks and pending states.',
+    usage: {
+      use: ["Existing care plans with named owners and application-supplied deadlines and task status.", "Supply an explicit completed boolean and onCompletedChange to enable a completion control."],
+      avoid: ["Generating treatment plans or deriving task urgency from dates.", "Treating an unknown completion state as unchecked or showing success before the caller updates the record."]
+    },
+    keyboard: [{ keys: "Tab", does: "Moves between enabled completion checkboxes when editing is available." }, { keys: "Space", does: "Requests a completion change through onCompletedChange. The checkbox stays at the supplied value until the caller updates it." }],
+    a11y: ["Task labels name native checkboxes with at least 44px label targets; the recorded status describes each checkbox.", "Pending or disabled tasks cannot be changed. Pending text is visible in a polite status region with aria-busy on the task.", "Tasks with unknown completion or no change callback render as static text, without an invented checkbox state.", "Owner and due-date omissions are explicitly marked as not supplied. Dates are never parsed or inferred."],
+    aliases: ["CarePlan", "Care tasks", "Patient checklist", "Care coordination", "Treatment task list"]
+  }
+];
+
+// src/registry-health-rings.ts
+var healthRings = [{
+  name: "activity-rings",
+  title: "Activity rings",
+  description: "Shows one to six personal goals as concentric rings with a staggered entrance, gentle rotating encouragement, named progress and explicit missing-data states.",
+  category: "health",
+  classes: ["rs-activity-rings", "rs-activity-rings-caption", "rs-activity-rings-body", "rs-activity-rings-graphic", "rs-activity-rings-track", "rs-activity-rings-arc", "rs-activity-rings-list", "rs-activity-rings-item", "rs-activity-rings-index", "rs-activity-rings-label", "rs-activity-rings-value", "rs-activity-rings-target", "rs-activity-rings-note", "rs-activity-rings-description", "rs-activity-rings-progress", "rs-activity-rings-motion", "rs-activity-rings-waiting", "rs-activity-rings-encouragement", "rs-activity-rings-encouragement-text", "rs-activity-rings-pause", "rs-activity-rings-pause-icon"],
+  css: ["components/activity-rings.css"],
+  react: "components/activity-rings.tsx",
+  registryDependencies: [],
+  snippet: '<figure class="rs-activity-rings"><figcaption class="rs-activity-rings-caption">Daily activity</figcaption><div class="rs-activity-rings-body"><svg class="rs-activity-rings-graphic" viewBox="0 0 200 200" aria-hidden="true"><g transform="rotate(-90 100 100)"><circle class="rs-activity-rings-track" cx="100" cy="100" r="88" stroke-width="14"/><circle class="rs-activity-rings-arc" cx="100" cy="100" r="88" stroke-width="14" pathLength="100" stroke-dasharray="60 100"/></g></svg><ol class="rs-activity-rings-list" aria-label="Daily activity, outer ring first"><li class="rs-activity-rings-item"><span class="rs-activity-rings-index" aria-hidden="true">01</span><div><p class="rs-activity-rings-label">Walking</p><p class="rs-activity-rings-value">18 <span class="rs-activity-rings-target">of 30 minutes</span></p><progress class="rs-activity-rings-progress" value="18" max="30" aria-label="Walking, ring 1" aria-valuetext="18 of 30 minutes">18 of 30 minutes</progress></div></li></ol></div></figure>',
+  example: 'import { ActivityRings } from "@noorddev/vlak-react";\n\n<ActivityRings label="Daily activity" goals={[\n  { id: "walk", label: "Walking", current: 18, target: 30, unit: "minutes" },\n  { id: "move", label: "Movement breaks", current: 5, target: 8, unit: "breaks" },\n  { id: "stand", label: "Standing", current: 7, target: 10, unit: "hours" },\n]} description="Personal targets, supplied by your application" />',
+  usage: { use: ["One activity ring or a compact set of personal movement, routine, or wellness goals.", "Supply goals in outer-to-inner order, with unique ids, labels, amounts, targets, and units.", "Pair with ActivityGoal for a linear progress view of the same data.", "Rings sweep into their supplied values on first view and ease into later updates. Set animate to false for an instant graphic.", "Encouragement picks a different line every ten seconds while visible. Supply your own encouragement strings, one string for a static line, or false to hide it. The first line stays deterministic during server rendering."], avoid: ["Deriving a readiness score, calorie prescription, or recommended target.", "Treating an unrecorded amount as zero. More than six goals retain their text records without a ring graphic."] },
+  keyboard: [{ keys: "Tab", does: "Moves to the encouragement pause control when rotation is available." }, { keys: "Enter, Space", does: "Pauses or resumes encouraging text rotation." }],
+  a11y: ["Every valid goal has a named native progress element and an explicit amount, target, and unit.", "Concentric geometry is decorative. Visible numbering and outer-to-inner order connect the rings with their text records without relying on hue.", "Zero stays empty, amounts above target retain their actual value, and missing or invalid data has no progress arc.", "The figure forwards its native attributes and ref, and rings remain visible in forced colors. Actual readings and native progress values update immediately throughout the decorative entrance.", "Reduced motion makes ring fills instant and keeps encouragement static. Rotation also pauses while the figure is offscreen or the document is hidden.", "A 44px keyboard-accessible control pauses or resumes rotation. Encouragement has no automatic live announcement; text remains available in the reading order."],
+  aliases: ["Activity ring", "Fitness rings", "Goal rings", "Move rings", "Wellness progress", "Concentric progress"]
+}];
+
+// src/registry-civic.ts
+var civicComponents = [
+  {
+    "name": "identity-document",
+    "title": "Identity document",
+    "description": "Displays a supplied credential, masked identifier, issuer, dates, and verification status without exposing a raw identifier.",
+    "category": "civic",
+    "classes": [
+      "rs-identity-document",
+      "rs-identity-document-header",
+      "rs-identity-document-title",
+      "rs-identity-document-status",
+      "rs-identity-document-holder",
+      "rs-identity-document-fields",
+      "rs-identity-document-field",
+      "rs-identity-document-label",
+      "rs-identity-document-value",
+      "rs-identity-document-detail",
+      "rs-identity-document-actions"
+    ],
+    "css": [
+      "components/identity-document.css"
+    ],
+    "react": "components/identity-document.tsx",
+    "registryDependencies": [],
+    "snippet": '<div class="rs-identity-document" role="group" aria-label="Residence document"><div class="rs-identity-document-header"><p class="rs-identity-document-title">Residence document</p><span class="rs-identity-document-status">Verification pending</span></div><p class="rs-identity-document-holder">Robin Ellis</p><dl class="rs-identity-document-fields"><div class="rs-identity-document-field"><dt class="rs-identity-document-label">Document number</dt><dd class="rs-identity-document-value">\u2022\u2022\u2022\u2022 2048</dd></div></dl></div>',
+    "example": 'import { IdentityDocument } from "@noorddev/vlak-react";\n\n<IdentityDocument documentTitle="Residence document" holderName="Robin Ellis" maskedIdentifier="\u2022\u2022\u2022\u2022 2048" issuer="Example civic office" issuedLabel="12 June 2025" expiresLabel="12 June 2030" status="Verification pending" statusDetail="Status supplied by the example record service" />',
+    "usage": {
+      "use": [
+        "Identity documents, professional credentials, and permit records using an already-masked display identifier.",
+        "Supply verification status and date labels from the host; add real links or actions as children."
+      ],
+      "avoid": [
+        "Passing a full identifier and expecting this component to redact it. It renders maskedIdentifier exactly as supplied.",
+        "Inferring validity from an expiry date, or providing a cosmetic reveal button without an authorized source."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Enter, Space",
+        "does": "Supplied native links and buttons keep their keyboard behavior. The document adds no tab stop."
+      }
+    ],
+    "a11y": [
+      "A named group and description list preserve document fields in reading order.",
+      "Missing identifier, issuer, and dates are explicitly labelled as not supplied. Status is visible text.",
+      "Root attributes, className, style, and the div ref pass through. Supply child controls with at least 44px targets."
+    ],
+    "aliases": [
+      "IdentityDocument",
+      "Credential record",
+      "Identity card",
+      "Residence permit",
+      "Identity verification",
+      "Document summary"
+    ]
+  },
+  {
+    "name": "tax-summary",
+    "title": "Tax summary",
+    "description": "Separates supplied assessment line items from authoritative totals in a semantic two-column table.",
+    "category": "civic",
+    "classes": [
+      "rs-tax-summary",
+      "rs-tax-summary-header",
+      "rs-tax-summary-status",
+      "rs-tax-summary-reference",
+      "rs-tax-summary-table",
+      "rs-tax-summary-caption",
+      "rs-tax-summary-period",
+      "rs-tax-summary-column",
+      "rs-tax-summary-row-label",
+      "rs-tax-summary-amount",
+      "rs-tax-summary-detail",
+      "rs-tax-summary-total",
+      "rs-tax-summary-footer",
+      "rs-tax-summary-note",
+      "rs-tax-summary-actions"
+    ],
+    "css": [
+      "components/tax-summary.css"
+    ],
+    "react": "components/tax-summary.tsx",
+    "registryDependencies": [],
+    "snippet": '<div class="rs-tax-summary" role="group" aria-label="Annual assessment"><div class="rs-tax-summary-header"><span class="rs-tax-summary-status">Provisional</span><span class="rs-tax-summary-reference">Example 204</span></div><table class="rs-tax-summary-table"><caption class="rs-tax-summary-caption">Annual assessment<span class="rs-tax-summary-period">2025</span></caption><thead><tr><th scope="col" class="rs-tax-summary-column">Item</th><th scope="col" class="rs-tax-summary-amount">Amount</th></tr></thead><tbody><tr><th scope="row" class="rs-tax-summary-row-label">Assessed amount</th><td class="rs-tax-summary-amount">\u20AC 240.00</td></tr></tbody><tfoot><tr class="rs-tax-summary-total"><th scope="row" class="rs-tax-summary-row-label">Amount payable</th><td class="rs-tax-summary-amount">\u20AC 240.00</td></tr></tfoot></table></div>',
+    "example": 'import { TaxSummary } from "@noorddev/vlak-react";\n\n<TaxSummary label="Annual assessment" periodLabel="2025" reference="Example 204" status="Provisional" items={[{ id: "assessment", label: "Assessed amount", amount: "\u20AC 240.00", detail: "Supplied by the example authority" }]} totals={[{ id: "payable", label: "Amount payable", amount: "\u20AC 240.00" }]} dueLabel="Payment date not supplied" note="Fictional amounts; no tax calculation is performed" />',
+    "usage": {
+      "use": [
+        "Tax assessments, municipal charges, and other supplied statements with separate line items and totals.",
+        "Pass fully formatted amounts, signs, currencies, period, payment timing, and status from the authoritative source."
+      ],
+      "avoid": [
+        "Computing taxes, estimating refunds, summing amounts, or assuming a missing total is zero.",
+        "Generating a payment action or deadline without an application-owned destination or supplied terms."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Enter, Space",
+        "does": "Only supplied child controls enter the tab order and retain native keyboard behavior."
+      }
+    ],
+    "a11y": [
+      "A caption names the table; scope attributes associate row and column headers with amount cells.",
+      "Line items use tbody and supplied totals use tfoot. Amounts remain literal readable text.",
+      "Missing line items, totals, reference, and timing have explicit text. No numeric or financial status is inferred.",
+      "Native div attributes and refs pass through; child action targets should be at least 44px."
+    ],
+    "aliases": [
+      "TaxSummary",
+      "Tax assessment",
+      "Assessment statement",
+      "Municipal charges",
+      "Tax bill",
+      "Refund statement"
+    ]
+  },
+  {
+    "name": "benefit-program",
+    "title": "Benefit program",
+    "description": "Keeps programme availability, supplied eligibility, award terms, and criterion assessments separate.",
+    "category": "civic",
+    "classes": [
+      "rs-benefit-program",
+      "rs-benefit-program-header",
+      "rs-benefit-program-name",
+      "rs-benefit-program-status",
+      "rs-benefit-program-detail",
+      "rs-benefit-program-facts",
+      "rs-benefit-program-field",
+      "rs-benefit-program-label",
+      "rs-benefit-program-value",
+      "rs-benefit-program-criteria",
+      "rs-benefit-program-criterion",
+      "rs-benefit-program-criterion-head",
+      "rs-benefit-program-actions"
+    ],
+    "css": [
+      "components/benefit-program.css"
+    ],
+    "react": "components/benefit-program.tsx",
+    "registryDependencies": [],
+    "snippet": '<div class="rs-benefit-program" role="group" aria-label="Community project grant"><div class="rs-benefit-program-header"><p class="rs-benefit-program-name">Community project grant</p><span class="rs-benefit-program-status">Applications open</span></div><dl class="rs-benefit-program-facts"><div class="rs-benefit-program-field"><dt class="rs-benefit-program-label">Your eligibility</dt><dd class="rs-benefit-program-value">Not assessed</dd></div><div class="rs-benefit-program-field"><dt class="rs-benefit-program-label">Award</dt><dd class="rs-benefit-program-value">Award amount not supplied</dd></div></dl><ul class="rs-benefit-program-criteria" aria-label="Eligibility criteria"><li class="rs-benefit-program-criterion"><div class="rs-benefit-program-criterion-head"><strong>Project location</strong><span>Not reviewed</span></div></li></ul></div>',
+    "example": 'import { BenefitProgram } from "@noorddev/vlak-react";\n\n<BenefitProgram programName="Community project grant" provider="Example council" status="Applications open" eligibility="Not assessed" awardLabel="Award amount not supplied" deadlineLabel="30 September 2026, as supplied" criteria={[{ id: "location", label: "Project location", status: "Not reviewed", description: "Location evidence is reviewed by the provider" }]} />',
+    "usage": {
+      "use": [
+        "Public benefits, grants, subsidies, and funding opportunities with source-owned eligibility assessments.",
+        "Display programme availability separately from an applicant\u2019s eligibility and the programme\u2019s award terms."
+      ],
+      "avoid": [
+        "Deciding eligibility from criteria, personal data, income, or a model-generated recommendation.",
+        "Implying an award is approved because applications are open or some criteria are satisfied."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Enter, Space",
+        "does": "Supplied action links and buttons use native keyboard behavior. Criteria are static readable items."
+      }
+    ],
+    "a11y": [
+      "Programme name labels a group; programme facts use a description list and criteria use a named list.",
+      "Eligibility, criterion status, and programme availability are visible text rather than color-only indicators.",
+      "Missing provider, award, deadline, or criteria are explicitly described. Native root attributes and div refs pass through.",
+      "Provide working child controls with at least 44px targets when an application or information action is available."
+    ],
+    "aliases": [
+      "BenefitProgram",
+      "Grant programme",
+      "Subsidy card",
+      "Public benefit",
+      "Funding opportunity",
+      "Eligibility summary"
+    ]
+  },
+  {
+    "name": "application-status",
+    "title": "Application status",
+    "description": "Shows a supplied case reference, status, update time, milestones, and next step without estimating progress.",
+    "category": "civic",
+    "classes": [
+      "rs-application-status",
+      "rs-application-status-header",
+      "rs-application-status-title",
+      "rs-application-status-reference",
+      "rs-application-status-overview",
+      "rs-application-status-status",
+      "rs-application-status-detail",
+      "rs-application-status-milestones",
+      "rs-application-status-milestone",
+      "rs-application-status-current",
+      "rs-application-status-milestone-label",
+      "rs-application-status-milestone-meta",
+      "rs-application-status-next",
+      "rs-application-status-next-label",
+      "rs-application-status-actions"
+    ],
+    "css": [
+      "components/application-status.css"
+    ],
+    "react": "components/application-status.tsx",
+    "registryDependencies": [],
+    "snippet": '<div class="rs-application-status" role="group" aria-label="Community grant application"><div class="rs-application-status-header"><p class="rs-application-status-title">Community grant application</p><span class="rs-application-status-reference">Example 204</span></div><div class="rs-application-status-overview"><p class="rs-application-status-status">Under review</p><p class="rs-application-status-detail">Updated 14 September, as supplied</p></div><ol class="rs-application-status-milestones" aria-label="Application milestones"><li class="rs-application-status-milestone rs-application-status-current" aria-current="step"><span class="rs-application-status-milestone-label">Evidence review</span><span class="rs-application-status-milestone-meta">In progress</span></li></ol><div class="rs-application-status-next"><p class="rs-application-status-next-label">Next step</p><div>Wait for the review update</div></div></div>',
+    "example": 'import { ApplicationStatus } from "@noorddev/vlak-react";\n\n<ApplicationStatus applicationTitle="Community grant application" reference="Example 204" status="Under review" updatedLabel="Updated 14 September, as supplied" milestones={[{ id: "received", label: "Application received", status: "Recorded", dateLabel: "12 September" }, { id: "review", label: "Evidence review", status: "In progress", current: true }]} nextStep="Wait for the review update" />',
+    "usage": {
+      "use": [
+        "Permit, benefits, tax, and grant cases with supplied status and milestones.",
+        "Supply the current milestone explicitly, preserve source milestone order, and use nextStep for the authority\u2019s actual instruction."
+      ],
+      "avoid": [
+        "Predicting approval, calculating completion percentages, or choosing the current step from dates.",
+        "Presenting estimated service times as confirmed decision dates."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Enter, Space",
+        "does": "Any supplied child links or buttons keep their native keyboard behavior. Milestones are not interactive."
+      }
+    ],
+    "a11y": [
+      "An ordered, named list preserves milestone order. Explicit current milestones use aria-current=step and a full-surface fill.",
+      "Status and dates are readable text. Optional machine-readable milestone dates are passed through without conversion.",
+      "Missing reference, update time, milestone dates, milestones, and next step have explicit descriptions.",
+      "The root forwards native div attributes and its ref. Use at least 44px targets for supplied actions."
+    ],
+    "aliases": [
+      "ApplicationStatus",
+      "Case status",
+      "Application tracker",
+      "Permit status",
+      "Claim progress",
+      "Case timeline"
+    ]
+  },
+  {
+    "name": "evidence-checklist",
+    "title": "Evidence checklist",
+    "description": "Lists evidence requirements, file records, and supplied verification status with controlled 44px action buttons.",
+    "category": "civic",
+    "classes": [
+      "rs-evidence-checklist",
+      "rs-evidence-checklist-heading",
+      "rs-evidence-checklist-summary",
+      "rs-evidence-checklist-list",
+      "rs-evidence-checklist-item",
+      "rs-evidence-checklist-head",
+      "rs-evidence-checklist-label",
+      "rs-evidence-checklist-requirement",
+      "rs-evidence-checklist-detail",
+      "rs-evidence-checklist-record",
+      "rs-evidence-checklist-status",
+      "rs-evidence-checklist-actions",
+      "rs-evidence-checklist-action",
+      "rs-evidence-checklist-empty"
+    ],
+    "css": [
+      "components/evidence-checklist.css"
+    ],
+    "react": "components/evidence-checklist.tsx",
+    "registryDependencies": [
+      "button"
+    ],
+    "snippet": '<div class="rs-evidence-checklist" role="group" aria-label="Application evidence"><p class="rs-evidence-checklist-heading">Application evidence</p><ul class="rs-evidence-checklist-list"><li class="rs-evidence-checklist-item"><div class="rs-evidence-checklist-head"><p class="rs-evidence-checklist-label">Proof of address</p><span class="rs-evidence-checklist-requirement">Required by the provider</span></div><div class="rs-evidence-checklist-record">Example-address.pdf</div><div class="rs-evidence-checklist-status" role="status">Awaiting review</div></li></ul></div>',
+    "example": 'import { EvidenceChecklist } from "@noorddev/vlak-react";\n\n<EvidenceChecklist label="Application evidence" items={[{ id: "address", label: "Proof of address", requirement: "Required by the provider", fileName: "Example-address.pdf", status: "Awaiting review" }]} />\n\n// To enable actions, supply item.actions and onAction(itemId, actionId).\n// The host performs uploads or changes and supplies pending and updated status.',
+    "usage": {
+      "use": [
+        "Evidence requirements for permits, grants, benefits, and identity checks.",
+        "Provide explicit actions for working uploads, downloads, replacements, or record changes through the host callback."
+      ],
+      "avoid": [
+        "Marking evidence accepted from a filename or a button click, or inferring requirements from missing values.",
+        "Treating uploads as submitted before the host confirms them, or rendering dead action buttons without a callback."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Moves between enabled evidence action buttons when onAction and item actions are supplied."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Requests the focused item action without mutating the displayed record. Pending or disabled actions cannot be activated."
+      }
+    ],
+    "a11y": [
+      "Action names contain the visible label and evidence name; descriptions include requirement, file record, and supplied status.",
+      "Record status uses a polite atomic status region. Pending text remains visible and actionable controls are disabled without hiding the existing status.",
+      "No checkboxes or completion percentage are invented from verification status. Missing requirements or file details are explicitly labelled.",
+      "Buttons have at least 44px targets. Native root attributes, className, style, and div refs pass through."
+    ],
+    "aliases": [
+      "EvidenceChecklist",
+      "Document checklist",
+      "Supporting documents",
+      "Evidence requirements",
+      "Application documents",
+      "Verification checklist"
+    ]
+  }
+];
+
+// src/registry-science.ts
+var scienceComponents = [
+  {
+    name: "measurement-value",
+    title: "Measurement value",
+    category: "science",
+    description: "A supplied scientific reading with units, symmetric uncertainty, optional scientific notation and explicit availability.",
+    classes: ["rs-measurement-value", "rs-measurement-value-label", "rs-measurement-value-reading", "rs-measurement-value-number", "rs-measurement-value-uncertainty", "rs-measurement-value-unit", "rs-measurement-value-context"],
+    css: ["components/measurement-value.css"],
+    react: "components/measurement-value.tsx",
+    registryDependencies: [],
+    snippet: '<div class="rs-measurement-value"><p class="rs-measurement-value-label">Sample mass</p><p class="rs-measurement-value-reading"><span class="rs-measurement-value-number">1.230</span><span class="rs-measurement-value-uncertainty">\xB1 0.005</span><span class="rs-measurement-value-unit">g</span></p><p class="rs-measurement-value-context">Supplied uncertainty</p></div>',
+    example: `import { MeasurementValue } from "@noorddev/vlak-react";
+
+<MeasurementValue label="Sample mass" value="1.230" uncertainty={0.005} unit="g" source="Balance record, sample 042" />
+<MeasurementValue label="Small reading" value={0.0000123} notation="scientific" unit="A" />
+<MeasurementValue label="Next measurement" status="pending" />`,
+    usage: { use: ["Scientific observations with application-supplied uncertainty and units.", "Pass a string to preserve significant figures such as 1.230; scientific notation formats numeric inputs without selecting a precision.", "Use uncertaintyLabel to name the supplied uncertainty convention."], avoid: ["Inferring significant figures, a confidence level, a distribution or unit conversions.", "Treating zero as missing, or using a negative uncertainty to express asymmetric bounds."] },
+    keyboard: [],
+    a11y: ["The reading, plus-minus uncertainty, unit and source remain visible text.", "Pending and unavailable states suppress the numeric reading. Zero is preserved, while empty strings and non-finite values are unavailable.", "Negative or non-finite uncertainty is explicitly unavailable without hiding a valid reading.", "The div ref, native attributes, className and style pass through. No automatic announcements or interactive stops are added."],
+    aliases: ["Scientific measurement", "Uncertainty display", "Measured value", "Scientific notation", "Metrology reading"]
+  },
+  {
+    name: "quantity-field",
+    title: "Quantity field",
+    category: "science",
+    description: "A 44px Vlak numeric input and styled unit selector with controlled quantity values, form submission and reset support.",
+    classes: ["rs-quantity-field", "rs-quantity-field-legend", "rs-quantity-field-row", "rs-quantity-field-label", "rs-quantity-field-control", "rs-quantity-field-description"],
+    css: ["components/quantity-field.css"],
+    react: "components/quantity-field.tsx",
+    registryDependencies: ["input", "select", "dropdown-menu"],
+    snippet: '<fieldset class="rs-quantity-field"><legend class="rs-quantity-field-legend">Sample volume</legend><div class="rs-quantity-field-row"><label class="rs-quantity-field-label">Amount<input class="rs-input rs-input-full rs-quantity-field-control" name="volume" type="number" step="any" value="250" /></label><div class="rs-quantity-field-label"><span id="quantity-unit-label">Unit</span><div class="rs-select rs-select-fluid"><button type="button" class="rs-dropdown" role="combobox" aria-labelledby="quantity-unit-label" aria-expanded="false" aria-haspopup="listbox"><span>\xB5L</span></button></div></div></div></fieldset>',
+    example: `import { QuantityField } from "@noorddev/vlak-react";
+
+<QuantityField label="Sample volume" name="volume" units={[{ value: "ul", label: "\xB5L" }, { value: "ml", label: "mL" }]} defaultValue={{ amount: 250, unit: "ul" }} min={0} required description="Enter the amount and its unit" />`,
+    usage: { use: ["Dimensioned quantities with explicit unit choices and native numeric constraints.", "name submits the amount and unitName submits the unit, defaulting to name followed by .unit.", "Supply value and onValueChange when the application converts units or persists the result; unit selection alone keeps the supplied amount unchanged.", "null represents a missing amount or unit. Unit option values must be unique and non-empty."], avoid: ["Assuming that choosing a different unit automatically converts the amount.", "Relying on formatting to establish scientific precision or dimensional compatibility."] },
+    keyboard: [{ keys: "Tab", does: "Moves between the amount input and unit selector." }, { keys: "Arrow keys", does: "Uses native number stepping or opens and navigates the Vlak unit selector. Enter or Space confirms a unit; Escape closes its menu." }],
+    a11y: ["A fieldset and legend name the quantity. Vlak Input and Select have visible labels, descriptions and 44px targets.", "Required, min, max and step use native validation. Invalid supplied numbers and unknown units have explicit text states.", "Native form reset restores uncontrolled defaults and leaves controlled values with the application.", "Read-only quantities preserve the submitted amount and unit while preventing edits. Disabled quantities do not submit.", "The fieldset ref and native attributes pass through; no unit is chosen implicitly."],
+    aliases: ["Unit input", "Scientific input", "Dimensioned number", "Amount and unit", "Measurement input"]
+  },
+  {
+    name: "well-plate",
+    title: "Well plate",
+    category: "microbiology",
+    description: "A labelled laboratory plate with supplied well states, 44px selection controls and keyboard navigation across up to 1536 wells.",
+    classes: ["rs-well-plate", "rs-well-plate-label", "rs-well-plate-description", "rs-well-plate-scroll", "rs-well-plate-table", "rs-well-plate-heading", "rs-well-plate-cell", "rs-well-plate-well", "rs-well-plate-selected", "rs-well-plate-unavailable", "rs-well-plate-static", "rs-well-plate-coordinate"],
+    css: ["components/well-plate.css"],
+    react: "components/well-plate.tsx",
+    registryDependencies: [],
+    snippet: '<div class="rs-well-plate"><p class="rs-well-plate-label">Plate 042</p><div class="rs-well-plate-scroll"><table class="rs-well-plate-table"><caption>Supplied well records</caption><thead><tr><th class="rs-well-plate-heading" scope="col">Well</th><th class="rs-well-plate-heading" scope="col">1</th></tr></thead><tbody><tr><th class="rs-well-plate-heading" scope="row">A</th><td class="rs-well-plate-cell"><div class="rs-well-plate-well rs-well-plate-static"><span class="rs-well-plate-coordinate">A1</span><span>Loaded</span></div></td></tr></tbody></table></div></div>',
+    example: `import { WellPlate } from "@noorddev/vlak-react";
+
+<WellPlate label="Plate 042" rows={["A", "B", "C"]} columns={["1", "2", "3", "4"]} wells={[
+  { row: "A", column: "1", status: "Loaded", label: "Control" },
+  { row: "A", column: "2", status: "Loaded", label: "Sample 042" },
+  { row: "B", column: "1", status: "Reserved", disabled: true },
+]} defaultValue={{ row: "A", column: "1" }} />`,
+    usage: { use: ["Sample placement and plate inspection with application-supplied rows, columns and well states.", "Unique row and column labels and at most one record per coordinate. Missing records are labelled Unrecorded.", "Use value and onValueChange for application-owned selection; readOnly provides a static plate."], avoid: ["Inferring empty wells, assay outcomes or sample identities from missing records.", "Layouts larger than 1536 wells; the component reports the limit instead of silently truncating a plate."] },
+    keyboard: [{ keys: "Tab", does: "Enters the plate at one enabled well and then leaves the grid." }, { keys: "Arrow keys", does: "Moves focus along a row or column, skipping disabled wells without changing selection." }, { keys: "Home, End", does: "Moves to the first or last enabled well in the current row." }, { keys: "Ctrl+Home, Ctrl+End", does: "Moves to the first or last enabled well in the plate." }, { keys: "Enter, Space", does: "Selects the focused well. Controlled selection waits for the caller's updated value." }],
+    a11y: ["A named grid uses row and column headers, roving button focus and aria-selected cells. Every well name includes its coordinates and supplied state.", "Selected wells use a full fill and controls retain 44px targets. Large plates scroll inside their own container.", "Arrow navigation respects the document reading direction. Disabled wells are skipped; static and fully disabled plates provide one focusable scroll region.", "Duplicate or unknown coordinates and invalid layouts produce a visible explanation instead of an ambiguous plate.", "The root div forwards its ref and native attributes. Selection does not submit a form."],
+    aliases: ["Microplate", "Plate map", "Microtiter plate", "Sample plate", "Assay plate", "Well grid"]
+  },
+  {
+    name: "experiment-run",
+    title: "Experiment run",
+    category: "science",
+    description: "Supplied experiment metadata, conditions and ordered protocol steps with explicit statuses and controlled recording actions.",
+    classes: ["rs-experiment-run", "rs-experiment-run-head", "rs-experiment-run-title", "rs-experiment-run-context", "rs-experiment-run-conditions", "rs-experiment-run-value", "rs-experiment-run-list", "rs-experiment-run-step", "rs-experiment-run-details", "rs-experiment-run-actions", "rs-experiment-run-action"],
+    css: ["components/experiment-run.css"],
+    react: "components/experiment-run.tsx",
+    registryDependencies: ["button"],
+    snippet: '<div class="rs-experiment-run" role="group" aria-label="Optical measurement"><div class="rs-experiment-run-head"><p class="rs-experiment-run-title">Optical measurement</p><span class="rs-experiment-run-context">Awaiting review</span></div><p class="rs-experiment-run-context">Run 042</p><ol class="rs-experiment-run-list"><li class="rs-experiment-run-step"><div class="rs-experiment-run-head"><span>Review acquisition</span><span class="rs-experiment-run-context">Not reviewed</span></div></li></ol></div>',
+    example: `import { ExperimentRun } from "@noorddev/vlak-react";
+
+<ExperimentRun label="Optical measurement" runId="042" protocol="Protocol revision 3" status="Awaiting review" conditions={[{ id: "temperature", label: "Recorded temperature", value: "21.4 \xB0C" }]} steps={[
+  { id: "acquisition", label: "Acquire readings", status: "Recorded", details: "Data file supplied by the instrument" },
+  { id: "review", label: "Review acquisition", status: "Not reviewed" },
+]} />`,
+    usage: { use: ["Lab notebooks, acquisition workspaces and protocol review with supplied run state.", "Pass explicit step actions and onAction to request changes; update supplied statuses after persistence.", "Keep protocol links, conditions and step details with the run they describe."], avoid: ["Inferring completion, experimental validity or the next scientific procedure.", "Treating an action request as proof that an instrument ran or that data was saved."] },
+    keyboard: [{ keys: "Tab", does: "Moves between supplied links and enabled step actions." }, { keys: "Enter, Space", does: "Requests the focused step action through onAction." }],
+    a11y: ["A named group contains conditions as a description list and steps as an ordered list.", "Action names include their step number and label; the current step status is their accessible description.", "Pending steps keep their recorded state, show pending text and disable actions. No internal success state is invented.", "Zero-valued conditions remain visible and missing conditions are explicitly labelled. Buttons are at least 44px with visible focus rings.", "The root div forwards native attributes and its ref."],
+    aliases: ["Protocol run", "Lab notebook run", "Experiment record", "Acquisition workflow", "Scientific workflow"]
+  },
+  {
+    name: "spectrum-plot",
+    title: "Spectrum plot",
+    category: "science",
+    description: "A supplied numeric spectrum with labelled axes, caller-provided peak annotations and a complete paginated data table.",
+    classes: ["rs-spectrum-plot", "rs-spectrum-plot-label", "rs-spectrum-plot-description", "rs-spectrum-plot-scroll", "rs-spectrum-plot-svg", "rs-spectrum-plot-axis", "rs-spectrum-plot-grid", "rs-spectrum-plot-trace", "rs-spectrum-plot-point", "rs-spectrum-plot-annotation", "rs-spectrum-plot-ticks", "rs-spectrum-plot-x-label", "rs-spectrum-plot-peaks", "rs-spectrum-plot-summary", "rs-spectrum-plot-table", "rs-spectrum-plot-cell", "rs-spectrum-plot-controls", "rs-spectrum-plot-button"],
+    css: ["components/spectrum-plot.css"],
+    react: "components/spectrum-plot.tsx",
+    registryDependencies: ["button"],
+    snippet: '<figure class="rs-spectrum-plot"><figcaption class="rs-spectrum-plot-label">Supplied spectrum</figcaption><table class="rs-spectrum-plot-table"><caption>Supplied numeric data</caption><thead><tr><th class="rs-spectrum-plot-cell" scope="col">Wavelength (nm)</th><th class="rs-spectrum-plot-cell" scope="col">Signal (counts)</th></tr></thead><tbody><tr><td class="rs-spectrum-plot-cell">400</td><td class="rs-spectrum-plot-cell">1</td></tr><tr><td class="rs-spectrum-plot-cell">500</td><td class="rs-spectrum-plot-cell">15</td></tr></tbody></table></figure>',
+    example: `import { SpectrumPlot } from "@noorddev/vlak-react";
+
+<SpectrumPlot label="Supplied spectrum" description="Synthetic example data" xLabel="Wavelength" xUnit="nm" yLabel="Signal" yUnit="counts" points={[{ x: 400, y: 1 }, { x: 440, y: 2 }, { x: 480, y: 9 }, { x: 500, y: 15 }, { x: 520, y: 4 }, { x: 560, y: 2 }, { x: 600, y: 1 }]} peaks={[{ id: "annotation", label: "Marked feature", x: 500, y: 15 }]} />`,
+    usage: { use: ["Display supplied x/y spectra in acquisition order without smoothing, peak detection or resampling.", "Supply axis labels and units; optional finite increasing domains must contain every point and annotation.", "Up to 4096 points and 128 annotations; larger inputs receive a visible limit message without partial plotting.", "Use the 50-row data pages to inspect every supplied point at its original numeric precision."], avoid: ["Interpreting a marked feature as an identified substance or validated scientific finding.", "Using rounded axis tick labels as the original data, or relying on this display for signal processing."] },
+    keyboard: [{ keys: "Tab", does: "Focuses the plot's scroll region, native data disclosure and enabled pagination controls when open." }, { keys: "Arrow keys", does: "Scrolls the focused plot region when it exceeds the available width." }, { keys: "Enter, Space", does: "Toggles the focused disclosure or activates the focused page button." }],
+    a11y: ["A figure caption names the spectrum. The decorative chart is hidden from assistive technology; exact point values remain in a captioned table.", "Every supplied peak has a numbered marker and a visible textual coordinate description; no peaks are inferred.", "Empty, non-finite or out-of-domain data is explicitly reported. Invalid rows remain visible in the table as unavailable values.", "A single point has a visible marker, and constant axes receive display padding without changing the data.", "Pagination bounds table rendering to 50 rows. Controls have 44px targets, visible focus and a polite row-range announcement.", "The figure ref and native attributes pass through; large data is rejected before scanning or rendering it."],
+    aliases: ["Spectral plot", "Spectroscopy chart", "Frequency spectrum", "Signal spectrum", "Peak annotations"]
+  }
+];
+
+// src/registry-creative.ts
+var creativeComponents = [
+  {
+    name: "audio-meter",
+    title: "Audio meter",
+    category: "creative",
+    description: "Shows supplied channel levels and peaks in decibels, with bounded native meters and explicit missing readings.",
+    classes: ["rs-audio-meter", "rs-audio-meter-label", "rs-audio-meter-channel", "rs-audio-meter-text", "rs-audio-meter-bar", "rs-audio-meter-note"],
+    css: ["components/audio-meter.css"],
+    react: "components/audio-meter.tsx",
+    registryDependencies: [],
+    snippet: `<div class="rs-audio-meter"><p class="rs-audio-meter-label">Output</p><div class="rs-audio-meter-channel"><div class="rs-audio-meter-text"><span id="left-channel">Left</span><span>-12 dB</span></div><meter class="rs-audio-meter-bar" min="-60" max="0" value="-12" aria-labelledby="left-channel">-12 dB</meter><p class="rs-audio-meter-note">Peak: -3 dB</p></div></div>`,
+    example: `import { AudioMeter } from "@noorddev/vlak-react";
+
+<AudioMeter label="Output" channels={[{ id: "left", label: "Left", level: -12, peak: -3 }, { id: "right", label: "Right", level: -15, peak: -4 }]} />`,
+    usage: { use: ["Live or recorded decibel readings supplied by an audio host.", "min and max to set the visible scale; supplied readings remain visible as text.", "Negative infinity for digital silence, and null for an unavailable level."], avoid: ["Expecting microphone access, audio analysis, or automatic peak holding.", "Treating a missing reading as silence or zero decibels."] },
+    keyboard: [],
+    a11y: ["Each native meter has a channel name, minimum, maximum, and decibel value text.", "Supplied peaks are visible text; absent and invalid readings suppress the meter.", "Native meter styles remove browser gradients so the track and fill remain monochrome. System colors retain visible fill and boundaries in forced colors.", "The ref and native attributes reach the root div."],
+    aliases: ["AudioMeter", "Level meter", "Peak meter", "Decibel meter", "Channel meter"]
+  },
+  {
+    name: "channel-strip",
+    title: "Channel strip",
+    category: "creative",
+    description: "Edits channel gain, pan, mute, and solo with native sliders and 44px toggle actions wired to caller-owned state.",
+    classes: ["rs-channel-strip", "rs-channel-strip-label", "rs-channel-strip-field", "rs-channel-strip-text", "rs-channel-strip-range", "rs-channel-strip-actions", "rs-channel-strip-button", "rs-channel-strip-pressed"],
+    css: ["components/channel-strip.css"],
+    react: "components/channel-strip.tsx",
+    registryDependencies: ["button"],
+    snippet: `<fieldset class="rs-channel-strip"><legend class="rs-channel-strip-label">Dialogue</legend><label class="rs-channel-strip-field">Gain<input class="rs-channel-strip-range" type="range" min="-60" max="12" step="any" value="0" /></label><label class="rs-channel-strip-field">Pan<input class="rs-channel-strip-range" type="range" min="-100" max="100" step="any" value="0" /></label><div class="rs-channel-strip-actions"><button class="rs-btn-ghost rs-btn-sm rs-channel-strip-button" type="button" aria-pressed="false">Mute</button><button class="rs-btn-ghost rs-btn-sm rs-channel-strip-button" type="button" aria-pressed="false">Solo</button></div></fieldset>`,
+    example: `import { ChannelStrip } from "@noorddev/vlak-react";
+
+<ChannelStrip label="Dialogue" name="dialogue" defaultValue={{ gain: -3, pan: 0, muted: false, solo: false }} />`,
+    usage: { use: ["A host channel whose gain, pan, mute, and solo states belong together.", "value/defaultValue/onValueChange for controlled or local editing; connect changes to your audio host.", "Pan from -100 percent left through zero center to 100 percent right; gain uses decibels."], avoid: ["Assuming UI changes process audio without a connected host.", "Using solo as a global mixing policy; the application coordinates other channels."] },
+    keyboard: [{ keys: "Tab", does: "Moves through enabled gain, pan, mute, and solo controls." }, { keys: "Arrow keys, Home, End", does: "Uses native slider stepping and bounds." }, { keys: "Enter, Space", does: "Toggles the focused mute or solo action." }],
+    a11y: ["A fieldset and legend name the channel; native sliders expose gain and pan bounds and descriptive value text. In-range values retain their supplied precision.", "Vlak Button supplies mute and solo actions with stable names and aria-pressed; their entire surface changes on selection.", "All controls meet the 44px target size. Disabled or read-only controls cannot edit the channel.", "Uncontrolled form reset restores the supplied default; named read-only channels retain all valid values in form submissions. Disabled channels and out-of-range sliders are omitted. The ref reaches the fieldset."],
+    aliases: ["ChannelStrip", "Mixer channel", "Audio mixer", "Gain control", "Pan control", "Mute solo"]
+  },
+  {
+    name: "parameter-knob",
+    title: "Parameter knob",
+    category: "creative",
+    description: "Displays a rotary parameter over a native horizontal range input, with named values, units, and a 64px control.",
+    classes: ["rs-parameter-knob", "rs-parameter-knob-label", "rs-parameter-knob-control", "rs-parameter-knob-pointer", "rs-parameter-knob-input", "rs-parameter-knob-value"],
+    css: ["components/parameter-knob.css"],
+    react: "components/parameter-knob.tsx",
+    registryDependencies: [],
+    snippet: `<div class="rs-parameter-knob"><label class="rs-parameter-knob-label" for="mix-knob">Mix</label><div class="rs-parameter-knob-control"><span class="rs-parameter-knob-pointer" aria-hidden="true" style="transform:rotate(0deg)"></span><input class="rs-parameter-knob-input" id="mix-knob" type="range" min="0" max="100" step="1" value="50" aria-valuetext="50%" /></div><span class="rs-parameter-knob-value">50%</span></div>`,
+    example: `import { ParameterKnob } from "@noorddev/vlak-react";
+
+<ParameterKnob label="Mix" name="mix" min={0} max={100} step={1} defaultValue={35} unit="%" />`,
+    usage: { use: ["A compact bounded parameter with an explicit label, step, and unit.", "value/defaultValue/onValueChange and native form attributes; the ref reaches the range input.", "Horizontal pointer movement and the browser's native range keyboard behavior."], avoid: ["Implying circular pointer dragging; the dial is a visual representation of a horizontal range.", "Non-finite values or invalid bounds; they render an unavailable disabled control."] },
+    keyboard: [{ keys: "Tab", does: "Focuses the native range input and its visible dial ring." }, { keys: "Arrow keys, Home, End", does: "Uses native range stepping and bounds unless read-only." }],
+    a11y: ["The native range uses the visible label and exposes min, max, step, and value text including the unit.", "The full 64px dial is the input target; the pointer graphic is decorative.", "Form reset restores uncontrolled defaults and preserves controlled values.", "The ref, native input attributes, className, and style reach the range input."],
+    aliases: ["ParameterKnob", "Rotary control", "Dial", "Audio knob", "Parameter dial"]
+  },
+  {
+    name: "timecode-field",
+    title: "Timecode field",
+    category: "creative",
+    description: "Edits hours, minutes, seconds, and frames with native form validation for a supplied integer non-drop frame rate.",
+    classes: ["rs-timecode-field", "rs-timecode-field-label", "rs-timecode-field-input", "rs-timecode-field-hint"],
+    css: ["components/timecode-field.css"],
+    react: "components/timecode-field.tsx",
+    registryDependencies: ["input"],
+    snippet: `<div class="rs-timecode-field"><label class="rs-timecode-field-label" for="in-point">In point</label><input class="rs-input rs-input-full rs-timecode-field-input" id="in-point" type="text" value="00:01:24:12" pattern="[0-9]{2}:[0-5][0-9]:[0-5][0-9]:[0-9]{2}" aria-describedby="in-point-hint" /><p class="rs-timecode-field-hint" id="in-point-hint">24 fps, non-drop. Hours:minutes:seconds:frames.</p></div>`,
+    example: `import { TimecodeField } from "@noorddev/vlak-react";
+
+<TimecodeField label="In point" name="inPoint" frameRate={24} defaultValue="00:01:24:12" required />`,
+    usage: { use: ["Integer non-drop rates from 1 through 99, supplied explicitly by the application.", "Two-digit hours, minutes, seconds, and frames separated by colons.", "onValueChange receives editable text, including incomplete input; check native validity before committing."], avoid: ["Drop-frame, fractional frame rates, or automatic conversion between timecode standards.", "Coercing invalid frame numbers into a different timestamp without user intent."] },
+    keyboard: [{ keys: "Tab", does: "Focuses the native text input." }, { keys: "Text editing keys", does: "Edits and selects timecode text using native input behavior." }],
+    a11y: ["A visible label names the input, and the frame-rate hint or validation error is linked as its description.", "The format pattern and custom validity reject out-of-range frames and unsupported rates; required uses native form validation.", "A 44px input target and focus ring accompany aria-invalid on invalid timecode.", "The ref and native input attributes reach the input; uncontrolled form reset restores the default text."],
+    aliases: ["TimecodeField", "Timecode input", "Frame address", "In point", "Out point", "Non-drop timecode"]
+  },
+  {
+    name: "clip-timeline",
+    title: "Clip timeline",
+    category: "creative",
+    description: "Positions supplied clips within a declared duration, with contained horizontal scrolling, accessible selection, and optional seeking.",
+    classes: ["rs-clip-timeline", "rs-clip-timeline-label", "rs-clip-timeline-note", "rs-clip-timeline-seek", "rs-clip-timeline-range", "rs-clip-timeline-viewport", "rs-clip-timeline-track", "rs-clip-timeline-clips", "rs-clip-timeline-lane", "rs-clip-timeline-clip", "rs-clip-timeline-selected", "rs-clip-timeline-rows", "rs-clip-timeline-button"],
+    css: ["components/clip-timeline.css"],
+    react: "components/clip-timeline.tsx",
+    registryDependencies: [],
+    snippet: `<div class="rs-clip-timeline"><p class="rs-clip-timeline-label" id="assembly-label">Assembly</p><p class="rs-clip-timeline-note">0 to 60 seconds</p><div class="rs-clip-timeline-viewport" role="region" aria-labelledby="assembly-label" tabindex="0"><div class="rs-clip-timeline-track"><span>Video</span><div class="rs-clip-timeline-lane" aria-hidden="true"><span class="rs-clip-timeline-clip" style="inset-inline-start:10%;width:30%">Opening</span></div></div></div><ul class="rs-clip-timeline-rows"><li><span>Opening \xB7 Video \xB7 6\u201324 seconds</span></li></ul></div>`,
+    example: `import { ClipTimeline } from "@noorddev/vlak-react";
+
+<ClipTimeline label="Assembly" duration={60} unit="seconds" tracks={[{ id: "video", label: "Video" }]} clips={[{ id: "opening", trackId: "video", label: "Opening", start: 6, duration: 18 }]} />`,
+    usage: { use: ["Caller-owned tracks and clips measured explicitly in seconds or whole frames.", "onSelectClip for selection requests and onSeek for a native position control; update the supplied selectedClipId and position.", "Separate rows within each track keep overlapping clips visible without implying an edit."], avoid: ["Expecting drag editing, playback, trimming, or a media backend.", "Hiding invalid or unassigned clips; their text records remain visible."] },
+    keyboard: [{ keys: "Tab", does: "Moves through the optional seek control, scrollable track region, and selection buttons." }, { keys: "Arrow keys, Home, End", does: "Uses native seeking on the range input; arrow keys scroll the focused track region." }, { keys: "Enter, Space", does: "Requests selection from a focused clip button." }],
+    a11y: ["Clip graphics are decorative and accompanied by complete text records with track, start, end, and unit.", "Every selectable clip has a separate 44px button, including clips whose plotted duration is less than one pixel.", "The horizontal viewport remains inside the component and can receive keyboard focus.", "Invalid duration or clip intervals do not produce misleading geometry; the ref and native attributes reach the root div."],
+    aliases: ["ClipTimeline", "Video timeline", "Audio timeline", "Track timeline", "Clip selection", "Edit timeline"]
+  },
+  {
+    name: "render-queue",
+    title: "Render queue",
+    category: "creative",
+    description: "Displays supplied export jobs, progress, and status with explicit cancel and retry callbacks for a connected renderer.",
+    classes: ["rs-render-queue", "rs-render-queue-label", "rs-render-queue-list", "rs-render-queue-job", "rs-render-queue-header", "rs-render-queue-note", "rs-render-queue-progress", "rs-render-queue-action"],
+    css: ["components/render-queue.css"],
+    react: "components/render-queue.tsx",
+    registryDependencies: ["button"],
+    snippet: `<div class="rs-render-queue"><p class="rs-render-queue-label">Exports</p><ul class="rs-render-queue-list"><li class="rs-render-queue-job"><div class="rs-render-queue-header"><span>Film master</span><span>Rendering</span></div><progress class="rs-render-queue-progress" value="42" max="100" aria-label="Film master progress">42%</progress><p class="rs-render-queue-note">42%</p></li></ul></div>`,
+    example: `import { RenderQueue } from "@noorddev/vlak-react";
+
+<RenderQueue label="Exports" jobs={[{ id: "master", label: "Film master", status: "rendering", progress: 42, detail: "ProRes master" }, { id: "preview", label: "Review copy", status: "queued" }]} />`,
+    usage: { use: ["Renderer-owned jobs with queued, rendering, complete, failed, or canceled status.", "onCancel for active jobs and onRetry for failed or canceled jobs; the host owns the resulting status.", "Known percentages from zero through 100; missing progress remains explicitly unreported."], avoid: ["Simulating render progress or success without a backend result.", "Displaying cancel or retry controls when there is no callback to handle them."] },
+    keyboard: [{ keys: "Tab", does: "Moves through available cancel and retry buttons." }, { keys: "Enter, Space", does: "Requests the focused job action without changing the supplied job state." }],
+    a11y: ["Job labels and statuses remain text; determinate native progress is named per job.", "Missing or invalid progress has an explicit text state and never emits NaN or an invented percentage.", "Actions have job-specific names, 44px targets, and disabled support.", "The ref and native attributes reach the root div."],
+    aliases: ["RenderQueue", "Export queue", "Encoding queue", "Render jobs", "Export progress"]
+  },
+  {
+    name: "layer-stack",
+    title: "Layer stack",
+    category: "creative",
+    description: "Manages supplied layer selection, visibility, locking, and order through named 44px controls and caller-owned changes.",
+    classes: ["rs-layer-stack", "rs-layer-stack-label", "rs-layer-stack-list", "rs-layer-stack-row", "rs-layer-stack-actions", "rs-layer-stack-action", "rs-layer-stack-button", "rs-layer-stack-selected", "rs-layer-stack-note"],
+    css: ["components/layer-stack.css"],
+    react: "components/layer-stack.tsx",
+    registryDependencies: ["button"],
+    snippet: `<div class="rs-layer-stack"><p class="rs-layer-stack-label">Layers</p><ol class="rs-layer-stack-list"><li class="rs-layer-stack-row"><span>Title</span><span class="rs-layer-stack-note">Visible \xB7 Unlocked</span></li><li class="rs-layer-stack-row"><span>Background</span><span class="rs-layer-stack-note">Visible \xB7 Locked</span></li></ol></div>`,
+    example: `import { useState } from "react";
+import { LayerStack } from "@noorddev/vlak-react";
+import type { CreativeLayer } from "@noorddev/vlak-react";
+
+function Layers() {
+  const [layers, setLayers] = useState<CreativeLayer[]>([{ id: "title", label: "Title", visible: true, locked: false }, { id: "background", label: "Background", visible: true, locked: true }]);
+  const [selected, setSelected] = useState<string | null>(null);
+  return <LayerStack label="Layers" layers={layers} selectedId={selected} onSelect={setSelected} onLayersChange={setLayers} />;
+}`,
+    usage: { use: ["Top-to-bottom layer order for a graphics, audio, or video editor.", "onLayersChange receives the proposed array; the application applies it and owns persistence.", "onSelect independently controls selection; locked layers cannot use their move actions."], avoid: ["Implying drag-and-drop support or modifying document content behind the host's back.", "Rendering state-changing controls without onLayersChange."] },
+    keyboard: [{ keys: "Tab", does: "Moves through available layer selection and Vlak visibility, lock, and move buttons." }, { keys: "Enter, Space", does: "Requests the focused action; move buttons reorder one position when allowed." }],
+    a11y: ["An ordered list preserves the supplied layer order, with visible status text for visibility and locking.", "Selection, visibility, and lock controls have stable names and pressed states.", "Move actions name their layer, disable at boundaries or when locked, and avoid a drag-only workflow.", "All actions have 44px targets; the ref and native attributes reach the root div."],
+    aliases: ["LayerStack", "Layers panel", "Layer list", "Layer inspector", "Object stack"]
+  },
+  {
+    name: "color-inspector",
+    title: "Color inspector",
+    category: "creative",
+    description: "Edits a six-digit hex color and alpha with a data-driven preview, a transparency ground, and native form validation.",
+    classes: ["rs-color-inspector", "rs-color-inspector-label", "rs-color-inspector-preview", "rs-color-inspector-swatch", "rs-color-inspector-fields", "rs-color-inspector-field", "rs-color-inspector-input", "rs-color-inspector-note"],
+    css: ["components/color-inspector.css"],
+    react: "components/color-inspector.tsx",
+    registryDependencies: ["input"],
+    snippet: `<fieldset class="rs-color-inspector"><legend class="rs-color-inspector-label">Fill</legend><div class="rs-color-inspector-preview" aria-hidden="true"><span class="rs-color-inspector-swatch" style="background-color:#808080;opacity:0.5"></span></div><div class="rs-color-inspector-fields"><label class="rs-color-inspector-field">Hex<input class="rs-input rs-input-full rs-color-inspector-input" type="text" value="#808080" pattern="#[0-9a-fA-F]{6}" required /></label><label class="rs-color-inspector-field">Alpha<input class="rs-input rs-input-full rs-color-inspector-input" type="number" value="0.5" min="0" max="1" step="any" required /></label></div></fieldset>`,
+    example: `import { ColorInspector } from "@noorddev/vlak-react";
+
+<ColorInspector label="Fill" name="fill" defaultValue={{ hex: "#808080", alpha: 0.5 }} />`,
+    usage: { use: ["Application-owned color data; only the swatch uses the supplied hue, while the inspector shell stays monochrome.", "Six-digit hex including #, with alpha from zero transparent to one opaque.", "onValueChange receives editable input; incomplete alpha is null and invalid hex remains available for correction."], avoid: ["Assuming color-space conversion, gamut checking, contrast certification, or color-profile management.", "Presenting a valid preview when the supplied color or alpha is invalid."] },
+    keyboard: [{ keys: "Tab", does: "Moves between the native hex and alpha inputs." }, { keys: "Text editing keys", does: "Edits or selects hex and alpha values; any alpha precision from 0 to 1 is accepted." }],
+    a11y: ["A fieldset and legend name the color; hex and alpha are labelled native controls with 44px targets.", "The decorative swatch has an explicit text equivalent and preserves caller-owned color in forced colors.", "Pattern, required, and numeric bounds supply native form validation; invalid data suppresses the swatch.", "Controlled and uncontrolled values support form reset; the ref and native attributes reach the fieldset."],
+    aliases: ["ColorInspector", "Color input", "Hex editor", "Alpha control", "Fill inspector", "Color swatch"]
+  },
+  {
+    name: "spacing-control",
+    title: "Spacing control",
+    category: "creative",
+    description: "Edits top, right, bottom, and left spacing with linked or independent native number fields and explicit units.",
+    classes: ["rs-spacing-control", "rs-spacing-control-label", "rs-spacing-control-fields", "rs-spacing-control-field", "rs-spacing-control-input", "rs-spacing-control-link", "rs-spacing-control-linked", "rs-spacing-control-note"],
+    css: ["components/spacing-control.css"],
+    react: "components/spacing-control.tsx",
+    registryDependencies: ["input", "button"],
+    snippet: `<fieldset class="rs-spacing-control"><legend class="rs-spacing-control-label">Padding</legend><div class="rs-spacing-control-fields"><label class="rs-spacing-control-field">Top (px)<input class="rs-input rs-input-full rs-spacing-control-input" type="number" value="16" /></label><label class="rs-spacing-control-field">Right (px)<input class="rs-input rs-input-full rs-spacing-control-input" type="number" value="24" /></label><label class="rs-spacing-control-field">Bottom (px)<input class="rs-input rs-input-full rs-spacing-control-input" type="number" value="16" /></label><label class="rs-spacing-control-field">Left (px)<input class="rs-input rs-input-full rs-spacing-control-input" type="number" value="24" /></label></div></fieldset>`,
+    example: `import { SpacingControl } from "@noorddev/vlak-react";
+
+<SpacingControl label="Padding" name="padding" unit="px" min={0} defaultValue={{ top: 16, right: 24, bottom: 16, left: 24 }} />`,
+    usage: { use: ["Padding, margin, inset, or other four-sided numeric values in a caller-specified unit.", "Link sides to apply the next edit to every side; linking alone preserves existing values.", "value/defaultValue/onValueChange and linked/defaultLinked/onLinkedChange control the values and link state independently."], avoid: ["Converting between units or assuming CSS semantics beyond the supplied numeric fields.", "Treating cleared values as zero; a cleared side is null."] },
+    keyboard: [{ keys: "Tab", does: "Moves through four number inputs and the link action." }, { keys: "Arrow up, Arrow down", does: "Uses native number stepping with supplied min, max, and step." }, { keys: "Enter, Space", does: "Toggles Link sides on the focused action." }],
+    a11y: ["A fieldset and legend name the spacing group; each native number field includes its side and unit.", "Link sides has a stable name and aria-pressed, plus text explaining the next-edit behavior.", "Inputs and the link action have 44px targets; native bounds and step support form validation.", "Named fields submit separately; reset restores uncontrolled values and link state. The ref reaches the fieldset."],
+    aliases: ["SpacingControl", "Spacing inspector", "Padding editor", "Margin editor", "Inset controls", "Box model"]
+  }
+];
+
+// src/registry-geospatial.ts
+var geospatialComponents = [
+  {
+    name: "coordinate-reference-field",
+    title: "Coordinate reference field",
+    category: "geospatial",
+    description: "Two or three numeric coordinate axes with supplied units and a reference selector that preserves entered values when assigning a reference.",
+    classes: ["rs-coordinate-reference-field", "rs-coordinate-reference-field-legend", "rs-coordinate-reference-field-axes", "rs-coordinate-reference-field-label", "rs-coordinate-reference-field-control", "rs-coordinate-reference-field-note"],
+    css: ["components/coordinate-reference-field.css"],
+    react: "components/coordinate-reference-field.tsx",
+    registryDependencies: ["select", "input", "dropdown-menu"],
+    snippet: '<fieldset class="rs-coordinate-reference-field"><legend class="rs-coordinate-reference-field-legend">Survey point</legend><p class="rs-coordinate-reference-field-note">Assigning a reference keeps the entered coordinates.</p><div class="rs-coordinate-reference-field-label"><span id="geo-coordinate-reference-label">Coordinate reference</span><div class="rs-select rs-select-fluid rs-coordinate-reference-field-control"><button type="button" class="rs-dropdown" role="combobox" aria-labelledby="geo-coordinate-reference-label" aria-expanded="false" aria-haspopup="listbox">Site grid</button></div></div><div class="rs-coordinate-reference-field-axes"><label class="rs-coordinate-reference-field-label">Easting (m)<input class="rs-input rs-input-full rs-coordinate-reference-field-control" name="point.coordinates.east" type="number" step="any" value="120.5" /></label><label class="rs-coordinate-reference-field-label">Northing (m)<input class="rs-input rs-input-full rs-coordinate-reference-field-control" name="point.coordinates.north" type="number" step="any" value="48.25" /></label></div></fieldset>',
+    example: `import { CoordinateReferenceField } from "@noorddev/vlak-react";
+
+<CoordinateReferenceField
+  label="Recorded survey point"
+  name="point"
+  axes={[{ id: "east", label: "Easting", unit: "m" }, { id: "north", label: "Northing", unit: "m" }]}
+  references={[{ value: "site", label: "Site grid" }, { value: "project", label: "Project grid" }]}
+  defaultValue={{ reference: "site", coordinates: { east: 120.5, north: 48.25 } }}
+/>`,
+    usage: {
+      use: ["Survey points and imported coordinates whose reference, axis order and units are supplied by the application.", "Supply two or three axes in coordinate order with unique, non-empty identifiers; reference values must also be unique and non-empty.", "Use value and onValueChange for application-owned conversion. Changing the reference requests only a new identifier and preserves the numeric coordinates.", "name submits reference as name.reference and each axis as name.coordinates followed by its identifier. null represents a missing coordinate or reference."],
+      avoid: ["Inferring a reference from numeric ranges, treating a reference assignment as reprojection or guessing axis units.", "Using a latitude or longitude bound for a projected axis unless the application supplies that constraint."]
+    },
+    keyboard: [{ keys: "Tab", does: "Moves through the reference selector and coordinate inputs in supplied axis order." }, { keys: "Arrow keys, Home, End", does: "Opens and navigates the Vlak selector. Enter or Space chooses a reference without converting numeric values; Escape closes the menu." }, { keys: "Typing", does: "Edits numeric coordinates using the native number inputs." }],
+    a11y: ["The fieldset legend names the coordinate group. Vlak Select and Input provide shared control paint; every numeric input has a visible axis label, supplied unit and 44px target.", "Unknown references, missing coordinates and non-finite numbers have explicit text. Zero is retained. Invalid supplied values participate in native form validation.", "Required and supplied axis bounds use native validation. No geographic constraints are inferred.", "Uncontrolled values follow native form reset, including external forms; controlled values remain with the application.", "Read-only valid values still submit. Disabled fields do not submit. The fieldset ref, native attributes, className and style pass through."],
+    aliases: ["Coordinate input", "Reference system selector", "Survey point field", "Projected coordinate", "Latitude longitude field"]
+  },
+  {
+    name: "datum-transform-picker",
+    title: "Datum transform picker",
+    category: "geospatial",
+    description: "A Vlak transformation selector with source and destination references, supplied accuracy and area, and visible support-grid availability.",
+    classes: ["rs-datum-transform-picker", "rs-datum-transform-picker-legend", "rs-datum-transform-picker-context", "rs-datum-transform-picker-term", "rs-datum-transform-picker-detail", "rs-datum-transform-picker-label", "rs-datum-transform-picker-control", "rs-datum-transform-picker-list", "rs-datum-transform-picker-item", "rs-datum-transform-picker-selected", "rs-datum-transform-picker-title", "rs-datum-transform-picker-note"],
+    css: ["components/datum-transform-picker.css"],
+    react: "components/datum-transform-picker.tsx",
+    registryDependencies: ["select", "dropdown-menu"],
+    snippet: '<fieldset class="rs-datum-transform-picker"><legend class="rs-datum-transform-picker-legend">Coordinate operation</legend><dl class="rs-datum-transform-picker-context"><div><dt class="rs-datum-transform-picker-term">Source reference</dt><dd class="rs-datum-transform-picker-detail">Site grid</dd></div><div><dt class="rs-datum-transform-picker-term">Destination reference</dt><dd class="rs-datum-transform-picker-detail">Project grid</dd></div></dl><div class="rs-datum-transform-picker-label"><span id="geo-transformation-label">Transformation</span><div class="rs-select rs-select-fluid rs-datum-transform-picker-control"><button type="button" class="rs-dropdown" role="combobox" aria-labelledby="geo-transformation-label" aria-expanded="false" aria-haspopup="listbox">Parameter transform</button></div></div><ul class="rs-datum-transform-picker-list"><li class="rs-datum-transform-picker-item rs-datum-transform-picker-selected"><p class="rs-datum-transform-picker-title">Parameter transform \xB7 Selected</p><p class="rs-datum-transform-picker-note">Available</p><dl class="rs-datum-transform-picker-context"><div><dt class="rs-datum-transform-picker-term">Reported accuracy</dt><dd class="rs-datum-transform-picker-detail">1.5 m</dd></div><div><dt class="rs-datum-transform-picker-term">Area of use</dt><dd class="rs-datum-transform-picker-detail">Project extent</dd></div></dl><p class="rs-datum-transform-picker-note">Support grids: None required</p></li></ul></fieldset>',
+    example: `import { DatumTransformPicker } from "@noorddev/vlak-react";
+
+<DatumTransformPicker
+  label="Coordinate operation"
+  sourceReference="Site grid"
+  destinationReference="Project grid"
+  name="operation"
+  defaultValue="parameter"
+  transformations={[
+    { id: "grid", label: "Grid correction", available: true, accuracy: "0.05 m", area: "Site survey extent", grids: [{ id: "site", label: "Site correction grid", available: false }], unavailableReason: "Attach the supplied grid" },
+    { id: "parameter", label: "Parameter transform", available: true, accuracy: "1.5 m", area: "Project extent", grids: [] },
+  ]}
+/>`,
+    usage: {
+      use: ["Comparing operations supplied by a projection engine or survey provider before the application transforms coordinates.", "Supply unique, non-empty operation identifiers and explicit available values. false or null disables an operation; listed grids must all be available.", "Use an empty grids array to state that no support grids are required. Omit grids when the requirements were not supplied.", "null means no operation selected. Unknown current identifiers stay visible as unavailable. The application owns candidate generation, accuracy, compatibility and persistence."],
+      avoid: ["Automatically picking the smallest reported error, assuming an unlisted grid is installed or silently falling back to a different operation.", "Presenting illustrative accuracy or area labels as calculated guarantees."]
+    },
+    keyboard: [{ keys: "Tab", does: "Focuses the Vlak transformation selector." }, { keys: "Arrow keys, Home, End", does: "Navigates the Vlak selector. Enter or Space chooses an available operation or the no-selection option; Escape closes the menu. Unavailable alternatives are skipped." }],
+    a11y: ["Source and destination references have visible labels; null references are explicitly unknown.", "Every candidate retains visible accuracy, area, grid requirements and availability text, including disabled alternatives.", "The selected candidate uses a full-surface fill and a visible Selected label; forced colors retain a distinct border.", "A currently unavailable operation is marked invalid and fails native validation. Required selection uses the native required attribute.", "Vlak Select supplies the 44px trigger, menu, disabled choices and native form value. Read-only valid selections submit through a hidden value; disabled selections do not submit.", "Uncontrolled state follows native form reset, including external forms. Controlled state, native fieldset attributes, ref and consumer styles remain with the caller."],
+    aliases: ["Datum transformation", "Coordinate operation", "Projection operation picker", "Support grid selector", "Reprojection choice"]
+  },
+  {
+    name: "raster-band-mixer",
+    title: "Raster band mixer",
+    category: "geospatial",
+    description: "A raster configuration editor with source-band mapping, single or three-channel modes, supplied stretch bounds and explicit missing-data metadata.",
+    classes: ["rs-raster-band-mixer", "rs-raster-band-mixer-legend", "rs-raster-band-mixer-fields", "rs-raster-band-mixer-channel", "rs-raster-band-mixer-title", "rs-raster-band-mixer-label", "rs-raster-band-mixer-control", "rs-raster-band-mixer-note"],
+    css: ["components/raster-band-mixer.css"],
+    react: "components/raster-band-mixer.tsx",
+    registryDependencies: ["select", "input", "dropdown-menu"],
+    snippet: '<fieldset class="rs-raster-band-mixer"><legend class="rs-raster-band-mixer-legend">Band mapping</legend><p class="rs-raster-band-mixer-note">The application renders the image from this configuration.</p><div class="rs-raster-band-mixer-fields"><div class="rs-raster-band-mixer-label"><span id="geo-rendering-mode-label">Rendering mode</span><div class="rs-select rs-select-fluid rs-raster-band-mixer-control"><button type="button" class="rs-dropdown" role="combobox" aria-labelledby="geo-rendering-mode-label" aria-expanded="false" aria-haspopup="listbox">Single band</button></div></div><div class="rs-raster-band-mixer-label"><span id="geo-range-treatment-label">Range treatment</span><div class="rs-select rs-select-fluid rs-raster-band-mixer-control"><button type="button" class="rs-dropdown" role="combobox" aria-labelledby="geo-range-treatment-label" aria-expanded="false" aria-haspopup="listbox">No enhancement</button></div></div></div><div class="rs-raster-band-mixer-channel"><p class="rs-raster-band-mixer-title">Single band</p><div class="rs-raster-band-mixer-label"><span id="geo-single-band-source-label">Single band source</span><div class="rs-select rs-select-fluid rs-raster-band-mixer-control"><button type="button" class="rs-dropdown" role="combobox" aria-labelledby="geo-single-band-source-label" aria-expanded="false" aria-haspopup="listbox">Band 1</button></div></div><p class="rs-raster-band-mixer-note">Missing-data value: 0. Unit: counts</p></div></fieldset>',
+    example: `import { RasterBandMixer } from "@noorddev/vlak-react";
+import type { RasterBandConfiguration } from "@noorddev/vlak-react";
+
+const configuration: RasterBandConfiguration = {
+  mode: "rgb", stretch: "none",
+  red: { bandId: "b3", minimum: 0, maximum: 255 },
+  green: { bandId: "b2", minimum: 0, maximum: 255 },
+  blue: { bandId: "b1", minimum: 0, maximum: 255 },
+  single: { bandId: "b1", minimum: 0, maximum: 255 },
+};
+
+<RasterBandMixer label="Band mapping" name="raster" defaultValue={configuration} bands={[
+  { id: "b1", label: "Band 1", unit: "counts", noDataValue: 0 },
+  { id: "b2", label: "Band 2", unit: "counts", noDataValue: null },
+  { id: "b3", label: "Band 3", unit: "counts" },
+]} />`,
+    usage: {
+      use: ["Mapping supplied raster bands to red, green and blue display channels or a single band.", "Choose no enhancement, stretch, clipping or both. Each active channel keeps its own supplied minimum and maximum; band changes do not calculate new ranges.", "Use unique, non-empty band identifiers. noDataValue undefined means unknown, null means no sentinel, and zero remains a supplied missing-data value.", "The name prefix submits mode, stretch and active channel fields such as name.red.band and name.red.minimum. Inactive mappings remain in state but do not submit; ranges only submit when enhancement uses them."],
+      avoid: ["Treating the component as a raster renderer, deriving a histogram or assuming a missing-data value from the image appearance.", "Reusing display ranges across different bands without application review. No automatic statistics or unit conversion runs here."]
+    },
+    keyboard: [{ keys: "Tab", does: "Moves through mode, range treatment and active channel controls." }, { keys: "Arrow keys, Home, End", does: "Navigates the focused Vlak selector. Enter or Space commits a choice; Escape closes the menu." }, { keys: "Typing", does: "Edits each active channel's numeric range bounds." }],
+    a11y: ["A fieldset legend names the editor. Vlak Select and Input provide shared control paint, with channel labels and 44px targets.", "Missing, unavailable and disabled source bands stay distinct. Missing-data values and units are readable text, with zero preserved.", "Active channels require a band. Enhancement requires finite bounds with minimum less than maximum; invalid configurations fail native form validation.", "Switching modes preserves inactive mappings without submitting them. No enhancement hides and omits range fields without discarding their values.", "Native form reset restores uncontrolled defaults, including external forms; controlled updates remain with the application.", "Read-only valid configuration values submit; disabled fields do not. Native fieldset attributes, ref, className and style pass through."],
+    aliases: ["Band composition", "Multiband raster", "Satellite band selector", "Raster stretch", "Single-band renderer settings"]
+  }
+];
+
+// src/registry-science-specialist.ts
+var scienceSpecialists = [
+  {
+    "name": "stage-position-list",
+    "title": "Stage position list",
+    "description": "Reviews supplied named stage positions with an explicit coordinate frame, per-axis units, inclusion state and controlled selection, reorder and removal requests.",
+    "category": "science",
+    "classes": [
+      "rs-stage-position-list",
+      "rs-stage-position-list-legend",
+      "rs-stage-position-list-copy",
+      "rs-stage-position-list-items",
+      "rs-stage-position-list-row",
+      "rs-stage-position-list-selected",
+      "rs-stage-position-list-head",
+      "rs-stage-position-list-identity",
+      "rs-stage-position-list-coordinates",
+      "rs-stage-position-list-coordinate",
+      "rs-stage-position-list-axis",
+      "rs-stage-position-list-number",
+      "rs-stage-position-list-actions",
+      "rs-stage-position-list-action",
+      "rs-stage-position-list-status"
+    ],
+    "css": [
+      "components/stage-position-list.css"
+    ],
+    "react": "components/stage-position-list.tsx",
+    "registryDependencies": [
+      "button",
+      "checkbox",
+      "radio"
+    ],
+    "snippet": '<fieldset class="rs-stage-position-list"><legend class="rs-stage-position-list-legend">Slide positions</legend><p class="rs-stage-position-list-copy">Coordinate frame: Recorded stage (stage-01)</p><ol class="rs-stage-position-list-items"><li class="rs-stage-position-list-row"><p class="rs-stage-position-list-identity">Overview (field-01)</p><dl class="rs-stage-position-list-coordinates"><div class="rs-stage-position-list-coordinate"><dt class="rs-stage-position-list-axis">X (\xB5m)</dt><dd class="rs-stage-position-list-number">0</dd></div><div class="rs-stage-position-list-coordinate"><dt class="rs-stage-position-list-axis">Y (\xB5m)</dt><dd class="rs-stage-position-list-number">-12.5</dd></div><div class="rs-stage-position-list-coordinate"><dt class="rs-stage-position-list-axis">Z (\xB5m)</dt><dd class="rs-stage-position-list-number">Not supplied</dd></div></dl><p class="rs-stage-position-list-copy">Included in plan</p></li></ol></fieldset>',
+    "example": 'import { useState } from "react";\nimport { StagePositionList } from "@noorddev/vlak-react";\nimport type { StagePosition } from "@noorddev/vlak-react";\n\nexport function PositionPlan() {\n  const [positions, setPositions] = useState<readonly StagePosition[]>([\n    { id: "field-01", name: "Overview", x: 0, y: -12.5, z: null, enabled: true },\n    { id: "field-02", name: "Edge detail", x: 120.25, y: 36, z: 0, enabled: false },\n  ]);\n  const [selected, setSelected] = useState<string | null>(null);\n  return <StagePositionList\n    label="Slide positions"\n    coordinateFrame={{ id: "stage-01", label: "Recorded stage" }}\n    units={{ x: "\xB5m", y: "\xB5m", z: "\xB5m" }}\n    positions={positions}\n    value={selected}\n    onValueChange={setSelected}\n    onEnabledChange={(id, enabled) => setPositions(current => current.map(position => position.id === id ? { ...position, enabled } : position))}\n    onOrderChange={ids => setPositions(current => ids.map(id => current.find(position => position.id === id)!))}\n    onRemove={id => { setPositions(current => current.filter(position => position.id !== id)); if (selected === id) setSelected(null); }}\n  />;\n}',
+    "usage": {
+      "use": [
+        "Reviewing a microscopy stage-position plan with explicit frame identity, supplied coordinates and per-axis units.",
+        "Selection requires value and onValueChange; there is no uncontrolled selection. Inclusion, order and removal are controlled requests. The host supplies accepted records; no optimistic edits or instrument commands occur.",
+        "Names may repeat; immutable unique IDs distinguish rows and actions. At most 128 positions are rendered. Invalid identifiers or excess records produce an explicit unavailable state.",
+        "Missing coordinates show Not supplied; nonfinite coordinates show Unavailable. Zero, negative zero and signed finite values retain their supplied representation. Missing frame or units stay explicit.",
+        "readOnly locks record edits while inspection selection remains available. pending locks edits to a record and swaps across it. disabled uses a native fieldset and locks every control.",
+        "An optional name submits the selected record ID; form associates the selection with an external form. Coordinates and inclusion records remain host-owned data. Controlled values survive native form reset."
+      ],
+      "avoid": [
+        "Moving a stage, calculating travel, transforming coordinate frames or converting physical units.",
+        "Treating selection as an instrument position, missing coordinates as zero, or an edit request as an accepted plan.",
+        "Large position inventories that need pagination or virtualization; use a bounded window instead."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab, Shift+Tab",
+        "does": "Moves between the native radio group, inclusion checkboxes and enabled move/remove buttons."
+      },
+      {
+        "keys": "Arrow keys",
+        "does": "Changes the focused native radio selection and requests its record ID; the host controls the accepted selection."
+      },
+      {
+        "keys": "Space",
+        "does": "Selects a focused radio or requests a focused inclusion checkbox change."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Activates a move or remove button. Reorder focus follows the same ID; accepted removal focuses an adjacent surviving row or the empty fieldset without stealing focus from elsewhere."
+      }
+    ],
+    "a11y": [
+      "A fieldset legend names the position list; frame context, selection status and optional host descriptions are associated with it.",
+      "Native radios, checkboxes and buttons retain keyboard behavior, visible focus and at least 44px targets. Coordinates use a labelled definition list with explicit axis units.",
+      "Visible immutable IDs keep repeated names distinguishable. Unknown selected IDs leave every radio unselected and produce an explicit message.",
+      "A polite announcement reports only host-accepted reorder or removal, not the initial request. Pending and inclusion states have text equivalents.",
+      "The fieldset ref and native attributes pass through; className, style, children and aria-describedby merge with component context.",
+      "Logical spacing, wrapping actions and bounded coordinate columns support narrow layouts. Forced-colors styling preserves native control states and focus."
+    ],
+    "aliases": [
+      "stage positions",
+      "position list",
+      "microscopy positions",
+      "multi-position acquisition",
+      "waypoint list"
+    ]
+  },
+  {
+    "name": "stack-navigator",
+    "title": "Stack navigator",
+    "description": "Navigates supplied depth, time, channel and stage-position axes while preserving exact physical readings and indexed positions.",
+    "category": "science",
+    "classes": [
+      "rs-stack-navigator",
+      "rs-stack-navigator-legend",
+      "rs-stack-navigator-axis",
+      "rs-stack-navigator-label",
+      "rs-stack-navigator-row",
+      "rs-stack-navigator-step",
+      "rs-stack-navigator-copy"
+    ],
+    "css": [
+      "components/stack-navigator.css"
+    ],
+    "react": "components/stack-navigator.tsx",
+    "registryDependencies": [
+      "button",
+      "select"
+    ],
+    "snippet": '<fieldset class="rs-stack-navigator"><legend class="rs-stack-navigator-legend">Image stack</legend><div class="rs-stack-navigator-axis"><p class="rs-stack-navigator-label">Depth</p><p class="rs-stack-navigator-copy">Position 1 of 3; -1 \xB5m</p></div></fieldset>',
+    "example": 'import { StackNavigator } from "@noorddev/vlak-react";\n\n<StackNavigator label="Image stack" name="stack" axes={[\n  { id: "depth", label: "Depth", unit: "\xB5m", positions: [{ value: -1 }, { value: 0 }, { value: 1 }] },\n  { id: "time", label: "Time", unit: "s", positions: [{ value: 0 }, { value: 5 }, { value: 10 }] },\n  { id: "channel", label: "Channel", positions: [{ value: "Phase" }, { value: "Channel 2" }] },\n  { id: "stage", label: "Stage position", unit: "\xB5m", positions: [{ value: "x 12.5, y -1.5" }] },\n]} defaultValue={{ depth: 1, time: 0, channel: 0, stage: 0 }} />',
+    "usage": {
+      "use": [
+        "Image stacks with explicit axis labels, sampled physical values and known position indexes.",
+        "Selection values are zero-based indexes; displayed position counts are one-based. Physical values are never calculated from spacing.",
+        "name submits one selected index per axis. Controlled values remain caller-owned; native form reset restores uncontrolled defaults."
+      ],
+      "avoid": [
+        "Calling an instrument, calculating stage motion, or inferring positions from an index.",
+        "More than 8 axes or 8192 total positions; the component reports the bound rather than truncating axes."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Moves between enabled previous, position-select and next controls."
+      },
+      {
+        "keys": "Arrow keys, Home, End, typing",
+        "does": "Opens and navigates the position list; disabled positions are skipped."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Confirms the active list option or activates the focused previous or next button."
+      },
+      {
+        "keys": "Escape",
+        "does": "Closes the position list without changing selection."
+      }
+    ],
+    "a11y": [
+      "Every axis has a visible select label and a text description containing the exact displayed index and physical value.",
+      "Zero and negative physical positions remain visible. Missing or invalid readings are explicitly unavailable.",
+      "Each input and button has a 44px target and visible focus; no axis is selected implicitly.",
+      "Read-only values remain submitted through hidden fields, while disabled fieldsets do not submit.",
+      "The fieldset ref, form association, native attributes, className and style pass through.",
+      "The shared Select and Button primitives supply combobox navigation and control styling; native form values remain available through the Select backing control."
+    ],
+    "aliases": [
+      "Image stack controls",
+      "Z-stack navigator",
+      "Microscopy axes",
+      "Multidimensional image navigator",
+      "Stage position selector"
+    ]
+  },
+  {
+    "name": "acquisition-sequencer",
+    "title": "Acquisition sequencer",
+    "description": "Edits supplied capture steps, exact exposure, time, depth and channel values, and distinguishes requested actions from recorded run state.",
+    "category": "science",
+    "classes": [
+      "rs-acquisition-sequencer",
+      "rs-acquisition-sequencer-legend",
+      "rs-acquisition-sequencer-list",
+      "rs-acquisition-sequencer-step",
+      "rs-acquisition-sequencer-head",
+      "rs-acquisition-sequencer-title",
+      "rs-acquisition-sequencer-fields",
+      "rs-acquisition-sequencer-label",
+      "rs-acquisition-sequencer-control",
+      "rs-acquisition-sequencer-value",
+      "rs-acquisition-sequencer-copy",
+      "rs-acquisition-sequencer-actions",
+      "rs-acquisition-sequencer-action"
+    ],
+    "css": [
+      "components/acquisition-sequencer.css"
+    ],
+    "react": "components/acquisition-sequencer.tsx",
+    "registryDependencies": [
+      "button",
+      "input",
+      "select"
+    ],
+    "snippet": '<fieldset class="rs-acquisition-sequencer"><legend class="rs-acquisition-sequencer-legend">Capture plan</legend><ol class="rs-acquisition-sequencer-list"><li class="rs-acquisition-sequencer-step"><div class="rs-acquisition-sequencer-head"><span class="rs-acquisition-sequencer-title">First plane</span><span class="rs-acquisition-sequencer-copy">Not run</span></div><p class="rs-acquisition-sequencer-value">Exposure 10 ms \xB7 Time offset 0 s \xB7 Depth -1 \xB5m \xB7 Phase</p></li></ol></fieldset>',
+    "example": 'import { useState } from "react";\nimport { AcquisitionSequencer } from "@noorddev/vlak-react";\nimport type { AcquisitionStep } from "@noorddev/vlak-react";\n\nfunction CapturePlan() {\n  const [steps, setSteps] = useState<readonly AcquisitionStep[]>([\n    { id: "first", label: "First plane", exposure: 10, exposureUnit: "ms", time: 0, timeUnit: "s", depth: -1, depthUnit: "\xB5m", channel: "phase", status: "Not run" },\n    { id: "second", label: "Second plane", exposure: 10, exposureUnit: "ms", time: 5, timeUnit: "s", depth: 0, depthUnit: "\xB5m", channel: "phase", status: "Not run" },\n  ]);\n  return <AcquisitionSequencer label="Capture plan" channels={[{ id: "phase", label: "Phase" }]} steps={steps} onStepsChange={setSteps} />;\n}',
+    "usage": {
+      "use": [
+        "Editing and reordering an existing capture plan with onStepsChange.",
+        "Pass exact values and units from the acquisition application; the component performs no conversions or scheduling.",
+        "Use explicit step actions and onAction to request operations. Supply pending and confirmedLabel from actual host state."
+      ],
+      "avoid": [
+        "Treating an edit or action callback as proof that capture ran successfully.",
+        "Deriving instrument settings or executing acquisition. The host owns commands, persistence and confirmations.",
+        "More than 128 steps or 128 channels."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Moves through enabled numeric inputs, channel selectors and step actions."
+      },
+      {
+        "keys": "Arrow keys, Home, End, typing",
+        "does": "Edits native numeric fields or navigates the opened channel list."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Confirms the active channel option or requests the focused action or reorder."
+      },
+      {
+        "keys": "Escape",
+        "does": "Closes the channel list without changing the supplied selection."
+      }
+    ],
+    "a11y": [
+      "Step fields and action names include the step number and label, preventing ambiguity between repeated capture names.",
+      "Exposure and time offsets use a native non-negative minimum; signed depth values and all supplied units are preserved.",
+      "Pending steps disable editing and actions while their last recorded state remains visible.",
+      "Controls have 44px targets. Controlled native inputs retain the supplied plan through form resets.",
+      "The fieldset ref and native attributes pass through; no callback is interpreted as an actual run confirmation.",
+      "Generic controls compose the shared Input, Select and Button primitives; the native numeric fields and Select backing control preserve form values."
+    ],
+    "aliases": [
+      "Capture sequence",
+      "Microscopy acquisition plan",
+      "Time-lapse plan",
+      "Capture step editor",
+      "Instrument run plan"
+    ]
+  },
+  {
+    "name": "sequence-alignment",
+    "title": "Sequence alignment",
+    "description": "Displays a bounded window of already aligned reference and read strings, with supplied genomic positions, gaps and keyboard region selection.",
+    "category": "science",
+    "classes": [
+      "rs-sequence-alignment",
+      "rs-sequence-alignment-title",
+      "rs-sequence-alignment-copy",
+      "rs-sequence-alignment-scroll",
+      "rs-sequence-alignment-table",
+      "rs-sequence-alignment-heading",
+      "rs-sequence-alignment-control",
+      "rs-sequence-alignment-actions",
+      "rs-sequence-alignment-action",
+      "rs-sequence-alignment-column",
+      "rs-sequence-alignment-selected",
+      "rs-sequence-alignment-base"
+    ],
+    "css": [
+      "components/sequence-alignment.css"
+    ],
+    "react": "components/sequence-alignment.tsx",
+    "registryDependencies": [
+      "button"
+    ],
+    "snippet": '<div class="rs-sequence-alignment"><p class="rs-sequence-alignment-title">Read alignment</p><p class="rs-sequence-alignment-copy">chr7 \xB7 1-based reference positions; aligned columns include gaps</p><div class="rs-sequence-alignment-scroll"><table class="rs-sequence-alignment-table" aria-label="Reference and reads"><thead><tr><th class="rs-sequence-alignment-heading" scope="col">Reference position</th><th class="rs-sequence-alignment-column" scope="col">101</th><th class="rs-sequence-alignment-column" scope="col">102</th></tr></thead><tbody><tr><th class="rs-sequence-alignment-heading" scope="row">Reference</th><td class="rs-sequence-alignment-base">A</td><td class="rs-sequence-alignment-base">C</td></tr></tbody></table></div></div>',
+    "example": 'import { SequenceAlignment } from "@noorddev/vlak-react";\n\n<SequenceAlignment label="Read alignment" contig="chr7" referenceLabel="Example reference" referenceSequence="AC-GT" positions={[101, 102, null, 103, 104]} reads={[\n  { id: "read-1", label: "Read 1", sequence: "ACAGT" },\n  { id: "read-2", label: "Read 2", sequence: "AC-GT" },\n]} defaultValue={{ startColumn: 1, endColumn: 2 }} />',
+    "usage": {
+      "use": [
+        "Inspecting up to 120 pre-aligned columns and 32 reads with explicit reference and read labels.",
+        "Supply one one-based genomic position per aligned column; null represents a reference gap.",
+        "Selection uses one-based aligned column indexes, which are distinct from genomic positions. Use value and onValueChange for host-owned selection."
+      ],
+      "avoid": [
+        "Running an alignment algorithm or inferring mismatches, insertions, variant calls or genomic positions.",
+        "Passing inconsistent sequence lengths or silently clipping longer alignments. Supply the intended window."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Enters the column controls at one focus stop and then reaches the selection actions."
+      },
+      {
+        "keys": "Arrow keys, Home, End",
+        "does": "Moves focus between columns in sequence order without changing selection."
+      },
+      {
+        "keys": "Shift+Arrow keys",
+        "does": "Extends the selected column region from its anchor."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Selects the focused base column or activates a selection action."
+      }
+    ],
+    "a11y": [
+      "A native table supplies row labels and reference-position column headers; every base and gap remains visible text.",
+      "Column buttons have 44px targets and full-column selected fills, with aria-pressed and explicit coordinate names.",
+      "Long windows scroll inside their container. Read-only tables provide a focusable scroll region.",
+      "The selection summary lists supplied positions, including gaps, without inventing genomic coordinates.",
+      "The root div forwards its ref and native attributes; inconsistent or oversized windows have explicit unavailable states.",
+      "Selection actions compose the shared Button primitive; the aligned column controls retain their dedicated table interaction."
+    ],
+    "aliases": [
+      "Aligned sequence viewer",
+      "Read alignment window",
+      "Genomic alignment",
+      "Base selection",
+      "Sequence window"
+    ]
+  },
+  {
+    "name": "coverage-inspector",
+    "title": "Coverage inspector",
+    "description": "Shows supplied per-locus depth, base and strand counts with an exact position selector, bounded plot and complete depth table.",
+    "category": "science",
+    "classes": [
+      "rs-coverage-inspector",
+      "rs-coverage-inspector-title",
+      "rs-coverage-inspector-copy",
+      "rs-coverage-inspector-plot",
+      "rs-coverage-inspector-stem",
+      "rs-coverage-inspector-point",
+      "rs-coverage-inspector-missing",
+      "rs-coverage-inspector-axis",
+      "rs-coverage-inspector-label",
+      "rs-coverage-inspector-select",
+      "rs-coverage-inspector-counts",
+      "rs-coverage-inspector-value",
+      "rs-coverage-inspector-summary",
+      "rs-coverage-inspector-table",
+      "rs-coverage-inspector-cell"
+    ],
+    "css": [
+      "components/coverage-inspector.css"
+    ],
+    "react": "components/coverage-inspector.tsx",
+    "registryDependencies": ["select", "dropdown-menu"],
+    "snippet": '<figure class="rs-coverage-inspector"><figcaption class="rs-coverage-inspector-title">Coverage window</figcaption><p class="rs-coverage-inspector-copy">chr7 \xB7 1-based positions</p><div class="rs-coverage-inspector-label"><span id="coverage-position-label">Inspect position</span><div class="rs-select rs-select-fluid rs-coverage-inspector-select"><button type="button" class="rs-dropdown" role="combobox" aria-labelledby="coverage-position-label" aria-expanded="false" aria-haspopup="listbox"><span>101 \xB7 Depth 0</span></button></div></div><dl class="rs-coverage-inspector-counts"><div><dt>Depth</dt><dd class="rs-coverage-inspector-value">0</dd></div></dl></figure>',
+    "example": 'import { CoverageInspector } from "@noorddev/vlak-react";\n\n<CoverageInspector label="Coverage window" contig="chr7" reference="Example reference" loci={[\n  { position: 101, depth: 0, bases: { A: 0, C: 0 }, forward: 0, reverse: 0 },\n  { position: 102, depth: null },\n  { position: 103, depth: 24, bases: { A: 20, C: 4 }, forward: 12, reverse: 12 },\n]} defaultValue={103} />',
+    "usage": {
+      "use": [
+        "A bounded window of up to 512 unique one-based loci with caller-supplied counts.",
+        "Inspect base and strand counts independently; the component does not sum them or reconcile them with depth.",
+        "Use null for missing counts. Zero means an explicitly recorded count of zero."
+      ],
+      "avoid": [
+        "Calling variants, assigning significance, or applying coverage thresholds.",
+        "Treating absent counts as zero, or supplying fractional and negative counts as valid depth."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Focuses the Vlak position selector and native depth-table disclosure."
+      },
+      {
+        "keys": "Arrow keys, typing",
+        "does": "Opens and navigates the Vlak position selector by arrow keys and typeahead. Escape closes its menu."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Chooses a highlighted locus or opens and closes the focused native depth disclosure."
+      }
+    ],
+    "a11y": [
+      "The decorative plot has a complete visible depth table; open markers distinguish unavailable depth from recorded zero.",
+      "Vlak Select provides a 44px trigger and listbox for exact supplied genomic positions. Selected depth, base and strand counts use description lists.",
+      "Non-finite, negative and non-integer counts are unavailable; missing counts are explicitly not supplied.",
+      "At most 16 base symbols are displayed per selected locus. Invalid or oversized locus windows are reported without truncation.",
+      "The figure ref and native attributes pass through; selection supports controlled values and native form reset."
+    ],
+    "aliases": [
+      "Read depth inspector",
+      "Per-base coverage",
+      "Strand count inspector",
+      "Locus coverage",
+      "Genomic depth plot"
+    ]
+  },
+  {
+    "name": "genomic-region-field",
+    "title": "Genomic region field",
+    "description": "Collects a reference, contig and validated integer interval with an explicit one-based inclusive coordinate convention and native form submission.",
+    "category": "science",
+    "classes": [
+      "rs-genomic-region-field",
+      "rs-genomic-region-field-legend",
+      "rs-genomic-region-field-fields",
+      "rs-genomic-region-field-label",
+      "rs-genomic-region-field-control",
+      "rs-genomic-region-field-copy"
+    ],
+    "css": [
+      "components/genomic-region-field.css"
+    ],
+    "react": "components/genomic-region-field.tsx",
+    "registryDependencies": ["input", "select", "dropdown-menu"],
+    "snippet": '<fieldset class="rs-genomic-region-field"><legend class="rs-genomic-region-field-legend">Region</legend><p class="rs-genomic-region-field-copy">Reference: Example reference</p><p class="rs-genomic-region-field-copy">1-based, inclusive. Both start and end are included.</p><div class="rs-genomic-region-field-fields"><div class="rs-genomic-region-field-label"><span id="genomic-contig-label">Contig</span><div class="rs-select rs-select-fluid"><button type="button" class="rs-dropdown" role="combobox" aria-labelledby="genomic-contig-label" aria-expanded="false" aria-haspopup="listbox"><span>chr7</span></button></div></div><label class="rs-genomic-region-field-label">Start<input class="rs-input rs-input-full rs-genomic-region-field-control" type="number" min="1" step="1" name="region.start" value="101" /></label><label class="rs-genomic-region-field-label">End<input class="rs-input rs-input-full rs-genomic-region-field-control" type="number" min="1" step="1" name="region.end" value="105" /></label></div></fieldset>',
+    "example": 'import { GenomicRegionField } from "@noorddev/vlak-react";\n\n<GenomicRegionField label="Region" reference="Example reference" name="region" contigs={[{ id: "chr7", length: 100000 }, { id: "chr8", length: 80000 }]} defaultValue={{ contig: "chr7", start: 101, end: 105 }} required />',
+    "usage": {
+      "use": [
+        "Integer genomic intervals against a fixed caller-supplied reference and explicit contig lengths.",
+        "The field always uses one-based inclusive positions, including both endpoints. A one-position region has equal start and end.",
+        "name prefixes submitted reference, coordinates, contig, start and end fields. Native form reset restores uncontrolled defaults.",
+        "Changing contig keeps the entered integers and revalidates its bounds; no coordinate conversion occurs."
+      ],
+      "avoid": [
+        "Silently converting zero-based half-open intervals or moving coordinates between genome assemblies.",
+        "Using guessed contig lengths or clamping invalid coordinates into a different region."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Moves through the contig, start and end controls."
+      },
+      {
+        "keys": "Arrow keys, typing",
+        "does": "Opens and navigates the Vlak contig selector or edits numeric inputs. Enter or Space confirms a contig; Escape closes its menu."
+      }
+    ],
+    "a11y": [
+      "A legend and visible labels name the group. Vlak Select and Input provide 44px controls; the coordinate convention is always visible.",
+      "Validation rejects partial regions, non-integers, unsafe integers, positions below 1, reversed endpoints and coordinates beyond the supplied contig.",
+      "Errors are linked to the controls and participate in native form validity. Invalid values remain editable without clamping.",
+      "Missing reference metadata and invalid contig catalogs are explicit; zero never becomes position 1 automatically.",
+      "Read-only fields preserve submitted values, disabled fieldsets do not submit, and controlled values remain application-owned."
+    ],
+    "aliases": [
+      "Genome interval input",
+      "Genomic coordinates",
+      "Contig region input",
+      "One-based interval",
+      "Genomic location field"
+    ]
+  }
+];
+
+// src/registry-workbench.ts
+var workbenchComponents = [
+  {
+    name: "patchbay",
+    title: "Patchbay",
+    category: "creative",
+    description: "Connects supplied source and destination ports through a keyboard-navigable matrix, with signal types, channel groups, and blocked-route reasons.",
+    classes: ["rs-patchbay", "rs-patchbay-legend", "rs-patchbay-viewport", "rs-patchbay-table", "rs-patchbay-header", "rs-patchbay-detail", "rs-patchbay-cell", "rs-patchbay-control", "rs-patchbay-connected", "rs-patchbay-blocked", "rs-patchbay-input", "rs-patchbay-note"],
+    css: ["components/patchbay.css"],
+    react: "components/patchbay.tsx",
+    registryDependencies: [],
+    snippet: `<fieldset class="rs-patchbay"><legend class="rs-patchbay-legend">Studio routing</legend><div class="rs-patchbay-viewport"><table class="rs-patchbay-table"><thead><tr><th class="rs-patchbay-header" scope="col">Source / destination</th><th class="rs-patchbay-header" scope="col">Monitor left<span class="rs-patchbay-detail">Outputs \xB7 audio</span></th></tr></thead><tbody><tr><th class="rs-patchbay-header" scope="row">Mix left<span class="rs-patchbay-detail">Mix bus \xB7 audio</span></th><td class="rs-patchbay-cell"><label class="rs-patchbay-control rs-patchbay-connected"><span aria-hidden="true">\u2713</span><input class="rs-patchbay-input" type="checkbox" checked aria-label="Mix left to Monitor left" /></label></td></tr></tbody></table></div></fieldset>`,
+    example: `import { Patchbay } from "@noorddev/vlak-react";
+
+<Patchbay label="Studio routing" name="routes"
+  sources={[{ id: "mix-l", label: "Mix left", group: "Mix bus", signalType: "audio" }]}
+  destinations={[{ id: "out-l", label: "Monitor left", group: "Outputs", signalType: "audio" }, { id: "clock", label: "Clock", signalType: "control" }]}
+  defaultValue={[{ sourceId: "mix-l", destinationId: "out-l" }]} />`,
+    usage: { use: ["An audio or signal-routing matrix whose ports and confirmed connections come from the host.", "value/defaultValue/onValueChange for controlled routing requests or a local prototype; the host applies real routing changes.", "Signal type strings must match; getBlockReason can add a host-specific restriction with a visible explanation.", "Existing incompatible connections can be disconnected; routes involving unavailable ports remain explicitly listed and preserved."], avoid: ["Assuming the component creates audio streams, manages clocking, or configures a routing engine.", "Silently deleting host connections when a port temporarily disappears."] },
+    keyboard: [{ keys: "Tab", does: "Enters the connection matrix at one enabled checkbox, then leaves the matrix." }, { keys: "Arrow keys", does: "Moves focus through enabled crosspoints in the same row or column." }, { keys: "Home, End", does: "Moves to the first or last enabled crosspoint in the row; Control includes the whole matrix." }, { keys: "Space", does: "Toggles the focused connection through the native checkbox." }],
+    a11y: ["Native table headers identify sources and destinations; every checkbox also names both ports.", "Connection targets are at least 44px, with a full-surface checked state and forced-colors support.", "Blocked crosspoints expose reasons in text and descriptions. Roving focus skips disabled cells.", "Named checkboxes submit connection pairs; read-only hidden values preserve existing routes. Form reset restores uncontrolled defaults.", "The ref and native fieldset attributes reach the root fieldset."],
+    aliases: ["Patchbay", "Routing matrix", "Audio routing", "Crosspoint matrix", "Connection matrix", "Signal patching"]
+  },
+  {
+    name: "kerning-pair-editor",
+    title: "Kerning pair editor",
+    category: "creative",
+    description: "Edits supplied glyph-pair offsets in font units, with baseline and edited previews, bounded keyboard nudging, and one-step undo.",
+    classes: ["rs-kerning-pair-editor", "rs-kerning-pair-editor-legend", "rs-kerning-pair-editor-toolbar", "rs-kerning-pair-editor-field", "rs-kerning-pair-editor-input", "rs-kerning-pair-editor-button", "rs-kerning-pair-editor-previews", "rs-kerning-pair-editor-preview", "rs-kerning-pair-editor-glyphs", "rs-kerning-pair-editor-glyph", "rs-kerning-pair-editor-note"],
+    css: ["components/kerning-pair-editor.css"],
+    react: "components/kerning-pair-editor.tsx",
+    registryDependencies: ["select", "input", "button"],
+    snippet: `<fieldset class="rs-kerning-pair-editor"><legend class="rs-kerning-pair-editor-legend">Pair spacing</legend><div class="rs-kerning-pair-editor-previews"><figure class="rs-kerning-pair-editor-preview"><figcaption class="rs-kerning-pair-editor-note">Edited: -80 units</figcaption><div class="rs-kerning-pair-editor-glyphs" style="font-family:Georgia,serif" role="img" aria-label="A followed by V, edited offset -80 units"><span class="rs-kerning-pair-editor-glyph" aria-hidden="true">A</span><span class="rs-kerning-pair-editor-glyph" aria-hidden="true" style="margin-inline-start:-0.08em">V</span></div></figure></div><label class="rs-kerning-pair-editor-field">Offset (font units)<input class="rs-input rs-input-full rs-kerning-pair-editor-input" type="number" value="-80" min="-1000" max="1000" step="any" /></label></fieldset>`,
+    example: `import { KerningPairEditor } from "@noorddev/vlak-react";
+
+<KerningPairEditor label="Pair spacing" name="kerning" fontFamily="Georgia, serif" unitsPerEm={1000}
+  pairs={[{ id: "av", left: "A", right: "V" }, { id: "to", left: "T", right: "o" }]}
+  baselineOffsets={{ av: -60, to: -40 }} defaultValue={{ av: -80, to: -50 }} />`,
+    usage: { use: ["Supplied glyph strings, a caller-selected font family, and explicit units per em.", "value/defaultValue/onValueChange as a map from pair id to offset; null or an absent entry means not supplied.", "baselineOffsets to compare and reset a pair; missing baselines never imply zero.", "Optional min/max bounds default to negative and positive units per em; typed values retain native validation.", "activePairId/defaultActivePairId/onActivePairChange for caller-owned pair navigation."], avoid: ["Treating the preview as a font shaping engine, font-file editor, or source of baseline kerning.", "Assuming a requested font is installed; the browser uses its normal font fallback.", "Undoing external host changes; undo is available only while the latest requested edit remains current."] },
+    keyboard: [{ keys: "Tab", does: "Moves through the pair selector, navigation, offset editor, reset, and undo actions." }, { keys: "Arrow left, Arrow right", does: "Nudges the focused offset by one font unit within the supplied bounds." }, { keys: "Shift + Arrow left, Shift + Arrow right", does: "Nudges the focused offset by ten font units." }, { keys: "Enter, Space", does: "Activates the focused previous, next, reset, or undo button." }],
+    a11y: ["A fieldset and legend name the editor; Vlak Select and Input controls have 44px targets.", "Baseline and edited offsets remain text, and each pair preview has an accessible description.", "Preview spacing is offset divided by units per em; intrinsic browser kerning and ligatures are disabled for the comparison.", "Missing or invalid font units suppress geometry; typed out-of-bounds values expose native validity and a visible explanation.", "The ref and native attributes reach the fieldset. Named offsets submit per pair; reset restores uncontrolled offsets and clears undo."],
+    aliases: ["KerningPairEditor", "Kerning editor", "Glyph pair spacing", "Font pair editor", "Pair adjustment"]
+  },
+  {
+    name: "assembly-variant-matrix",
+    title: "Assembly variant matrix",
+    category: "electronics",
+    description: "Edits independent population, bill-of-materials, and placement flags per reference and assembly variant, preserving unspecified choices.",
+    classes: ["rs-assembly-variant-matrix", "rs-assembly-variant-matrix-legend", "rs-assembly-variant-matrix-viewport", "rs-assembly-variant-matrix-table", "rs-assembly-variant-matrix-header", "rs-assembly-variant-matrix-part", "rs-assembly-variant-matrix-cell", "rs-assembly-variant-matrix-details", "rs-assembly-variant-matrix-summary", "rs-assembly-variant-matrix-editor", "rs-assembly-variant-matrix-field", "rs-assembly-variant-matrix-select", "rs-assembly-variant-matrix-note"],
+    css: ["components/assembly-variant-matrix.css"],
+    react: "components/assembly-variant-matrix.tsx",
+    registryDependencies: ["select", "dropdown-menu"],
+    snippet: `<fieldset class="rs-assembly-variant-matrix"><legend class="rs-assembly-variant-matrix-legend">Assembly options</legend><div class="rs-assembly-variant-matrix-viewport"><table class="rs-assembly-variant-matrix-table"><thead><tr><th class="rs-assembly-variant-matrix-header" scope="col">Reference / variant</th><th class="rs-assembly-variant-matrix-header" scope="col">Pilot</th></tr></thead><tbody><tr><th class="rs-assembly-variant-matrix-header" scope="row">R1<span class="rs-assembly-variant-matrix-part">10 k\u03A9 resistor</span></th><td class="rs-assembly-variant-matrix-cell"><details class="rs-assembly-variant-matrix-details"><summary class="rs-assembly-variant-matrix-summary">Edit R1 in Pilot<span class="rs-assembly-variant-matrix-part">Not specified</span></summary><div class="rs-assembly-variant-matrix-editor"><div class="rs-assembly-variant-matrix-field"><span>Populated</span><div class="rs-select rs-select-fluid rs-assembly-variant-matrix-select"><button class="rs-dropdown" role="combobox" aria-label="Populated, R1 in Pilot" aria-haspopup="listbox" aria-expanded="false" type="button">Unspecified</button></div></div></div></details></td></tr></tbody></table></div></fieldset>`,
+    example: `import { AssemblyVariantMatrix } from "@noorddev/vlak-react";
+
+<AssemblyVariantMatrix label="Assembly options" name="assembly"
+  references={[{ id: "r1", label: "R1", partLabel: "10 k\u03A9 resistor" }]}
+  variants={[{ id: "pilot", label: "Pilot" }, { id: "production", label: "Production" }]}
+  defaultValue={[{ referenceId: "r1", variantId: "pilot", populated: true, includeInBom: true, includeInPlacement: true }, { referenceId: "r1", variantId: "production", populated: false, includeInBom: true, includeInPlacement: false }]} />`,
+    usage: { use: ["Caller-owned assembly references, part labels, and named build variants.", "Three independent boolean-or-null flags: population, bill-of-materials inclusion, and placement-file inclusion.", "value/defaultValue/onValueChange to receive the proposed cell array; editing one flag leaves the other flags unchanged.", "Missing cells begin unspecified. Conflicting duplicate cells and unavailable references remain visible rather than being silently merged."], avoid: ["Inferring bill-of-materials or placement policy from the populated flag.", "Assuming the component generates manufacturing files or changes a board design.", "Treating unspecified flags as excluded or not populated."] },
+    keyboard: [{ keys: "Tab", does: "Moves through native cell summaries and controls in expanded editors." }, { keys: "Enter, Space", does: "Opens or closes the focused cell's native details editor." }, { keys: "Arrow keys", does: "Opens and navigates the Vlak selector between Unspecified, Yes, and No; Enter confirms the highlighted choice." }],
+    a11y: ["Native row and column headers identify each reference and variant; cell editor summaries repeat that context.", "Each independent Vlak Select has a flag-specific name including its reference and variant, and a 44px target.", "Compact summaries expose all three flags in text; no color or population shortcut carries policy.", "Native details reveal the editor without focus traps; Vlak Select supplies the choice menu, and overflow remains inside the matrix.", "Named controls submit each flag separately. Read-only values and native form reset are supported; the ref reaches the fieldset."],
+    aliases: ["AssemblyVariantMatrix", "Assembly options", "Population matrix", "Bill of materials variants", "Placement options", "Reference variant table"]
+  }
+];
+
+// src/registry-engineering.ts
+var engineeringComponents = [
+  {
+    name: "alarm-panel",
+    title: "Alarm panel",
+    category: "engineering",
+    description: "Industrial alarm records with independent condition, acknowledgement and shelving states, explicit filters and host-confirmed actions.",
+    classes: ["rs-alarm-panel", "rs-alarm-panel-heading", "rs-alarm-panel-copy", "rs-alarm-panel-filters", "rs-alarm-panel-button", "rs-alarm-panel-selected", "rs-alarm-panel-list", "rs-alarm-panel-item", "rs-alarm-panel-head", "rs-alarm-panel-states", "rs-alarm-panel-term", "rs-alarm-panel-value", "rs-alarm-panel-actions"],
+    css: ["components/alarm-panel.css"],
+    react: "components/alarm-panel.tsx",
+    registryDependencies: ["button"],
+    snippet: '<div class="rs-alarm-panel"><p class="rs-alarm-panel-heading">Plant alarms</p><ul class="rs-alarm-panel-list"><li class="rs-alarm-panel-item"><div class="rs-alarm-panel-head">Cooling flow</div><dl class="rs-alarm-panel-states"><div><dt class="rs-alarm-panel-term">Condition</dt><dd class="rs-alarm-panel-value">Cleared</dd></div><div><dt class="rs-alarm-panel-term">Acknowledgement</dt><dd class="rs-alarm-panel-value">Unacknowledged</dd></div><div><dt class="rs-alarm-panel-term">Shelving</dt><dd class="rs-alarm-panel-value">Not shelved</dd></div></dl></li></ul></div>',
+    example: `import { AlarmPanel } from "@noorddev/vlak-react";
+
+<AlarmPanel label="Plant alarms" alarms={[
+  { id: "flow", label: "Cooling flow", source: "Example circulation loop", priority: "Medium", condition: "cleared", acknowledgement: "unacknowledged", shelving: "unshelved", timeLabel: "14:32, supplied event time" },
+  { id: "sensor", label: "Sensor connection", condition: "active", acknowledgement: "acknowledged", shelving: "shelved", shelvedUntilLabel: "15:00, local plant time" },
+]} />`,
+    usage: { use: ["Operator alarm lists with supplied lifecycle fields and explicit unknown values.", "Supply allowed actions and onAction to request acknowledgement, shelving or unshelving. Return pending and then confirmed records from the host.", "Use filter and onFilterChange for an application-owned filter; uncontrolled filtering starts from defaultFilter.", "Provide unique alarm ids, a bounded set of visible records, event time labels and the site's explicit time-zone context."], avoid: ["Treating acknowledgement as clearing a condition, or shelving as acknowledgement.", "Using a displayed action as proof that equipment changed state. The host owns permissions, audit records, filtering of large streams and shelving timers."] },
+    keyboard: [{ keys: "Tab", does: "Moves through filter buttons and supplied enabled alarm actions." }, { keys: "Enter, Space", does: "Applies a filter or requests the focused action." }],
+    a11y: ["Each alarm exposes separate condition, acknowledgement and shelving fields as visible text in a description list.", "Pressed filter buttons use a full fill; all controls have 44px targets, visible keyboard focus and forced-colour support.", "A polite record count reflects the current filter. Pending records keep their confirmed state and disable actions.", "The div ref, native attributes, className and style pass through."],
+    aliases: ["Industrial alarms", "Alarm acknowledgement", "Alarm shelving", "Operator alarm list", "Process alarm panel"]
+  },
+  {
+    name: "work-offset-panel",
+    title: "Work offset panel",
+    category: "engineering",
+    description: "Reported machine and work coordinates alongside editable draft offsets, explicit axis units and a host-owned apply request.",
+    classes: ["rs-work-offset-panel", "rs-work-offset-panel-legend", "rs-work-offset-panel-copy", "rs-work-offset-panel-field", "rs-work-offset-panel-control", "rs-work-offset-panel-viewport", "rs-work-offset-panel-table", "rs-work-offset-panel-caption", "rs-work-offset-panel-cell", "rs-work-offset-panel-axis", "rs-work-offset-panel-offset", "rs-work-offset-panel-button"],
+    css: ["components/work-offset-panel.css"],
+    react: "components/work-offset-panel.tsx",
+    registryDependencies: ["input", "select", "button", "dropdown-menu"],
+    snippet: '<fieldset class="rs-work-offset-panel"><legend class="rs-work-offset-panel-legend">Work coordinates</legend><p class="rs-work-offset-panel-copy">Active system: G54 \xB7 Offsets active</p><div class="rs-work-offset-panel-field"><span id="work-offset-system-label">Draft coordinate system</span><div class="rs-select rs-select-fluid"><button type="button" class="rs-dropdown" role="combobox" aria-labelledby="work-offset-system-label" aria-expanded="false" aria-haspopup="listbox"><span>G54</span></button></div></div><label class="rs-work-offset-panel-field">X offset (mm)<input class="rs-input rs-input-full rs-work-offset-panel-control" type="number" step="any" value="125" /></label></fieldset>',
+    example: `import { WorkOffsetPanel } from "@noorddev/vlak-react";
+
+<WorkOffsetPanel label="Work coordinates" name="fixture" activeSystemId="g54" offsetState="active" systems={[{ id: "g54", label: "G54" }, { id: "g55", label: "G55" }]} axes={[
+  { id: "x", label: "X", unit: "mm", machine: 145, work: 20 },
+  { id: "y", label: "Y", unit: "mm", machine: 60, work: 10 },
+]} defaultValue={{ systemId: "g54", offsets: { x: 125, y: 50 } }} />`,
+    usage: { use: ["Editing a supplied offset record while keeping actual machine and work readings visible.", "Supply both reported coordinate sets independently; rotations and additional offsets belong to the controller, so no machine-to-work subtraction is inferred.", "value and onValueChange let the host load offsets for a chosen draft system. Uncontrolled system changes retain the entered offsets; they do not fetch another system's record.", "onApply requests a complete finite draft containing only the listed axes and a known enabled system. activeSystemId, offsetState and actual readings change only when supplied by the host.", "name submits name.system and name.axisId values. External form association and native reset are supported."], avoid: ["Interpreting an apply request as controller acceptance, machine movement or persistence.", "Treating missing coordinates as zero, or suspended offsets as zeroed offsets. The host owns controller access, validation and interlocks."] },
+    keyboard: [{ keys: "Tab", does: "Moves through the system selector, scroll region, axis offset inputs and apply action." }, { keys: "Arrow keys", does: "Opens and navigates the Vlak system selector, steps number inputs or scrolls the focused table region. Escape closes the selector." }, { keys: "Enter, Space", does: "Confirms a highlighted system or requests the focused Apply offsets action when a complete draft is available." }],
+    a11y: ["A fieldset and legend name the editor. A captioned table separates actual readings from draft values, with axis units in each accessible input name.", "Unknown, unavailable and zero readings remain distinct. Invalid supplied offsets are marked and prevent apply.", "Vlak Select, Input and Button retain 44px targets; narrow layouts scroll the table inside a focusable, uniquely named region.", "Read-only values remain submittable; disabled or pending controls do not submit. Native reset restores uncontrolled defaults without overwriting controlled values.", "The fieldset ref, native attributes, className and style pass through."],
+    aliases: ["Machine coordinates", "Work coordinate system", "Fixture offsets", "Machining offsets", "Coordinate readout"]
+  }
+];
+
+// src/registry-robotics.ts
+var roboticsComponents = [
+  {
+    name: "joint-panel",
+    title: "Joint panel",
+    category: "robotics",
+    description: "Pairs host-reported joint positions with independent draft targets, supplied units and limits, and an explicit request action.",
+    classes: ["rs-joint-panel", "rs-joint-panel-legend", "rs-joint-panel-copy", "rs-joint-panel-list", "rs-joint-panel-joint", "rs-joint-panel-title", "rs-joint-panel-reading", "rs-joint-panel-field", "rs-joint-panel-input", "rs-joint-panel-button"],
+    css: ["components/joint-panel.css"],
+    react: "components/joint-panel.tsx",
+    registryDependencies: ["input", "button"],
+    snippet: `<fieldset class="rs-joint-panel"><legend class="rs-joint-panel-legend">Arm joints</legend><p class="rs-joint-panel-copy">Reported at: 12:00:00.125</p><ul class="rs-joint-panel-list"><li class="rs-joint-panel-joint"><div><p class="rs-joint-panel-title">Shoulder</p><p class="rs-joint-panel-reading">Reported: 12.5 deg</p><p class="rs-joint-panel-copy">Limits: -90 to 90 deg</p></div><label class="rs-joint-panel-field">Draft target (deg)<input class="rs-input rs-input-full rs-joint-panel-input" type="number" step="any" min="-90" max="90" value="0" aria-label="Shoulder draft target (deg)" /></label></li></ul><button class="rs-btn-primary rs-joint-panel-button" type="button">Request targets</button></fieldset>`,
+    example: `import { JointPanel } from "@noorddev/vlak-react";
+
+<JointPanel label="Arm joints" name="targets" timeLabel="12:00:00.125"
+  joints={[{ id: "shoulder", label: "Shoulder", unit: "deg", reported: 12.5, minimum: -90, maximum: 90 }, { id: "slide", label: "Slide", unit: "m", reported: 0, minimum: 0, maximum: 0.5 }]}
+  defaultValue={{ shoulder: 0, slide: 0 }}
+  onRequestTargets={targets => console.log("Requested targets", targets)} />`,
+    usage: { use: ["Reported joint positions and a separate draft target map keyed by joint identifier.", "value/defaultValue/onValueChange for controlled editing or an isolated prototype; drafts never inherit missing values from reported positions.", "Finite minimum and maximum values in each joint's supplied unit. A complete valid draft is required before requesting targets.", "onRequestTargets to ask the host to apply a draft; pending and confirmedLabel describe independently supplied request state.", "Missing, non-finite, duplicate, and unlisted records receive explicit feedback. No motion or limit policy is inferred."], avoid: ["Treating a successful click as confirmed robot movement.", "Using the component as a motion planner, interlock, unit converter, or source of joint limits."] },
+    keyboard: [{ keys: "Tab", does: "Moves through target inputs and the request button." }, { keys: "Arrow up, Arrow down", does: "Uses native number-input stepping within the supplied limits." }, { keys: "Enter, Space", does: "Activates the focused request button when the complete draft is valid." }],
+    a11y: ["The fieldset and legend name the joint group; each target names its joint and unit.", "Vlak Input and Button provide consistent control sizing, focus treatment, and native keyboard behavior.", "Native validity and visible messages identify missing or out-of-bounds targets; reported zero remains distinct from missing data.", "Named inputs submit per-joint drafts. Form reset restores uncontrolled defaults, read-only drafts still submit, and pending controls are disabled.", "The ref, native fieldset attributes, className, and style reach the root fieldset."],
+    aliases: ["JointPanel", "Robot joint targets", "Joint monitor", "Joint position editor", "Robot axis targets"]
+  },
+  {
+    name: "robot-pose",
+    title: "Robot pose",
+    category: "robotics",
+    description: "Displays exact Cartesian translation and explicitly named orientation components for a selected supplied pose, with frame, time, and recorded status.",
+    classes: ["rs-robot-pose", "rs-robot-pose-legend", "rs-robot-pose-field", "rs-robot-pose-select", "rs-robot-pose-metadata", "rs-robot-pose-detail", "rs-robot-pose-heading", "rs-robot-pose-values", "rs-robot-pose-value", "rs-robot-pose-text", "rs-robot-pose-copy"],
+    css: ["components/robot-pose.css"],
+    react: "components/robot-pose.tsx",
+    registryDependencies: ["select"],
+    snippet: `<fieldset class="rs-robot-pose"><legend class="rs-robot-pose-legend">Tool pose</legend><dl class="rs-robot-pose-metadata"><div class="rs-robot-pose-detail"><dt>Frame</dt><dd class="rs-robot-pose-text">base</dd></div><div class="rs-robot-pose-detail"><dt>Recorded at</dt><dd class="rs-robot-pose-text">12:00:00.125</dd></div></dl><div><p class="rs-robot-pose-heading">Translation</p><p class="rs-robot-pose-copy">Unit: m</p><dl class="rs-robot-pose-values"><div><dt>X</dt><dd class="rs-robot-pose-value">0.125</dd></div><div><dt>Y</dt><dd class="rs-robot-pose-value">0</dd></div><div><dt>Z</dt><dd class="rs-robot-pose-value">0.25</dd></div></dl></div><p class="rs-robot-pose-copy">Representation: Quaternion, x y z w</p></fieldset>`,
+    example: `import { RobotPose } from "@noorddev/vlak-react";
+
+<RobotPose label="Tool pose" name="pose" poses={[{
+  id: "tool-base", label: "Tool in base", frame: "base", timeLabel: "12:00:00.125", status: "Recorded",
+  translation: { x: 0.125, y: 0, z: 0.25, unit: "m" },
+  orientation: { representation: "Quaternion, x y z w", components: [
+    { id: "qx", label: "qx", value: 0 }, { id: "qy", label: "qy", value: 0 },
+    { id: "qz", label: "qz", value: 0 }, { id: "qw", label: "qw", value: 1 }
+  ] }
+}]} />`,
+    usage: { use: ["Caller-supplied pose records with a frame, time label, recorded status, translation unit, and explicit orientation representation.", "value/defaultValue/onValueChange to select a supplied record by identifier; changing records does not transform coordinates.", "orientation.components for exact named values, with optional per-component units. Include axis order and intrinsic or extrinsic conventions in the representation label when relevant.", "Missing values remain Not supplied, non-finite values remain Unavailable, and zero is never treated as missing.", "The first supplied record is selected by default; an explicit null leaves the selection empty."], avoid: ["Treating the view as a frame tree, transform calculator, quaternion normalizer, or inverse-kinematics solver.", "Omitting orientation conventions or presenting an unconfirmed pose as the robot's active target."] },
+    keyboard: [{ keys: "Tab", does: "Focuses the Vlak pose-record selector." }, { keys: "Enter, Space, Arrow keys", does: "Opens and navigates the selector; Enter confirms the highlighted record." }, { keys: "Home, End, Escape", does: "Moves to an end of the menu or closes it without changing the record." }],
+    a11y: ["A fieldset and legend name the pose view; the Vlak Select names the recorded-pose choice and its menu.", "Definition lists retain every translation and orientation component as exact text, including zero, missing values, and explicit units.", "A named selection submits its supplied pose identifier through a hidden input. Parent form reset restores uncontrolled selection.", "Read-only selection retains its submitted value; native disabled fieldsets omit it.", "The ref and native attributes reach the root fieldset. No live announcement is attached to streamed pose data."],
+    aliases: ["RobotPose", "Pose inspector", "Cartesian pose", "Robot pose record", "Quaternion inspector", "End effector pose"]
+  },
+  {
+    name: "robot-mission-queue",
+    title: "Robot mission queue",
+    category: "robotics",
+    description: "Shows supplied mission order and recorded step states, with keyboard reorder requests and explicit host actions separate from pending and confirmed records.",
+    classes: ["rs-robot-mission-queue", "rs-robot-mission-queue-legend", "rs-robot-mission-queue-list", "rs-robot-mission-queue-step", "rs-robot-mission-queue-head", "rs-robot-mission-queue-title", "rs-robot-mission-queue-copy", "rs-robot-mission-queue-status", "rs-robot-mission-queue-actions", "rs-robot-mission-queue-button"],
+    css: ["components/robot-mission-queue.css"],
+    react: "components/robot-mission-queue.tsx",
+    registryDependencies: ["button"],
+    snippet: `<fieldset class="rs-robot-mission-queue"><legend class="rs-robot-mission-queue-legend">Inspection mission</legend><ol class="rs-robot-mission-queue-list"><li class="rs-robot-mission-queue-step"><div class="rs-robot-mission-queue-head"><p class="rs-robot-mission-queue-title">Inspect station</p><p class="rs-robot-mission-queue-status">Recorded: Not started</p></div><div class="rs-robot-mission-queue-actions"><button class="rs-btn-ghost rs-robot-mission-queue-button" type="button" aria-label="Review plan: step 1, Inspect station">Review plan</button></div></li></ol><p class="rs-robot-mission-queue-copy">Reordering and actions request host changes. Reported mission state remains supplied by the host.</p></fieldset>`,
+    example: `import { RobotMissionQueue } from "@noorddev/vlak-react";
+
+<RobotMissionQueue label="Inspection mission" name="mission"
+  steps={[{ id: "inspect", label: "Inspect station", status: "Not started", actions: [{ id: "review", label: "Review plan" }] }, { id: "return", label: "Return to dock", status: "Not started" }]}
+  onOrderChange={ids => console.log("Requested order", ids)}
+  onAction={(stepId, actionId) => console.log("Requested action", stepId, actionId)} />`,
+    usage: { use: ["A caller-owned ordered step list, explicit recorded statuses, and only those actions the host makes available.", "onOrderChange receives step identifiers in the proposed order. The host supplies the resulting records; the queue never rewrites status on a reorder request.", "onAction receives a step identifier and supplied action identifier. pending and confirmedLabel remain separate host records.", "Pending steps lock their own actions and adjacent reorder controls. readOnly keeps all request controls disabled.", "Named hidden inputs submit the supplied step identifiers in order; invalid duplicate step or action identifiers suppress ambiguous controls."], avoid: ["Assuming a request starts, cancels, schedules, or confirms physical execution.", "Using display order as an execution dependency graph or deriving allowed actions from a status string."] },
+    keyboard: [{ keys: "Tab", does: "Moves through enabled reorder and host-action buttons." }, { keys: "Enter, Space", does: "Requests the focused reorder or supplied host action." }],
+    a11y: ["The fieldset and legend name the mission, and a native ordered list conveys its supplied order.", "Vlak Button actions name both the step number and label. Reorder buttons state their direction and disable at list boundaries.", "Recorded status, host confirmation, and request-pending text remain distinct; pending feedback uses a status role.", "Action descriptions are connected to the corresponding button, including its recorded status.", "The ref and native fieldset attributes reach the root, and read-only ordered records remain available to forms."],
+    aliases: ["RobotMissionQueue", "Robot task queue", "Mission plan", "Robot job sequence", "Mission steps"]
+  }
+];
+
+// src/registry-electronics.ts
+var electronicsComponents = [
+  {
+    name: "pad-inspector",
+    title: "Pad inspector",
+    category: "electronics",
+    description: "Circuit-board pad selection with supplied footprint references, net and layer records, pad types and a dimension table with explicit units.",
+    classes: ["rs-pad-inspector", "rs-pad-inspector-legend", "rs-pad-inspector-label", "rs-pad-inspector-control", "rs-pad-inspector-properties", "rs-pad-inspector-term", "rs-pad-inspector-detail", "rs-pad-inspector-table", "rs-pad-inspector-caption", "rs-pad-inspector-cell", "rs-pad-inspector-note"],
+    css: ["components/pad-inspector.css"],
+    react: "components/pad-inspector.tsx",
+    registryDependencies: ["select", "dropdown-menu"],
+    snippet: '<fieldset class="rs-pad-inspector"><legend class="rs-pad-inspector-legend">Connector pads</legend><div class="rs-pad-inspector-label"><span id="pad-choice-label">Pad</span><div class="rs-select rs-select-fluid rs-pad-inspector-control"><button type="button" class="rs-dropdown" role="combobox" aria-labelledby="pad-choice-label" aria-expanded="false" aria-haspopup="listbox">J1 / Pad 1 \xB7 pad-a</button></div></div><dl class="rs-pad-inspector-properties"><div><dt class="rs-pad-inspector-term">Net</dt><dd class="rs-pad-inspector-detail">Supply</dd></div><div><dt class="rs-pad-inspector-term">Layers</dt><dd class="rs-pad-inspector-detail">Front copper, Back copper</dd></div></dl><table class="rs-pad-inspector-table"><caption class="rs-pad-inspector-caption">Supplied geometry</caption><thead><tr><th class="rs-pad-inspector-cell" scope="col">Dimension</th><th class="rs-pad-inspector-cell" scope="col">Value</th><th class="rs-pad-inspector-cell" scope="col">Unit</th></tr></thead><tbody><tr><th class="rs-pad-inspector-cell" scope="row">Pad diameter</th><td class="rs-pad-inspector-cell">1.80</td><td class="rs-pad-inspector-cell">mm</td></tr></tbody></table></fieldset>',
+    example: `import { PadInspector } from "@noorddev/vlak-react";
+
+<PadInspector label="Connector pads" name="pad" boardLabel="Example board, revision C" defaultValue="pad-a" pads={[
+  { id: "pad-a", reference: "J1", number: "1", net: "Supply", layers: ["Front copper", "Back copper"], type: "Through hole", shape: "Circle", geometry: [
+    { id: "diameter", label: "Pad diameter", value: "1.80", unit: "mm" },
+    { id: "drill", label: "Drill diameter", value: "0.90", unit: "mm" },
+  ] },
+  { id: "pad-b", reference: "J1", number: "2", net: "Return", layers: ["Front copper"], type: "Surface mount", shape: "Rectangle" },
+]} />`,
+    usage: { use: ["Inspecting a bounded collection of pad records supplied by a board editor or manufacturing export.", "Supply unique, non-empty pad ids and unique measurement ids within each pad. Pad numbers may repeat; ids identify the actual records.", "Use value and onValueChange for host-owned selection and board or schematic cross-highlighting. No connectivity or geometry calculation runs in the component.", "Supply geometry values as strings to preserve significant figures. Null fields remain explicitly missing; an empty layers array means none recorded."], avoid: ["Inferring that a missing net means unconnected, a missing drill means no hole, or an unknown layer list means every copper layer.", "Treating selection as a board edit or inferring dimensions from the shape name."] },
+    keyboard: [{ keys: "Tab", does: "Focuses the Vlak pad selector." }, { keys: "Arrow keys, Home, End", does: "Opens or moves through available pad choices." }, { keys: "Enter, Space", does: "Chooses the focused pad. Controlled selection waits for a host update." }, { keys: "Escape", does: "Closes the selector and keeps the current choice." }],
+    a11y: ["A fieldset legend names the inspector. Pad choices include their record id, so repeated pad numbers remain distinguishable.", "Vlak Select supplies the 44px trigger, keyboard listbox and disabled choices. Pad properties use a description list and dimensions use a captioned table with row and column headers.", "Missing records, unavailable selections, non-finite measurements and missing units have explicit text. Numeric zero and string precision are retained.", "Native form association and reset are supported. Read-only valid selection remains submittable, while disabled selection is omitted.", "The fieldset ref, native attributes, className and style pass through."],
+    aliases: ["Footprint pad", "Circuit board pad properties", "Pad geometry", "Copper pad inspector", "Board pad selector"]
+  },
+  {
+    name: "design-rule-results",
+    title: "Design rule results",
+    category: "electronics",
+    description: "Supplied board-check violations with severity and status filters, object and location details, and host-confirmed selection and resolution actions.",
+    classes: ["rs-design-rule-results", "rs-design-rule-results-legend", "rs-design-rule-results-filters", "rs-design-rule-results-label", "rs-design-rule-results-control", "rs-design-rule-results-list", "rs-design-rule-results-item", "rs-design-rule-results-selected", "rs-design-rule-results-title", "rs-design-rule-results-properties", "rs-design-rule-results-term", "rs-design-rule-results-detail", "rs-design-rule-results-actions", "rs-design-rule-results-action", "rs-design-rule-results-note"],
+    css: ["components/design-rule-results.css"],
+    react: "components/design-rule-results.tsx",
+    registryDependencies: ["select", "button"],
+    snippet: '<fieldset class="rs-design-rule-results"><legend class="rs-design-rule-results-legend">Reported design rules</legend><p class="rs-design-rule-results-note">Synthetic check run 042</p><ul class="rs-design-rule-results-list"><li class="rs-design-rule-results-item"><p class="rs-design-rule-results-title">Copper clearance</p><dl class="rs-design-rule-results-properties"><div><dt class="rs-design-rule-results-term">Severity</dt><dd class="rs-design-rule-results-detail">Error</dd></div><div><dt class="rs-design-rule-results-term">Confirmed status</dt><dd class="rs-design-rule-results-detail">Open</dd></div><div><dt class="rs-design-rule-results-term">Layer</dt><dd class="rs-design-rule-results-detail">Front copper</dd></div><div><dt class="rs-design-rule-results-term">Location</dt><dd class="rs-design-rule-results-detail">X: 24.5, Y: 18; unit: mm</dd></div></dl></li></ul></fieldset>',
+    example: `import { DesignRuleResults } from "@noorddev/vlak-react";
+
+<DesignRuleResults label="Reported design rules" runLabel="Synthetic check run 042" violations={[
+  { id: "clearance-1", title: "Copper clearance", severity: "error", status: "open", rule: "Supplied clearance rule", layer: "Front copper", net: "Supply", location: { x: 24.5, y: 18, unit: "mm" }, objects: ["J1 pad 1", "Track 17"] },
+  { id: "label-2", title: "Silkscreen overlap", severity: "warning", status: "excluded", layer: "Front silkscreen", objects: ["J1 reference", "J1 outline"] },
+]} />`,
+    usage: { use: ["Reviewing a bounded set of results supplied by a board design-rule checker.", "Supply unique result ids, the confirmed severity and status, and any available layer, net, object and location records. Null severity or status means unknown.", "onSelect requests host selection; selectedId confirms it. onResolve requests resolution of an open result unless canResolve is false. Pending and disabled records cannot invoke actions.", "Use filter and onFilterChange for host-owned filters; uncontrolled filters start from defaultFilter. Named filters submit as name.severity and name.status."], avoid: ["Treating an action click as a resolved board defect or treating an excluded result as resolved.", "Inferring that an empty result array means a check ran or passed. The component does not run rules, edit the board or invent clearance limits."] },
+    keyboard: [{ keys: "Tab", does: "Moves through the Vlak filter selectors and available action buttons." }, { keys: "Arrow keys, Home, End", does: "Navigates a focused filter's choices." }, { keys: "Enter, Space", does: "Chooses a filter or requests the focused selection or resolution action." }, { keys: "Escape", does: "Closes an open filter selector." }],
+    a11y: ["A fieldset legend names the results. Vlak Select and Button provide shared control paint, focus states and 44px targets.", "Visible description lists distinguish reported severity, confirmed status, layer, net and coordinate units. Action names include the unique result id and title.", "The polite count distinguishes filtered results from the complete supplied set. Empty results and unmatched filters use different messages.", "Selected records use a full-surface fill and Selected text. Pending actions keep confirmed data readable and disable the action controls.", "Native form reset restores uncontrolled filters; controlled filters remain with the application. Disabled fieldsets omit filter values and block actions.", "The fieldset ref, native attributes, className and style pass through."],
+    aliases: ["Board rule check", "Circuit board violations", "Clearance results", "Design-rule review", "Board verification results"]
+  }
+];
+
+// src/registry-microbiology.ts
+var microbiologyComponents = [
+  {
+    "name": "colony-plate",
+    "title": "Colony plate",
+    "category": "microbiology",
+    "description": "A bounded plate diagram and keyboard-selectable list of supplied colony markers, with the source count kept separate from annotation totals.",
+    "snippet": '<figure class="rs-colony-plate"><figcaption class="rs-colony-plate-title">Colony annotations</figcaption><p class="rs-colony-plate-count">Source count: 12</p><p class="rs-colony-plate-copy">1 marker records supplied; 1 positioned</p><ol class="rs-colony-plate-list" aria-label="Supplied marker records"><li class="rs-colony-plate-record"><div class="rs-colony-plate-static">1. Colony 01</div><p class="rs-colony-plate-copy">x 28%, y 32%</p></li></ol></figure>',
+    "example": 'import { ColonyPlate } from "@noorddev/vlak-react";\n\n<ColonyPlate label="Colony annotations" plateId="P-042" recordedCount={12} source="Imported source count and four annotated records" markers={[\n  { id: "c1", label: "Colony 01", x: 28, y: 32, description: "Source annotation: circular outline" },\n  { id: "c2", label: "Colony 02", x: 62, y: 26, description: "Source annotation: raised center" },\n  { id: "c3", label: "Colony 03", x: 55, y: 68 },\n  { id: "c4", label: "Colony 04", x: null, y: null },\n]} defaultValue="c2" />',
+    "usage": {
+      "use": [
+        "Inspect supplied colony annotations and source counts without running an image analysis algorithm.",
+        "recordedCount is the original source count. The exact number of supplied marker records and positioned records are labelled separately; neither substitutes for the source count.",
+        "Supply unique marker identifiers and normalized x/y percentages from the upper left. The circular plate has center 50, 50 and radius 50.",
+        "Select a record using value and onValueChange, or use defaultValue for local selection. Native form reset restores uncontrolled selection. readOnly keeps the same record list without selection controls."
+      ],
+      "avoid": [
+        "Inferring a colony count from marker records, missing annotations or a blank diagram.",
+        "Identifying organisms, segmenting images or suggesting culture procedures from these records.",
+        "Supplying more than 256 markers; the component reports the bound without showing a partial list."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Moves through enabled record-selection buttons and the clear-selection button."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Selects the focused supplied record or clears the selection; controlled selection waits for the host."
+      }
+    ],
+    "a11y": [
+      "The figure caption names the plate. The decorative diagram is paired with a complete ordered list of record labels, exact coordinates and supplied descriptions.",
+      "Missing, non-finite and out-of-dish positions retain their list records and have explicit availability text. Only positioned markers are drawn; their exact number is shown.",
+      "Every control is at least 44px with a visible focus ring. Selected record buttons use a full fill and aria-pressed, including in forced colors.",
+      "Source count zero remains zero. Missing source counts and invalid negative or unsafe counts receive separate text; no count is inferred from the diagram.",
+      "Duplicate or empty identifiers and oversized inputs produce an explanation. Native attributes, figure ref, className and style pass through. Selection buttons do not submit forms."
+    ],
+    "aliases": [
+      "Colony annotations",
+      "Petri dish map",
+      "Colony record viewer",
+      "Agar plate annotations",
+      "Plate colony inspector"
+    ],
+    "classes": [
+      "rs-colony-plate",
+      "rs-colony-plate-title",
+      "rs-colony-plate-copy",
+      "rs-colony-plate-count",
+      "rs-colony-plate-body",
+      "rs-colony-plate-graphic",
+      "rs-colony-plate-dish",
+      "rs-colony-plate-list",
+      "rs-colony-plate-record",
+      "rs-colony-plate-static",
+      "rs-colony-plate-details",
+      "rs-colony-plate-clear",
+      "rs-colony-plate-marker",
+      "rs-colony-plate-chosen",
+      "rs-colony-plate-control",
+      "rs-colony-plate-selected"
+    ],
+    "css": [
+      "components/colony-plate.css"
+    ],
+    "react": "components/colony-plate.tsx",
+    "registryDependencies": ["button"]
+  },
+  {
+    "name": "culture-log",
+    "title": "Culture log",
+    "category": "microbiology",
+    "description": "A culture and sample record with supplied medium, conditions, chronological observations and host-owned recording actions.",
+    "snippet": '<div class="rs-culture-log" role="group" aria-label="Culture observations"><div class="rs-culture-log-head"><p class="rs-culture-log-title">Culture observations</p><span class="rs-culture-log-copy">Awaiting record review</span></div><dl class="rs-culture-log-metadata"><div><dt class="rs-culture-log-copy">Culture</dt><dd class="rs-culture-log-value">C-042</dd></div><div><dt class="rs-culture-log-copy">Sample</dt><dd class="rs-culture-log-value">S-042</dd></div><div><dt class="rs-culture-log-copy">Medium</dt><dd class="rs-culture-log-value">Agar medium A</dd></div></dl><ol class="rs-culture-log-list"><li class="rs-culture-log-observation"><time class="rs-culture-log-time" datetime="2026-09-07T09:00:00+02:00">7 September, 09:00</time><div class="rs-culture-log-content"><p class="rs-culture-log-observation-label">Sample record received</p></div></li></ol></div>',
+    "example": 'import { useState } from "react";\nimport { CultureLog } from "@noorddev/vlak-react";\n\nfunction CultureRecord() {\n  const [reviewed, setReviewed] = useState(false);\n  return <CultureLog label="Culture observations" cultureId="C-042" sampleId="S-042" medium="Agar medium A" status={reviewed ? "Record review noted" : "Awaiting record review"} conditions={[{ id: "batch", label: "Medium batch", value: "M-17" }]} observations={[\n    { id: "received", label: "Sample record received", dateTime: "2026-09-07T09:00:00+02:00", timeLabel: "7 September, 09:00", status: "Recorded" },\n    { id: "image", label: "Plate image attached", dateTime: "2026-09-07T10:30:00+02:00", timeLabel: "7 September, 10:30", status: "Recorded", notes: "Image and source annotations attached" },\n  ]} actions={reviewed ? [] : [{ id: "review", label: "Record review" }]} onAction={() => setReviewed(true)} />;\n}',
+    "usage": {
+      "use": [
+        "Review culture identity, sample identity, medium and conditions as supplied by the host.",
+        "Provide offset-bearing timestamps for chronological ordering. Equal timestamps retain their supplied order; missing and invalid timestamps sort after dated observations.",
+        "Supply actions and onAction to request recording changes. Update status or observations only when the host has accepted the change; pending disables actions without changing recorded state.",
+        "Use oldest or newest ordering for at most 256 observations, 32 conditions and 16 actions with unique non-empty identifiers."
+      ],
+      "avoid": [
+        "Inferring organism identity, contamination, growth interpretation or culture success from a status or observation.",
+        "Generating a culture recipe, an incubation recommendation or a procedure from the displayed conditions.",
+        "Treating a requested recording action as confirmation that a laboratory procedure occurred."
+      ]
+    },
+    "keyboard": [
+      {
+        "keys": "Tab",
+        "does": "Moves between supplied links and enabled recording actions."
+      },
+      {
+        "keys": "Enter, Space",
+        "does": "Requests the focused action through onAction without submitting a surrounding form."
+      }
+    ],
+    "a11y": [
+      "A named group contains a description list for metadata and an ordered list of observations. Every valid dated observation has a native time element.",
+      "Missing times and malformed dates remain explicitly undated. Dates without an offset and impossible calendar dates are not silently reinterpreted.",
+      "Zero-valued conditions remain visible; empty values and non-finite numeric conditions have explicit availability labels. Supplied statuses remain unchanged during pending requests.",
+      "Recording actions have 44px targets and visible focus rings. Their names include the culture identity and their descriptions reference the supplied status.",
+      "Oversized or ambiguous record collections have a visible explanation instead of a partial timeline. The div ref, native attributes, className and style pass through."
+    ],
+    "aliases": [
+      "Culture notebook",
+      "Culture observations",
+      "Microbiology log",
+      "Culture record",
+      "Sample culture history"
+    ],
+    "classes": [
+      "rs-culture-log",
+      "rs-culture-log-head",
+      "rs-culture-log-title",
+      "rs-culture-log-copy",
+      "rs-culture-log-metadata",
+      "rs-culture-log-value",
+      "rs-culture-log-list",
+      "rs-culture-log-observation",
+      "rs-culture-log-time",
+      "rs-culture-log-content",
+      "rs-culture-log-observation-label",
+      "rs-culture-log-notes",
+      "rs-culture-log-actions",
+      "rs-culture-log-action"
+    ],
+    "css": [
+      "components/culture-log.css"
+    ],
+    "react": "components/culture-log.tsx",
+    "registryDependencies": ["button"]
+  }
+];
+
+// src/registry.ts
+var vlakComponents = [
+  ...iosComponents,
+  ...androidComponents,
+  ...aiChatControlComponents,
+  ...aiCodeTools,
+  ...aiAttachments,
+  ...aiWorkPatterns,
+  ...aiWorkflowComponents,
+  ...aiRichResponse,
+  ...aiVoiceComponents,
+  ...aiCode,
+  ...aiComponents,
+  ...aiActions,
+  ...aiResponse,
+  ...dataAdditions,
+  ...navigationAdditions,
+  ...inputAdditions,
+  ...mediaAdditions,
+  ...healthObservations,
+  ...healthWellness,
+  ...healthRings,
+  ...healthCare,
+  ...civicComponents,
+  ...scienceComponents,
+  ...creativeComponents,
+  ...geospatialComponents,
+  ...scienceSpecialists,
+  ...workbenchComponents,
+  ...engineeringComponents,
+  ...roboticsComponents,
+  ...electronicsComponents,
+  ...microbiologyComponents,
+  {
+    name: "button",
+    title: "Button",
+    description: "Triggers an action with solid primary, 1px ghost, or borderless subtle styling. Every target is at least 44px; icon size is a 44px square.",
+    category: "actions",
+    classes: ["rs-btn-primary", "rs-btn-ghost", "rs-btn-subtle", "rs-btn-sm", "rs-btn-icon", "rs-btn-grouped", "rs-btn-grouped-ghost", "rs-btn-grouped-subtle"],
+    css: ["components/button.css"],
+    react: "components/button.tsx",
+    snippet: `<button class="rs-btn-primary">Primary action</button>
+<button class="rs-btn-ghost">Secondary</button>
+<button class="rs-btn-subtle">Details</button>
+<button class="rs-btn-subtle" disabled>Unavailable</button>
+<button class="rs-btn-subtle rs-btn-icon" aria-label="Download"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" aria-hidden="true"><path d="M3.5 11.5V13h9v-1.5M8 3.5v7M5.5 8 8 10.5 10.5 8" /></svg></button>`,
+    example: `import { Button, Icon } from "@noorddev/vlak-react";
+
+<Button>Primary action</Button>
+<Button variant="ghost" size="sm">Secondary</Button>
+<Button variant="subtle">Details</Button>
+<Button variant="subtle" disabled>Unavailable</Button>
+<Button variant="subtle" size="icon" aria-label="Download">
+  <Icon name="download" />
+</Button>`,
+    usage: {
+      use: ["One primary action per view, with ghost for the secondary action.", "Subtle for supporting actions in a toolbar or response. Its transparent surface stays unchanged while muted text turns to ink on hover.", "Inside ButtonGroup, subtle buttons use an opaque paper surface and a soft fill for application-supplied aria-pressed selection.", "Icon size for an icon-only action with a 44px square target and an accessible label.", "Submitting a form or answering a dialog."],
+      avoid: ["Navigation that changes the URL; use Link or a nav component.", "Standalone persistent settings; use Toggle or Switch. ButtonGroup can present application-owned selection with aria-pressed."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves focus to the button" },
+      { keys: "Enter, Space", does: "Activates it" }
+    ],
+    a11y: [
+      'Renders a native <button>; type defaults to "button", so pass type="submit" inside a form.',
+      "The visible text is the name. Icon size changes the shape, not the accessible name; give icon-only buttons an aria-label and hide decorative icons.",
+      "2px ink focus ring on :focus-visible. disabled uses the native attribute and 40% opacity; forced colors keep system colors."
+    ],
+    aliases: ["Button", "Primary button", "Ghost button", "Secondary button", "Subtle button", "Icon button"]
+  },
+  {
+    name: "button-group",
+    title: "Button group",
+    description: "Keeps related actions together as joined buttons with 1px dividers and one outer frame.",
+    category: "actions",
+    classes: ["rs-btn-group"],
+    css: ["components/button-group.css"],
+    react: "components/button-group.tsx",
+    registryDependencies: ["button"],
+    snippet: `<div class="rs-btn-group"><button class="rs-btn-ghost">Left</button><button class="rs-btn-ghost">Center</button><button class="rs-btn-ghost">Right</button></div>`,
+    example: `import { Button, ButtonGroup } from "@noorddev/vlak-react";
+
+<ButtonGroup aria-label="Alignment">
+  <Button variant="ghost">Left</Button>
+  <Button variant="ghost">Center</Button>
+  <Button variant="ghost">Right</Button>
+</ButtonGroup>`,
+    usage: {
+      use: ["Two to four related actions that read as one control.", "Ghost or subtle buttons; the group owns the outer stroke and the seams.", "For application-owned selection, give each subtle Button aria-pressed and update the selection from its onClick handler."],
+      avoid: ["Expecting the group to manage selection automatically; use ToggleGroup when it should own that behavior.", "Unrelated actions in one row; space them instead."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves between the buttons" },
+      { keys: "Enter, Space", does: "Activates the focused button" }
+    ],
+    a11y: [
+      'Renders role="group"; pass aria-label to name it.',
+      "Children get grouped, so each Button keeps its own name and focus ring."
+    ],
+    aliases: ["Button group", "Segmented buttons", "Joined buttons"]
+  },
+  {
+    name: "link",
+    title: "Text link",
+    description: "Navigates to a page or resource. Hairline underline; in-copy variant is inset 1px.",
+    category: "actions",
+    classes: ["rs-link", "rs-link-underline"],
+    css: ["components/link.css"],
+    react: "components/link.tsx",
+    snippet: `<div><a class="rs-link" href="#">A text link</a></div>
+<div><a class="rs-link-underline" href="#">An in-copy link</a></div>`,
+    example: `import { Link } from "@noorddev/vlak-react";
+
+<Link href="/docs">A text link</Link>
+<p>Read the <Link underline href="/docs">guide</Link> first.</p>`,
+    usage: {
+      use: ["Navigation to another page or anchor.", "underline for links inside running copy."],
+      avoid: ["Actions that do not change the URL; use Button.", 'Bare hrefs with "click here" text; the text should name the destination.']
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves focus to the link" },
+      { keys: "Enter", does: "Follows it" }
+    ],
+    a11y: [
+      "Renders a native <a>; it needs an href to be focusable.",
+      "2px ink focus ring on :focus-visible."
+    ],
+    aliases: ["Link", "Anchor", "Text link", "Inline link"]
+  },
+  {
+    name: "input",
+    title: "Input",
+    description: "Collects one line of text. 1px border, 2px focus ring, 12px label above.",
+    category: "forms",
+    classes: ["rs-field", "rs-field-label", "rs-input", "rs-input-full", "rs-input-ok", "rs-input-invalid", "rs-feedback", "rs-feedback-ok", "rs-feedback-error", "rs-input-field", "rs-input-grouped", "rs-input-label"],
+    css: ["components/input.css"],
+    react: "components/input.tsx",
+    snippet: `<div class="rs-field"><span class="rs-field-label">E-mail</span><input class="rs-input rs-input-full" /></div>`,
+    example: `import { Input } from "@noorddev/vlak-react";
+
+<Input label="E-mail" type="email" placeholder="you@example.com" hint="We never share it." />
+<Input label="Name" error="Name is required." />
+<Input label="Handle" ok feedback="Available" />`,
+    usage: {
+      use: ["Single-line text, e-mail, number, password, and search fields.", "label, hint, and error together; the component wires them to the control."],
+      avoid: ["Long text; use Textarea.", "A fixed set of options; use Select or NativeSelect."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves focus to the field" },
+      { keys: "Enter", does: "Submits the enclosing form" }
+    ],
+    a11y: [
+      "Renders a native <input> with a generated id; label points at it with htmlFor.",
+      'hint and error are linked through aria-describedby; error also sets aria-invalid and renders with role="alert".',
+      "Inside Field, pass plain so Field's hint and error describe the control instead."
+    ],
+    aliases: ["Input", "Text field", "TextField", "Text input"]
+  },
+  {
+    name: "label",
+    title: "Label",
+    description: "Names a form control. 12px secondary text, set above the control.",
+    category: "forms",
+    classes: ["rs-label"],
+    css: ["components/label.css"],
+    react: "components/label.tsx",
+    snippet: `<label class="rs-label" for="name">Name</label>`,
+    example: `import { Label } from "@noorddev/vlak-react";
+
+<Label htmlFor="name">Name</Label>
+<input id="name" className="rs-input rs-input-full" />`,
+    usage: {
+      use: ["Naming a control that does not take a label prop.", "Custom layouts where the label sits apart from the field."],
+      avoid: ["Alongside Input's own label prop; it already renders one.", "As a heading; use the type scale."]
+    },
+    a11y: [
+      "Renders a native <label>; pass htmlFor with the control's id so clicks focus the control and the name is exposed."
+    ],
+    aliases: ["Label", "Form label", "Field label"]
+  },
+  {
+    name: "field",
+    title: "Field",
+    description: "Groups a label, control, and hint or error in one vertical field.",
+    category: "forms",
+    classes: ["rs-field", "rs-field-label", "rs-field-hint", "rs-field-error"],
+    css: ["components/field.css"],
+    react: "components/field.tsx",
+    registryDependencies: ["input"],
+    snippet: `<div class="rs-field"><label class="rs-field-label" for="invoice-name">Name</label><input class="rs-input rs-input-full" id="invoice-name" aria-describedby="invoice-name-hint" /><p class="rs-field-hint" id="invoice-name-hint">As it appears on the invoice.</p></div>`,
+    example: `import { Field, FieldError, FieldHint, FieldLabel, Input } from "@noorddev/vlak-react";
+
+<Field>
+  <FieldLabel htmlFor="name">Name</FieldLabel>
+  <Input plain id="name" />
+  <FieldHint>As it appears on the invoice.</FieldHint>
+</Field>
+
+<Field>
+  <FieldLabel htmlFor="iban">IBAN</FieldLabel>
+  <Input plain id="iban" />
+  <FieldError>Check the country code.</FieldError>
+</Field>`,
+    usage: {
+      use: ["Any control with a label plus a hint or an error, including NativeSelect, Textarea, Slider, and InputOTP.", "Form layouts where every field stacks the same way."],
+      avoid: ["A lone Input; its label, hint, and error props do the same job.", "Grouping several controls; use a fieldset with a legend."]
+    },
+    a11y: [
+      "Field passes the ids of a rendered FieldHint and FieldError to the control through aria-describedby.",
+      'A rendered FieldError sets aria-invalid on the control and has role="alert".',
+      "FieldLabel is a native <label>; pass htmlFor with the control's id."
+    ],
+    aliases: ["Field", "Form field", "Form item", "FormField", "Form control"]
+  },
+  {
+    name: "input-group",
+    title: "Input group",
+    description: "Joins a text field with a prefix or suffix inside one 1px border.",
+    category: "forms",
+    classes: ["rs-input-group", "rs-input-addon", "rs-input-group-end"],
+    css: ["components/input-group.css"],
+    react: "components/input-group.tsx",
+    registryDependencies: ["input"],
+    snippet: `<div class="rs-input-group"><span class="rs-input-addon">https://</span><input class="rs-input" placeholder="vlak.dev" /></div>`,
+    example: `import { Input, InputAddon, InputGroup } from "@noorddev/vlak-react";
+
+<InputGroup>
+  <InputAddon>https://</InputAddon>
+  <Input placeholder="vlak.dev" aria-label="Site" />
+</InputGroup>
+
+<InputGroup end>
+  <Input placeholder="0.00" aria-label="Amount" />
+  <InputAddon>EUR</InputAddon>
+</InputGroup>`,
+    usage: {
+      use: ["A fixed prefix or suffix that belongs to the value: a protocol, a unit, a currency.", "end to place the addon after the field."],
+      avoid: ["Buttons inside the field; use InlineForm.", "Icons as decoration; the addon is text."]
+    },
+    a11y: [
+      "The Input child is cloned with plain and grouped; it keeps its own id and name.",
+      "The addon is presentational text. Give the input an aria-label or a FieldLabel; the addon does not name it."
+    ],
+    aliases: ["Input group", "Input addon", "Prefix input", "Suffix input"]
+  },
+  {
+    name: "native-select",
+    title: "Native select",
+    description: "Presents browser-native options inside a 1px control border.",
+    category: "forms",
+    classes: ["rs-native-select", "rs-native-select-invalid", "rs-native-select-field", "rs-native-select-label", "rs-native-select-control", "rs-native-select-icon"],
+    css: ["components/native-select.css"],
+    react: "components/native-select.tsx",
+    registryDependencies: ["icons"],
+    snippet: `<div class="rs-native-select-control"><select class="rs-native-select" aria-label="City"><option>Alkmaar</option><option>Amsterdam</option><option>Rotterdam</option></select><svg class="rs-native-select-icon rs-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="M5.5 3.75 L10.5 8.25 L5.5 12.75" transform="rotate(90 8 8)" vector-effect="non-scaling-stroke" /></svg></div>`,
+    example: `import { NativeSelect } from "@noorddev/vlak-react";
+
+<NativeSelect label="City" defaultValue="alkmaar">
+  <option value="alkmaar">Alkmaar</option>
+  <option value="amsterdam">Amsterdam</option>
+  <option value="rotterdam">Rotterdam</option>
+</NativeSelect>`,
+    usage: {
+      use: ["A short fixed list where the platform picker is fine, especially on phones.", "Forms that post natively; the value travels with the form."],
+      avoid: ["Rich option labels or type-ahead over long lists; use Select or Combobox.", "Fewer than three options; use Radio."]
+    },
+    keyboard: [
+      { keys: "Space, Alt + Arrow down", does: "Opens the platform list" },
+      { keys: "Arrow up, Arrow down", does: "Changes the value" },
+      { keys: "Type a letter", does: "Jumps to a matching option" }
+    ],
+    a11y: [
+      "Renders a native <select> with a generated id; label renders a <label> pointing at it.",
+      "Inside Field, hint and error reach it through aria-describedby and aria-invalid."
+    ],
+    aliases: ["Native select", "Select element", "Dropdown", "HTML select"]
+  },
+  {
+    name: "inline-form",
+    title: "Inline form",
+    description: "Pairs one field with an embedded submit action. The button appears after validation.",
+    category: "patterns",
+    classes: ["rs-inline-field", "rs-inline-input", "rs-inline-btn", "rs-reveal", "rs-reveal-in", "rs-subscribed", "rs-inline-field-btn", "rs-inline-error"],
+    css: ["components/inline-form.css"],
+    react: "components/inline-form.tsx",
+    registryDependencies: ["button"],
+    snippet: `<div class="rs-inline-field"><input class="rs-inline-input" placeholder="Your e-mail" /><span class="rs-reveal rs-reveal-in"><button class="rs-btn-primary rs-inline-btn">Subscribe</button></span></div>`,
+    example: `import { InlineForm } from "@noorddev/vlak-react";
+
+<InlineForm
+  placeholder="Your e-mail"
+  buttonLabel="Subscribe"
+  inputProps={{ "aria-label": "E-mail", type: "email" }}
+  onSubmit={(email) => subscribe(email)}
+/>`,
+    usage: {
+      use: ["One value and one action: newsletter, invite by e-mail, join a waitlist.", "validate to decide when the action appears; the default is a loose e-mail check."],
+      avoid: ["More than one field; use Form with Field.", "Actions needing a separate confirmation step; compose a Dialog before submitting."]
+    },
+    keyboard: [
+      { keys: "Enter", does: "Submits once the value validates" },
+      { keys: "Tab", does: "Reaches the button only after the value validates" }
+    ],
+    a11y: [
+      "The input is named by inputProps aria-label, falling back to the placeholder; use a clear persistent name.",
+      "The submit button stays out of the tab order (tabIndex -1) until validate returns true.",
+      "Submission awaits the onSubmit promise. aria-busy and pendingLabel indicate progress; duplicate submits are ignored, failure is an alert, and retry preserves the value.",
+      "Success is a live status inside the same form, preserving its ref. Without an onSubmit handler the form cannot claim success.",
+      "Controlled with value and onValueChange, or uncontrolled with defaultValue; native inputProps onChange is composed with internal state."
+    ],
+    aliases: ["Inline form", "Newsletter form", "Subscribe form", "Single-field form"]
+  },
+  {
+    name: "radio",
+    title: "Radio",
+    description: "Selects one option from a group. The selected dot fills with ink.",
+    category: "forms",
+    classes: ["rs-radio", "rs-radio-dot", "rs-radio-on", "rs-radio-fill"],
+    css: ["components/radio.css"],
+    react: "components/radio.tsx",
+    snippet: `<label class="rs-radio"><span class="rs-radio-dot rs-radio-on"></span>Monthly</label>`,
+    example: `import { useState } from "react";
+import { Radio, RadioGroup } from "@noorddev/vlak-react";
+
+const [plan, setPlan] = useState("monthly");
+
+<RadioGroup aria-label="Billing" value={plan} onValueChange={setPlan}>
+  <Radio value="monthly" label="Monthly" />
+  <Radio value="yearly" label="Yearly" />
+</RadioGroup>`,
+    usage: {
+      use: ["One choice from two to six visible options.", "Choices that should all be readable at once."],
+      avoid: ["Many options; use Select.", "Independent on and off choices; use Checkbox."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves focus into the group, onto the checked radio" },
+      { keys: "Arrow up, Arrow down, Arrow left, Arrow right", does: "Moves the selection" },
+      { keys: "Space", does: "Selects the focused radio" }
+    ],
+    a11y: [
+      'RadioGroup renders role="radiogroup"; pass aria-label or aria-labelledby to name it.',
+      'Radio is a native <input type="radio"> hidden from view inside a <label>; the ink dot mirrors its state.',
+      "The group shares a generated name unless you pass one."
+    ],
+    aliases: ["Radio", "Radio group", "RadioGroup", "Radio button"]
+  },
+  {
+    name: "checkbox",
+    title: "Checkbox",
+    description: "Selects any number of options. A 44px target surrounds the check mark; indeterminate uses a minus.",
+    category: "forms",
+    classes: ["rs-choice", "rs-check", "rs-check-on"],
+    css: ["components/checkbox.css"],
+    react: "components/checkbox.tsx",
+    snippet: `<label class="rs-choice"><span class="rs-check rs-check-on"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.25 L6.25 11.5 L13 4.5" vector-effect="non-scaling-stroke"/></svg></span>Brand</label>`,
+    example: `import { useState } from "react";
+import { Checkbox } from "@noorddev/vlak-react";
+
+const [opted, setOpted] = useState(false);
+
+<Checkbox label="Brand" defaultChecked />
+<Checkbox label="Send me the newsletter" checked={opted} onChange={(e) => setOpted(e.target.checked)} />`,
+    usage: {
+      use: ["Independent on and off choices, alone or in a list.", "Consent and acknowledgement lines."],
+      avoid: ["A setting that takes effect immediately; use Switch.", "One choice from many; use Radio."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves focus to the checkbox" },
+      { keys: "Space", does: "Toggles it" }
+    ],
+    a11y: [
+      'A native <input type="checkbox"> hidden from view inside a <label>; the 16px box mirrors its state.',
+      "label is the accessible name. Without one, pass aria-label.",
+      "Controlled with checked and onCheckedChange or native onChange, or uncontrolled with defaultChecked. indeterminate sets the native mixed state."
+    ],
+    aliases: ["Checkbox", "Check box", "Tick box"]
+  },
+  {
+    name: "switch",
+    title: "Switch",
+    description: "Turns one setting on or off. A slim 44\xD724px track sits inside a 44px touch target.",
+    category: "forms",
+    classes: ["rs-switch", "rs-switch-on", "rs-switch-thumb", "rs-switch-thumb-on"],
+    css: ["components/switch.css"],
+    react: "components/switch.tsx",
+    snippet: `<button type="button" class="rs-switch rs-switch-on" role="switch" aria-checked="true" aria-label="Notifications"><i class="rs-switch-thumb rs-switch-thumb-on" aria-hidden="true"></i></button>`,
+    example: `import { useState } from "react";
+import { Switch } from "@noorddev/vlak-react";
+
+const [enabled, setEnabled] = useState(false);
+
+<Switch checked={enabled} onCheckedChange={setEnabled} aria-label="Notifications" />`,
+    usage: {
+      use: ["A setting that applies as soon as it flips.", "Binary state with a clear on and off."],
+      avoid: ["Choices that need a submit button; use Checkbox.", "More than two states; use ToggleGroup."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves focus to the switch" },
+      { keys: "Space, Enter", does: "Toggles it" }
+    ],
+    a11y: [
+      'A native <button> with role="switch" and aria-checked.',
+      "It has no visible text; pass aria-label or aria-labelledby.",
+      "Controlled with checked and onCheckedChange, or uncontrolled with defaultChecked."
+    ],
+    aliases: ["Switch", "Toggle switch"]
+  },
+  {
+    name: "slider",
+    title: "Slider",
+    description: "Selects one value from a range. A fine track sits inside a 44px hit area.",
+    category: "forms",
+    classes: ["rs-slider", "rs-slider-fill", "rs-slider-thumb", "rs-slider-thumb-focused", "rs-slider-range"],
+    css: ["components/slider.css"],
+    react: "components/slider.tsx",
+    snippet: `<div class="rs-slider"><span class="rs-slider-fill" style="width:62%"></span><span class="rs-slider-thumb" style="left:62%"></span></div>`,
+    example: `import { useState } from "react";
+import { Slider } from "@noorddev/vlak-react";
+
+const [volume, setVolume] = useState(62);
+
+<Slider value={volume} onValueChange={setVolume} min={0} max={100} step={1} aria-label="Volume" />`,
+    usage: {
+      use: ["A number inside a known range where the position matters more than the digits.", "Volume, opacity, zoom, and similar live values."],
+      avoid: ['Exact values; use Input type="number".', "Ranges with two thumbs; the component has one."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves focus to the slider" },
+      { keys: "Arrow right, Arrow up", does: "Increases by step" },
+      { keys: "Arrow left, Arrow down", does: "Decreases by step" },
+      { keys: "Home, End", does: "Jumps to min or max" }
+    ],
+    a11y: [
+      'A native <input type="range"> drives the ink track; the platform exposes value, min, and max.',
+      "It has no visible text; pass aria-label or aria-labelledby.",
+      "The visible thumb sits on a 44px hit area and shows a focus ring on :focus-visible."
+    ],
+    aliases: ["Slider", "Range", "Range input"]
+  },
+  {
+    name: "progress",
+    title: "Progress",
+    description: "Shows completion for a known process. 4px bar; the label carries the percentage.",
+    category: "feedback",
+    classes: ["rs-progress", "rs-progress-head", "rs-progress-fill"],
+    css: ["components/progress.css"],
+    react: "components/progress.tsx",
+    snippet: `<div class="rs-progress-head"><span id="upload-label">Uploading</span><span>40%</span></div><div class="rs-progress" role="progressbar" aria-labelledby="upload-label" aria-valuemin="0" aria-valuemax="100" aria-valuenow="40"><span class="rs-progress-fill" style="width:40%"></span></div>`,
+    example: `import { Progress } from "@noorddev/vlak-react";
+
+<Progress label="Uploading" value={40} />
+<Progress value={3} max={5} aria-label="Steps done" />`,
+    usage: {
+      use: ["Determinate progress with a known total.", "label to show the name and the percentage above the bar."],
+      avoid: ["Unknown duration; use Spinner.", "Static ratios like storage used; a number reads better."]
+    },
+    a11y: [
+      'Renders role="progressbar" with aria-valuemin, aria-valuemax, aria-valuenow, and aria-valuetext as a percentage.',
+      "label names the bar through aria-labelledby; without one, pass aria-label."
+    ],
+    aliases: ["Progress", "Progress bar", "Meter"]
+  },
+  {
+    name: "tabs",
+    title: "Tabs",
+    description: "Switches between related panels. Text labels in one row; active tab has a 1px underline.",
+    category: "navigation",
+    classes: ["rs-tabs", "rs-tabs-vertical", "rs-tab", "rs-tab-active"],
+    css: ["components/tabs.css"],
+    react: "components/tabs.tsx",
+    snippet: `<div class="rs-tabs"><span class="rs-tab rs-tab-active">Overview</span><span class="rs-tab">Activity</span><span class="rs-tab">Settings</span></div>`,
+    example: `import { Tab, TabList, TabPanel, Tabs } from "@noorddev/vlak-react";
+
+<Tabs defaultValue="overview">
+  <TabList aria-label="Project">
+    <Tab value="overview">Overview</Tab>
+    <Tab value="activity">Activity</Tab>
+    <Tab value="settings">Settings</Tab>
+  </TabList>
+  <TabPanel value="overview">\u2026</TabPanel>
+  <TabPanel value="activity">\u2026</TabPanel>
+  <TabPanel value="settings">\u2026</TabPanel>
+</Tabs>`,
+    usage: {
+      use: ["Two to six views of the same object that share one place on the page.", 'orientation="vertical" on TabList for a stacked rail.'],
+      avoid: ["Navigation between pages; use NavigationMenu with real links.", "Sequential steps; use Stepper."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves focus to the selected tab, then into the panel" },
+      { keys: "Arrow left, Arrow right", does: "Moves to the previous or next tab and selects it (wraps)" },
+      { keys: "Arrow up, Arrow down", does: "The same when orientation is vertical" },
+      { keys: "Home, End", does: "First or last tab" }
+    ],
+    a11y: [
+      'TabList is role="tablist" (aria-orientation when vertical); pass aria-label to name it.',
+      'Tab is a <button role="tab"> with aria-selected and aria-controls; TabPanel is role="tabpanel" with aria-labelledby, hidden when not selected.',
+      "One roving tab stop: only the selected tab is in the tab order.",
+      "Without a default, the first enabled tab is selected. Removing or disabling the active tab reconciles to the first enabled tab; each target is at least 44px.",
+      "Controlled with value and onValueChange, or uncontrolled with defaultValue."
+    ],
+    aliases: ["Tabs", "Tab list", "Tab bar"]
+  },
+  {
+    name: "breadcrumbs",
+    title: "Breadcrumbs",
+    description: "Shows a page's place in a hierarchy. Ancestors are links; the current page is full ink.",
+    category: "navigation",
+    classes: ["rs-crumbs", "rs-crumbs-list", "rs-crumbs-item", "rs-crumbs-link", "rs-crumbs-sep", "rs-crumbs-here"],
+    css: ["components/breadcrumbs.css"],
+    react: "components/breadcrumbs.tsx",
+    snippet: `<p class="rs-crumbs"><a class="rs-crumbs-link" href="/">Studio</a><span class="rs-crumbs-sep">/</span><span class="rs-crumbs-here">Vlak</span></p>`,
+    example: `import { Breadcrumbs } from "@noorddev/vlak-react";
+
+<Breadcrumbs items={[{ label: "Studio", href: "/studio" }, { label: "Vlak", href: "/studio/vlak" }, { label: "Components" }]} />`,
+    usage: {
+      use: ["Showing where a page sits in a hierarchy three or more levels deep.", "The last item is the current page and carries no href."],
+      avoid: ["Flat sites with one level.", "As the primary navigation; pair it with a nav."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves between the ancestor links" },
+      { keys: "Enter", does: "Follows the link" }
+    ],
+    a11y: [
+      'Renders <nav aria-label="Breadcrumb"> with an ordered list.',
+      'The last item is marked aria-current="page"; separators are aria-hidden.'
+    ],
+    aliases: ["Breadcrumb", "Breadcrumbs", "Trail"]
+  },
+  {
+    name: "crumb-bar",
+    title: "Crumb bar",
+    description: "Keeps the current path visible while scrolling. Fixed at 72px with a 1px bottom rule when active.",
+    category: "navigation",
+    classes: ["rs-crumb-bar", "rs-crumb-bar-scrolled", "rs-crumb-bar-inner", "rs-crumb-root", "rs-crumb-root-full", "rs-crumb-root-short", "rs-crumb-crumbs", "rs-crumb-crumbs-on", "rs-crumb-item", "rs-crumb-here", "rs-crumb-link", "rs-crumb-sep"],
+    css: ["components/crumb-bar.css"],
+    react: "components/crumb-bar.tsx",
+    registryDependencies: ["breadcrumbs"],
+    snippet: `<nav class="rs-crumb-bar rs-crumb-bar-scrolled"><div class="rs-crumb-bar-inner"><a class="rs-crumb-root" href="/"><span class="rs-crumb-root-full">Vlak</span><span class="rs-crumb-root-short">rs</span></a><p class="rs-crumbs"><span>Docs</span><span class="rs-crumbs-sep">/</span><span class="rs-crumbs-here">Components</span></p></div></nav>`,
+    example: `import { CrumbBar } from "@noorddev/vlak-react";
+
+<CrumbBar
+  root={{ label: "Renato Vald\xE9s Olmos", href: "/" }}
+  rootShort="RVO"
+  trail={[{ label: "Components", href: "/components" }, { label: "Switch" }]}
+  threshold={110}
+/>`,
+    usage: {
+      use: ["The fixed top bar of a long page: transparent over the cover, paper and a hairline once scrolled.", "A root mark plus the trail of the current page."],
+      avoid: ["Pages without a cover; use Breadcrumbs in the flow.", "Bars that hold actions or search; this one holds the trail only."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves to the root link, then the trail links once the bar is scrolled in" },
+      { keys: "Enter", does: "Follows the link" }
+    ],
+    a11y: [
+      'Renders <nav aria-label="Breadcrumb">; the trail is an ordered list with aria-current="page" on the last item.',
+      "While the bar is transparent the trail is inert, so nothing focuses into an invisible link."
+    ],
+    aliases: ["Crumb bar", "Sticky header", "Top bar", "App bar"]
+  },
+  {
+    name: "pagination",
+    title: "Pagination",
+    description: "Moves through paginated content. Square controls; the current page fills with ink.",
+    category: "navigation",
+    classes: ["rs-pages", "rs-page", "rs-page-on", "rs-page-gap", "rs-pages-icon"],
+    css: ["components/pagination.css"],
+    react: "components/pagination.tsx",
+    snippet: `<div class="rs-pages"><span class="rs-page"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 3.75 L5.5 8.25 L10.5 12.75" vector-effect="non-scaling-stroke"/></svg></span><span class="rs-page rs-page-on">1</span><span class="rs-page">2</span><span class="rs-page"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 3.75 L10.5 8.25 L5.5 12.75" vector-effect="non-scaling-stroke"/></svg></span></div>`,
+    example: `import { useState } from "react";
+import { Pagination } from "@noorddev/vlak-react";
+
+const [page, setPage] = useState(1);
+
+<Pagination page={page} count={12} onPageChange={setPage} siblings={1} />`,
+    usage: {
+      use: ["Paged lists and tables where the user needs to jump to a specific page.", "siblings to widen the window around the current page."],
+      avoid: ["Feeds that load more on scroll.", "Fewer than three pages; a previous and next pair is enough."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves between the page buttons" },
+      { keys: "Enter, Space", does: "Goes to that page" }
+    ],
+    a11y: [
+      'Renders <nav aria-label="Pagination"> of native buttons; the current page carries aria-current="page".',
+      "Previous and next are labelled and disabled at the ends; gaps are aria-hidden."
+    ],
+    aliases: ["Pagination", "Pager", "Page navigation"]
+  },
+  {
+    name: "select",
+    title: "Select",
+    description: "Selects one option from an overlay. The closed trigger carries a chevron.",
+    category: "forms",
+    classes: ["rs-select", "rs-select-list", "rs-select-fluid", "rs-select-native", "rs-select-feedback"],
+    css: ["components/select.css"],
+    react: "components/select.tsx",
+    registryDependencies: ["dropdown-menu"],
+    snippet: `<button class="rs-dropdown" role="combobox" aria-haspopup="listbox" aria-expanded="true"><span>Alkmaar</span></button>
+<div class="rs-menu rs-select-list" role="listbox"><div class="rs-menu-item rs-menu-item-active" role="option" aria-selected="true">Alkmaar</div><div class="rs-menu-item" role="option" aria-selected="false">Amsterdam</div></div>`,
+    example: `import { useState } from "react";
+import { Select } from "@noorddev/vlak-react";
+
+const [city, setCity] = useState("alkmaar");
+
+<Select
+  aria-label="City"
+  options={[
+    { value: "alkmaar", label: "Alkmaar" },
+    { value: "amsterdam", label: "Amsterdam" },
+    { value: "rotterdam", label: "Rotterdam" },
+  ]}
+  value={city}
+  onValueChange={setCity}
+/>`,
+    usage: {
+      use: ["One choice from a list of five or more when the labels are short.", "Lists that benefit from type-ahead and a consistent overlay across platforms.", "Use fullWidth in compound field layouts. name and form support native submission; required uses native validation and reset restores uncontrolled defaults. readOnly preserves the submitted selection.", "Mark unavailable options disabled; they stay visible and are skipped by keyboard navigation."],
+      avoid: ["Free text or filtering; use Combobox.", "A platform picker when it is specifically preferred; use NativeSelect."]
+    },
+    keyboard: [
+      { keys: "Arrow down, Arrow up, Enter, Space", does: "Opens the list on the selected option" },
+      { keys: "Home, End", does: "Opens on the first or last option; moves there when open" },
+      { keys: "Type letters", does: "Jumps to the next matching option, open or closed" },
+      { keys: "Arrow down, Arrow up", does: "Moves the active option" },
+      { keys: "Page up, Page down", does: "Moves ten options" },
+      { keys: "Enter, Space", does: "Selects the active option and closes" },
+      { keys: "Escape", does: "Closes and returns focus to the trigger" },
+      { keys: "Tab", does: "Closes and moves on" }
+    ],
+    a11y: [
+      'APG select-only combobox: the trigger is a <button role="combobox"> with aria-haspopup="listbox", aria-expanded, aria-controls, and aria-activedescendant.',
+      'The list is role="listbox" with role="option" rows carrying aria-selected; focus stays on the trigger.',
+      "Pass aria-label or aria-labelledby; the listbox is labelled by the same source.",
+      "Controlled with value and onValueChange, or uncontrolled with defaultValue. A click outside closes it."
+    ],
+    aliases: ["Select", "Listbox", "Dropdown select", "Picker"]
+  },
+  {
+    name: "dialog",
+    title: "Dialog",
+    description: "Focuses attention on a modal task. Title, body, and two equal actions.",
+    category: "surfaces",
+    classes: ["rs-dialog", "rs-dialog-title", "rs-dialog-body", "rs-dialog-actions", "rs-dialog-close"],
+    css: ["components/dialog.css"],
+    react: "components/dialog.tsx",
+    registryDependencies: ["button"],
+    snippet: `<div class="rs-dialog" role="dialog" aria-labelledby="remove-title" aria-describedby="remove-body"><h2 class="rs-dialog-title" id="remove-title">Remove this item?</h2><p class="rs-dialog-body" id="remove-body">This can't be undone.</p><div class="rs-dialog-actions"><button class="rs-btn-ghost rs-btn-sm">Cancel</button><button class="rs-btn-primary rs-btn-sm">Remove</button></div></div>`,
+    example: `import { useState } from "react";
+import { Button, Dialog, DialogActions, DialogBody, DialogTitle } from "@noorddev/vlak-react";
+
+const [open, setOpen] = useState(false);
+
+<Button variant="ghost" onClick={() => setOpen(true)}>Remove</Button>
+<Dialog open={open} onClose={() => setOpen(false)} closeLabel="Close">
+  <DialogTitle>Remove this item?</DialogTitle>
+  <DialogBody>This can't be undone.</DialogBody>
+  <DialogActions>
+    <Button variant="ghost" size="sm" onClick={() => setOpen(false)}>Cancel</Button>
+    <Button size="sm" onClick={remove}>Remove</Button>
+  </DialogActions>
+</Dialog>`,
+    usage: {
+      use: ["A short decision or a form that must finish before the page continues.", "One title, one sentence of body, two equal actions."],
+      avoid: ["Content the user should keep the page in view for; use Sheet or Popover.", "Destructive confirmations that must not dismiss on Escape; use AlertDialog."]
+    },
+    keyboard: [
+      { keys: "Escape", does: "Calls onClose (when dismissable, the default)" },
+      { keys: "Tab, Shift + Tab", does: "Cycles focus inside the open dialog" },
+      { keys: "Enter, Space", does: "Activates the focused action" }
+    ],
+    a11y: [
+      "A native <dialog> opened with showModal(): the platform traps focus, provides the backdrop, and handles Escape.",
+      "DialogTitle (an h2 by default) names it through aria-labelledby; DialogBody describes it through aria-describedby, only while mounted.",
+      "On open, focus moves to [autofocus] or the first focusable element; on close it returns to the element that opened it.",
+      'dismissable={false} maps to closedby="none"; lightDismiss adds a click on the backdrop. closeLabel renders a labelled close button. The ref is forwarded to the <dialog>.'
+    ],
+    aliases: ["Dialog", "Modal", "Modal dialog"]
+  },
+  {
+    name: "badge",
+    title: "Badge",
+    description: "Labels status or category. 11px text with outline, solid, and muted variants.",
+    category: "feedback",
+    classes: ["rs-badge", "rs-badge-solid", "rs-badge-muted"],
+    css: ["components/badge.css"],
+    react: "components/badge.tsx",
+    snippet: `<span class="rs-badge">Recommended</span><span class="rs-badge-solid">Delivered</span><span class="rs-badge-muted">In progress</span>`,
+    example: `import { Badge } from "@noorddev/vlak-react";
+
+<Badge>Recommended</Badge>
+<Badge variant="solid">Delivered</Badge>
+<Badge variant="muted">In progress</Badge>`,
+    usage: {
+      use: ["A short status or category next to a title.", "solid for done, outline for a recommendation, muted for pending."],
+      avoid: ["Counts that update live; announce those elsewhere.", "Clickable filters; use Toggle."]
+    },
+    a11y: [
+      "A plain <span>; the text is all there is. Keep it to one or two words."
+    ],
+    aliases: ["Badge", "Tag", "Pill", "Status"]
+  },
+  {
+    name: "chip",
+    title: "Mono chip",
+    description: "Marks a short technical identifier. Monospace text with a 1px mixed border.",
+    category: "content",
+    classes: ["rs-chip"],
+    css: ["components/chip.css"],
+    react: "components/chip.tsx",
+    snippet: `<span class="rs-chip">/noord-brand</span>`,
+    example: `import { Chip } from "@noorddev/vlak-react";
+
+<Chip>/noord-brand</Chip>`,
+    usage: {
+      use: ["Identifiers in monospace: paths, handles, keys, short code.", "Inline in copy or in a list of tags."],
+      avoid: ["Status words; use Badge.", "Removable filter tokens; the chip has no close control."]
+    },
+    a11y: [
+      "A plain <span> set in the mono stack."
+    ],
+    aliases: ["Chip", "Mono chip", "Code chip", "Token"]
+  },
+  {
+    name: "card",
+    title: "Card",
+    description: "Groups related content as a label, title, and body. No outline.",
+    category: "surfaces",
+    classes: ["rs-card", "rs-card-label", "rs-card-title", "rs-card-body", "rs-card-in"],
+    css: ["components/card.css"],
+    react: "components/card.tsx",
+    snippet: `<div class="rs-card"><span class="rs-card-label">Case study</span><h3 class="rs-card-title">A quieter interface</h3><p class="rs-card-body">Emphasis from weight and spacing, never from a hue.</p></div>`,
+    example: `import { Card, CardBody, CardLabel, CardTitle } from "@noorddev/vlak-react";
+
+<Card>
+  <CardLabel>Case study</CardLabel>
+  <CardTitle>A quieter interface</CardTitle>
+  <CardBody>Emphasis from weight and spacing, never from a hue.</CardBody>
+</Card>`,
+    usage: {
+      use: ["A titled block of copy on the grid: label, title, body.", "CardInner for a padded field inside a Nest."],
+      avoid: ["Framed boxes with shadows; cards have no outline.", "Interactive tiles; wrap the title in a Link instead of making the card clickable."]
+    },
+    a11y: [
+      "CardTitle renders an <h3>; adjust the heading level with a wrapper when it breaks the outline.",
+      "The ref on Card is forwarded to the <div>."
+    ],
+    aliases: ["Card", "Panel", "Tile"]
+  },
+  {
+    name: "concentric-radius",
+    title: "Concentric radius",
+    description: "Calculates aligned nested corners. Inner radius = outer \u2212 inset, clamped at 0.",
+    category: "surfaces",
+    classes: ["rs-nest", "rs-nest-in"],
+    css: ["components/concentric-radius.css"],
+    react: "components/concentric-radius.tsx",
+    registryDependencies: ["button"],
+    hidden: true,
+    snippet: `<div class="rs-nest" style="--rs-out:28px;--rs-gap:16px;width:184px"><div class="rs-nest-in"><button class="rs-btn-primary rs-btn-sm">Save</button></div></div>`,
+    example: `import { Button, Nest, NestInner, innerRadius } from "@noorddev/vlak-react";
+
+<Nest radius={28} pad={16}>
+  <NestInner>
+    <Button size="sm">Save</Button>
+  </NestInner>
+</Nest>
+
+innerRadius(28, 16); // 12`,
+    usage: {
+      use: ["Nested rounded boxes whose corners must share a centre.", "innerRadius(outer, pad) computes max(0, outer minus padding) in constant time. Obsolete fit options remain accepted but are ignored."],
+      avoid: ["Square chrome; surfaces are 0 or 4px and rarely nest."]
+    },
+    a11y: [
+      "Layout only. Nest sets --rs-out, --rs-gap, and --rs-in on a <div>."
+    ],
+    aliases: ["Nested radius", "Concentric corners", "Inner radius"]
+  },
+  {
+    name: "stepper",
+    title: "Stepper",
+    description: "Shows progress through ordered steps. 1px connectors; done fills with ink, active is outlined.",
+    category: "navigation",
+    classes: ["rs-steps", "rs-step", "rs-step-dot", "rs-step-done", "rs-step-active", "rs-step-name", "rs-step-sub", "rs-step-line"],
+    css: ["components/stepper.css"],
+    react: "components/stepper.tsx",
+    snippet: `<div class="rs-steps"><div class="rs-step"><span class="rs-step-dot rs-step-done">1</span><span class="rs-step-line"></span><span class="rs-step-name">Brief</span></div><div class="rs-step"><span class="rs-step-dot rs-step-active">2</span><span class="rs-step-name">Design</span></div></div>`,
+    example: `import { Stepper } from "@noorddev/vlak-react";
+
+<Stepper steps={[{ name: "Brief" }, { name: "Design", sub: "In review" }, { name: "Build" }]} current={1} />`,
+    usage: {
+      use: ["A fixed sequence of three to six steps where the user should see what is done and what is next.", "sub for a short status under a step."],
+      avoid: ["Steps the user can jump between; use Tabs.", "Progress of one task; use Progress."]
+    },
+    a11y: [
+      'The active step carries aria-current="step"; connector lines are aria-hidden.',
+      "The dots are numbered text, so the order reads without color."
+    ],
+    aliases: ["Stepper", "Steps", "Progress steps", "Wizard"]
+  },
+  {
+    name: "table",
+    title: "Table",
+    description: "Presents structured values in rows and columns. 1px row rules; total rows use 2px rules.",
+    category: "content",
+    classes: ["rs-table", "rs-total-row", "rs-table-row", "rs-table-td", "rs-table-th", "rs-table-total-cell"],
+    css: ["components/table.css"],
+    react: "components/table.tsx",
+    snippet: `<table class="rs-table"><thead><tr><th>Phase</th><th>Weeks</th></tr></thead><tbody><tr><td>Strategy</td><td>2</td></tr><tr><td>Identity</td><td>4</td></tr></tbody></table>`,
+    example: `import { Table, TableBody, TableHead, TableRow, TableTd, TableTh } from "@noorddev/vlak-react";
+
+<Table>
+  <TableHead>
+    <TableRow>
+      <TableTh scope="col">Phase</TableTh>
+      <TableTh scope="col">Weeks</TableTh>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    <TableRow>
+      <TableTd>Strategy</TableTd>
+      <TableTd>2</TableTd>
+    </TableRow>
+    <TableRow total>
+      <TableTd total>Total</TableTd>
+      <TableTd total>6</TableTd>
+    </TableRow>
+  </TableBody>
+</Table>`,
+    usage: {
+      use: ["Static tabular data with a last column of numbers.", "total on the closing row and its cells for 2px rules."],
+      avoid: ["Sorting and empty states; use DataTable.", "Layout; use the grid."]
+    },
+    a11y: [
+      "A native <table>; use TableTh with scope for headers and add a <caption> when the table needs a name.",
+      "The ref on Table is forwarded to the <table>."
+    ],
+    aliases: ["Table", "Static table", "Grid"]
+  },
+  {
+    name: "icons",
+    title: "Icons",
+    description: "Provides interface marks on a 16px viewBox. Round currentColor strokes are 1px at 12, 1.25px at 16, and 1.5px at 24.",
+    category: "icons",
+    classes: [
+      "rs-icons",
+      "rs-icon",
+      "rs-icon-catalog",
+      "rs-icon-group",
+      "rs-icon-group-title",
+      "rs-icon-grid",
+      "rs-icon-cell",
+      "rs-icon-pair",
+      "rs-icon-kin",
+      "rs-icon-label"
+    ],
+    css: ["components/icons.css"],
+    react: "components/icon.tsx",
+    snippet: `<div class="rs-icons"><svg class="rs-icon" viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 3 H13 V10.5" vector-effect="non-scaling-stroke"/><rect x="3" y="5.5" width="7.5" height="7.5" vector-effect="non-scaling-stroke"/></svg><svg class="rs-icon" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 3 H13 V10.5" vector-effect="non-scaling-stroke"/><rect x="3" y="5.5" width="7.5" height="7.5" vector-effect="non-scaling-stroke"/></svg></div>`,
+    example: `import { Icon, IconCatalog, iconNames } from "@noorddev/vlak-react";
+
+<Icon name="search" size={12} />
+<Icon name="search" size={16} />
+<Icon name="check" size={24} variant="filled" />
+<Icon name="chevron-right" rotate={90} />
+<button type="button" aria-label="Close"><Icon name="close" /></button>
+
+iconNames; // every drawn mark
+<IconCatalog />`,
+    usage: {
+      use: ["Chrome marks at 12, 16, or 24: chevrons, close, search, sort, and the rest of the family.", 'rotate for the down and up chevrons; variant="filled" for the solid kin.'],
+      avoid: ["Illustration or brand marks; these are compact interface glyphs.", "Icons as the only label; add text or an aria-label on the control."]
+    },
+    a11y: [
+      'Icon renders an inline <svg aria-hidden="true">; it is decorative unless you pass aria-hidden={false}, role="img", and aria-label.',
+      "Icon-only controls need an aria-label; the icon never names them."
+    ],
+    aliases: ["Icon", "Icons", "Icon set", "Glyphs"]
+  },
+  {
+    name: "accordion",
+    title: "Accordion",
+    description: "Reveals related sections on demand. Native details rows with 1px rules.",
+    category: "content",
+    classes: ["rs-acc", "rs-acc-item", "rs-acc-chevron", "rs-acc-body", "rs-acc-chevron-open", "rs-acc-summary"],
+    css: ["components/accordion.css"],
+    react: "components/accordion.tsx",
+    snippet: `<div class="rs-acc"><details class="rs-acc-item" name="faq" open><summary>What is Vlak?<svg class="rs-acc-chevron" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(90 8 8)"><path d="M5.5 3.5 L10.5 8 L5.5 12.5" vector-effect="non-scaling-stroke"/></g></svg></summary><div class="rs-acc-body">A minimal, CSS-first design system.</div></details><details class="rs-acc-item" name="faq"><summary>Does it require Radix?<svg class="rs-acc-chevron" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(90 8 8)"><path d="M5.5 3.5 L10.5 8 L5.5 12.5" vector-effect="non-scaling-stroke"/></g></svg></summary><div class="rs-acc-body">No. Native elements provide the behavior.</div></details></div>`,
+    example: `import { Accordion, AccordionItem } from "@noorddev/vlak-react";
+
+<Accordion exclusive>
+  <AccordionItem title="What is Vlak?" defaultOpen>
+    A minimal, CSS-first design system.
+  </AccordionItem>
+  <AccordionItem title="Does it require Radix?">
+    No. Native elements provide the behavior.
+  </AccordionItem>
+</Accordion>`,
+    usage: {
+      use: ["FAQ and settings sections where headings should stay scannable.", "exclusive to keep one item open through the platform's details name grouping."],
+      avoid: ["Hiding content most readers need; put it in the flow.", "A single item; use Collapsible."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves to the next summary" },
+      { keys: "Enter, Space", does: "Opens or closes the item" }
+    ],
+    a11y: [
+      "Each item is a native <details> with a <summary>; the platform exposes the expanded state.",
+      "title is the summary text and the accessible name. Controlled with open and onToggle, or uncontrolled with defaultOpen."
+    ],
+    aliases: ["Accordion", "Disclosure group", "Expansion panel", "FAQ"]
+  },
+  {
+    name: "alert",
+    title: "Alert",
+    description: "Calls attention to contextual information. 1px frame and icon; critical variant fills with ink.",
+    category: "feedback",
+    classes: ["rs-alert", "rs-alert-title", "rs-alert-body", "rs-alert-solid", "rs-alert-body-solid", "rs-alert-icon", "rs-alert-icon-solid", "rs-alert-title-solid"],
+    css: ["components/alert.css"],
+    react: "components/alert.tsx",
+    snippet: `<div class="rs-alert" role="status"><div><span class="rs-alert-title">Heads up</span><p class="rs-alert-body">Your workspace syncs every hour.</p></div></div>`,
+    example: `import { Alert } from "@noorddev/vlak-react";
+
+<Alert title="Heads up">Your workspace syncs every hour.</Alert>
+<Alert variant="solid" title="Payment failed" live="assertive">Update your card to keep publishing.</Alert>`,
+    usage: {
+      use: ["A persistent message that belongs to the page: a warning, a limit, a state.", 'variant="solid" for the one critical message in view.'],
+      avoid: ["Transient confirmations; use toast.", "Notes in running copy; use Callout."]
+    },
+    a11y: [
+      'Static content renders role="note". Pass live="polite" (role="status") or live="assertive" (role="alert") only when the alert appears in response to something.',
+      "The default icon is decorative; icon accepts your own node."
+    ],
+    aliases: ["Alert", "Banner", "Notice", "Inline message"]
+  },
+  {
+    name: "alert-dialog",
+    title: "Alert dialog",
+    description: "Requires a decision before work continues. Native dialog with Escape and light dismiss disabled.",
+    category: "surfaces",
+    classes: ["rs-alert-dialog"],
+    css: ["components/alert-dialog.css"],
+    react: "components/alert-dialog.tsx",
+    registryDependencies: ["dialog", "button"],
+    snippet: `<dialog class="rs-dialog" role="alertdialog" closedby="none" aria-labelledby="delete-title" aria-describedby="delete-body" open><h2 class="rs-dialog-title" id="delete-title">Delete this workspace?</h2><p class="rs-dialog-body" id="delete-body">All projects go with it.</p><div class="rs-dialog-actions"><button class="rs-btn-ghost rs-btn-sm">Cancel</button><button class="rs-btn-primary rs-btn-sm">Delete</button></div></dialog>`,
+    example: `import { useState } from "react";
+import { AlertDialog, AlertDialogActions, AlertDialogBody, AlertDialogTitle, Button } from "@noorddev/vlak-react";
+
+const [open, setOpen] = useState(false);
+
+<AlertDialog open={open} onClose={() => setOpen(false)}>
+  <AlertDialogTitle>Delete this workspace?</AlertDialogTitle>
+  <AlertDialogBody>All projects go with it.</AlertDialogBody>
+  <AlertDialogActions>
+    <Button variant="ghost" size="sm" onClick={() => setOpen(false)}>Keep it</Button>
+    <Button size="sm" onClick={remove}>Delete</Button>
+  </AlertDialogActions>
+</AlertDialog>`,
+    usage: {
+      use: ["Destructive or irreversible actions that need an explicit answer.", "Exactly two actions: keep and proceed."],
+      avoid: ["Anything the user may dismiss without answering; use Dialog.", "Informational messages; use Alert or toast."]
+    },
+    keyboard: [
+      { keys: "Tab, Shift + Tab", does: "Cycles focus between the actions" },
+      { keys: "Enter, Space", does: "Activates the focused action" },
+      { keys: "Escape", does: "Does nothing; the dialog must be answered" }
+    ],
+    a11y: [
+      'A native modal <dialog> with role="alertdialog" and closedby="none": Escape and light dismiss are off.',
+      "AlertDialogTitle and AlertDialogBody wire aria-labelledby and aria-describedby like Dialog; focus moves in on open and returns on close."
+    ],
+    aliases: ["Alert dialog", "Confirm dialog", "Confirmation", "Destructive confirm"]
+  },
+  {
+    name: "avatar",
+    title: "Avatar",
+    description: "Identifies a person or group. 32px image or initials; broken images fall back automatically.",
+    category: "content",
+    classes: ["rs-avatar", "rs-avatar-sm", "rs-avatar-lg", "rs-avatar-row", "rs-avatar-image", "rs-avatar-in-row"],
+    css: ["components/avatar.css"],
+    react: "components/avatar.tsx",
+    snippet: `<div class="rs-avatar-row"><span class="rs-avatar">RV</span><span class="rs-avatar">NO</span><span class="rs-avatar">+3</span></div>`,
+    example: `import { Avatar, AvatarRow } from "@noorddev/vlak-react";
+
+<Avatar src="/renn.jpg" name="Renn" initials="RV" size="lg" />
+<AvatarRow>
+  <Avatar name="Renn" initials="RV" />
+  <Avatar name="Noord" initials="NO" />
+  <Avatar initials="+3" alt="" />
+</AvatarRow>`,
+    usage: {
+      use: ["A person or organisation next to their name, or a row of collaborators.", "initials as the fallback while the image loads or fails."],
+      avoid: ["Logos and product images; use AspectRatio.", "Decorative circles without a subject."]
+    },
+    a11y: [
+      'The image alt defaults to name, then initials; pass alt="" for a decorative avatar.',
+      'Initials with a name render role="img" with aria-label; without a name they are plain text.',
+      "A broken image falls back to the initials."
+    ],
+    aliases: ["Avatar", "Profile picture", "User image", "Avatar group"]
+  },
+  {
+    name: "item",
+    title: "Item",
+    description: "Presents one list entry. Title and description sit left; metadata sits right.",
+    category: "content",
+    classes: ["rs-item", "rs-item-title", "rs-item-desc", "rs-item-meta"],
+    css: ["components/item.css"],
+    react: "components/item.tsx",
+    snippet: `<div class="rs-item"><div><p class="rs-item-title">Alkmaar</p><p class="rs-item-desc">The studio city.</p></div><span class="rs-item-meta">NL</span></div>`,
+    example: `import { Item } from "@noorddev/vlak-react";
+
+<Item title="Alkmaar" description="The studio city." meta="NL" />`,
+    usage: {
+      use: ["Rows in a flush list: a title, a line of description, a trailing meta value.", "Settings lists, results, and directories."],
+      avoid: ["Rows that navigate; wrap the title in a Link.", "Tabular numbers across many columns; use Table."]
+    },
+    a11y: [
+      "A <div> with two <p> lines and a trailing <span>; nothing is interactive by itself."
+    ],
+    aliases: ["Item", "List item", "Row", "Cell"]
+  },
+  {
+    name: "textarea",
+    title: "Textarea",
+    description: "Collects multiple lines of text. Resizes vertically only.",
+    category: "forms",
+    classes: ["rs-textarea", "rs-textarea-invalid", "rs-textarea-feedback", "rs-textarea-field", "rs-textarea-label"],
+    css: ["components/textarea.css"],
+    react: "components/textarea.tsx",
+    registryDependencies: ["input"],
+    snippet: `<div class="rs-field"><span class="rs-field-label">Notes</span><textarea class="rs-textarea" placeholder="What should we know?"></textarea></div>`,
+    example: `import { Textarea } from "@noorddev/vlak-react";
+
+<Textarea label="Notes" placeholder="What should we know?" rows={4} />`,
+    usage: {
+      use: ["Free text longer than one line.", "Vertical resize only; the width follows the grid."],
+      avoid: ["Single values; use Input.", "Rich text; this is a native textarea."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves focus to the field; Enter inserts a line break" }
+    ],
+    a11y: [
+      "A native <textarea> with a generated id; label renders a <label> pointing at it.",
+      "Inside Field, hint and error reach it through aria-describedby and aria-invalid."
+    ],
+    aliases: ["Textarea", "Text area", "Multiline input"]
+  },
+  {
+    name: "separator",
+    title: "Separator",
+    description: "Separates related regions with a 1px horizontal or vertical rule.",
+    category: "content",
+    classes: ["rs-sep", "rs-sep-v"],
+    css: ["components/separator.css"],
+    react: "components/separator.tsx",
+    snippet: `<hr class="rs-sep" />`,
+    example: `import { Separator } from "@noorddev/vlak-react";
+
+<Separator />
+<Separator orientation="vertical" style={{ height: 16 }} />`,
+    usage: {
+      use: ["A hairline between groups in a stack or a row.", 'orientation="vertical" between inline items.'],
+      avoid: ["Between every list row; rows carry their own rules.", "As spacing; use the grid."]
+    },
+    a11y: [
+      'Horizontal renders an <hr>; vertical renders role="separator" with aria-orientation="vertical". Neither takes focus.'
+    ],
+    aliases: ["Separator", "Divider", "Rule", "hr"]
+  },
+  {
+    name: "skeleton",
+    title: "Skeleton",
+    description: "Reserves space while content loads. Divider-tone pulse that respects reduced motion.",
+    category: "feedback",
+    classes: ["rs-skeleton"],
+    css: ["components/skeleton.css"],
+    react: "components/skeleton.tsx",
+    snippet: `<span class="rs-skeleton" style="width:180px;height:14px"></span>`,
+    example: `import { Skeleton } from "@noorddev/vlak-react";
+
+<Skeleton width="60%" />
+<Skeleton width={240} height={14} />`,
+    usage: {
+      use: ["Holding the shape of content that is about to arrive.", "One line per line of text, at the text's height."],
+      avoid: ["Waits longer than a few seconds; show a message.", "Small controls; use Spinner."]
+    },
+    a11y: [
+      "aria-hidden; it says nothing. Set aria-busy on the region and announce the load elsewhere.",
+      "The pulse stops under prefers-reduced-motion."
+    ],
+    aliases: ["Skeleton", "Placeholder", "Loading placeholder", "Shimmer"]
+  },
+  {
+    name: "empty",
+    title: "Empty",
+    description: "Explains an empty state with a title, one sentence, and an optional action.",
+    category: "feedback",
+    classes: ["rs-empty", "rs-empty-title", "rs-empty-body", "rs-empty-action"],
+    css: ["components/empty.css"],
+    react: "components/empty.tsx",
+    registryDependencies: ["button"],
+    snippet: `<div class="rs-empty"><p class="rs-empty-title">No projects yet</p><p class="rs-empty-body">Start one. The grid is empty on purpose.</p><div class="rs-empty-action"><button class="rs-btn-ghost rs-btn-sm">New project</button></div></div>`,
+    example: `import { Button, Empty } from "@noorddev/vlak-react";
+
+<Empty title="No projects yet" action={<Button variant="ghost" size="sm">New project</Button>}>
+  Start one. The grid is empty on purpose.
+</Empty>`,
+    usage: {
+      use: ["A list, table, or search with nothing to show.", "One sentence and one action at most."],
+      avoid: ["Errors; use Alert.", "Loading; use Skeleton."]
+    },
+    a11y: [
+      "Plain text in a cell; the action is whatever you pass, so give it a real control."
+    ],
+    aliases: ["Empty", "Empty state", "Zero state", "No results"]
+  },
+  {
+    name: "spinner",
+    title: "Spinner",
+    description: "Signals indeterminate progress. 16px ring with a 1px stroke; respects reduced motion.",
+    category: "feedback",
+    classes: ["rs-spinner", "rs-spinner-ring"],
+    css: ["components/spinner.css"],
+    react: "components/spinner.tsx",
+    snippet: `<span class="rs-spinner" role="status" aria-label="Loading"><svg viewBox="0 0 16 16" width="16" height="16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-dasharray="28 13" vector-effect="non-scaling-stroke"/></svg></span>`,
+    example: `import { Spinner } from "@noorddev/vlak-react";
+
+<Spinner label="Loading" />`,
+    usage: {
+      use: ["Short waits of unknown length inside a control or a row.", "label to say what is loading."],
+      avoid: ["Known progress; use Progress.", "Whole-page waits; use Skeleton."]
+    },
+    a11y: [
+      'Renders role="status" with aria-label from label ("Loading" by default); the ring is aria-hidden.',
+      "The animation stops under prefers-reduced-motion."
+    ],
+    aliases: ["Spinner", "Loader", "Loading indicator", "Activity indicator"]
+  },
+  {
+    name: "tooltip",
+    title: "Tooltip",
+    description: "Explains a control on hover or keyboard focus. A real element describes its trigger.",
+    category: "feedback",
+    classes: ["rs-tip", "rs-tip-bubble"],
+    css: ["components/tooltip.css"],
+    react: "components/tooltip.tsx",
+    registryDependencies: ["button"],
+    snippet: `<span class="rs-tip"><button class="rs-btn-ghost rs-btn-sm" aria-describedby="copy-tip">Copy</button><span class="rs-tip-bubble" role="tooltip" id="copy-tip">Copy to clipboard</span></span>`,
+    example: `import { Button, Tooltip } from "@noorddev/vlak-react";
+
+<Tooltip tip="Copy to clipboard">
+  <Button variant="ghost" size="sm" aria-label="Copy">Copy</Button>
+</Tooltip>`,
+    usage: {
+      use: ["A short label for an icon-only or terse control.", "Text that adds to the name, never text that replaces it."],
+      avoid: ["Content that must be read to operate the control; put it in view.", "Rich content; use HoverCard."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Focuses the trigger and shows the tip" },
+      { keys: "Escape", does: "Hides the tip until the pointer leaves" }
+    ],
+    a11y: [
+      'The tip is a real element with role="tooltip", linked to the trigger through aria-describedby.',
+      "An element child is described directly (and given tabIndex when it cannot take focus); a text child makes the wrapper the trigger.",
+      "Shown on hover and focus; the bubble stays hoverable."
+    ],
+    aliases: ["Tooltip", "Tip", "Hint"]
+  },
+  {
+    name: "toast",
+    title: "Toast",
+    description: "Reports a brief status in the bottom-right corner. Polite live region; pauses on hover and closes on demand.",
+    category: "feedback",
+    classes: ["rs-toasts", "rs-toast", "rs-toast-title", "rs-toast-body", "rs-toast-close"],
+    css: ["components/toast.css"],
+    react: "components/toast.tsx",
+    snippet: `<div class="rs-toasts" role="status" aria-live="polite"><div class="rs-toast"><div><span class="rs-toast-title">Saved</span><p class="rs-toast-body">Your changes are live.</p></div><button class="rs-toast-close" type="button" aria-label="Dismiss">&times;</button></div></div>`,
+    example: `import { Toaster, toast } from "@noorddev/vlak-react";
+
+// once, in your layout
+<Toaster duration={4000} closeLabel="Dismiss" />
+
+// from anywhere
+toast("Saved", { description: "Your changes are live." });`,
+    usage: {
+      use: ["Confirming something that already happened: saved, sent, copied.", "One line; a description only when the title needs it."],
+      avoid: ["Errors the user must act on; use Alert or AlertDialog.", "Anything with a link or a button inside."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Reaches the close button of each toast" },
+      { keys: "Enter, Space", does: "Dismisses the toast" }
+    ],
+    a11y: [
+      'The stack is role="status" with aria-live="polite".',
+      'Each toast has a labelled close button (closeLabel, "Dismiss" by default).',
+      "Lifetime scales with the text length and pauses while hovered or focused; duration on the call overrides it."
+    ],
+    aliases: ["Toast", "Sonner", "Snackbar", "Notification"]
+  },
+  {
+    name: "dropdown-menu",
+    title: "Dropdown menu",
+    description: "Presents a compact list of actions. Menu roles and arrow-key navigation are built in.",
+    category: "actions",
+    classes: ["rs-menu", "rs-dropdown", "rs-menu-item", "rs-menu-item-indicator", "rs-menu-item-label", "rs-menu-item-active", "rs-menu-item-disabled", "rs-menu-sep", "rs-menu-nested"],
+    css: ["components/dropdown-menu.css"],
+    react: "components/dropdown-menu.tsx",
+    registryDependencies: ["button"],
+    snippet: `<div class="rs-menu" role="menu"><button class="rs-menu-item" role="menuitem">Rename</button><button class="rs-menu-item" role="menuitem">Duplicate</button><hr class="rs-menu-sep" /><button class="rs-menu-item" role="menuitem">Delete</button></div>`,
+    example: `import { DropdownMenu } from "@noorddev/vlak-react";
+
+<DropdownMenu
+  label="Actions"
+  side="top"
+  items={[
+    { label: "Rename", onSelect: rename },
+    { label: "Duplicate", onSelect: duplicate },
+    { separator: true },
+    { label: "Delete", onSelect: remove },
+    { label: "Archive", disabled: true },
+  ]}
+/>`,
+    usage: {
+      use: ["Three or more actions on one object behind a single trigger.", "Separators to group destructive actions at the end.", 'Use side="top" for controls anchored to a persistent footer or viewport edge. Placement remains collision-aware.'],
+      avoid: ["Choosing a value; use Select.", "Navigation links; use NavigationMenu."]
+    },
+    keyboard: [
+      { keys: "Arrow down, Enter, Space", does: "Opens the menu on the first item" },
+      { keys: "Arrow up", does: "Opens the menu on the last item" },
+      { keys: "Arrow down, Arrow up", does: "Moves between items and wraps" },
+      { keys: "Arrow right, Arrow left", does: "Opens a child menu or returns to its parent; directions reverse in RTL" },
+      { keys: "Home, End", does: "First or last item" },
+      { keys: "Type letters", does: "Moves to the next item starting with them" },
+      { keys: "Enter, Space", does: "Selects the item and closes" },
+      { keys: "Escape", does: "Closes and returns focus to the trigger" },
+      { keys: "Tab", does: "Closes and moves on" }
+    ],
+    a11y: [
+      'The trigger is a <button> with aria-haspopup="menu", aria-expanded, and aria-controls; label is its name.',
+      'The panel is role="menu" labelled by the trigger; items are <button role="menuitem"> with one roving tab stop.',
+      "Disabled items carry aria-disabled and are skipped; separators are <hr>. A click outside closes without moving focus.",
+      "items opens a named nested menu. checked and onCheckedChange expose controlled menuitemcheckbox state. Escape returns to the immediate parent before closing the root menu."
+    ],
+    aliases: ["Dropdown menu", "Menu", "Action menu", "Overflow menu"]
+  },
+  {
+    name: "toggle",
+    title: "Toggle",
+    description: "Turns one persistent option on or off with aria-pressed. Default uses an ink fill when pressed; subtle uses a soft fill and stronger text.",
+    category: "actions",
+    classes: ["rs-toggle", "rs-toggle-group", "rs-toggle-grouped", "rs-toggle-grouped-on", "rs-toggle-pressed", "rs-toggle-subtle", "rs-toggle-subtle-pressed", "rs-toggle-group-subtle", "rs-toggle-grouped-subtle"],
+    css: ["components/toggle.css"],
+    react: "components/toggle.tsx",
+    snippet: `<button class="rs-toggle rs-toggle-pressed" aria-pressed="true">Bold</button>
+<button class="rs-toggle rs-toggle-subtle" aria-pressed="false">Italic</button>
+<button class="rs-toggle rs-toggle-pressed rs-toggle-subtle rs-toggle-subtle-pressed" aria-pressed="true">Underline</button>
+<button class="rs-toggle rs-toggle-subtle" aria-pressed="false" disabled>Strikethrough</button>`,
+    example: `import { useState } from "react";
+import { Toggle } from "@noorddev/vlak-react";
+
+const [bold, setBold] = useState(false);
+const [italic, setItalic] = useState(false);
+
+<Toggle pressed={bold} onPressedChange={setBold}>Bold</Toggle>
+<Toggle variant="subtle" pressed={italic} onPressedChange={setItalic}>Italic</Toggle>
+<Toggle variant="subtle" defaultPressed>Underline</Toggle>
+<Toggle variant="subtle" disabled>Strikethrough</Toggle>`,
+    usage: {
+      use: ["A formatting or filter option that is on or off and stays in view.", "Default for a bordered toggle with an ink pressed state. Subtle stays transparent on hover while muted text turns to ink; pressing adds a soft fill and stronger text.", "Several independent toggles in a row."],
+      avoid: ["A setting that applies immediately to the app; use Switch.", "One of several; use ToggleGroup."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves focus to the toggle" },
+      { keys: "Enter, Space", does: "Presses or releases it" }
+    ],
+    a11y: [
+      "A native <button> with aria-pressed.",
+      "Give icon-only toggles an aria-label. Controlled with pressed and onPressedChange, or uncontrolled with defaultPressed.",
+      "Both variants keep a minimum 44px target, a visible keyboard focus ring, and system colors in forced colors. Native disabled prevents activation."
+    ],
+    aliases: ["Toggle", "Toggle button", "Press button", "Subtle toggle"]
+  },
+  {
+    name: "toggle-group",
+    title: "Toggle group",
+    description: "Selects one visible option. Default joins toggles with an ink active state; subtle uses a gray rail, 3px gaps, and a soft active fill.",
+    category: "actions",
+    classes: ["rs-toggle-group", "rs-toggle-group-subtle"],
+    css: ["components/toggle.css"],
+    react: "components/toggle-group.tsx",
+    registryDependencies: ["toggle"],
+    snippet: `<div class="rs-toggle-group" role="group" aria-label="Default alignment"><button class="rs-toggle rs-toggle-grouped rs-toggle-pressed rs-toggle-grouped-on" aria-pressed="true">Left</button><button class="rs-toggle rs-toggle-grouped" aria-pressed="false">Center</button><button class="rs-toggle rs-toggle-grouped" aria-pressed="false">Right</button></div>
+<div class="rs-toggle-group rs-toggle-group-subtle" role="group" aria-label="Subtle alignment"><button class="rs-toggle rs-toggle-grouped rs-toggle-pressed rs-toggle-grouped-on rs-toggle-subtle rs-toggle-subtle-pressed rs-toggle-grouped-subtle" aria-pressed="true">Left</button><button class="rs-toggle rs-toggle-grouped rs-toggle-subtle rs-toggle-grouped-subtle" aria-pressed="false">Center</button><button class="rs-toggle rs-toggle-grouped rs-toggle-subtle rs-toggle-grouped-subtle" aria-pressed="false">Right</button></div>`,
+    example: `import { useState } from "react";
+import { ToggleGroup } from "@noorddev/vlak-react";
+
+const [align, setAlign] = useState("left");
+
+<ToggleGroup
+  variant="subtle"
+  aria-label="Alignment"
+  options={[
+    { value: "left", label: "Left" },
+    { value: "center", label: "Center" },
+    { value: "right", label: "Right" },
+  ]}
+  value={align}
+  onValueChange={setAlign}
+/>`,
+    usage: {
+      use: ["One of two to five options that should all stay visible: alignment, view mode, period.", "Default for joined controls with hairline seams. Subtle uses a soft rail, 3px inset and gaps, 4px corners, and a soft active fill without internal strokes.", "Short labels of equal weight."],
+      avoid: ["Many or long options; use Select.", "Multiple selection; use several Toggle buttons."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves between the options" },
+      { keys: "Enter, Space", does: "Selects the focused option" }
+    ],
+    a11y: [
+      'Renders role="group" of native buttons with aria-pressed; pass aria-label to name the group.',
+      "Controlled with value and onValueChange, or uncontrolled with defaultValue.",
+      "Both variants retain a minimum 44px target per option and a visible keyboard focus ring. Tab visits each button; arrow keys do not change selection."
+    ],
+    aliases: ["Toggle group", "Segmented control", "Exclusive toggles", "Subtle toggle group"]
+  },
+  {
+    name: "popover",
+    title: "Popover",
+    description: "Places non-modal content above the page with the native Popover API and light dismiss.",
+    category: "surfaces",
+    classes: ["rs-popover", "rs-popover-title", "rs-popover-body"],
+    css: ["components/popover.css"],
+    react: "components/popover.tsx",
+    registryDependencies: ["button"],
+    snippet: `<button class="rs-btn-ghost rs-btn-sm" popovertarget="info">Details</button>
+<div id="info" popover="auto" class="rs-popover"><span class="rs-popover-title">Module grid</span><p class="rs-popover-body">204px modules: a 184px column and a 20px gutter.</p></div>`,
+    example: `import { Popover, PopoverBody, PopoverTitle } from "@noorddev/vlak-react";
+
+<Popover trigger="Details" align="start" aria-label="Module grid">
+  <PopoverTitle>Module grid</PopoverTitle>
+  <PopoverBody>204px modules: a 184px column and a 20px gutter.</PopoverBody>
+</Popover>`,
+    usage: {
+      use: ["Secondary detail the user asks for and dismisses: a definition, a small form, a legend.", 'align="end" when the trigger sits at the right edge.'],
+      avoid: ["Menus; use DropdownMenu.", "Anything that must block the page; use Dialog."]
+    },
+    keyboard: [
+      { keys: "Enter, Space", does: "Opens or closes from the trigger" },
+      { keys: "Escape", does: "Closes (platform light dismiss)" },
+      { keys: "Tab", does: "Moves into the panel" }
+    ],
+    a11y: [
+      'The native Popover API: the panel is popover="auto" in the top layer; the trigger is a ghost Button with popovertarget, so the platform manages aria-expanded and light dismiss.',
+      "Name the panel with aria-label or aria-labelledby; PopoverTitle is visible text only.",
+      "Placed by CSS anchor positioning where supported, else measured and flipped above when there is no room below."
+    ],
+    aliases: ["Popover", "Popup", "Flyout"]
+  },
+  {
+    name: "sheet",
+    title: "Sheet",
+    description: "Opens a focused task from a screen edge. Native dialog with platform focus handling and backdrop.",
+    category: "surfaces",
+    classes: ["rs-sheet", "rs-sheet-left", "rs-sheet-title", "rs-sheet-body", "rs-sheet-close"],
+    css: ["components/sheet.css"],
+    react: "components/sheet.tsx",
+    registryDependencies: ["dialog"],
+    snippet: `<dialog class="rs-sheet" aria-labelledby="filters-title" open><button class="rs-sheet-close" type="button" aria-label="Close">&times;</button><h2 class="rs-sheet-title" id="filters-title">Filters</h2><p class="rs-sheet-body">Everything narrows from here.</p></dialog>`,
+    example: `import { useState } from "react";
+import { Button, Sheet, SheetBody, SheetTitle } from "@noorddev/vlak-react";
+
+const [open, setOpen] = useState(false);
+
+<Button variant="ghost" onClick={() => setOpen(true)}>Filters</Button>
+<Sheet open={open} onClose={() => setOpen(false)} side="right" closeLabel="Close">
+  <SheetTitle>Filters</SheetTitle>
+  <SheetBody>Everything narrows from here.</SheetBody>
+</Sheet>`,
+    usage: {
+      use: ["Filters, settings, or a detail view that slides in beside the page.", 'side="left" for navigation on phones.'],
+      avoid: ["Short decisions; use Dialog.", "Content that should stay open while the page is used; the sheet is modal."]
+    },
+    keyboard: [
+      { keys: "Escape", does: "Calls onClose (when dismissable, the default)" },
+      { keys: "Tab, Shift + Tab", does: "Cycles focus inside the sheet" }
+    ],
+    a11y: [
+      "A native modal <dialog> docked to an edge: the platform traps focus and provides the backdrop.",
+      "SheetTitle names it through aria-labelledby; SheetBody describes it. Focus moves in on open and returns on close.",
+      "closeLabel renders a labelled close button; lightDismiss closes on a backdrop click. The ref is forwarded to the <dialog>."
+    ],
+    aliases: ["Sheet", "Side panel", "Drawer", "Slide-over", "Off-canvas"]
+  },
+  {
+    name: "drawer",
+    title: "Drawer",
+    description: "Opens a focused task from the bottom edge. Native dialog with platform focus handling and backdrop.",
+    category: "surfaces",
+    classes: ["rs-drawer", "rs-drawer-title", "rs-drawer-body", "rs-drawer-close"],
+    css: ["components/drawer.css"],
+    react: "components/drawer.tsx",
+    registryDependencies: ["dialog"],
+    snippet: `<dialog class="rs-drawer" aria-labelledby="notes-title" open><button class="rs-drawer-close" type="button" aria-label="Close">&times;</button><h2 class="rs-drawer-title" id="notes-title">Notes</h2><p class="rs-drawer-body">A bottom panel. Escape closes it.</p></dialog>`,
+    example: `import { useState } from "react";
+import { Button, Drawer, DrawerBody, DrawerTitle } from "@noorddev/vlak-react";
+
+const [open, setOpen] = useState(false);
+
+<Button variant="ghost" onClick={() => setOpen(true)}>Notes</Button>
+<Drawer open={open} onClose={() => setOpen(false)} closeLabel="Close">
+  <DrawerTitle>Notes</DrawerTitle>
+  <DrawerBody>A bottom panel. Escape closes it.</DrawerBody>
+</Drawer>`,
+    usage: {
+      use: ["Phone-first panels that rise from the bottom edge: options, a share sheet, a short form.", "Content that reads in one screen."],
+      avoid: ["Desktop side panels; use Sheet.", "Long content; the drawer is not a page."]
+    },
+    keyboard: [
+      { keys: "Escape", does: "Calls onClose (when dismissable, the default)" },
+      { keys: "Tab, Shift + Tab", does: "Cycles focus inside the drawer" }
+    ],
+    a11y: [
+      "A native modal <dialog> from the bottom edge: the platform traps focus and provides the backdrop.",
+      "DrawerTitle names it through aria-labelledby; DrawerBody describes it. Focus moves in on open and returns on close.",
+      "closeLabel renders a labelled close button. The ref is forwarded to the <dialog>."
+    ],
+    aliases: ["Drawer", "Bottom sheet", "Vaul", "Bottom panel"]
+  },
+  {
+    name: "scroll-area",
+    title: "Scroll area",
+    description: "Contains overflow without visible scrollbars. 20px edge feathers signal more content.",
+    category: "content",
+    classes: ["rs-scroll"],
+    css: ["components/scroll-area.css"],
+    react: "components/scroll-area.tsx",
+    snippet: `<div class="rs-scroll" style="max-height:140px" tabindex="0"><p>Alkmaar</p><p>Amsterdam</p><p>Delft</p><p>Eindhoven</p><p>Groningen</p><p>Haarlem</p><p>Rotterdam</p><p>Utrecht</p></div>`,
+    example: `import { ScrollArea } from "@noorddev/vlak-react";
+
+<ScrollArea maxHeight={240} aria-label="Cities">
+  {cities.map((city) => <p key={city}>{city}</p>)}
+</ScrollArea>`,
+    usage: {
+      use: ["A bounded list inside a fixed layout: a sidebar, a panel, a menu of many rows.", "maxHeight sets the box; the scrollbar hides and the ends feather."],
+      avoid: ["Page-level scrolling; let the page scroll.", "Content that needs a visible scrollbar for orientation."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Focuses the region" },
+      { keys: "Arrow up, Arrow down, Page up, Page down", does: "Scrolls it" }
+    ],
+    a11y: [
+      'Renders role="region" with tabIndex=0, so keyboards can scroll it; aria-label defaults to "Scrollable content", pass your own.'
+    ],
+    aliases: ["Scroll area", "Scroll view", "Scrollable region", "Overflow box"]
+  },
+  {
+    name: "chart",
+    title: "Charts",
+    description: "Plots one or more lines on a 204px field. 1px grid, textured series, and one optional spot color.",
+    category: "charts",
+    classes: ["rs-chart", "rs-chart-canvas", "rs-chart-line", "rs-chart-grid", "rs-chart-axis", "rs-chart-bar", "rs-spark", "rs-chart-legend-svg", "rs-chart-svg"],
+    css: ["components/chart.css"],
+    react: "components/chart.tsx",
+    snippet: `<div class="rs-chart"><svg viewBox="0 0 240 64" width="240" height="64"><line class="rs-chart-grid" x1="0" x2="240" y1="56" y2="56"/><path class="rs-chart-line" d="M0 44 L40 36 L80 40 L120 22 L160 26 L200 12 L240 16"/></svg></div>`,
+    example: `import { LineChart, Sparkline } from "@noorddev/vlak-react";
+
+<LineChart
+  height={204}
+  labels={days}
+  series={[
+    { name: "Sheets", values: sheets },
+    { name: "Proofs", values: proofs },
+  ]}
+  unit="sheets"
+  yLabel="Output"
+  annotations={[{ at: 3, label: "Press" }]}
+  spot
+/>
+
+<Sparkline values={[3, 5, 4, 8, 7, 9]} label="Sheets" unit="k" />`,
+    usage: {
+      use: ["Up to four series over time on one field; solid, dashed, gray, and dotted keep them apart without hue.", "spot for the one accent the chart is allowed; Sparkline for a trend inside a row."],
+      avoid: ["Categories; use BarChart.", "More than four series; split them into SmallMultiples."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Focuses the plot" },
+      { keys: "Arrow right, Arrow left", does: "Moves the cursor across the points; a status tooltip reads the values" },
+      { keys: "Home, End", does: "First or last point" },
+      { keys: "Escape", does: "Clears the cursor" }
+    ],
+    a11y: [
+      'The plot is a focusable <svg role="group"> with aria-roledescription="interactive chart", named by aria-label, aria-labelledby, yLabel, or the series names.',
+      'A visually hidden table carries every value, so the data reads without the picture; the tooltip is role="status".',
+      'Sparkline is role="img" with a name built from label, the count, and the last value, plus the same hidden table.',
+      "Numbers format through Intl.NumberFormat; locale picks the reader's own by default. Marks stay visible in forced colors.",
+      "Null or non-finite samples create gaps instead of fabricated zeros. Missing values read as No data; empty plots announce their state, and an empty Sparkline has no invented last point.",
+      "Explicit domains generate ticks within their bounds and clip marks to the plot. Without a domain, negative values remain visible."
+    ],
+    aliases: ["Chart", "Line chart", "Sparkline", "Trend line"]
+  },
+  {
+    name: "bar-chart",
+    title: "Bar chart",
+    description: "Compares values with vertical or horizontal bars. Thin ink marks, square ends, optional stacks.",
+    category: "charts",
+    classes: ["rs-chart-bar"],
+    css: ["components/chart.css"],
+    react: "components/chart.tsx",
+    registryDependencies: ["chart"],
+    snippet: `<div class="rs-chart"><svg viewBox="0 0 240 64" width="240" height="64"><line class="rs-chart-grid" x1="0" x2="240" y1="56" y2="56"/><rect class="rs-chart-bar" x="20" y="18" width="8" height="38"/><rect class="rs-chart-bar" x="48" y="10" width="8" height="46"/><rect class="rs-chart-bar" x="76" y="24" width="8" height="32"/></svg></div>`,
+    example: `import { BarChart } from "@noorddev/vlak-react";
+
+<BarChart
+  height={204}
+  orientation="horizontal"
+  data={[
+    { label: "Alkmaar", value: 42 },
+    { label: "Delft", value: 28 },
+  ]}
+  unit="issues"
+/>
+
+<BarChart
+  labels={["Q1", "Q2", "Q3"]}
+  series={[
+    { name: "Sheets", values: [12, 18, 9] },
+    { name: "Proofs", values: [4, 6, 3] },
+  ]}
+  stacked
+/>`,
+    usage: {
+      use: ["Comparing categories; data for one series, series plus labels for up to four grouped series.", 'stacked separates positive and negative totals; orientation="horizontal" and inverted work with either grouping mode.'],
+      avoid: ["Continuous time; use LineChart.", "Parts of one whole; use Donut or Share."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Focuses the plot" },
+      { keys: "Arrow right, Arrow left", does: "Moves the cursor across the bars; a status tooltip reads the values" },
+      { keys: "Home, End", does: "First or last bar" },
+      { keys: "Escape", does: "Clears the cursor" }
+    ],
+    a11y: [
+      'The plot is a focusable <svg role="group"> with aria-roledescription="interactive chart", named by aria-label, aria-labelledby, yLabel, or the series names.',
+      "A visually hidden table carries every value; the legend is aria-hidden because the table names the series.",
+      "Every series renders. Null and non-finite bars are omitted and read as No data; signed bars retain nonzero geometry when inverted."
+    ],
+    aliases: ["Bar chart", "Column chart", "Stacked bar chart", "Horizontal bar chart"]
+  },
+  {
+    name: "area-chart",
+    title: "Area chart",
+    description: "Shows change and magnitude with a filled first series. 1px grid and one optional spot color.",
+    category: "charts",
+    classes: ["rs-chart-area"],
+    css: ["components/chart.css"],
+    react: "components/chart.tsx",
+    registryDependencies: ["chart"],
+    snippet: `<div class="rs-chart"><svg viewBox="0 0 240 64" width="240" height="64"><path class="rs-chart-area" d="M0 44 L40 36 L80 40 L120 22 L160 26 L200 12 L240 16 L240 56 L0 56 Z"/><path class="rs-chart-line" d="M0 44 L40 36 L80 40 L120 22 L160 26 L200 12 L240 16"/></svg></div>`,
+    example: `import { AreaChart } from "@noorddev/vlak-react";
+
+<AreaChart
+  height={204}
+  labels={days}
+  series={[{ name: "Sheets", values: sheets }]}
+  unit="sheets"
+  annotations={[{ at: 3, label: "Press" }]}
+/>`,
+    usage: {
+      use: ["One series over time where the volume under the line matters.", "The same props as LineChart; the first series is filled."],
+      avoid: ["Several overlapping series; the fills hide each other. Use LineChart.", "Categories; use BarChart."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Focuses the plot" },
+      { keys: "Arrow right, Arrow left", does: "Moves the cursor across the points; a status tooltip reads the values" },
+      { keys: "Home, End", does: "First or last point" },
+      { keys: "Escape", does: "Clears the cursor" }
+    ],
+    a11y: [
+      "Same as LineChart: a focusable, named plot and a visually hidden data table."
+    ],
+    aliases: ["Area chart", "Filled line chart"]
+  },
+  {
+    name: "scatter-chart",
+    title: "Scatter chart",
+    description: "Shows the relationship between two measures. Marks sit on a 1px grid in ink or one spot color.",
+    category: "charts",
+    classes: ["rs-chart-mark"],
+    css: ["components/chart.css"],
+    react: "components/chart.tsx",
+    registryDependencies: ["chart"],
+    snippet: `<div class="rs-chart"><svg viewBox="0 0 240 64" width="240" height="64"><line class="rs-chart-grid" x1="0" x2="240" y1="56" y2="56"/><circle class="rs-chart-mark" cx="36" cy="40" r="2"/><circle class="rs-chart-mark" cx="88" cy="22" r="2"/><circle class="rs-chart-mark" cx="140" cy="30" r="2"/><circle class="rs-chart-mark" cx="196" cy="14" r="2"/></svg></div>`,
+    example: `import { ScatterChart } from "@noorddev/vlak-react";
+
+<ScatterChart
+  height={204}
+  points={[{ x: 12, y: 40 }, { x: 40, y: 22, label: "Press" }, { x: 60, y: 30 }]}
+  xLabel="Module"
+  yLabel="Density"
+  annotations={[{ at: 40, label: "204" }]}
+/>`,
+    usage: {
+      use: ["Two numeric variables per point; group annotates the legend and accessible data table, not a separate visual mark style.", "xDomain and yDomain pin valid numeric axes; invalid or equal domains fall back to the data extent."],
+      avoid: ["Ordered categories; use BarChart.", "Thousands of points; aggregate first."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Focuses the plot" },
+      { keys: "Arrow right, Arrow left", does: "Moves the cursor across the points; a status tooltip reads x and y" },
+      { keys: "Home, End", does: "First or last point" },
+      { keys: "Escape", does: "Clears the cursor" }
+    ],
+    a11y: [
+      "A focusable, named plot with a visually hidden table of x and y per point.",
+      "Non-finite coordinates are excluded. Empty datasets display No data to display without invalid SVG coordinates."
+    ],
+    aliases: ["Scatter chart", "Scatter plot", "Dot plot", "XY chart"]
+  },
+  {
+    name: "donut",
+    title: "Donut or share",
+    description: "Shows one part of a whole as a ring or flush share strip. 1px stroke.",
+    category: "charts",
+    classes: ["rs-chart-donut"],
+    css: ["components/chart.css"],
+    react: "components/chart.tsx",
+    registryDependencies: ["chart"],
+    snippet: `<div class="rs-chart"><svg class="rs-chart-donut" viewBox="0 0 96 96" width="96" height="96"><circle cx="48" cy="48" r="36" fill="none" stroke="currentColor" stroke-width="1"/></svg></div>`,
+    example: `import { Donut, Share } from "@noorddev/vlak-react";
+
+<Donut value={72} max={100} size={184} label="printed" />
+<Share slices={[{ label: "Sheet", value: 72 }, { label: "Proof", value: 18 }, { label: "Waste", value: 10 }]} unit="%" />`,
+    usage: {
+      use: ["One value against its total as a ring, or a flush strip of shares.", "label under the number in the ring."],
+      avoid: ["Comparing several values; use BarChart.", "More than five slices; the strip stops reading."]
+    },
+    a11y: [
+      'Donut renders role="img" named by the caption or label and the value text; a visually hidden table carries value and max.',
+      "Share renders a named group of slices with a hidden table of label and value per slice.",
+      "Invalid totals do not produce a percentage. Share excludes negative and non-finite slices and explains an empty total."
+    ],
+    aliases: ["Donut", "Donut chart", "Ring chart", "Pie chart", "Share strip"]
+  },
+  {
+    name: "histogram",
+    title: "Histogram",
+    description: "Shows a distribution in adjacent bins with 1px gaps.",
+    category: "charts",
+    classes: ["rs-chart-hist"],
+    css: ["components/chart.css"],
+    react: "components/chart.tsx",
+    registryDependencies: ["chart"],
+    snippet: `<div class="rs-chart"><svg viewBox="0 0 240 64" width="240" height="64"><rect class="rs-chart-hist" x="8" y="36" width="36" height="20"/><rect class="rs-chart-hist" x="45" y="20" width="36" height="36"/><rect class="rs-chart-hist" x="82" y="8" width="36" height="48"/><rect class="rs-chart-hist" x="119" y="24" width="36" height="32"/></svg></div>`,
+    example: `import { Histogram } from "@noorddev/vlak-react";
+
+<Histogram
+  height={204}
+  bins={[
+    { label: "0\u20131", count: 4 },
+    { label: "1\u20132", count: 11 },
+    { label: "2\u20133", count: 18 },
+  ]}
+  yLabel="Sessions"
+/>`,
+    usage: {
+      use: ["The distribution of one variable across ordered bins.", "Adjacent bins with a 1px seam; the order is the axis."],
+      avoid: ["Unordered categories; use BarChart.", "Time series; use LineChart."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Focuses the plot" },
+      { keys: "Arrow right, Arrow left", does: "Moves the cursor across the bins; a status tooltip reads the count" },
+      { keys: "Home, End", does: "First or last bin" },
+      { keys: "Escape", does: "Clears the cursor" }
+    ],
+    a11y: [
+      "A focusable, named plot with a visually hidden table of label and count per bin.",
+      "Counts must be finite and non-negative; invalid bins are excluded, and an empty dataset is announced."
+    ],
+    aliases: ["Histogram", "Distribution chart", "Frequency chart"]
+  },
+  {
+    name: "small-multiples",
+    title: "Small multiples",
+    description: "Compares repeated charts on shared axes. Each panel occupies one 184px column.",
+    category: "charts",
+    classes: ["rs-chart-multi", "rs-chart-multi-item", "rs-chart-multi-cap"],
+    css: ["components/chart.css"],
+    react: "components/chart.tsx",
+    registryDependencies: ["chart"],
+    snippet: `<div class="rs-chart-multi"><div class="rs-chart"><svg viewBox="0 0 184 64" width="184" height="64"><path class="rs-chart-line" d="M0 40 L46 28 L92 34 L138 16 L184 22"/></svg></div><div class="rs-chart"><svg viewBox="0 0 184 64" width="184" height="64"><path class="rs-chart-line" d="M0 30 L46 36 L92 22 L138 28 L184 18"/></svg></div></div>`,
+    example: `import { SmallMultiples } from "@noorddev/vlak-react";
+
+<SmallMultiples
+  height={136}
+  panels={[
+    { title: "Alkmaar", labels: days, series: [{ name: "Sheets", values: alkmaar }] },
+    { title: "Delft", labels: days, series: [{ name: "Sheets", values: delft }] },
+  ]}
+  unit="sheets"
+/>`,
+    usage: {
+      use: ["The same measure across places, products, or periods, one small line chart per panel on a shared value domain by default.", "Set sharedDomain=false only for independent trends; it removes direct magnitude comparison."],
+      avoid: ["Panels with different units; they no longer compare.", "One series; use LineChart."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Focuses each panel's plot in turn" },
+      { keys: "Arrow right, Arrow left, Home, End, Escape", does: "Move and clear the cursor inside the focused panel" }
+    ],
+    a11y: [
+      "Each panel is a <figure> with a caption; its plot is labelled by that caption and carries its own hidden table."
+    ],
+    aliases: ["Small multiples", "Trellis chart", "Facet grid", "Panel charts"]
+  },
+  {
+    name: "collapsible",
+    title: "Collapsible",
+    description: "Shows or hides one section with a native details disclosure.",
+    category: "content",
+    classes: ["rs-disclosure", "rs-disclosure-body", "rs-disclosure-chevron", "rs-disclosure-chevron-open", "rs-disclosure-summary"],
+    css: ["components/collapsible.css"],
+    react: "components/collapsible.tsx",
+    registryDependencies: ["accordion"],
+    snippet: `<details class="rs-disclosure"><summary>Show the details<svg class="rs-acc-chevron" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(90 8 8)"><path d="M5.5 3.5 L10.5 8 L5.5 12.5" vector-effect="non-scaling-stroke"/></g></svg></summary><div class="rs-disclosure-body">Here they are.</div></details>`,
+    example: `import { Collapsible } from "@noorddev/vlak-react";
+
+<Collapsible title="Show the details">Here they are.</Collapsible>
+<Collapsible title="Advanced" open={open} onToggle={(e) => setOpen(e.currentTarget.open)}>\u2026</Collapsible>`,
+    usage: {
+      use: ["One optional block the reader can reveal: details, advanced options, a long list.", "defaultOpen when most readers want it open."],
+      avoid: ["Several related sections; use Accordion.", "Content everyone needs; leave it in the flow."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves focus to the summary" },
+      { keys: "Enter, Space", does: "Opens or closes it" }
+    ],
+    a11y: [
+      "A native <details> and <summary>; the platform exposes the expanded state and title is the name."
+    ],
+    aliases: ["Collapsible", "Disclosure", "Details", "Expander"]
+  },
+  {
+    name: "hover-card",
+    title: "Hover card",
+    description: "Previews linked context on hover or keyboard focus.",
+    category: "surfaces",
+    classes: ["rs-hover-card", "rs-hover-card-panel", "rs-hover-card-open"],
+    css: ["components/hover-card.css"],
+    react: "components/hover-card.tsx",
+    snippet: `<span class="rs-hover-card"><span tabindex="0" aria-describedby="noord-card">@noord</span><span class="rs-hover-card-panel" role="tooltip" id="noord-card">Noord, a venture studio in Alkmaar. Ten portfolio companies, one design system.</span></span>`,
+    example: `import { HoverCard, Link } from "@noorddev/vlak-react";
+
+<HoverCard trigger={<Link href="/noord">@noord</Link>}>
+  Noord, a venture studio in Alkmaar. Ten portfolio companies, one design system.
+</HoverCard>`,
+    usage: {
+      use: ["A preview of the thing a link points at: a profile, a document, a place.", "Rich content that is not needed to use the link."],
+      avoid: ["One-line labels; use Tooltip.", "Content with its own controls; use Popover."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Focuses the trigger and shows the card" },
+      { keys: "Escape", does: "Hides the card until the pointer leaves" }
+    ],
+    a11y: [
+      'The panel is role="tooltip" and describes the trigger through aria-describedby.',
+      "A focusable trigger element is used as is; anything else is wrapped in a tab stop."
+    ],
+    aliases: ["Hover card", "Preview card", "Profile card", "Rich tooltip"]
+  },
+  {
+    name: "kbd",
+    title: "Kbd",
+    description: "Labels a keyboard key. Monospace cap with a 1px frame and heavier bottom edge.",
+    category: "content",
+    classes: ["rs-kbd", "rs-kbd-pair"],
+    css: ["components/kbd.css"],
+    react: "components/kbd.tsx",
+    snippet: `<kbd class="rs-kbd">\u2318</kbd> <kbd class="rs-kbd">K</kbd>`,
+    example: `import { Kbd, KbdPair } from "@noorddev/vlak-react";
+
+<KbdPair><Kbd>\u2318</Kbd><Kbd>K</Kbd></KbdPair>`,
+    usage: {
+      use: ["Showing a shortcut next to a command or in help copy.", "KbdPair to keep a chord together."],
+      avoid: ["Code; use Chip.", "Buttons; a key cap is not a control."]
+    },
+    a11y: [
+      "Renders a native <kbd>; screen readers read the characters. Spell out modifier symbols in surrounding text when they matter."
+    ],
+    aliases: ["Kbd", "Keyboard key", "Key cap", "Shortcut"]
+  },
+  {
+    name: "input-otp",
+    title: "One-time code",
+    description: "Collects a one-time code in one cell per character. Supports auto-advance, backspace, and paste.",
+    category: "forms",
+    classes: ["rs-otp", "rs-otp-cell", "rs-otp-cell-invalid"],
+    css: ["components/input-otp.css"],
+    react: "components/input-otp.tsx",
+    snippet: `<div class="rs-otp" role="group" aria-label="One-time code"><input class="rs-otp-cell" maxlength="1" value="8" aria-label="Digit 1" /><input class="rs-otp-cell" maxlength="1" value="2" aria-label="Digit 2" /><input class="rs-otp-cell" maxlength="1" aria-label="Digit 3" /><input class="rs-otp-cell" maxlength="1" aria-label="Digit 4" /></div>`,
+    example: `import { InputOTP } from "@noorddev/vlak-react";
+
+<InputOTP length={6} aria-label="One-time code" onComplete={(code) => verify(code)} />`,
+    usage: {
+      use: ["Numeric verification codes from SMS, mail, or an authenticator.", "onComplete to submit as soon as the last cell fills."],
+      avoid: ["Alphanumeric codes; the cells strip non-digits.", 'Passwords; use Input type="password".']
+    },
+    keyboard: [
+      { keys: "Type a digit", does: "Fills the cell and moves to the next" },
+      { keys: "Backspace", does: "Clears the cell; on an empty cell moves back and clears the previous one" },
+      { keys: "Arrow left, Arrow right", does: "Moves between cells" },
+      { keys: "Paste", does: "Fills from the current cell onward" }
+    ],
+    a11y: [
+      'Renders role="group" named by aria-label ("One-time code" by default); each cell is an <input> named "Digit n".',
+      'inputMode="numeric" and autoComplete="one-time-code" on the first cell let phones offer the code.',
+      "Inside Field, hint and error reach the group and cells through aria-describedby and aria-invalid.",
+      "Controlled with value and onValueChange, or uncontrolled with defaultValue; name submits one hidden complete-code value. disabled and readOnly apply to every cell.",
+      "Each cell has a 44px target and 4px corners. length is clamped to 1\u201312; onComplete fires once per distinct complete code until it changes."
+    ],
+    aliases: ["One-time code", "OTP input", "InputOTP", "PIN input", "Verification code"]
+  },
+  {
+    name: "context-menu",
+    title: "Context menu",
+    description: "Opens actions at the pointer or with Shift+F10. Escape and outside click close the menu.",
+    category: "actions",
+    classes: ["rs-context-menu-trigger", "rs-context-menu-pin"],
+    css: ["components/context-menu.css"],
+    react: "components/context-menu.tsx",
+    registryDependencies: ["dropdown-menu"],
+    snippet: `<div class="rs-menu" role="menu"><button class="rs-menu-item" role="menuitem">Copy</button><button class="rs-menu-item" role="menuitem">Paste</button><hr class="rs-menu-sep" /><button class="rs-menu-item" role="menuitem">Inspect</button></div>`,
+    example: `import { ContextMenu } from "@noorddev/vlak-react";
+
+<ContextMenu items={[{ label: "Copy", onSelect: copy }, { label: "Paste", onSelect: paste }, { separator: true }, { label: "Inspect" }]}>
+  <Canvas />
+</ContextMenu>`,
+    usage: {
+      use: ["Actions on a region or object that already has a primary interaction: a canvas, a row, a file.", "The same items shape as DropdownMenu."],
+      avoid: ["Actions with no other way in; add a visible DropdownMenu too.", "Touch-only surfaces without a long-press alternative."]
+    },
+    keyboard: [
+      { keys: "Shift + F10, Context menu key", does: "Opens the menu at the wrapper" },
+      { keys: "Arrow down, Arrow up, Home, End, Type letters", does: "Move between items" },
+      { keys: "Enter, Space", does: "Selects the item and closes" },
+      { keys: "Escape", does: "Closes and returns focus" }
+    ],
+    a11y: [
+      'The wrapper is a tab stop with aria-keyshortcuts="Shift+F10"; pass tabIndex={-1} when the child is focusable itself.',
+      'The panel is role="menu" with menuitem buttons, roving focus, and type-ahead; focus returns to whatever had it when the menu closes.',
+      "Right-click opens at the pointer; the keyboard opens at the trigger's edge."
+    ],
+    aliases: ["Context menu", "Right-click menu", "Contextual menu"]
+  },
+  {
+    name: "menubar",
+    title: "Menubar",
+    description: "Groups application menus in a compact 1px frame. Text-only triggers keep 44px targets and wrap to fit.",
+    category: "actions",
+    classes: ["rs-menubar", "rs-menubar-wrap", "rs-menubar-trigger", "rs-menubar-trigger-open", "rs-menubar-panel"],
+    css: ["components/menubar.css"],
+    react: "components/menubar.tsx",
+    registryDependencies: ["dropdown-menu"],
+    snippet: `<div class="rs-menubar" role="menubar" aria-label="Application menus"><div class="rs-menubar-wrap"><button type="button" class="rs-menubar-trigger" role="menuitem" aria-haspopup="menu" aria-expanded="false" tabindex="0">File</button></div><div class="rs-menubar-wrap"><button type="button" class="rs-menubar-trigger" role="menuitem" aria-haspopup="menu" aria-expanded="false" tabindex="-1">Edit</button></div><div class="rs-menubar-wrap"><button type="button" class="rs-menubar-trigger" role="menuitem" aria-haspopup="menu" aria-expanded="false" tabindex="-1">View</button></div></div>`,
+    example: `import { Menubar } from "@noorddev/vlak-react";
+
+<Menubar
+  aria-label="Application menus"
+  menus={[
+    { label: "File", items: [{ label: "New", onSelect: create }, { label: "Open\u2026", onSelect: open }] },
+    { label: "Edit", items: [{ label: "Undo", onSelect: undo }, { label: "Redo", onSelect: redo }] },
+  ]}
+/>`,
+    usage: {
+      use: ["Desktop-style application menus: File, Edit, View.", "Tools and editors with many commands grouped by verb."],
+      avoid: ["Site navigation; use NavigationMenu.", "One menu; use DropdownMenu."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves focus to the bar (one roving tab stop)" },
+      { keys: "Arrow left, Arrow right", does: "Moves between menus; an open menu follows" },
+      { keys: "Home, End", does: "First or last menu" },
+      { keys: "Arrow down, Enter, Space", does: "Opens the menu on the first item" },
+      { keys: "Arrow up", does: "Opens the menu on the last item" },
+      { keys: "Escape", does: "Closes the open menu and returns focus to its trigger" }
+    ],
+    a11y: [
+      'Renders role="menubar"; each trigger is a <button role="menuitem"> with aria-haspopup="menu", aria-expanded, and aria-controls.',
+      'Open panels are role="menu" labelled by their trigger, with the same keyboard model as DropdownMenu.',
+      "Text-only triggers have 44px minimum hit targets and wrap inside the bar. The open trigger uses a full-surface fill, never a leading stripe.",
+      "The markup snippet shows the closed appearance only. Use the React component for opening, placement, roving focus, and keyboard interaction."
+    ],
+    aliases: ["Menubar", "Menu bar", "Application menu"]
+  },
+  {
+    name: "navigation-menu",
+    title: "Navigation menu",
+    description: "Moves between primary destinations. Horizontal links; the current page is full ink.",
+    category: "navigation",
+    classes: ["rs-nav", "rs-nav-link"],
+    css: ["components/navigation-menu.css"],
+    react: "components/navigation-menu.tsx",
+    snippet: `<nav class="rs-nav"><a href="#" aria-current="page">Overview</a><a href="#">Docs</a><a href="#">Changelog</a></nav>`,
+    example: `import { NavigationMenu } from "@noorddev/vlak-react";
+
+<NavigationMenu
+  aria-label="Primary"
+  items={[
+    { label: "Overview", href: "/", current: true },
+    { label: "Docs", href: "/docs" },
+    { label: "Changelog", href: "/changelog" },
+  ]}
+/>`,
+    usage: {
+      use: ["The main links of a site in one row.", "current on the item for the page you are on."],
+      avoid: ["Nested menus; keep the row flat and use a Sidebar for depth.", "Actions; use Button."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves between the links" },
+      { keys: "Enter", does: "Follows the link" }
+    ],
+    a11y: [
+      'Renders <nav> with aria-label ("Primary" by default) and plain <a> links; the current page carries aria-current="page".'
+    ],
+    aliases: ["Navigation menu", "Nav", "Top navigation", "Navbar", "Header links"]
+  },
+  {
+    name: "sidebar",
+    title: "Sidebar",
+    description: "Holds persistent navigation in a 204px rail with a head, body, and foot.",
+    category: "navigation",
+    classes: ["rs-sidebar", "rs-sidebar-head", "rs-sidebar-nav", "rs-sidebar-item", "rs-sidebar-label", "rs-sidebar-foot"],
+    css: ["components/sidebar.css"],
+    react: "components/sidebar.tsx",
+    snippet: `<aside class="rs-sidebar"><div class="rs-sidebar-head">Vlak</div><nav class="rs-sidebar-nav"><p class="rs-sidebar-label">Go to</p><a class="rs-sidebar-item" aria-current="page">Overview</a><a class="rs-sidebar-item" href="#">Docs</a><a class="rs-sidebar-item" href="#">Components</a></nav><div class="rs-sidebar-foot">0.3</div></aside>`,
+    example: `import { Sidebar, SidebarFoot, SidebarHead, SidebarItem, SidebarLabel, SidebarNav } from "@noorddev/vlak-react";
+
+<Sidebar>
+  <SidebarHead>Vlak</SidebarHead>
+  <SidebarNav aria-label="Sidebar">
+    <SidebarLabel>Go to</SidebarLabel>
+    <SidebarItem href="/" current>Overview</SidebarItem>
+    <SidebarItem href="/docs">Docs</SidebarItem>
+    <SidebarItem href="/components">Components</SidebarItem>
+  </SidebarNav>
+  <SidebarFoot>0.3</SidebarFoot>
+</Sidebar>`,
+    usage: {
+      use: ["A 204px rail for app or docs navigation with a head, groups of links, and a foot.", "SidebarLabel to name each group of items."],
+      avoid: ["Marketing sites; use NavigationMenu.", "Collapsing it on desktop; the rail is the layout."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves between the items" },
+      { keys: "Enter", does: "Follows the link" }
+    ],
+    a11y: [
+      'Sidebar is an <aside>; SidebarNav is a <nav> named by aria-label ("Sidebar" by default).',
+      'SidebarItem is an <a>; current sets aria-current="page".'
+    ],
+    aliases: ["Sidebar", "Side nav", "Rail", "Navigation drawer"]
+  },
+  {
+    name: "carousel",
+    title: "Carousel",
+    description: "Browses a sequence on a scroll-snap track. Buttons move one slide; the ends feather.",
+    category: "content",
+    classes: ["rs-carousel", "rs-carousel-track", "rs-carousel-slide", "rs-carousel-nav", "rs-carousel-icon", "rs-carousel-page"],
+    css: ["components/carousel.css"],
+    react: "components/carousel.tsx",
+    registryDependencies: ["pagination"],
+    snippet: `<div class="rs-carousel"><div class="rs-carousel-track"><div class="rs-carousel-slide">One</div><div class="rs-carousel-slide">Two</div><div class="rs-carousel-slide">Three</div></div><div class="rs-carousel-nav"><button class="rs-page"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 3.75 L5.5 8.25 L10.5 12.75" vector-effect="non-scaling-stroke"/></svg></button><button class="rs-page"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 3.75 L10.5 8.25 L5.5 12.75" vector-effect="non-scaling-stroke"/></svg></button></div></div>`,
+    example: `import { Carousel, CarouselSlide } from "@noorddev/vlak-react";
+
+<Carousel aria-label="Case studies">
+  {cases.map((c) => (
+    <CarouselSlide key={c.id}>
+      <CaseCard {...c} />
+    </CarouselSlide>
+  ))}
+</Carousel>`,
+    usage: {
+      use: ["A row of cards or images wider than the page, browsed one nudge at a time.", "Scroll snap does the alignment; the buttons nudge by 80% of the width."],
+      avoid: ["Autoplay or hero sliders; nothing moves on its own.", "Essential content only reachable by scrolling; show it in the flow too."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Focuses the track, then the previous and next buttons" },
+      { keys: "Arrow left, Arrow right", does: "Scrolls the focused track" },
+      { keys: "Enter, Space", does: "Nudges from the buttons" }
+    ],
+    a11y: [
+      'The track is role="region" with aria-roledescription="carousel", named by aria-label, and focusable.',
+      'CarouselSlide is role="group" with aria-roledescription="slide", named "n of N" unless you pass aria-label.',
+      'The buttons are labelled "Previous" and "Next".'
+    ],
+    aliases: ["Carousel", "Slideshow", "Embla", "Swiper"]
+  },
+  {
+    name: "resizable",
+    title: "Resizable",
+    description: "Resizes two adjacent panes with a draggable 1px handle. Arrow keys adjust the split.",
+    category: "surfaces",
+    classes: ["rs-split", "rs-split-pane", "rs-split-handle"],
+    css: ["components/resizable.css"],
+    react: "components/resizable.tsx",
+    snippet: `<div class="rs-split"><div class="rs-split-pane" style="width:50%">Left</div><button class="rs-split-handle" role="separator" aria-valuenow="50"></button><div class="rs-split-pane" style="width:50%">Right</div></div>`,
+    example: `import { Split } from "@noorddev/vlak-react";
+
+<Split initial={60} min={30} max={80} handleLabel="Resize editor and preview">
+  <Editor />
+  <Preview />
+</Split>`,
+    usage: {
+      use: ["Two panes the user sizes against each other: editor and preview, list and detail.", "Percentages for initial, min, and max."],
+      avoid: ["More than two panes; nest a Split.", "Layouts that should stack on phones by other rules; it stacks at 640px on its own."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Focuses the handle" },
+      { keys: "Arrow left, Arrow up", does: "Shrinks the first pane by 2%" },
+      { keys: "Arrow right, Arrow down", does: "Grows it by 2%" },
+      { keys: "Shift + Arrow keys", does: "Moves by 10%" },
+      { keys: "Home, End", does: "Jumps to min or max" }
+    ],
+    a11y: [
+      'The handle is a <button role="separator"> with aria-orientation, aria-valuenow, aria-valuemin, aria-valuemax, and aria-label from handleLabel.',
+      "Below 640px the panes stack and the axis follows: the orientation flips and the arrows move vertically."
+    ],
+    aliases: ["Resizable", "Split pane", "Resizable panels", "Splitter", "Panel group"]
+  },
+  {
+    name: "combobox",
+    title: "Combobox",
+    description: "Filters and selects an option from a listbox through one text field.",
+    category: "forms",
+    classes: ["rs-combobox", "rs-combobox-empty"],
+    css: ["components/combobox.css"],
+    react: "components/combobox.tsx",
+    registryDependencies: ["input", "dropdown-menu"],
+    snippet: `<div class="rs-combobox"><input class="rs-input rs-input-full" role="combobox" placeholder="Search\u2026" /><div class="rs-menu" role="listbox"><div class="rs-menu-item rs-menu-item-active" role="option" aria-selected="false">Alkmaar</div><div class="rs-menu-item" role="option" aria-selected="false">Amsterdam</div></div></div>`,
+    example: `import { useState } from "react";
+import { Combobox } from "@noorddev/vlak-react";
+
+const [city, setCity] = useState("");
+
+<Combobox
+  aria-label="City"
+  options={cities}
+  value={city}
+  onValueChange={setCity}
+  placeholder="Search cities\u2026"
+  emptyLabel="No city matches."
+/>`,
+    usage: {
+      use: ["One choice from a long list the user knows how to type: cities, people, tags.", "searchText on an option when its label is not a plain string."],
+      avoid: ["Short lists; use Select.", "Free-form values not in the list; the combobox only picks options."]
+    },
+    keyboard: [
+      { keys: "Type", does: "Filters the options and opens the list" },
+      { keys: "Arrow down", does: "Opens the list on the selected option, then moves down" },
+      { keys: "Arrow up", does: "Opens the list on the last option, then moves up" },
+      { keys: "Home, End", does: "First or last match" },
+      { keys: "Page up, Page down", does: "Moves ten matches" },
+      { keys: "Enter", does: "Picks the active match and closes" },
+      { keys: "Escape", does: "Clears the search and closes" },
+      { keys: "Tab", does: "Closes and moves on" }
+    ],
+    a11y: [
+      'APG editable combobox: an <input role="combobox"> with aria-autocomplete="list", aria-expanded, aria-controls, and aria-activedescendant; focus stays in the input.',
+      'The list is role="listbox" with role="option" rows carrying aria-selected; it does not open on focus alone.',
+      "Pass aria-label or aria-labelledby. Controlled with value and onValueChange, or uncontrolled with defaultValue."
+    ],
+    aliases: ["Combobox", "Autocomplete", "Typeahead", "Searchable select"]
+  },
+  {
+    name: "command",
+    title: "Command",
+    description: "Finds and runs commands inline or in a native dialog. Filter by typing or supply ranked results; navigate with arrows and Enter.",
+    category: "actions",
+    classes: ["rs-command", "rs-command-input", "rs-command-list", "rs-command-group", "rs-command-item", "rs-command-item-active", "rs-command-content", "rs-command-description", "rs-command-description-active", "rs-command-hint", "rs-command-hint-active", "rs-command-empty"],
+    css: ["components/command.css"],
+    react: "components/command.tsx",
+    registryDependencies: ["dialog"],
+    snippet: `<div class="rs-command" style="border:1px solid var(--divider);border-radius:var(--radius)"><input class="rs-command-input" placeholder="Type a command or search\u2026" /><div class="rs-command-list" role="listbox"><div class="rs-command-group">Go to</div><div class="rs-command-item rs-command-item-active" role="option" aria-selected="true"><span>Components</span><span class="rs-command-hint rs-command-hint-active">\u23181</span></div><div class="rs-command-item" role="option" aria-selected="false"><span>Tokens</span><span class="rs-command-hint">\u23182</span></div></div></div>`,
+    example: `import { useEffect, useState } from "react";
+import { CommandDialog } from "@noorddev/vlak-react";
+
+const [open, setOpen] = useState(false);
+
+// wire the shortcut once in your app
+useEffect(() => {
+  const onKey = (e: KeyboardEvent) => {
+    if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+      e.preventDefault();
+      setOpen(true);
+    }
+  };
+  window.addEventListener("keydown", onKey);
+  return () => window.removeEventListener("keydown", onKey);
+}, []);
+
+<CommandDialog
+  open={open}
+  onClose={() => setOpen(false)}
+  groups={[
+    { label: "Go to", items: [{ label: "Components", description: "Browse components and usage", hint: "\u23181", onSelect: () => go("/components") }] },
+    { label: "Actions", items: [{ label: "New project", keywords: "create add", onSelect: create }] },
+  ]}
+/>`,
+    usage: {
+      use: ["A palette of commands and destinations behind one shortcut.", "keywords on an item to widen the match; hint for the shortcut label and description for one concise secondary line.", "Supply a stable item id when commands share a visible label; it identifies rows and changes in result order.", "Control the query with value and onValueChange, or initialize it with defaultValue. Set inputLabel to name the search field.", "Set shouldFilter={false} when the application supplies ranked groups. Their order is preserved; query and result changes reset the active option."],
+      avoid: ["Picking a value for a field; use Combobox.", "Fewer than ten commands; use DropdownMenu."]
+    },
+    keyboard: [
+      { keys: "Type", does: "Updates the search; filters labels and keywords unless shouldFilter is false" },
+      { keys: "Arrow down, Arrow up", does: "Moves the active item" },
+      { keys: "Home, End", does: "First or last item" },
+      { keys: "Page up, Page down", does: "Moves ten items" },
+      { keys: "Enter", does: "Runs the active item and closes, except while composing text with an IME" },
+      { keys: "Escape", does: "Closes" }
+    ],
+    a11y: [
+      'The input is role="combobox" named by inputLabel (default "Command") with aria-autocomplete="list" and aria-activedescendant; the list is role="listbox" with labelled role="group" sections.',
+      "Item descriptions use aria-describedby, keeping the option label as its accessible name. Descriptions are visually limited to one line; their full text remains available to assistive technology.",
+      "CommandDialog places it in a native modal <dialog>; Command alone renders inline. The input takes focus on mount."
+    ],
+    aliases: ["Command", "Command palette", "cmdk", "Command menu", "Spotlight"]
+  },
+  {
+    name: "calendar",
+    title: "Calendar",
+    description: "Selects a date from a month grid. Selected day fills with ink; today has a 1px outline.",
+    category: "forms",
+    classes: ["rs-cal", "rs-cal-head", "rs-cal-title", "rs-cal-nav", "rs-cal-grid", "rs-cal-row", "rs-cal-dow", "rs-cal-day", "rs-cal-day-out", "rs-cal-day-today", "rs-cal-day-selected", "rs-cal-icon", "rs-cal-page"],
+    css: ["components/calendar.css"],
+    react: "components/calendar.tsx",
+    registryDependencies: ["pagination"],
+    snippet: `<div class="rs-cal"><div class="rs-cal-head"><span class="rs-cal-title">July 2026</span><span class="rs-cal-nav"><button class="rs-page"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 3.75 L5.5 8.25 L10.5 12.75" vector-effect="non-scaling-stroke"/></svg></button><button class="rs-page"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 3.75 L10.5 8.25 L5.5 12.75" vector-effect="non-scaling-stroke"/></svg></button></span></div><div class="rs-cal-grid" role="grid"><div class="rs-cal-row" role="row"><span class="rs-cal-dow" role="columnheader">Mo</span><span class="rs-cal-dow" role="columnheader">Tu</span><span class="rs-cal-dow" role="columnheader">We</span><span class="rs-cal-dow" role="columnheader">Th</span><span class="rs-cal-dow" role="columnheader">Fr</span><span class="rs-cal-dow" role="columnheader">Sa</span><span class="rs-cal-dow" role="columnheader">Su</span></div><div class="rs-cal-row" role="row"><button class="rs-cal-day" role="gridcell" tabindex="-1">20</button><button class="rs-cal-day" role="gridcell" tabindex="-1">21</button><button class="rs-cal-day" role="gridcell" tabindex="-1">22</button><button class="rs-cal-day" role="gridcell" tabindex="-1">23</button><button class="rs-cal-day rs-cal-day-selected" role="gridcell" tabindex="0" aria-selected="true">24</button><button class="rs-cal-day rs-cal-day-today" role="gridcell" tabindex="-1" aria-current="date">25</button><button class="rs-cal-day" role="gridcell" tabindex="-1">26</button></div></div></div>`,
+    example: `import { useState } from "react";
+import { Calendar } from "@noorddev/vlak-react";
+
+const [date, setDate] = useState<Date>();
+
+<Calendar value={date} onValueChange={setDate} weekStart={1} />`,
+    usage: {
+      use: ["Picking one day when the month context matters: bookings, deadlines, schedules.", "Inline on the page; DatePicker wraps it in a trigger."],
+      avoid: ['Typing a known date; use Input type="date".', "Ranges; the grid selects one day."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Focuses the month buttons, then the roving day" },
+      { keys: "Arrow left, Arrow right", does: "Previous or next day" },
+      { keys: "Arrow up, Arrow down", does: "Same day the week before or after" },
+      { keys: "Home, End", does: "First or last day of the week" },
+      { keys: "Page up, Page down", does: "Same day the month before or after" },
+      { keys: "Shift + Page up, Shift + Page down", does: "Same day the year before or after" },
+      { keys: "Enter, Space", does: "Selects the focused available day" }
+    ],
+    a11y: [
+      'Renders role="grid" labelled by the month title, which is aria-live="polite"; rows are role="row" and weekday headers are role="columnheader" with long names.',
+      'Days are <button role="gridcell"> with a full-date aria-label, aria-selected, and aria-current="date" on today; one roving tab stop.',
+      "Previous and next month buttons are labelled. Controlled with value and onValueChange, or uncontrolled with defaultValue.",
+      "Days and month controls are 44px targets. min, max and isDateDisabled prevent selection; unavailable days expose aria-disabled while remaining discoverable with arrows.",
+      "locale formats the month, weekdays and full-date labels; weekStart sets Sunday or Monday independently. disabled removes the day grid from the tab order.",
+      "fixedWeeks keeps six date rows by default. Set it to false for only the four to six weeks occupied by the current month."
+    ],
+    aliases: ["Calendar", "Date grid", "Month view", "Day picker"]
+  },
+  {
+    name: "calendar-popover",
+    title: "Calendar popover",
+    description: "Types or picks a date and optional local time. A 1px field opens a calendar in the native top layer.",
+    category: "forms",
+    classes: ["rs-calendar-popover", "rs-calendar-popover-label", "rs-calendar-popover-control", "rs-calendar-popover-input", "rs-calendar-popover-trigger", "rs-calendar-popover-panel", "rs-calendar-popover-grid", "rs-calendar-popover-time", "rs-calendar-popover-actions", "rs-calendar-popover-action", "rs-calendar-popover-done", "rs-calendar-popover-feedback", "rs-calendar-popover-error"],
+    css: ["components/calendar-popover.css"],
+    react: "components/calendar-popover.tsx",
+    registryDependencies: ["calendar", "input", "button", "icons"],
+    snippet: `<div class="rs-calendar-popover"><label class="rs-calendar-popover-label" for="deadline">Deadline</label><div class="rs-calendar-popover-control"><input id="deadline" class="rs-input rs-input-grouped rs-calendar-popover-input" type="text" value="2026-07-24" /><button class="rs-btn-ghost rs-calendar-popover-trigger" type="button" aria-label="Open calendar" aria-haspopup="dialog" aria-expanded="false"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="M3 3.5h10v10H3zM3 6.5h10M5.5 1.5v4M10.5 1.5v4" /></svg></button></div><input type="hidden" name="deadline" value="2026-07-24" /></div>`,
+    example: `import { useState } from "react";
+import { CalendarPopover } from "@noorddev/vlak-react";
+
+const [date, setDate] = useState("2026-07-24");
+const [review, setReview] = useState("2026-07-23T10:30");
+
+<CalendarPopover label="Print date" name="printDate" value={date} onValueChange={setDate} required />
+<CalendarPopover
+  label="Proof review"
+  name="review"
+  type="datetime-local"
+  value={review}
+  onValueChange={setReview}
+  hint="Local date and time, without a time zone."
+/>`,
+    usage: {
+      use: ["Form dates that can be typed or chosen from a month grid.", 'type="datetime-local" for a date with hour and minute controls; the value has no time zone.', "String values such as 2026-07-24 or 2026-07-24T10:30; min and max use the same format."],
+      avoid: ["A permanently visible month grid; use Calendar.", "Date ranges; use DateRangePicker.", "An absolute timestamp shared across time zones; resolve the local value and its time zone in the application."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves through the date field, calendar trigger, and open panel controls; leaving closes the panel" },
+      { keys: "Enter, Space on the trigger", does: "Opens the calendar" },
+      { keys: "Arrow down in the field or on the trigger", does: "Opens the calendar and focuses the selected day" },
+      { keys: "Arrow keys, Home, End", does: "Moves between calendar days or to the ends of the week" },
+      { keys: "Page up, Page down", does: "Moves by month; hold Shift to move by year" },
+      { keys: "Enter, Space on a day", does: "Selects the date; local date and time fields wait for Done" },
+      { keys: "Escape", does: "Closes the panel and discards unconfirmed date and time changes" }
+    ],
+    a11y: [
+      "An editable input keeps its native label, hint, error, required, disabled and readOnly behavior. The ref resolves to this input.",
+      "Typing emits partial drafts as well as complete values. Invalid dates and values outside min or max fail native form validation; local date and time fields display a space and emit a T between date and time.",
+      "The named calendar trigger opens a non-modal dialog using the native Popover API, above surrounding overflow and dialogs.",
+      "The compact panel keeps square 44px day targets independently of the input width. The calendar shows only the four to six weeks needed for its month.",
+      "The local date and time panel has separately labelled hour and minute inputs. Done confirms the draft; Escape and outside dismissal cancel it.",
+      "A named hidden input submits the canonical string. Controlled with value and onValueChange, or uncontrolled with defaultValue."
+    ],
+    aliases: ["Calendar popover", "CalendarPopover", "Date input", "Date field", "Date time picker", "Local date and time", "shadcn date picker"]
+  },
+  {
+    name: "date-picker",
+    title: "Date picker",
+    description: "Selects a date from a calendar overlay opened by a 1px trigger.",
+    category: "forms",
+    classes: ["rs-date-picker-cal-menu"],
+    css: ["components/date-picker.css"],
+    react: "components/date-picker.tsx",
+    registryDependencies: ["dropdown-menu", "calendar"],
+    snippet: `<button class="rs-dropdown"><span>24 July 2026</span></button>`,
+    example: `import { useState } from "react";
+import { DatePicker } from "@noorddev/vlak-react";
+
+const [date, setDate] = useState<Date>();
+
+<DatePicker value={date} onValueChange={setDate} placeholder="Pick a date" dialogLabel="Choose a date" />`,
+    usage: {
+      use: ["A date field in a form where the calendar should stay out of the way until asked.", "format to render the chosen date your way."],
+      avoid: ['Dates the user knows by heart; use Input type="date".', "Always-visible calendars; use Calendar."]
+    },
+    keyboard: [
+      { keys: "Enter, Space, Arrow down", does: "Opens the calendar" },
+      { keys: "Arrow keys, Home, End, Page up, Page down", does: "Move through the calendar" },
+      { keys: "Enter, Space", does: "Selects the day and closes" },
+      { keys: "Escape", does: "Closes and returns focus to the trigger" },
+      { keys: "Tab", does: "Moves through the calendar controls; leaving the picker closes it" }
+    ],
+    a11y: [
+      'The trigger is a <button> with aria-haspopup="dialog", aria-expanded, and aria-controls; the calendar sits in a non-modal role="dialog" named by dialogLabel.',
+      "On open, focus moves to the selected day or today; on close it returns to the trigger.",
+      "min, max, isDateDisabled and locale pass through to Calendar. The native top-layer panel follows its trigger and flips or clamps to the viewport.",
+      "Controlled with value and onValueChange, or uncontrolled with defaultValue."
+    ],
+    aliases: ["Date picker", "DatePicker", "Date input", "Date field"]
+  },
+  {
+    name: "data-table",
+    title: "Data table",
+    description: "Sorts, filters and selects structured records. Native controls expose sort and selection state.",
+    category: "content",
+    classes: ["rs-datatable-sort", "rs-datatable-empty", "rs-datatable-sort-icon", "rs-datatable-sort-icon-on", "rs-datatable-table", "rs-datatable-td", "rs-datatable-td-alt", "rs-datatable-th", "rs-datatable-scroll", "rs-datatable-td-selected"],
+    css: ["components/data-table.css"],
+    react: "components/data-table.tsx",
+    registryDependencies: ["table", "input", "checkbox"],
+    snippet: `<table class="rs-table"><thead><tr><th><button class="rs-datatable-sort">Phase</button></th><th>Weeks</th></tr></thead><tbody><tr><td>Identity</td><td>4</td></tr><tr><td>Strategy</td><td>2</td></tr></tbody></table>`,
+    example: `import { DataTable } from "@noorddev/vlak-react";
+
+<DataTable
+  columns={[
+    { key: "phase", header: "Phase", sortable: true },
+    { key: "weeks", header: "Weeks", sortable: true },
+    { key: "owner", header: "Owner", render: (row) => row.owner.name },
+  ]}
+  rows={rows}
+  rowKey={(row) => row.id}
+  emptyLabel="No phases yet."
+/>`,
+    usage: {
+      use: ["Rows from data with controlled or default sorting, selection keys and text filtering.", "render for rich cells, sortValue for sort keys, filterRow for custom filtering, and a stable rowKey to keep selection attached to records."],
+      avoid: ["Hand-written rows; use Table.", "Inline editing or pagination; compose those around it. Large datasets need windowing or server-side data management."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves through the optional filter, sort buttons and selection checkboxes" },
+      { keys: "Enter, Space", does: "Sorts ascending, then descending, then clears" }
+    ],
+    a11y: [
+      "Sortable headers hold a native <button>; the <th> carries aria-sort while sorted.",
+      "Filter and sort have value/callback pairs: filter/onFilterChange and sort/onSortChange, with defaultFilter/defaultSort for local state.",
+      "selectable adds native checkboxes; selectedKeys/onSelectionChange controls selection, with defaultSelectedKeys for local state. Select all affects visible filtered rows and exposes mixed state.",
+      "A horizontal scroll container keeps the table inside its grid; caption names the data. Empty filtered results are a live status. Interactive targets are at least 44px."
+    ],
+    aliases: ["Data table", "Sortable table", "Grid"]
+  },
+  {
+    name: "aspect-ratio",
+    title: "Aspect ratio",
+    description: "Keeps media at a defined aspect ratio while it fills the available box.",
+    category: "content",
+    classes: ["rs-ratio"],
+    css: ["components/aspect-ratio.css"],
+    react: "components/aspect-ratio.tsx",
+    snippet: `<div class="rs-ratio" style="aspect-ratio:16/9;max-width:280px;background:var(--divider-subtle)"></div>`,
+    example: `import { AspectRatio } from "@noorddev/vlak-react";
+
+<AspectRatio ratio={16 / 9}>
+  <img src="/cover.jpg" alt="Press hall" />
+</AspectRatio>`,
+    usage: {
+      use: ["Images, video, and embeds that must hold a ratio before they load.", "ratio as width over height."],
+      avoid: ["Text boxes; let content set the height.", "Avatars; use Avatar."]
+    },
+    a11y: [
+      "Layout only; the media inside carries its own alt or title."
+    ],
+    aliases: ["Aspect ratio", "Ratio box", "Media frame"]
+  },
+  {
+    name: "form",
+    title: "Form",
+    description: "Collects related inputs as stacked fields with one primary action at the end.",
+    category: "forms",
+    classes: ["rs-form"],
+    css: ["components/form.css"],
+    react: "components/form.tsx",
+    registryDependencies: ["field", "input", "button"],
+    snippet: `<form class="rs-form"><div class="rs-field"><span class="rs-field-label">Name</span><input class="rs-input rs-input-full" /></div><div class="rs-field"><span class="rs-field-label">E-mail</span><input class="rs-input rs-input-full" /></div><button class="rs-btn-primary">Send</button></form>`,
+    example: `import { Button, Field, FieldLabel, Form, Input } from "@noorddev/vlak-react";
+
+<Form onSubmit={(e) => { e.preventDefault(); save(); }}>
+  <Field>
+    <FieldLabel htmlFor="name">Name</FieldLabel>
+    <Input plain id="name" required />
+  </Field>
+  <Field>
+    <FieldLabel htmlFor="email">E-mail</FieldLabel>
+    <Input plain id="email" type="email" required />
+  </Field>
+  <Button type="submit">Send</Button>
+</Form>`,
+    usage: {
+      use: ["Any form: fields stack, one primary action at the end.", "Native validation attributes; the platform reports them."],
+      avoid: ["Search boxes and single fields; use InlineForm.", "Multi-column layouts; stack instead."]
+    },
+    keyboard: [
+      { keys: "Enter", does: "Submits from a text field" }
+    ],
+    a11y: [
+      "A native <form>; name it with aria-label or aria-labelledby when the page has more than one.",
+      "Field wires labels, hints, and errors to the controls."
+    ],
+    aliases: ["Form", "Form layout", "Stacked form"]
+  },
+  {
+    name: "workflow",
+    title: "Workflow card",
+    description: "Frames an ordered pipeline. 1px dashed frame, chips, and a ghost add action. Reordering is supplied by SortableList.",
+    category: "patterns",
+    classes: ["rs-flow", "rs-flow-step", "rs-flow-num", "rs-flow-subs", "rs-flow-sub-add", "rs-flow-add", "rs-flow-plus", "rs-flow-body", "rs-flow-sub", "rs-flow-title"],
+    css: ["components/workflow.css"],
+    react: "components/flow.tsx",
+    snippet: `<div class="rs-flow" style="grid-template-columns:184px;width:184px"><div class="rs-flow-step"><span class="rs-flow-num">1</span><h3 class="rs-flow-title">Proposal</h3><p>Scope, timeline, and fee on one page.</p><div class="rs-flow-subs"><span>Brief</span><span>Fee</span><span class="rs-flow-sub-add">+</span></div></div><button type="button" class="rs-flow-add"><span class="rs-flow-plus">+</span> Add a step</button></div>`,
+    example: `import { Flow, FlowAdd, FlowBody, FlowNum, FlowStep, FlowSub, FlowSubAdd, FlowSubs, FlowTitle } from "@noorddev/vlak-react";
+
+<Flow>
+  <FlowStep>
+    <FlowNum>1</FlowNum>
+    <FlowTitle>Proposal</FlowTitle>
+    <FlowBody>Scope, timeline, and fee on one page.</FlowBody>
+    <FlowSubs>
+      <FlowSub>Brief</FlowSub>
+      <FlowSub>Fee</FlowSub>
+      <FlowSubAdd>+</FlowSubAdd>
+    </FlowSubs>
+  </FlowStep>
+  <FlowAdd onClick={addStep}>Add a step</FlowAdd>
+</Flow>`,
+    usage: {
+      use: ["Editable pipelines: numbered steps with sub-items and a ghost add action.", "Builders, automations, onboarding flows."],
+      avoid: ["Read-only progress; use Stepper.", "Deep trees; the pipeline is one row."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves to the add-step button" },
+      { keys: "Enter, Space", does: "Activates it" }
+    ],
+    a11y: [
+      "FlowAdd is a native <button>; FlowTitle is an <h3>. FlowSubAdd is a <span>: wrap it in a button when it acts. FlowStep is presentational and is not draggable by itself."
+    ],
+    aliases: ["Workflow", "Pipeline", "Flow card", "Process steps"]
+  },
+  {
+    name: "assistant",
+    title: "Assistant panel",
+    description: "Frames an assistant exchange with a user message, reply, suggestion, and input row.",
+    category: "patterns",
+    classes: ["rs-ai", "rs-ai-head", "rs-ai-title", "rs-ai-status", "rs-ai-msg", "rs-ai-user", "rs-ai-user-block", "rs-ai-reply", "rs-ai-card", "rs-ai-tag", "rs-ai-text", "rs-ai-done", "rs-ai-input", "rs-ai-send", "rs-ai-status-dot"],
+    css: ["components/assistant.css"],
+    react: "components/assistant.tsx",
+    snippet: `<div class="rs-ai"><div class="rs-ai-msg rs-ai-user"><div class="rs-ai-user-block">Make the intro tighter.</div></div><p class="rs-ai-reply">Done. Two sentences, same claim.</p></div>`,
+    example: `import { Assistant, AssistantHead, AssistantMsg, AssistantReply, AssistantStatus, AssistantTitle, AssistantUserBlock, MessageComposer } from "@noorddev/vlak-react";
+
+<Assistant>
+  <AssistantHead>
+    <AssistantTitle>Assistant</AssistantTitle>
+    <AssistantStatus>Ready</AssistantStatus>
+  </AssistantHead>
+  <AssistantMsg user>
+    <AssistantUserBlock>Make the intro tighter.</AssistantUserBlock>
+  </AssistantMsg>
+  <AssistantReply>Done. Two sentences, same claim.</AssistantReply>
+  <MessageComposer onSend={sendMessage} />
+</Assistant>`,
+    usage: {
+      use: ["A chat panel with a head, a message thread, and an input row.", "AssistantCard and AssistantTag for a suggestion the reply proposes."],
+      avoid: ["Long transcripts without a ScrollArea.", "Notifications; use toast."]
+    },
+    a11y: [
+      'Layout parts only. Give the thread aria-live="polite" if replies stream in, and make the input a real <input> with a name and the send a <button>.'
+    ],
+    aliases: ["Assistant", "Chat panel", "AI chat", "Conversation", "Copilot panel"]
+  },
+  {
+    name: "theme-toggle",
+    title: "Theme toggle",
+    description: "Switches between light and dark schemes. The icon changes and the choice persists locally.",
+    category: "actions",
+    classes: ["rs-theme-toggle", "rs-theme-toggle-inline", "rs-theme-sun", "rs-theme-moon"],
+    css: ["components/theme-toggle.css"],
+    react: "components/theme-toggle.tsx",
+    registryDependencies: ["icons"],
+    snippet: `<button type="button" class="rs-theme-toggle rs-theme-toggle-inline" aria-label="Switch to dark scheme"><svg class="rs-icon rs-theme-moon" aria-hidden="true" viewBox="0 0 16 16" width="24" height="24" fill="currentColor" stroke="none"><path d="M13.5 8.5 A5.5 5.5 0 1 1 7.5 2.5 A4.5 4.5 0 0 0 13.5 8.5 Z"/></svg></button>`,
+    example: `import { ThemeToggle } from "@noorddev/vlak-react";
+
+<ThemeToggle storageKey="vlak-theme" onThemeChange={(dark) => track(dark)} />`,
+    usage: {
+      use: ["Letting the reader pick light or dark and remembering it.", "Top-right of the page chrome; rs-theme-toggle-inline for a spot in the flow."],
+      avoid: ["Pages that should follow the system only; leave it out and the system preference applies."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves focus to the button" },
+      { keys: "Enter, Space", does: "Switches the scheme" }
+    ],
+    a11y: [
+      'A native <button> whose aria-label states the action ("Switch to dark scheme" or "Switch to light scheme").',
+      "The target mode is shown with the filled Vlak moon or sun, on a 24px icon square inside a 44px target.",
+      'Sets an explicit data-theme="light" or data-theme="dark" on <html> and stores the choice under storageKey; read it early in your document to avoid a flash.'
+    ],
+    aliases: ["Theme toggle", "Dark mode toggle", "Color scheme switch", "Mode toggle"]
+  },
+  {
+    name: "callout",
+    title: "Callout",
+    description: "Adds a contextual note to running copy. 1px frame, square corners, no accent bar.",
+    category: "feedback",
+    classes: ["rs-callout"],
+    css: ["components/callout.css"],
+    react: "components/callout.tsx",
+    snippet: `<div class="rs-callout"><p><strong>Fixed fee.</strong> The number on the cover is the number on the invoice.</p></div>`,
+    example: `import { Callout } from "@noorddev/vlak-react";
+
+<Callout>
+  <p><strong>Fixed fee.</strong> The number on the cover is the number on the invoice.</p>
+</Callout>`,
+    usage: {
+      use: ["A note inside running copy that deserves a frame: a term, a caveat, a definition.", "A bold lead-in and one or two sentences."],
+      avoid: ["Status and warnings; use Alert.", "Stacking several in a row."]
+    },
+    a11y: [
+      'A plain <div> in the reading order; add role="note" and an aria-label when it should be announced as an aside.'
+    ],
+    aliases: ["Callout", "Note", "Aside", "Admonition"]
+  },
+  {
+    name: "references",
+    title: "References",
+    description: "Connects inline citations to a numbered source list and cite box. Numerals hang in the gutter.",
+    category: "content",
+    classes: ["rs-cite", "rs-refs", "rs-ref-authors", "rs-ref-doi", "rs-cite-box", "rs-cite-box-label", "rs-cite-box-text", "rs-cite-cite-a", "rs-cite-item"],
+    css: ["components/references.css"],
+    react: "components/refs.tsx",
+    snippet: `<p>Set in a single ink.<sup class="rs-cite"><a href="#ref-1">1</a></sup></p><ol class="rs-refs"><li id="ref-1"><span class="rs-ref-authors">M\xFCller-Brockmann, J.</span> Grid systems in graphic design. <a class="rs-ref-doi" href="#">niggli.ch/grid</a></li></ol>`,
+    example: `import { Cite, CiteBox, CiteBoxLabel, CiteBoxText, CiteLink, RefAuthors, RefDoi, RefItem, Refs } from "@noorddev/vlak-react";
+
+<p>Set in a single ink.<Cite><CiteLink href="#ref-1">1</CiteLink></Cite></p>
+
+<Refs>
+  <RefItem id="ref-1">
+    <RefAuthors>M\xFCller-Brockmann, J.</RefAuthors> Grid systems in graphic design. <RefDoi href="https://niggli.ch/grid">niggli.ch/grid</RefDoi>
+  </RefItem>
+</Refs>
+
+<CiteBox>
+  <CiteBoxLabel>Cite this</CiteBoxLabel>
+  <CiteBoxText>Vald\xE9s-Olmos, R. (2026). Vlak. Noord.</CiteBoxText>
+</CiteBox>`,
+    usage: {
+      use: ["Articles and papers with numbered citations and a reference list.", "CiteBox for the how-to-cite block at the end."],
+      avoid: ["Footnotes with long asides; keep notes short.", "Link lists; use plain Links."]
+    },
+    keyboard: [
+      { keys: "Tab", does: "Moves between citation links" },
+      { keys: "Enter", does: "Jumps to the reference" }
+    ],
+    a11y: [
+      "Cite is a <sup> holding a native <a>; give each RefItem the id the link targets. Refs is an <ol>, so the numbering is real."
+    ],
+    aliases: ["References", "Citations", "Footnotes", "Bibliography"]
+  }
+];
+var catalogComponents = vlakComponents.filter((c) => !c.hidden);
+
+// src/schema.ts
+var vlakCategories = [
+  "actions",
+  "forms",
+  "navigation",
+  "feedback",
+  "surfaces",
+  "content",
+  "icons",
+  "charts",
+  "patterns",
+  "ios",
+  "android",
+  "ai",
+  "health",
+  "civic",
+  "science",
+  "creative",
+  "engineering",
+  "geospatial",
+  "robotics",
+  "electronics",
+  "microbiology"
+];
+var KEBAB = /^[a-z][a-z0-9]*(-[a-z0-9]+)*$/;
+function validateRegistry(components) {
+  const problems = [];
+  const names = /* @__PURE__ */ new Set();
+  for (const c of components) {
+    if (!KEBAB.test(c.name)) problems.push(`${c.name}: name is not kebab-case`);
+    if (names.has(c.name)) problems.push(`${c.name}: duplicate name`);
+    names.add(c.name);
+    if (!c.title) problems.push(`${c.name}: missing title`);
+    const sentenceTitle = c.title.replace(/^iOS(?= )/, "Ios");
+    if (sentenceTitle !== sentenceTitle.charAt(0).toUpperCase() + sentenceTitle.slice(1) || /[A-Z]{2,}/.test(sentenceTitle))
+      problems.push(`${c.name}: title must be sentence case`);
+    if (!c.description) problems.push(`${c.name}: missing description`);
+    if (!vlakCategories.includes(c.category))
+      problems.push(`${c.name}: unknown category "${c.category}"`);
+    if (c.classes.length === 0) problems.push(`${c.name}: no classes listed`);
+    if (c.css.length === 0 && !c.react) problems.push(`${c.name}: no css files listed`);
+    if (!c.snippet.trim()) problems.push(`${c.name}: empty snippet`);
+  }
+  for (const c of components) {
+    for (const dep of c.registryDependencies ?? []) {
+      if (!names.has(dep)) problems.push(`${c.name}: unknown registry dependency "${dep}"`);
+    }
+  }
+  return problems;
+}
+export {
+  catalogComponents,
+  concentricInner,
+  concentricInnerCss,
+  concentricOuter,
+  domainCollections,
+  healthDataContract,
+  healthWorkflows,
+  innerRadius,
+  validateRegistry,
+  vlakCategories,
+  vlakComponents,
+  vlakTokens
+};
+//# sourceMappingURL=index.js.map

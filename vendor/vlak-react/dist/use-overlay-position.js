@@ -1,0 +1,108 @@
+"use client";
+
+import * as React from "react";
+
+/** Keep lightweight overlays inside the visual viewport. The native top layer avoids clipping. */
+export function useOverlayPosition(open, panel, anchor, point, placement = "bottom", options) {
+  const [position, setPosition] = React.useState({
+    visibility: "hidden"
+  });
+  React.useLayoutEffect(() => {
+    const element = panel.current;
+    if (!open || !element) return;
+    const native = typeof element.showPopover === "function";
+    if (native) {
+      element.setAttribute("popover", options?.popover ?? "manual");
+      if (!element.matches(":popover-open")) element.showPopover();
+    }
+    const place = () => {
+      const viewport = window.visualViewport;
+      const edge = Math.max(0, options?.edge ?? 8);
+      const leftEdge = (viewport?.offsetLeft ?? 0) + edge;
+      const topEdge = (viewport?.offsetTop ?? 0) + edge;
+      const viewportWidth = viewport?.width ?? window.innerWidth;
+      const viewportHeight = viewport?.height ?? window.innerHeight;
+      const rightEdge = leftEdge + viewportWidth - edge * 2;
+      const bottomEdge = topEdge + viewportHeight - edge * 2;
+      const target = anchor.current?.getBoundingClientRect();
+      const paint = getComputedStyle(element);
+      const borderX = (Number.parseFloat(paint.borderLeftWidth) || 0) + (Number.parseFloat(paint.borderRightWidth) || 0);
+      const borderY = (Number.parseFloat(paint.borderTopWidth) || 0) + (Number.parseFloat(paint.borderBottomWidth) || 0);
+      const matchAnchor = options?.matchAnchorWidth !== false;
+      let panelWidth = element.scrollWidth + borderX;
+      if (!matchAnchor) {
+        // Measure the authored width without the last placement’s viewport clamp.
+        // Restoring it here also keeps resize observation tied to the final layout.
+        const {
+          width,
+          minWidth,
+          maxWidth
+        } = element.style;
+        element.style.width = "";
+        element.style.minWidth = "";
+        element.style.maxWidth = "";
+        panelWidth = element.getBoundingClientRect().width;
+        Object.assign(element.style, {
+          width,
+          minWidth,
+          maxWidth
+        });
+      }
+      const width = Math.min(Math.max(panelWidth, matchAnchor ? target?.width ?? 0 : 0), viewportWidth - edge * 2);
+      const height = Math.min(element.scrollHeight + borderY, viewportHeight - edge * 2);
+      let left = point?.x ?? target?.left ?? leftEdge;
+      let top = point?.y ?? (target ? target.bottom + 6 : topEdge);
+      if (placement === "inline-end" && target) {
+        const rtl = getComputedStyle(anchor.current).direction === "rtl";
+        left = rtl ? target.left - width - 4 : target.right + 4;
+        if (left + width > rightEdge) left = target.left - width - 4;
+        if (left < leftEdge) left = target.right + 4;
+        top = target.top;
+        if (top + height > bottomEdge) top = bottomEdge - height;
+      } else if (target && point?.y === undefined) {
+        const below = target.bottom + 6;
+        const above = target.top - height - 6;
+        if (options?.side === "top") {
+          top = above >= topEdge || below + height > bottomEdge ? above : below;
+        } else {
+          top = below + height <= bottomEdge || above < topEdge ? below : above;
+        }
+      } else if (top + height > bottomEdge) {
+        top = point?.y !== undefined ? point.y - height : bottomEdge - height;
+      }
+      left = Math.max(leftEdge, Math.min(left, rightEdge - width));
+      top = Math.max(topEdge, Math.min(top, bottomEdge - height));
+      const next = {
+        position: "fixed",
+        inset: "auto",
+        left,
+        top,
+        margin: 0,
+        minWidth: matchAnchor ? Math.min(target?.width ?? 0, viewportWidth - edge * 2) : 0,
+        maxWidth: viewportWidth - edge * 2,
+        maxHeight: viewportHeight - edge * 2,
+        width,
+        overflow: "auto",
+        visibility: "visible"
+      };
+      setPosition(previous => JSON.stringify(previous) === JSON.stringify(next) ? previous : next);
+    };
+    place();
+    const observer = typeof ResizeObserver === "undefined" ? undefined : new ResizeObserver(place);
+    observer?.observe(element);
+    if (anchor.current) observer?.observe(anchor.current);
+    window.addEventListener("resize", place);
+    window.addEventListener("scroll", place, true);
+    window.visualViewport?.addEventListener("resize", place);
+    window.visualViewport?.addEventListener("scroll", place);
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener("resize", place);
+      window.removeEventListener("scroll", place, true);
+      window.visualViewport?.removeEventListener("resize", place);
+      window.visualViewport?.removeEventListener("scroll", place);
+    };
+  }, [open, panel, anchor, point?.x, point?.y, placement, options?.popover, options?.edge, options?.matchAnchorWidth, options?.side]);
+  return position;
+}
+//# sourceMappingURL=use-overlay-position.js.map

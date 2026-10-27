@@ -1,0 +1,56 @@
+---
+kind: "essay"
+slug: "how-i-became-unpatriotic"
+title: "How I became unpatriotic"
+date: "2013-04-23"
+sourceDate: null
+archiveYear: 2016
+pinned: false
+category: "Philosophy"
+tags: ["patriotism", "mama earth", "autobiographical", "india", "singapore", "lesson"]
+description: "Funny story, that. It all started with my family emigrating from India to Singapore when I was 7. New country, new languages, new friends, a whole new genre of food and fruits, what's not to like? Unfortunately, it didn’t take… the grafting process must’ve been flawed somehow. Cue slow plodding passage of time, flash-forward 11 years."
+cover: "/archive/media/b5741e3b83a5a8e9b6ce.jpeg"
+source: "essais/2016/how-i-became-unpatriotic.html"
+---
+
+![](/archive/media/b5741e3b83a5a8e9b6ce.jpeg)
+
+Funny story, that. It all started with my family emigrating from India to Singapore when I was 7. New country, new languages, new friends, a whole new genre of food and fruits, what's not to like? Unfortunately, it didn’t take… the grafting process must’ve been flawed somehow. Cue slow plodding passage of time, flash-forward 11 years. 11 long years…
+
+Having freshly completed high school, I was conscripted, whisked away like every other 18 year-old male in Singapore into the army for 2 years of National Service. This experience was actually fun, all things considered. After completing NS, non-citizens are given the option of taking up citizenship. At the time of the first offer, it was a no-brainer. “*Nope, not in a million years,*” was my answer.
+
+On principle you see. I felt it was up to me to be patriotic, I was *proud* to be Indian. And I demonstrated that pride by refusing the offer. The idea of being loyal to my country of birth was at once chivalrous , and honourable. Forgive the cliché, I loved my India. Blindly. Why? Because I was born there. Because I’m a pure-bred Dravidian. Because that land was my birthright, the land of my father and grandfather and all those before them.
+
+Did I *really* feel such strong ties with India? Not so much… I hadn’t been back in the motherland much, save for vacations every couple of years. Frankly there wasn’t much in the way of emotional investment, save for the acquaintance of my dear extended family.
+
+Just a couple of months later though, for a variety of practical reasons concerning university tuition fees, the tables turned. Like many things in Singapore, the offer was an illusion of choice; really it was a series of carefully engineered non-options and one *right* answer, unless you’re feeling particularly rebellious. Considering the cold calculus of costs for international students or citizens, it was logical that I should take up the citizenship offer after all.
+
+As the paperwork got underway, a sense of tangible guilt racked every waking second. Change of citizenship. Isn’t that basically treason? Was I a traitor, to my country, my race, my lineage and ancestry? What was I *really* giving up in exchange for a paltry (but admittedly useful) travel document? Surely no amount of savings was worth giving up links to my Indian heritage?
+
+Finally the big day came. I was sworn in at the Singaporean Immigration Department and told to submit a slip at the Indian Embassy. For all intents and purposes, it was the final legal “link” I had to India. As long as I held on to it, I would still be an Indian citizen. Some of the longest minutes of my life were spent in the corridors of the Indian High Commission, waiting my turn. I was literally ashamed as I walked gingerly up to the lady behind the desk. The words choked up, but I managed to get the gist across. “*I’d like to give up my citizenship. Here’s a piece of paper that says I should.*”
+
+An abyss of silence opened its maw, or so it seemed. I was expecting to see a look of disdain, or even contempt. I swear, if she’d asked, “*Are you sure?*”, I would’ve bawled and declared, “*No! Never will I turn my back on my country. They fed me lies, but I see clearly now!*”
+
+But she didn’t ask me anything! She didn’t even register a look of surprise. She took the slip, stamped it a couple of times, asked for a signature here and there, filed it away and it was done. The tables had turned; I wore the look of disdain now. All these raging questions in my head. “*That’s it? You’re not even going to care? Doesn’t it matter to you that India has lost yet one more of her sons? How can you just let this happen in front of you?*”
+
+But it was all over by then. My citizenship had been traded with just an exchange of papers. To add insult to injury, they had made me deliver those very papers myself! I felt like I'd been written off like excess baggage, an acceptable loss in the grand scheme of things.
+
+Never mind the sentiments; now came new ethical dilemmas. My citizenship had changed, so should my loyalties, right? In effect, my patriotism had been traded like a commodity. *Is* patriotism a commodity? Can you be patriotic to one country, but a citizen of another? What does that even mean? Dual-citizenships?! What a joke! Thoughts like these quickly whittled down the rosy aura around the previously romantic notion of belonging to an evergreen story, the latest chapter in the history of a grand and wise culture.
+
+And then some illumination parted the fog of confusion and distress.
+
+Let's conduct a thought experiment now. In a hypothetical large warring country, isn’t it funny that soldiers, patriots if you will, go to war with an enemy state 3 minutes away, because they feel they have more in common with their countrymen who might live 3 days travel in the opposite direction?
+
+On a related note, this comic by Zach Weinersmith is interesting to consider.
+
+![Source: Saturday Morning Breakfast Cereal, a webcomic](/archive/media/20a97748e92eb3753803.png)
+
+Another thought-experiment: take Jerusalem. Jerusalem is a holy city, but what about it is holy exactly? If I were to bring back a handful of sand from Jerusalem, would that be holy sand? If tectonic shifts relocated Jerusalem a hundred kilometres away from its present location, would it still be holy?
+
+The point I'm getting to is this. If the goal of true civilisation is the absence of war (which is ultimately not very civil), then it must imply the absence of (rival) States as well. Invisible lines in the sand, irrational groupings in the mind should no longer separate the family of humanity from one another in a true civilisation. Right? It seems that way to me. If you think differently, then that would be the cornerstone of your conviction as far as the argument of patriotism is concerned.
+
+On my part though, right now, I have a new conviction. It leads me *away* from the (false) ideal of patriotism. I see it now as a blind racism of some sort; an inexplicable devotion to an imaginary shape on a map. It leads me instead to a different philosophy, a different sense of belonging. I still feel strongly about what I consider my birthright, and I want to defend it for me, you and the many generations to come. It remains perfectly understandable to want to help your kin and clan. But for me, this sentiment is no longer loyalty to any one particular tract of land, or a State or a continent. I am not a [**enter nationality here**]. I’m a *human being*, first and foremost, and my loyalty is not to a political identity, but rather to the fundamental reality of the sociotechnical civilisation that I find myself in; this great civilisation that feeds, clothes, entertains and sustains me. I am connected by genes and gratitude to every other human being on the planet, present, past and future. I feel *obligated* to work for the good of the people of the world, because I know they are inextricably bound to me as well, whether they've realised this or not.
+
+Let me go a step further then! Why be species-centric? I’m not *just* a human being! I’m an Earthling, stuck on this magnificent space-rock with strange and astounding creatures of air, land and sea. And I am as much a part of their world as they are an awe-inspiring part of mine. Maybe this is a form of patriotism too, only to the larger brotherhood of sentience itself. This realisation felt like homecoming, a philosophy that actually makes sense on a personal level.
+
+So, I have my work cut out for me; the world needs plenty of fixing at the seams. And I gladly jump into these trenches, hoping to meet all of you on the long road to true civilization. See you around!

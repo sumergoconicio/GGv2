@@ -1,0 +1,181 @@
+---
+kind: "essay"
+slug: "baby-steps-to-transhumanism"
+title: "Baby steps to transhumanism"
+date: "2014-05-28"
+sourceDate: null
+archiveYear: 2016
+pinned: false
+category: "Technology & Society"
+tags: ["wearables", "transhumanism", "marshall mcluhan", "medium theory"]
+description: "A nebulous prefix to an already nebulous base-term, trans-humanism is a concept that sparks lively debates on both sides of the gallery."
+cover: "/archive/media/2d7eb7e50873429dc672.jpeg"
+source: "essais/2016/baby-steps-to-transhumanism.html"
+---
+
+![](/archive/media/2d7eb7e50873429dc672.jpeg)
+
+A nebulous prefix to an already nebulous base-term, ***trans-humanism*** is a concept that sparks lively debates on both sides of the gallery. Its proponents wax poetic about transcending the limitations of biological evolution whereas its harshest critics warn about the dangers of playing God, both physically and metaphysically.
+
+If that were not enough fuel for the flames, an entire glossary of terms join the pantheon of futurist thinking, from *cyborg* to *post-humanism*, further clouding the debate with abstract notions quite far removed from the experience of the general public. Wearable electronics however, a technology in its infancy but predicted to be a multi-billion dollar industry in short order (ReportLinker, 2013), can make visceral some of these fuzzy notions, lending a tangible context to defend or vilify. As a techno-optimist, the author would like to advance the important role wearable electronics will have in influencing the debate.
+
+Perhaps in the interests of clarity, it would be good to deconstruct the key terms. Transhumanism, according to the author, is simultaneously a phenomenon, a map towards a specific goal and at a broad stroke, a futurist philosophy. Therefore any extended discussion on the topic must attempt to define a scope, so as to not risk being derailed by conflicting preconceptions.
+
+### What is Transhumanism?
+
+The term *transhuman* is a convenient shortform for what FM-2030, a prominent futurist of the 1980s, defined as *transitional human (*Hook, 1997). In the same sentence, he coined also the term *posthuman*, claiming “*[transhumans would be] on their way to becoming posthumans*”. This statement alone provides a sufficient distinction between transhumanism and posthumanism, i.e. transhumanism is interested in the transition process of improving humanity whereas posthumanism focuses on the goal and underlying ideals of transcending humanity altogether. In other words still, if posthumanism could be understood as the (at least partially) self-directed evolution of the human species to its next descendent, transhumanism is the map to getting there from the status quo.
+
+As a phenomenon, many pro-transhuman thinkers have attempted to build support by drawing parallels to the human drive to build tools and other artifacts. Insofar as technological tools extend the human vehicle — this will be discussed in detail later in the essay — there is no fundamental divide between Nature and man-made Technology, because man himself is of Nature. Our construction of great skyscrapers is fundamentally no different from ants constructing anthills; our computers as “bicycles for the mind” as natural as sticks chimpanzees use to dig out termites.
+
+Philosophically, the unnatural distinction between the biological and the technological — with implications for ethics and morality — can be argued to be a Judeo-Christian bias that exalts an immaculate God’s immaculate creations over flawed Man’s flawed creations (and never the twain shall meet). Why must technology be considered unnatural though? Indeed, just as Peirce argued more than a century ago, an artefact — the example given is of an inkpot as a tool for communication — can become so essential that its deprivation could be as devastating as losing one’s voice (Peirce et al, 1933).
+
+Imagine modern Man deprived of electricity; society as we know it would come to a standstill. Is electric technology of biological origin or strictly essential for biological bodily survival? No. Is electricity (with an implied retinue of artefacts) essential to modern Man’s survival? Very much so, scarily so. From this perspective, a heart-patient with a pacemaker is transhuman just as a war-veteran with a prosthetic leg; a pen-user is transhuman, and so is a car-driver. Here, one can isolate a conflation of technological artefact as both object and environment, making little distinction to whether the technology is within or without and around the human organism. This assumption is buttressed by Marshall McLuhan’s Medium Theory.
+
+### Cue Marshall McLuhan
+
+For the uninitiated, Marshall McLuhan was a Canadian communications theorist who wrote meta-analyses about the impact and implications of technology in society. As a disclaimer, the author must disclose that McLuhan was not without his critics, and for a time, was dismissed by some experts. However, there has been renewed interest in recent years. The author was particularly encouraged by a keynote address by Joseph Meyrowitz (Meyrowitz, 2001), calling to renew McLuhan, whose works have only become more relevant in the digital age than they ever were at the time they were originally published. In particular, Meyrowitz rebutts many of McLuhan’s critics on grounds of misinterpretation or misrepresentation.
+
+Meyrowitz specifically recommends McLuhan’s works are best utilised *in combination* with other sociological theories, because medium theory was primarily intended to cast light on the significant effect of technological media on society, not serve as the primary worldview to study society (Meyrowitz, 2001). Other papers have also since been published that explicitly formulate clear and linear theory from McLuhan’s prolific works of ‘exploratory Practical Criticism’ (McLuhan, 2008).
+
+Consider a violin playing a rendition of Mozart. Insofar as the violin is one of many instruments *with which* the composition can be played, the violin can be said to be a tool. However, it can also be argued that the violin is a medium, *on the basis of which* the music was composed. Another example would be the printed book. The book is a form of informative media with many types of books from comics to textbooks, and simultaneously it is one of many possible tools for communication. Marshall McLuhan was among the first theorists to identify this strange transcendence of (some) technologies in his seminal book Understanding Media.
+
+### Extension Theory: Tools as Extensions
+
+First, it is important to define the term technology to selectively choose which (material) artefacts we refer to as technology. Humans create both hammers and paintings, computers and moisturizers, but not all of these would be classified as technical tools. The importance of tool as a descriptor of technology was emphasized by McLuhan and other thinkers in this area — wherein a tool is an extension of human capability either by replicating, complementing or amplifying (Lawson, 2010).
+
+For example, a telescope extends vision, and robotic arms extend the reach and strength of human arms. McLuhan famously diverged from earlier extension theorist Ernst Kapp by distinguishing between extensions of the body and extensions of cognitive functions (Lawson, 2010). David Rothenberg generalised this dichotomy further to extensions of action and extensions of thought, concluding that any technology was an extension of human intention given the mechanism of that faculty was known and understood well enough to automate it (Brey, 2000).
+
+In recent years, Philip Brey comparatively analysed the extension theories of Kapp, McLuhan and Rothenberg, noting the need for ‘extension’ to apply to any example artefact without counter-examples. Specifically, Brey further narrows the definition of tool as an addition to an “*inventory of means*”, much like a repository of tools to pick and choose and mix-and-match at will, that allows us to extend our capabilities and realise our intentions, whatever they may be (Brey, 2000).
+
+This makes sense from an evolutionary development perspective. Take convergent evolution as an extreme example. Two species without a common ancestor developing uncannily similar traits as an adaptation to similar environments (Wikipedia, accessed 2014). This suggests that even the biological condition of a species is an extremely malleable selective adaptation over time. Every organism is essentially a living Swiss Army knife of organs and appendages, packaged for survival.
+
+As such, even the vaunted “human condition” that bioconservatives would prefer to preserve was not cut from a perfect template but instead sculpted by time and need to thrive in its environment. And the human environment one finds now is no longer the same environment in which the contemporary state of the human species came to be. (Biological) evolution has not kept pace with civilization. Does this not suggest that our *inventory of means* should be expanded proportionately, technologically if need be?
+
+### Medium Theory: Tools as Media
+
+All technologies can be said to be (originally) tools, and some technologies become media. Of course, one could argue that by McLuhan’s definition, all tools once in use become media. However, the author of this paper would like to make a distinction in the scope of transformation afforded by different media, in which case, hammers cannot be said to have transformed society as fundamentally as computers, for example.
+
+Perhaps there is an element of temporal relevance as well, in that a club (hammer-equivalent) would be more transformative to Neanderthal society than a computer. Alternatively, one could cast the hammer as a derivative of a broader know-how of the blunt-heavy surface, or the nail as a derivative form of the sharp point as a know-how. In this view, the blunt-heavy surface is manifested in hammers as well as clubs, paper-weights, wrecking balls etc — that is to say, assimilated into society to such an extent that even discussing it as a technology seems irrelevant, though these qualities were once unobvious to primitive men.
+
+The popular adage ‘*if all you have is a hammer, everything looks like a nail*’ (Maslow’s hammer) casts light on the transition between a tool and a (temporally transformative) medium — namely a technology is a tool as long as it remains one of many means to achieve an intention whereas a medium operationalizes the intention uniquely in ways that technology can excel at.
+
+A good example of this would be Google (Search) as a tool and Google as a word in the dictionary. The former refers to a specific functionality that the tool provides whereas the latter (used in context as a medium) is a paradigm-shifting lens reflecting a worldview of omniscient digital interconnection. Technology in a sense transcends its physicality as a tool and gains semantic & semiotic status to become a medium (Faculty of Communication Studies, 2013). It is important here to not mix media with the content of the media.
+
+In a curious play of words, McLuhan refers to our infatuation with new technology as “*Narcissus-narcosis*” (McLuhan, 1964). This *self-adulatory numbness* is posited as a lack of foresight regarding the impact of the technology at a broad stroke. We assume our tools are within our control (as one-of-many means to achieve a goal), but in fact the tools can become proverbial Maslow’s hammers, in which case, the tools themselves control our behaviour.
+
+McLuhan provides the example of bus conductors in Thailand who keep long fingernails on their little fingers to mark used tickets (Fankboner, accessed 2014). However the long fingernails (literal, and in this case figurative, extension of the nail) have taken on a sociological meaning, denoting status above menial labour; but in so doing, the bus conductor has unwittingly *amputated* his physical ability to do menial labour for the (technological) ability to mark tickets. This is in fact McLuhan’s greatest insight, that we are prone to using the light bulb or the book or Google in much the same way as Maslow’s hammer.
+
+He presciently echoed this sentiment, perhaps in a more cautionary tone, when he wrote, “*We become what we behold… we shape our tools and thereafter our tools shape us*” (McLuhan, 1964).
+
+Now this is not to say that technologies becoming media is a phenomenon to be cautious of. Rather the implications are significant but rarely noticed. History is full of examples, including Rachel Carson’s seminal Silent Spring (Grizwold, 2012). Perhaps it cannot be foreseen what sociological and sociotechnical implications transhumanism will bring, but our optimism must be tempered with equal parts care and caution.
+
+On a similar tangent, McLuhan’s famous one-liner, “*the medium is the message*” is also thought-provoking (McLuhan, 1964). By this he meant that the existence of the medium itself is a sign of the significant structural sociotechnical change (Federman, 2004). McLuhan illustrated in one example that whether one plays baseball at night in a stadium or reads a newspaper under a lamp, the message of electric light itself is one of on-demand liberation from human inability in darkness. It is this ‘message’ that fundamentally shapes societies therein — perhaps best exemplified by a slogan like “*the city never sleeps*” — and not the information visible under electric light.
+
+The author would like to emphasize this implication that mediums can perhaps be identified by observing radical restructuring in sociotechnical systems in response to the introduction of a new technology. This is when the tool (electric light in this case), in its ubiquity and influence, transcends object status to become an environmental variable. And just as environmental variables in the pre-technological ecosystem sculpted the human animal, the technological variables in our postmodern civilisation can, perhaps must, sculpt the human machine.
+
+### Wearable Electronics: New Media?
+
+Now that the terminology of tool and medium have been established, with a brief look at the implications of a technology being either (if not both), the author would like to return to the original premise: wearable electronics as a new medium. Perhaps the author’s move to claim that wearable electronics should be seen as a new medium is not unexpected at this point. This claim can be justified in many ways.
+
+Firstly and most simply, the term “wearable electronics” is deceptively generic, with no direct or associative semantics describing its function. While a screw or a hammer retain a primary use pattern, a computer or a book do not in any way suggest similar information. As forms of media more than just tools, the computer or the book could be used in many contexts with many applications, from education to leisure to industry.
+
+The term ‘wearable electronics’, in a sense, already lends itself to many different contextual uses in multiple arenas, implying that is in fact a medium, and not a tool with a primary use pattern. This is not just a question of semantics; from the business intelligence on wearable electronics, it can be seen that potential applications are currently expected in areas as diverse as personal fitness & healthcare to leisure & fashion to industrial applications (ReportLinker, 2013).
+
+Alternatively, one could consider other incumbent technologies which transitioned from tools to media. Georg Rückriem argues that computer technology is a medium on the basis that its influence on society and our current overdependence on it is irreversible (Rückreim, 2003). Indeed, McLuhan’s disciple Derrick de Kerckhove described media as ‘weltanschauungsapparate’ or apparatuses of worldviews (Rückreim, 2003).
+
+Consider that the bulk of content that computers produce can only be appreciated with a computer or be transformed into other media via computer peripherals. This self-referential loop is also indicative of how a medium becomes indispensable.
+
+Thus the author suspects there might be a correlational, if not causal, link between network effects of use and the rise of a medium. Indeed this insight desperately highlights that designing a medium requires much more careful consideration than designing a tool, with the implications of long-term and widespread adoption and even the network effects that accrue when the medium becomes so essential it is categorized as infrastructure.
+
+McLuhan and son designed the following tetrad to analyze any form of media critically (Sandstrom, 2012). These questions sought to identify empirical testable questions whose answers reflected not only on the unique characteristics of the medium, but also its features and capabilities cast in comparison to other contemporary or even atemporal media. The resulting questions were based on the 4 laws of media: extension, obsolescence, reversal and retrieval (The Deoxyribonucleic Hyperdimension, 2008).
+
+- What prior functionality is *retrieved* in the new media?
+- What *reversals* of original traits will this media display if pushed to its limits?
+- What forms of media does the new media make *obsolete*?
+- What functionality does the new media *enhance*?
+
+It is clear from McLuhan’s examples as well as the open-ended nature of the questions that they are intended as points for exploration, rather than categorical right or wrong answers. A McLuhanesque interpretation of computer technology according to these questions yield the following answers (The Deoxyribonucleic Hyperdimension, 2008):
+
+- Computers *retrieve* a numerical/deterministic mindset, at least in direct interactions.
+- Computers *reverse* from sequential to simultaneous processing.
+- Computers *obsolesce* human logic and reflexes in (repetitive) sequential actions.
+- Computers *accelerate* sequential calculations exponentially.
+
+Now one can attempt to frame wearable electronics in this context. The following then would be one possible interpretation of wearable electronics in the framework of the tetrad.
+
+- Wearable electronics *retrieve* the freedom and mobility that was lost with reading/writing/computing — one has to physically sit down at a table or console, temporarily setting aside the reality-we-are-in for the reality-on-the-page/screen. Wearable computing on the other hand can be situationally adapted to context and environment, in much the same way our biological eyes dynamically adjust to see in the dark. There is much to be said about the role of acute situational awareness in increasing the level of presence, which in itself is essential for ethics, well-being and survival (Nevejan, 2012).
+- Wearables *retrieve* the specialisation and individuality that McLuhan posited was lost with the advent of anonymising electricity (McLuhan, 1964). Wearables buck the trend of standardized mass-media devices with truly individual device choices. An easy analogy would be the option of uniforms (metaphor for key smartphone models, one-size-fits-all philosophy) versus the freedom to wear/extend what you please (immense variance, easy dynamic mix-and-match permutations). This has implications beyond mere market demographics. There is an incredible opportunity for personal data and technology for self-conscious development; just like only regular gym-goer would have a protein-shake mug and a musician a metronome, future generations of electronics could intimately bond determined man and dedicated machine working towards personal goals.
+- Wearable electronics *reverse* convenience of access with the inconvenience of too-much-information. On a related note, wearable electronics may be technologically possible but culturally frowned upon, as is observed with Google Glass (Yarow, 2014).
+- Wearables also *reverse* the relative holistic autonomy of the human animal to a reductive mechanised specialisation of certain organs. That is to say, the bioconservative equality of the human organism is punctuated and some organs and other parameters selectively enhanced. This may profoundly influence sense-ratios in unforeseeable ways, much like the onset of blindness would dramatically increase the influence and sensitivity of hearing and touch.
+- Wearable electronics *obsolesce* privacy and anonymity of the user — always-connected devices are always uniquely identifiable unless extraordinary measures are taken to protect such data. On the other hand, the omniscience of Google or Wikipedia could transcend from option to second-instinct.
+- By virtue of their form-factors, wearables will necessitate a conciseness of information with clear calls to action with almost instinctive follow-through, a lot like primal bodily responses to pain, hunger, heat and touch. With each new wearable extension, arguably a new technological organ, humans can conceivably attain more than just 6 senses. It is through use-cases such as these that wearables will *obsolesce* the distinction between Nature and Technology in a sublime intangible way. See next point.
+- Wearable electronics *enhance* a visceral tactility and connection that traditional computing media do not share with other tools and media. This need has been partially observed in the industry shift to touchscreen and haptic feedback systems. This paradigm shift in computing interfaces may help rescue us from our Baudrillardian obsession with reality-in-a-screen, bringing us back to a Heideggerian being-in-the-world.
+- This visceral tactility can also *enhance* our technology-mediated interactions, thus extending our presence in both the material world and the digital world. Oculus Rift and haptic interfaces are very good examples (Oculus VR Inc, accessed 2014).
+
+It can be seen here that not every technology enjoys the same privilege as media in that these questions can be less than meaningful if used to analyze (non-transformative atemporal) technologies like the the hammer or the nail. However, it is still important to not conflate ‘transformative contemporary media’ with only communication media (McLuhan, 1975).
+
+Having established, at least in theory, the potential of wearable electronics as a medium, only time will tell if this medium will ultimately be adopted and be successful. There are good reasons to believe it will, if only because of the many efforts by research groups investigating areas like ubiquitous computing, user experience and human-computer interaction. Ultimately, advances and techniques from multiple technological fronts will converge in wearable electronics, just as the smartphones of today have feature-sets that go beyond mere telecommunications.
+
+### Wearable Transhumanism
+
+There is no denying however, that the paradigm shift of becoming familiar with wearable electronics will be no less influential than the transformative smart-phone, if not more. Wearables bring us one step closer to the era of ubiquitous computing, both within and without. The author posits, based on the previous examples, that these mindset changes would drastically change the nature of the debate on transhumanism, when humanity experiences such technologies viscerally on a day-to-day basis, blurring the boundary between man and machine, instinct and innovation.
+
+Consider this: in a sense that technology itself is a “living” entity that feeds on energy, evolving and reproducing symbiotically by serving humans. Given the current trend of extreme miniaturisation of electronics at the micro and nano scale, it is conceivable to frame transhumanism as a kind of symbiosis, much like the speculated rise of eukaryotes through endosymbiosis (University of Sydney, accessed 2014). In fact, it would be hard not to define a pacemaker or a watch that charges on body heat and movement as a symbiote.
+
+A core aspect in the definition of a symbiote is mutual benefit, and to a certain extent, the deprivation of survival benefits without. Would an impaired person, otherwise accustomed to prosthetics, be willing to give up the non-native augmentation that contributes to his quality of life? Is a modern city-dweller willing to do without basic transportation or telecommunications or even the basic desire for clothing, to be deprived of mobility, communication and (social) protection? Is civilisation as we know it ready to give up the Internet for any reason and still be unaffected, considering the Internet Galaxy we live in (Castells, 2001)? The point the author wishes to impress upon the reader is the deprivation of media on which we are dependent can be akin to self-suffocation. These technologies, these media are the new environmental variables *on the basis of which* humanity lives, loves and thrives. Once wearables join this pantheon, humanity will have become visibly invested in the path to transhumanism.
+
+The author doesn’t deny that there is a tinge of hubris in pushing for “self-directed evolution” through transhumanism. Using NBIC technologies to improve the human animal is at once a lofty goal and a hasty generalization. Consider the cautionary tale of nuclear power and antibiotics. Both can be harnessed for good, but both have devastating consequences when misused. NBIC technologies are at their infancy, and arguably so is our knowledge of the human animal. Potential problems cannot be anticipated, equally neither can the positive applications. So, giddy techno-optimism is as troubling to impose a blanket ban on transhumanism. This is again an area where wearables can help.
+
+Compared to the potentially invasive NBIC options, wearable electronics offer a freedom and flexibility for honing positive applications while rejecting the problematic ones. This mix-and-match modular philosophy, the author posits, can positively influence a rapid-prototyping A/B testing methodology for NBIC technologies, with a core requirement being reversibility and (sandbox) modularity. This effectively would grant the notion of transhumanism valuable buffer time to demonstrate potential, gain popular support and establish a baseline for ethical discussions founded on real use-cases, not just abstract hand-waving.
+
+### Conclusion
+
+So, in this essay we have observed the potential of wearable electronics from a transhumanist perspective. The prophetic texts of McLuhan were used, just as he intended, as probes to anticipate the impact of wearable electronics as transhumanism in beta. Yet it is important to note that this is a single spotlight on the all-encompassing changes due in our civilization. Radical advances and phenomena like space exploration, extreme climate change, the Internet of Things and many others will also play a huge role in the attrition towards posthumanism.
+
+In closing, the author would like to share a personal vision for wearable electronics, and the corresponding transhuman technologies. As elaborated earlier in the essay, the human animal evolved its essential organs and gross appendages over millions of years to navigate and survive in its habitat. Over the recent millenia, human civilisation has honed its brain, language and culture more subtly, perhaps intangibly, to negotiate in a complex ever-changing social landscape. In the past century and the decades to follow, technological media themselves (have) increasingly become the sociotechnical environment in which the networked society is learning to thrive in. The author sees the necessity to once more develop new technological organs to intimately and instinctively interface with the new technological surroundings, just as early humans were biologically primed for their biosphere. Cue transhumanism, with a princely escort by wearable technology.
+
+### References
+
+1. *Brey, P. (2000). Theories of Technology as Extension of Human Faculties. Metaphysics, Epistemology and Technology. Research in Philosophy and Technology, 19.*
+2. *Budin, H. (1999). The Computer Enters the Classroom. Teachers College Record, 100(3), 656–669.*
+3. *Castells, M. (2001). The Internet Galaxy: Reflections on the Internet, Business and Society. New York: Oxford University Press.*
+4. *Dvorksy, G. (2014). 20 Terms Every 21st Century Futurist Should Know. io9 — Welcome from the future.*
+5. *Faculty of Communication Studies. (2013). Medium Theory. University of Twente — Theory Clusters. Retrieved from*[*http://www.utwente.nl/cw/theorieenoverzicht/Theory*](http://www.utwente.nl/cw/theorieenoverzicht/Theory)*Clusters/Media, Culture and Society/Medium_theory-1/*
+6. *Fankboner, W. (n.d.). Numbness, Autoamputation and Narcosis. Retrieved May 20, 2014, from*[*http://home.roadrunner.com/~lifetime/mm-numbness.htm*](http://home.roadrunner.com/~lifetime/mm-numbness.htm)
+7. *Federman, M. (2004). What is the Meaning of The Medium is the Message? Toronto. Retrieved from*[*http://individual.utoronto.ca/markfederman/article_mediumisthemessage.htm*](http://individual.utoronto.ca/markfederman/article_mediumisthemessage.htm)
+8. *Felluga, D. (2011). Modules on Baudrillard: On Simulation. In Introductory Guide to Critical Theory. Purdue University.*
+9. *Grizwold, E. (2012). How “Silent Spring” Ignited the Environmental Movement. The New York Times. Retrieved from*[*http://www.nytimes.com/2012/09/23/magazine/how-silent-spring-ignited-the-environmental-movement.html*](http://www.nytimes.com/2012/09/23/magazine/how-silent-spring-ignited-the-environmental-movement.html)
+10. *Gullström, C. (2012). Design frictions. AI and Society, 27(1), 91–110.*
+11. *Honan, M. (2013). I, Glasshole: My year with Google Glass. Wired. Retrieved from*[*http://www.wired.com/2013/12/glasshole/*](http://www.wired.com/2013/12/glasshole/)
+12. *Hook, C. C. (1997). Transhumanism and Posthumanism. In Encylopedia of Bioethics. Emerald Group Publishing Limited.*
+13. *International Society for Presence Research. (2000). The Concept of Presence: Explication Statement.*
+14. *Kappelman, T. (2001). Marshall McLuhan: “The Medium is the Message.” Retrieved from*[*http://www.leaderu.com/orgs/probe/docs/mcluhan.html*](http://www.leaderu.com/orgs/probe/docs/mcluhan.html)
+15. *Karapanos, E., Zimmerman, J., Forlizzi, J., & Martens, J.-B. (2009). User Experience over Time: An Initial Framework. In CHI ’09 Proceedings of the SIGCHI Conference on Human Factors in Computing Systems (pp. 729–738). New York: ACM.*
+16. *Kolakowski, M. (2014). Wearable Electronics: 2014’s first overhyped category? Slashdot. Retrieved from*[*http://slashdot.org/topic/bi/wearable-electronics-2014s-first-overhyped-category/*](http://slashdot.org/topic/bi/wearable-electronics-2014s-first-overhyped-category/)
+17. *KwameCorp. (2013). Bond — Kwame Corporation. KwameCorp.*
+18. *Latour, B. (2005). Re-assembling the Social — An Introduction to Actor-Network Theory (p. 316). Oxford University Press.*
+19. *Lawson, C. (2010). Technology and the Extension of Human Capabilities. Journal of the Theory of Social Behaviour, 40(2), 207–223.*
+20. *Mann, S., Nolan, J., & Wellman, B. (2003). Sousveillance: Inventing and Using Wearable Computing Devices for Data Collection in Surveillance Environments. Surveillance and Society, 1(3), 331–355.*
+21. *McLuhan, E. (2008). Marshall McLuhan’s Theory of Communication: The Yegg. Global Media Journal — Canadian Edition, 1(1), 25–43.*
+22. *McLuhan, M. (1964). Understanding Media: The Extensions of Man. New York: McGraw-Hill.*
+23. *McLuhan, M. (1975). McLuhan’s Laws of the Media. Technology and Culture, 16(1), 74–78.*
+24. *Meyrowitz, J. (2001). Morphing McLuhan: Medium Theory for a New Millenium. In Proceedings of the Media Ecology Association, Volume 2, 2001. New York: Media Ecology Association.*
+25. *Narrative. (2014). Narrative Clip — a wearable automatic lifelogging camera. Retrieved from*[*http://getnarrative.com*](http://getnarrative.com/)
+26. *Nevejan, C. (2007). Presence and the Design of Trust. University of Amsterdam. Retrieved from*[*http://dare.uva.nl/document/47062*](https://pure.uva.nl/ws/files/4171814/143754_nevejan.pdf)
+27. *Nevejan, C. (2009). Witnessed Presence and the YUTPA Framework. PsychNology Journal, 7(1), 59–76.*
+28. *Nevejan, C., & Brazier, F. (2012). Granularity in Reciprocity. AI and Society, 27(1), 129–147.*
+29. *Oculus VR Inc. (n.d.). Oculus Rift — Virtual Reality Headset for 3D Gaming.*
+30. *Peirce, C. S., Hartshorne, C., Weiss, P., & Burks, A. W. (1933). Collected Papers of Charles Sanders Peirce. Cambridge, MA: Harvard UP.*
+31. *Perrone, C., Repenning, A., Spencer, S., & Ambach, J. (1996). Computers in the Classroom: Moving from Tool to Medium. Journal of Computer-Mediated Communication, 2(3), 0.*
+32. *ReportLinker. (2013). Wearable Electronics Market and Technology Analysis (2013 — 2018). PRNewsWire (p. 380). Retrieved from*[*http://www.prnewswire.com/news-releases/wearable-electronics-market-and-technology-analysis-2013---2018-by-components-sensors-battery-display-networking-applications-consumer-healthcare-enterprise-products-smart--textiles-glasses-watchese-materials--220251081.html*](http://www.prnewswire.com/news-releases/wearable-electronics-market-and-technology-analysis-2013---2018-by-components-sensors-battery-display-networking-applications-consumer-healthcare-enterprise-products-smart--textiles-glasses-watchese-materials--220251081.html)
+33. *Rückreim, G. (2003). Tool or Medium? The Meaning of Information & Telecommunication Technology to Human Practice. A Quest for Systemic Understanding of Activity Theory. Helsinki.*
+34. *Sandstrom, G. (2012). Laws of media — The 4 effects: A McLuhan contribution to social epistemology. Social Epistemology Review and Reply Collective, 1(12), 1–6.*
+35. *Soules, M. (2007). McLuhan Light and Dark. Nanaimo. Retrieved from*[*http://www.media-studies.ca/articles/mcluhan.htm*](http://www.media-studies.ca/articles/mcluhan.htm)
+36. *The Deoxyribonucleic Hyperdimension. (2008). Laws of Media.*
+37. *University of Sydney. (n.d.). Theory of Evolution of Eukaryotic Cells. Microbiological Concepts. Retrieved May 25, 2014, from*[*http://bugs.bio.usyd.edu.au/learning/resources/CAL/Microconcepts/Evolution/theory.html*](http://bugs.bio.usyd.edu.au/learning/resources/CAL/Microconcepts/Evolution/theory.html)
+38. *Weiser, M., & Brown, J. S. (1997). The Coming Age of Calm Technology. Beyond Calculation, 75–85.*
+39. *Wellman, B. (2002). The Rise (and Possible Fall) of Networked Individualism. Connections, 24(3).*
+40. *Wellman, B., Kennedy, T., Smith, A., & Wells, A. (2008). Networked Families. Pew Internet and American Life Project, 1–44.*
+41. *Wikipedia. (n.d.). Convergent Evolution. ScienceDaily. Retrieved May 10, 2014, from*[*http://www.sciencedaily.com/articles/c/convergent_evolution.htm*](http://www.sciencedaily.com/articles/c/convergent_evolution.htm)
+42. *Wohlsen, M. (2014). Nike Failed. Now Only Apple Can Save Wearables. Wired. Retrieved from*[*http://www.wired.com/2014/04/apple-iwatch-nike-fuelband/*](http://www.wired.com/2014/04/apple-iwatch-nike-fuelband/)
+43. *Yarow, J. (2014). Even Google Employees Are Giving Up On Google Glass. Business Insider.*

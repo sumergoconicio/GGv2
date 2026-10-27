@@ -1,0 +1,58 @@
+---
+kind: "essay"
+slug: "3-reasons-why-the-overpopulation-argument-is-ecotrash"
+title: "3 reasons why the overpopulation argument is ecotrash"
+date: "2020-06-23"
+sourceDate: null
+archiveYear: 2020
+pinned: false
+category: "Statements"
+tags: ["climate change", "overpopulation", "resources", "adaptation", "scarcity"]
+description: "Not a proper beginning-middle-end essay, but a compilation of thoughts on the topic of overpopulation as a diagnosis for climate change."
+cover: "/archive/media/1e5734bb62dfc07c99f1.jpeg"
+source: "essais/2020/3-reasons-why-the-overpopulation-argument-is-ecotrash.html"
+---
+
+![](/archive/media/1e5734bb62dfc07c99f1.jpeg)
+
+First off, you think the world is overpopulated, and decreasing population would result in lesser consumption? I agree with you... that the world is overpopulated with millionaires and billionaires, because [the world's richest 10% produce half of global emissions and the poorest half produces just 10%](https://www.oxfam.org/en/press-releases/worlds-richest-10-produce-half-carbon-emissions-while-poorest-35-billion-account).
+
+![Source: https://www.oxfam.org/en/research/extreme-carbon-inequality](/archive/media/99a248dfe3a55b28988e.png)
+
+As [Hans Rosling predicted](https://www.youtube.com/watch?v=2LyzBoHo5EI), and now substantiated in [real-world data](https://www.bbc.com/news/health-53409521?fbclid=IwAR30Fk7rXRc99kOBw7FuhwSaOKwXwMi6wMHiq0lf6tO3Nc7Z_70nUYSrGsM), we are already making progress of cutting fertility rates across the world simply by educating women and empowering them with economic opportunities beyond early marriage and motherhood. Malthusians rejoice!
+
+![Source: https://www.bbc.com/news/health-53409521](/archive/media/ffc7c19d1ae5e721c4b2.png)
+
+Maybe you’re trying to be scientific. Surely since the Earth is a finite system after all, it must have a maximum carrying capacity - there must be a fixed number of humans it can carry right?
+
+For starters, let's remove the anthropocentric lens. Consider the biomass distribution on earth: humans are a very small part of it ([only about 1/10000th of Earth's total biomass](https://www.smithsonianmag.com/smart-news/humans-make-110000th-earths-biomass-180969141/)). We are certainly capable of destroying large amounts of biomass with our actions, but Earth can easily accommodate a few more humans and a few less jellyfish...
+
+![Source: www.pnas.org/content/early/2018/05/15/1711842115](/archive/media/d063278d71d93ece3211.png)
+
+If the question is strictly whether earth can support the biomass of 10 billion or more humans, yes it can pretty easily IF we learn to live sustainably.
+
+Unfortunately of course, in the ways that we affect earth's biomass, we have shifted a large proportion of the mammalian biomass [from wildlife to domesticated cattle](https://www.ecowatch.com/biomass-humans-animals-2571413930.html). I would rather see humans drastically cut down the number of cattle we currently sustain and feed on before we cut down on the number of humans. These can be easily decoupled. We merely choose not to. We can choose differently, and even within the spectrum of options we have, we can choose options like [regenerative agriculture](https://regenerationinternational.org/why-regenerative-agriculture/)and [silvopasture](https://smallfarms.cornell.edu/2018/06/six-key-principles-for-a-successful-silvopasture/).
+
+I think the unspoken assumption here, and a wrongful one at that, is equating the human presence to uncontrolled consumption. This is a false assumption for a number of reasons.
+
+Firstly, humans have been living on the planet for hundreds of thousands of years, in a variety of biomes. Many indigenous tribes have lived in their areas sustainably for centuries. The unsustainable human is directly linked to the “civilized” “urbanized” “capitalised” “fossil-fuel dependent” human.
+
+![file-DCEE2F7E-58E4-4FBB-8570-B5549EB0EA6E.png](/archive/media/151a86b96bb75497cc80.png)
+
+If we are ready to ask the question “how many humans can I eliminate”, we can maybe first try asking “how can I make the systems humans live in more sustainable?” [Here’s an excellent example of how indigenous humans can be proficient masters of nurturing rich ecosystems.](https://www.pastemagazine.com/science/superfoods/earthrxthe-amazon-is-not-a-wilderness-its-an-advan/) And there are modern efforts as well — (see [John D Liu’s work](https://ecosystemrestorationcamps.org/our-impact/) for example) — I just wish we would give them the same amount of airtime and resources as the next iPhone.
+
+Secondly, shifting the blame on individual humans is convenient to specifically some actors - namely extractive and pollutive industries. It is quite literally easier to chase down a hundred most problematic industries and regulate the crap out of them, than chase down 7 billion people and try to control every aspect of their lives from how many children they have to what kind of plastic their vegetables come wrapped in. [There are just a handful companies that create an outsized amount of emissions.](https://www.theguardian.com/sustainable-business/2017/jul/10/100-fossil-fuel-companies-investors-responsible-71-global-emissions-cdp-study-climate-change) We can shut them down for their corruption and irresponsible operation, if only there was political will to do so. It's okay for companies to die - no one misses Kodak or Enron or Lehman Brothers. How soon can Shell, Exxon Mobil, Gazprom join that list? We'll be fine.
+
+![Source: https://www.theguardian.com/sustainable-business/2017/jul/10/100-fossil-fuel-companies-investors-responsible-71-global-emissions-cdp-study-climate-change](/archive/media/adee4c82691bfa246ff1.png)
+
+Thirdly, I hope to make a case for human ingenuity. Consider everything good that humanity has made - from great art to biggest scientific achievements. In my opinion, more intelligence, curiosity, heart, compassion etc cannot be a bad thing. [We literally waste our human potential on stupid inhumane systems that force to compete against one another and punish us with a lifetime of ill effects just for being born with the "wrong" skin colour or on the "wrong" side of the city.](https://www.scientificamerican.com/article/how-poverty-affects-the-brain/) I would rather invest my energies to improve and ensure human flourishing than "save" them by wishing they never existed in the first place.
+
+So ultimately I want to end by saying it's very easy to use "science" to justify pretty unethical things. The Nazis famously used evolution to justify eugenics... neoclassical economists famously use a simplistic notion of competition to justify the modern rat race... But we can also objectively look at science and consider future possibilities. CO2 is just a senseless molecule, we may yet find a chemical process which can effectively sequester it. (Note I do not support continued fossil fuel emissions in any way or form.)
+
+> We have the ability to communicate across continents at the speed of light. We can train machine intelligences to process vast amounts of data. We can literally squeeze energy out of photons falling from the sun. We have supercomputers in our pockets. We can educate young humans about what's on the other side of the galaxy, which we managed to discover by reading squiggles on a finely tuned oscillometer.
+
+The problems we face aren't because of a lack of intelligence or ability, but a lack of values and priorities. Reducing the number of humans without changing the values/priorities will merely postpone disaster, changing our values/priorities can will fundamentally alter the course of our species and planet.
+
+In other words, if there’s a hole in the boat causing it to sink, we can throw out stuff off the boat, including passengers, to float just a bit longer. But the hole will still be there…
+
+You decide.
