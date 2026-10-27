@@ -10,6 +10,7 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
+import layersCss from "../layers.css?url";
 import vlakCss from "@noorddev/vlak-react/css?url";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -75,6 +76,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
+      { rel: "stylesheet", href: layersCss },
       { rel: "stylesheet", href: vlakCss },
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -96,8 +98,6 @@ function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
-        {/* Order cascade layers so Tailwind's reset sits below VLAK components. */}
-        <style>{"@layer theme, base;"}</style>
         <HeadContent />
       </head>
       <body>
