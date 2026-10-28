@@ -1,6 +1,7 @@
+/** DotGrid.tsx draws the scrolling notebook texture and pointer response. */
 import { useEffect, useRef } from "react";
 
-/** Fixed notebook dot grid; dots near the pointer grow and brighten slightly, never move. */
+/** Draws viewport dots anchored to page coordinates; pointer proximity changes their size and opacity. */
 export function DotGrid() {
   const ref = useRef<HTMLCanvasElement>(null);
 
@@ -33,7 +34,7 @@ export function DotGrid() {
       const cs = getComputedStyle(canvas);
       ctx.fillStyle = cs.color;
       const g = parseFloat(cs.getPropertyValue("--dot-grow")) || grow;
-      for (let y = pitch / 2; y < h; y += pitch) {
+      for (let y = pitch / 2 - (window.scrollY % pitch); y < h; y += pitch) {
         for (let x = pitch / 2; x < w; x += pitch) {
           const d = Math.hypot(x - px, y - py);
           let r = base,
@@ -69,6 +70,7 @@ export function DotGrid() {
     window.addEventListener("load", schedule);
     const t = window.setTimeout(schedule, 300);
     window.addEventListener("resize", schedule);
+    window.addEventListener("scroll", schedule, { passive: true });
     const obs = new MutationObserver(schedule);
     obs.observe(document.documentElement, {
       attributes: true,
@@ -84,6 +86,7 @@ export function DotGrid() {
       clearTimeout(t);
       window.removeEventListener("load", schedule);
       window.removeEventListener("resize", schedule);
+      window.removeEventListener("scroll", schedule);
       window.removeEventListener("pointermove", move);
       document.removeEventListener("pointerleave", leave);
     };
