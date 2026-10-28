@@ -5,13 +5,13 @@ import { EssayIndex } from "@/components/blog/EssayIndex";
 export const Route = createFileRoute("/blog/")({
   head: () => ({
     meta: [
-      { title: "Essays — Glyphs & Graphs" },
+      { title: "Blog — Glyphs & Graphs" },
       {
         name: "description",
         content:
-          "Essays and observations by Naveen Srivatsav, arranged in their original archive years.",
+          "Writing on systems, design, science, culture and everything in between.",
       },
-      { property: "og:title", content: "Essays — Glyphs & Graphs" },
+      { property: "og:title", content: "Blog — Glyphs & Graphs" },
     ],
   }),
   component: EssayIndex,

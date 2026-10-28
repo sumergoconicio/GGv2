@@ -16,16 +16,22 @@ export function EssayIndex({ category }: { category?: EssayCategory }) {
   return (
     <section className="grid lg:grid-cols-12">
       <aside className="border-b border-hairline py-10 lg:col-span-3 lg:border-b-0 lg:pr-[var(--j-cell)] lg:pt-16">
-        <p className="j-caps">{category ? "Category" : "Archive"}</p>
-        <h1 className="mt-3 text-[2.5rem]">{category?.name ?? "Essays"}</h1>
+        {category ? (
+          <>
+            <p className="j-caps">Category</p>
+            <h1 className="mt-3 text-[2.5rem]">{category.name}</h1>
+          </>
+        ) : (
+          <h1 className="j-caps">Archive</h1>
+        )}
         <p className="mt-5 max-w-[34ch]">
           {category
-            ? `${category.count} ${category.count === 1 ? "essay" : "essays"} in this category.`
-            : "Writing on systems, design, science, culture and the things between them."}
+            ? `${category.count} ${category.count === 1 ? "post" : "posts"} in this category.`
+            : "Writing on systems, design, science, culture and everything in between."}
         </p>
         {category && (
           <Link to="/blog" className="j-link mt-5 inline-block">
-            ← All essays
+            ← All writing
           </Link>
         )}
         <nav aria-label="Essay years" className="mt-8">
@@ -61,24 +67,25 @@ export function EssayIndex({ category }: { category?: EssayCategory }) {
       <div className="min-w-0 lg:col-span-9 lg:border-l lg:border-hairline">
         {pinnedPost && (
           <article className="border-b border-hairline bg-[var(--j-field)] px-6 py-10 lg:px-[var(--j-cell)] lg:py-14">
-            <p className="j-caps">Start here</p>
+            <p className="j-caps">Welcome</p>
             <h2 className="mt-4 text-[2rem]">
               <Link
                 to="/blog/$slug"
                 params={{ slug: pinnedPost.slug }}
-                className="hover:text-active"
+                className="italic hover:text-active"
               >
                 {pinnedPost.title}
               </Link>
             </h2>
-            <p className="mt-6 max-w-[68ch]">{pinnedPost.description}</p>
-            <Link
-              to="/blog/$slug"
-              params={{ slug: pinnedPost.slug }}
-              className="j-link mt-5 inline-block"
-            >
-              Read the welcome note
-            </Link>
+            <p className="mt-6 max-w-[68ch]">
+              <Link
+                to="/blog/$slug"
+                params={{ slug: pinnedPost.slug }}
+                className="j-link"
+              >
+                {pinnedPost.description}
+              </Link>
+            </p>
           </article>
         )}
         {groups.map(({ year, posts }) => (
@@ -93,7 +100,7 @@ export function EssayIndex({ category }: { category?: EssayCategory }) {
                 {year}
               </h2>
               <p className="self-end text-sm text-muted-foreground">
-                {posts.length} {posts.length === 1 ? "essay" : "essays"}
+                {posts.length} {posts.length === 1 ? "post" : "posts"}
               </p>
             </div>
             <div className="divide-y divide-hairline">

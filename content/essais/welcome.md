@@ -1,14 +1,14 @@
 ---
 kind: "essay"
 slug: "well-hello-there"
-title: "well hello there!"
+title: "Hello there!"
 date: null
 sourceDate: "2031-01-01"
 archiveYear: null
 pinned: true
 category: "Statements"
 tags: ["index"]
-description: "A warm welcome to Glyphs & Graphs friend. These are my words, but feel free to wade into them."
+description: "(Psst, if you're new here, read this first ;)"
 cover: "/archive/media/f6016e5b45a37d445651.png"
 source: "essais/2031/well-hello-there.html"
 ---

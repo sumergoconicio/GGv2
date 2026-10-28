@@ -10,4 +10,4 @@ Install dependencies with `npm ci`, then start the site with `npm run dev`. Run 
 
 ## Deploy
 
-Connect this repository to Cloudflare Pages. Use `main` as the production branch, `npm run build` as the build command, and `dist/client` as the output directory. Check the `pages.dev` preview before connecting `glyphsandgraphs.com` as a custom domain.
+Cloudflare Pages builds GitHub `main` automatically with `npm ci && npm run build` and publishes `dist/client`. See [AGENTS.md](AGENTS.md) for the site and publishing guide, and [docs/DEPLOY.md](docs/DEPLOY.md) for the verified deployment setup.

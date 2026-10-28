@@ -29,7 +29,7 @@ function Home() {
         <div className="border-b border-hairline py-10 lg:col-span-3 lg:border-b-0 lg:pr-[var(--j-cell)] lg:py-16">
           <p className="j-caps">Naveen Srivatsav</p>
           <p className="mt-3 max-w-[22ch] font-display text-2xl font-semibold leading-tight">
-            Founder. Designer. Writer.
+            Thinker. Writer. Designer.
           </p>
         </div>
         <div className="py-10 lg:col-span-9 lg:border-l lg:border-hairline lg:px-[var(--j-cell)] lg:py-16">
@@ -43,9 +43,6 @@ function Home() {
             I’m building tools and strategies to explore it—and sharing what I learn along the way.
           </p>
           <nav aria-label="Explore the site" className="mt-10 flex flex-col items-start gap-4">
-            <Link to="/works" className="j-link font-display text-[clamp(1.5rem,2.5vw,2.25rem)]">
-              See what I’m building →
-            </Link>
             <button
               type="button"
               onClick={() => {
@@ -59,22 +56,21 @@ function Home() {
                 ].join("");
                 window.location.assign(destination);
               }}
-              className="j-link cursor-pointer text-left"
+              className="j-link cursor-pointer text-left font-display text-[clamp(1.5rem,2.5vw,2.25rem)]"
             >
               Let’s collaborate on exciting ideas →
             </button>
-            <Link to="/blog" className="j-link">
-              Read my writings →
+            <Link to="/works" className="j-link">
+              See what I’m building →
             </Link>
           </nav>
         </div>
       </section>
       <section className="grid lg:grid-cols-12">
         <div className="py-10 lg:col-span-3 lg:pr-[var(--j-cell)] lg:py-16">
-          <p className="j-caps">Recent writing</p>
-          <h2 className="mt-3 text-[2rem]">Essays</h2>
+          <h2 className="j-caps">Recent writings</h2>
           <Link to="/blog" className="j-link mt-5 inline-block">
-            Browse the years →
+            Browse by year →
           </Link>
         </div>
         <div className="divide-y divide-hairline lg:col-span-9 lg:border-l lg:border-hairline">

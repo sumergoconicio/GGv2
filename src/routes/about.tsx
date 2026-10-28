@@ -32,7 +32,7 @@ function About() {
             />
           </figure>
           <p>
-            Hello there! <strong>I’m Naveen K Srivatsav. Thinker. Writer. Artist.</strong> Addicted
+            Hello there! <strong>I’m Naveen K Srivatsav. Thinker. Writer. Designer.</strong> Addicted
             to infornography, ultraculture &amp; noosphere non sequiturs.
           </p>
           <p>

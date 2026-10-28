@@ -1,0 +1,62 @@
+/* Site palettes override VLAK tokens after its stylesheet; styles.css remains a token consumer. */
+:root:not([data-theme="dark"]) {
+  --bg: #ece9e0;
+  --text: #203854;
+  --site-heading: #496174;
+  --text-secondary: #52697a;
+  --accent: #203854;
+  --divider: rgb(32 56 84 / 0.14);
+  --divider-subtle: rgb(32 56 84 / 0.09);
+  --table-alt: rgb(32 56 84 / 0.035);
+  --grid-line: rgb(32 56 84 / 0.055);
+  --control-border: rgb(32 56 84 / 0.42);
+  --control-fill: #d9dfe0;
+  --j-active: #315f80;
+  --j-field: #e1e5e4;
+}
+
+:root:not([data-theme="dark"]) body {
+  color: var(--text);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--site-heading);
+}
+
+:root[data-theme="dark"] {
+  --bg: #203854;
+  --text: #ece9e0;
+  --site-heading: #ece9e0;
+  --text-secondary: #b5c2ca;
+  --accent: #ece9e0;
+  --divider: rgb(236 233 224 / 0.14);
+  --divider-subtle: rgb(236 233 224 / 0.09);
+  --table-alt: rgb(236 233 224 / 0.045);
+  --grid-line: rgb(236 233 224 / 0.08);
+  --control-border: rgb(236 233 224 / 0.42);
+  --control-fill: #2b4662;
+  --j-active: #bed8e8;
+  --j-field: #2b4662;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #203854;
+    --text: #ece9e0;
+    --site-heading: #ece9e0;
+    --text-secondary: #b5c2ca;
+    --accent: #ece9e0;
+    --divider: rgb(236 233 224 / 0.14);
+    --divider-subtle: rgb(236 233 224 / 0.09);
+    --table-alt: rgb(236 233 224 / 0.045);
+    --grid-line: rgb(236 233 224 / 0.08);
+    --control-border: rgb(236 233 224 / 0.42);
+    --control-fill: #2b4662;
+    --j-active: #bed8e8;
+    --j-field: #2b4662;
+  }
+
+  :root:not([data-theme="light"]) body {
+    color: var(--text);
+  }
+}

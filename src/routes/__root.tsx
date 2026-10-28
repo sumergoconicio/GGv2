@@ -13,6 +13,7 @@ import { useEffect, type ReactNode } from "react";
 import layersCss from "../layers.css?url";
 import vlakCss from "@noorddev/vlak-react/css?url";
 import appCss from "../styles.css?url";
+import colorThemesCss from "../color-themes.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
@@ -86,13 +87,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "stylesheet", href: layersCss },
       { rel: "stylesheet", href: vlakCss },
       { rel: "stylesheet", href: appCss },
+      { rel: "stylesheet", href: colorThemesCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&family=Mrs+Saint+Delafield&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/logo-assets/favicon-32.png", type: "image/png", sizes: "32x32" },
       {
         rel: "alternate",
         type: "application/rss+xml",
