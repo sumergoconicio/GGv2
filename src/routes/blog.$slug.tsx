@@ -44,7 +44,7 @@ export const Route = createFileRoute("/blog/$slug")({
   component: EssayPage,
 });
 
-/** Render the essay, original archive year, and chronological neighbors. */
+/** Render the essay with its category, date, reading time, and chronological neighbors. */
 function EssayPage() {
   const { post } = Route.useLoaderData();
   const index = datedEssays.findIndex((item) => item.slug === post.slug);
@@ -54,43 +54,35 @@ function EssayPage() {
     <PageGrid
       last
       rail={
-        <div className="py-10 lg:py-16 lg:text-right">
-          <Link to="/blog" className="j-caps hover:text-active">
-            Essays
-          </Link>
-          {post.archiveYear && (
-            <p className="mt-3 font-display text-3xl font-semibold">{post.archiveYear}</p>
+        <div className="py-10 lg:sticky lg:top-8 lg:py-16 lg:text-right">
+          {post.category && post.categorySlug && (
+            <Link
+              to="/blog/category/$category"
+              params={{ category: post.categorySlug }}
+              className="j-caps break-words underline decoration-1 underline-offset-4 hover:text-active"
+            >
+              {post.category}
+            </Link>
           )}
         </div>
       }
       aside={
-        <div className="py-8 text-sm lg:pl-[var(--j-cell)] xl:sticky xl:top-8 xl:py-16">
+        <div className="j-meta-small py-8 lg:pl-[var(--j-cell)] xl:sticky xl:top-8 xl:py-16">
           {post.date && <time dateTime={post.date}>{formatDate(post.date)}</time>}
           <p className="mt-2">{post.readingMinutes} min read</p>
-          {post.category && post.categorySlug && (
-            <p className="mt-5 j-caps">
-              <Link
-                to="/blog/category/$category"
-                params={{ category: post.categorySlug }}
-                className="break-words underline decoration-1 underline-offset-4 hover:text-active"
-              >
-                {post.category}
-              </Link>
-            </p>
-          )}
         </div>
       }
     >
       <article className="px-0 py-10 lg:px-[var(--j-cell)] lg:py-16">
         <header className="mx-auto mb-12 max-w-[68ch]">
           {post.pinned && <p className="j-caps">Welcome</p>}
-          <h1 className="text-[clamp(2.25rem,4vw,4rem)]">{post.title}</h1>
+          <h1>{post.title}</h1>
         </header>
         <PostBody body={post.body} />
         {(previous || next) && (
           <nav
             aria-label="More essays"
-            className="j-prose mx-auto mt-16 grid gap-6 border-t border-hairline pt-8 sm:grid-cols-2"
+            className="j-meta mx-auto mt-16 max-w-[68ch] grid gap-6 border-t border-hairline pt-8 sm:grid-cols-2"
           >
             <div>
               {previous && (

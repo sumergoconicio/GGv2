@@ -1,7 +1,14 @@
 /** DotGrid.tsx draws the scrolling notebook texture and pointer response. */
 import { useEffect, useRef } from "react";
 
-/** Draws viewport dots anchored to page coordinates; pointer proximity changes their size and opacity. */
+/** Read a six-digit palette hex into RGB channels; returns null for an unsupported colour format. */
+function paletteRgb(value: string) {
+  const hex = value.trim();
+  if (!/^#[0-9a-f]{6}$/i.test(hex)) return null;
+  return [1, 3, 5].map((start) => parseInt(hex.slice(start, start + 2), 16));
+}
+
+/** Draw page-anchored dots that grow and turn translucent mango near the pointer; returns a decorative canvas. */
 export function DotGrid() {
   const ref = useRef<HTMLCanvasElement>(null);
 
@@ -14,8 +21,7 @@ export function DotGrid() {
     const pitch = 24,
       base = 0.75,
       grow = 0.7,
-      reach = 200,
-      baseAlpha = 0.55;
+      reach = 200;
     let px = -9999,
       py = -9999,
       raf = 0;
@@ -32,19 +38,32 @@ export function DotGrid() {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, w, h);
       const cs = getComputedStyle(canvas);
-      ctx.fillStyle = cs.color;
+      const ink = paletteRgb(cs.getPropertyValue("--text"));
+      const mango = paletteRgb(cs.getPropertyValue("--mango"));
+      if (!ink || !mango) return;
+      const baseAlpha = parseFloat(cs.getPropertyValue("--dot-opacity")) || 0.176;
+      const hoverAlpha = 0.27;
+      const colors = Array.from({ length: 16 }, (_, step) => {
+        const channels = ink.map((channel, i) =>
+          Math.round(channel + (((mango[i] ?? channel) - channel) * step) / 15),
+        );
+        return `rgb(${channels.join(",")})`;
+      });
       const g = parseFloat(cs.getPropertyValue("--dot-grow")) || grow;
       for (let y = pitch / 2 - (window.scrollY % pitch); y < h; y += pitch) {
         for (let x = pitch / 2; x < w; x += pitch) {
           const d = Math.hypot(x - px, y - py);
           let r = base,
             a = baseAlpha;
+          let colorIndex = 0;
           if (d < reach) {
             const t = 1 - d / reach,
               s = t * t * (3 - 2 * t);
             r += g * s;
-            a += (1 - baseAlpha) * s;
+            a += (hoverAlpha - baseAlpha) * s;
+            colorIndex = Math.round(s * 15);
           }
+          ctx.fillStyle = colors[colorIndex] || colors[0] || "transparent";
           ctx.globalAlpha = a;
           ctx.beginPath();
           ctx.arc(x, y, r, 0, Math.PI * 2);

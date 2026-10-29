@@ -1,0 +1,229 @@
+/* Module: typography.css. Define four type roles and the shared 16px major-third scale. */
+:root {
+  --site-font-display: "MuseoModerno", sans-serif;
+  --site-font-heading: "IBM Plex Sans Condensed", sans-serif;
+  --site-font-body: "IBM Plex Sans", sans-serif;
+  --site-body-weight: 400;
+  --heading-gap: 0.65em;
+  --meta-label-gap: 0.75rem;
+  --site-font-meta: "IBM Plex Serif", Georgia, serif;
+
+  --type-h1: 3.815rem;
+  --type-h2: 3.052rem;
+  --type-h3: 2.441rem;
+  --type-h4: 1.953rem;
+  --type-h5: 1.563rem;
+  --type-h6: 1.25rem;
+  --type-body: 1rem;
+  --type-small: 0.8rem;
+  --type-tiny: 0.64rem;
+}
+
+body {
+  font-family: var(--site-font-body);
+  font-size: var(--type-body);
+  font-weight: var(--site-body-weight);
+  line-height: 1.618;
+  letter-spacing: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: var(--site-font-meta);
+  font-weight: 500;
+}
+.j-frame :is(button, input, select, textarea) {
+  font-family: var(--site-font-meta);
+  font-weight: 500;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--site-font-heading);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.022em;
+  margin-bottom: var(--heading-gap);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--type-h1);
+}
+h2 {
+  font-size: var(--type-h2);
+}
+h3 {
+  font-size: var(--type-h3);
+}
+h4 {
+  font-size: var(--type-h4);
+}
+h5 {
+  font-size: var(--type-h5);
+}
+h6 {
+  font-size: var(--type-h6);
+}
+
+.j-wordmark {
+  font-family: var(--site-font-display);
+  font-size: var(--type-h3);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.022em;
+}
+
+.j-wordmark-amp {
+  color: var(--mango);
+}
+
+#home-hero-title {
+  font-family: var(--site-font-display);
+  font-weight: 500;
+}
+
+.j-meta,
+.j-meta-nav,
+.j-meta-small,
+.j-caps,
+.j-year,
+figcaption,
+.article-lightbox-bar,
+.pdf-reader-bar {
+  font-family: var(--site-font-meta);
+  font-weight: 500;
+  line-height: 1.618;
+  letter-spacing: 0;
+}
+
+.j-meta {
+  font-size: var(--type-body);
+}
+.j-meta-nav {
+  font-size: var(--type-body);
+  font-weight: 500;
+}
+.j-meta-small,
+figcaption {
+  font-size: var(--type-small);
+}
+
+.j-footer,
+.j-footer a {
+  font-size: var(--type-small);
+  font-weight: 400;
+}
+
+.j-theme-toggle button {
+  font-size: var(--type-body);
+  font-weight: 400;
+  font-variant-caps: normal;
+  letter-spacing: 0;
+}
+
+/* Labels keep the same appearance even when their semantic element is a heading. */
+.j-caps,
+.j-frame time {
+  font-family: var(--site-font-meta);
+  font-size: var(--type-small);
+  font-weight: 500;
+  line-height: 1.618;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: var(--meta-label-gap);
+}
+
+.j-caps,
+.j-year {
+  color: inherit;
+}
+.j-year {
+  font-size: var(--type-h5);
+  font-weight: 500;
+  line-height: 1.15;
+  margin-bottom: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.j-entry-title,
+.work-entry-title {
+  font-size: var(--type-h4);
+}
+
+.j-recent-entry > :is(time.j-caps, h3.j-entry-title) {
+  margin-bottom: 0;
+}
+
+.j-kicker {
+  font-family: var(--site-font-meta);
+  font-size: var(--type-h5);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.j-lead {
+  font-size: var(--type-h6);
+  line-height: 1.618;
+}
+
+.j-callout {
+  font-family: var(--site-font-meta);
+  font-size: var(--type-h6);
+  font-weight: 500;
+}
+
+.j-search-input {
+  font-family: var(--site-font-meta);
+  font-size: var(--type-h4);
+}
+.j-search-title {
+  font-family: var(--site-font-heading);
+  font-size: var(--type-h6);
+  font-weight: 700;
+}
+.j-control-icon {
+  font-size: var(--type-h4);
+}
+
+.j-playground {
+  color: var(--mango);
+}
+
+/* One mango text hover in both themes. */
+.j-frame :is(a, button):not(:disabled):is(:hover, :focus-visible) {
+  color: var(--link-hover-text);
+  text-decoration-color: var(--mango);
+}
+
+.j-frame a:is(:hover, :focus-visible) .j-wordmark-amp {
+  color: var(--link-hover-text);
+}
+.j-frame :is(nav, aside) a[aria-current="page"] {
+  text-decoration: underline;
+  text-decoration-color: var(--mango);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.22em;
+}
+
+@media (max-width: 767px) {
+  h1 {
+    font-size: var(--type-h2);
+  }
+  h2 {
+    font-size: var(--type-h3);
+  }
+  h3 {
+    font-size: var(--type-h4);
+  }
+  .j-wordmark {
+    font-size: var(--type-h4);
+  }
+}

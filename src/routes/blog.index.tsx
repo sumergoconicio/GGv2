@@ -8,8 +8,7 @@ export const Route = createFileRoute("/blog/")({
       { title: "Blog — Glyphs & Graphs" },
       {
         name: "description",
-        content:
-          "Writing on systems, design, science, culture and everything in between.",
+        content: "Writing on systems, design, science, culture and everything in between.",
       },
       { property: "og:title", content: "Blog — Glyphs & Graphs" },
     ],

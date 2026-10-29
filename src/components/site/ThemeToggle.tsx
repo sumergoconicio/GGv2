@@ -24,25 +24,24 @@ export function ThemeToggle() {
   }
 
   function optionClass(option: Theme) {
-    const base =
-      "font-display text-sm font-semibold tracking-wide transition-colors hover:text-active";
+    const base = "j-meta-small font-semibold transition-colors hover:text-active";
     return theme && theme !== option
       ? `${base} text-muted-foreground line-through decoration-current`
       : `${base} text-foreground`;
   }
 
   return (
-    <div role="group" aria-label="Color theme" className="flex items-center gap-3">
+    <div role="group" aria-label="Color theme" className="j-theme-toggle flex items-baseline gap-3">
       <button
         type="button"
         onClick={() => choose("light")}
         aria-pressed={theme === "light"}
         className={optionClass("light")}
       >
-        Paper
+        paper
       </button>
       <span aria-hidden="true" className="text-muted-foreground">
-        /
+        //
       </span>
       <button
         type="button"
@@ -50,7 +49,7 @@ export function ThemeToggle() {
         aria-pressed={theme === "dark"}
         className={optionClass("dark")}
       >
-        Ink
+        ink
       </button>
     </div>
   );

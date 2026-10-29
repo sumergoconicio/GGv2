@@ -34,7 +34,7 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
       role="dialog"
       aria-modal="true"
       aria-label="Search writing"
-      className="fixed inset-0 z-[300] overflow-y-auto bg-paper"
+      className="j-meta fixed inset-0 z-[300] overflow-y-auto bg-paper"
     >
       <div className="j-frame flex min-h-full flex-col">
         <div className="flex justify-end py-8">
@@ -42,7 +42,7 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
             type="button"
             onClick={onClose}
             aria-label="Close search"
-            className="grid size-11 place-items-center text-3xl font-semibold leading-none hover:text-active"
+            className="grid size-11 place-items-center j-control-icon font-semibold leading-none hover:text-active"
           >
             ×
           </button>
@@ -58,7 +58,7 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search the archive"
             autoComplete="off"
-            className="w-full border-b border-ink bg-transparent pb-4 text-center font-display text-[clamp(2.25rem,6vw,4.5rem)] font-normal outline-none placeholder:text-muted-foreground"
+            className="w-full border-b border-ink bg-transparent pb-4 text-center j-search-input font-normal outline-none placeholder:text-muted-foreground"
           />
         </form>
         <ul className="mx-auto mt-10 w-full max-w-3xl divide-y divide-hairline pb-20">
@@ -75,8 +75,8 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
                 <span className="j-caps text-muted-foreground">
                   {post.kind === "travel" ? "Travel" : "Essay"}
                 </span>
-                <span className="truncate font-display text-xl font-semibold">{post.title}</span>
-                <span className="text-sm text-muted-foreground">{formatDate(post.date)}</span>
+                <span className="truncate j-search-title">{post.title}</span>
+                <span className="j-meta-small text-muted-foreground">{formatDate(post.date)}</span>
               </a>
             </li>
           ))}

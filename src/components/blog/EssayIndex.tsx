@@ -15,11 +15,11 @@ export function EssayIndex({ category }: { category?: EssayCategory }) {
     !category || welcomePost?.categorySlug === category.slug ? welcomePost : undefined;
   return (
     <section className="grid lg:grid-cols-12">
-      <aside className="border-b border-hairline py-10 lg:col-span-3 lg:border-b-0 lg:pr-[var(--j-cell)] lg:pt-16">
+      <aside className="j-meta border-b border-hairline py-10 lg:col-span-3 lg:border-b-0 lg:pr-[var(--j-cell)] lg:pt-16">
         {category ? (
           <>
             <p className="j-caps">Category</p>
-            <h1 className="mt-3 text-[2.5rem]">{category.name}</h1>
+            <h1 className="j-entry-title mt-3">{category.name}</h1>
           </>
         ) : (
           <h1 className="j-caps">Archive</h1>
@@ -39,7 +39,7 @@ export function EssayIndex({ category }: { category?: EssayCategory }) {
           <ul className="flex flex-wrap gap-x-4 gap-y-2 lg:block lg:space-y-2">
             {groups.map(({ year }) => (
               <li key={year}>
-                <a className="j-link" href={`#year-${year}`}>
+                <a className="j-link j-meta-nav" href={`#year-${year}`}>
                   {year}
                 </a>
               </li>
@@ -55,7 +55,9 @@ export function EssayIndex({ category }: { category?: EssayCategory }) {
                   to="/blog/category/$category"
                   params={{ category: item.slug }}
                   aria-current={category?.slug === item.slug ? "page" : undefined}
-                  className={category?.slug === item.slug ? "font-semibold text-active" : "j-link"}
+                  className={
+                    category?.slug === item.slug ? "j-meta-nav text-active" : "j-link j-meta-nav"
+                  }
                 >
                   {item.name}
                 </Link>
@@ -66,9 +68,9 @@ export function EssayIndex({ category }: { category?: EssayCategory }) {
       </aside>
       <div className="min-w-0 lg:col-span-9 lg:border-l lg:border-hairline">
         {pinnedPost && (
-          <article className="border-b border-hairline bg-[var(--j-field)] px-6 py-10 lg:px-[var(--j-cell)] lg:py-14">
+          <article className="border-b border-hairline bg-[var(--j-field)] px-6 py-10 lg:px-[var(--j-cell)] lg:py-16">
             <p className="j-caps">Welcome</p>
-            <h2 className="mt-4 text-[2rem]">
+            <h2 className="j-entry-title mt-4">
               <Link
                 to="/blog/$slug"
                 params={{ slug: pinnedPost.slug }}
@@ -78,11 +80,7 @@ export function EssayIndex({ category }: { category?: EssayCategory }) {
               </Link>
             </h2>
             <p className="mt-6 max-w-[68ch]">
-              <Link
-                to="/blog/$slug"
-                params={{ slug: pinnedPost.slug }}
-                className="j-link"
-              >
+              <Link to="/blog/$slug" params={{ slug: pinnedPost.slug }} className="j-link">
                 {pinnedPost.description}
               </Link>
             </p>
@@ -96,10 +94,10 @@ export function EssayIndex({ category }: { category?: EssayCategory }) {
             className="border-b border-hairline"
           >
             <div className="grid border-b border-hairline px-6 py-5 lg:grid-cols-[1fr_auto] lg:px-[var(--j-cell)]">
-              <h2 id={`heading-${year}`} className="text-[2rem]">
+              <h2 id={`heading-${year}`} className="j-year">
                 {year}
               </h2>
-              <p className="self-end text-sm text-muted-foreground">
+              <p className="j-meta-small self-end text-muted-foreground">
                 {posts.length} {posts.length === 1 ? "post" : "posts"}
               </p>
             </div>
@@ -141,7 +139,7 @@ export function EssayIndex({ category }: { category?: EssayCategory }) {
                         </>
                       )}
                     </p>
-                    <h3 className="mt-2 text-[1.65rem]">
+                    <h3 className="j-entry-title mt-2">
                       <Link
                         to="/blog/$slug"
                         params={{ slug: post.slug }}

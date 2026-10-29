@@ -77,7 +77,7 @@ function Work() {
         last
         rail={
           <div className="py-10 lg:py-16">
-            <h1 className="text-[2rem]">Work</h1>
+            <h1 className="j-caps">Work</h1>
             <p className="mt-5 max-w-[30ch] text-muted-foreground">
               Selected projects, research, and writing.
             </p>
@@ -86,7 +86,7 @@ function Work() {
               <ul className="flex flex-wrap gap-x-4 gap-y-2 lg:block lg:space-y-2">
                 {years.map((year) => (
                   <li key={year}>
-                    <a className="j-link" href={`#year-${year}`}>
+                    <a className="j-link j-meta-nav" href={`#year-${year}`}>
                       {year}
                     </a>
                   </li>
@@ -99,7 +99,7 @@ function Work() {
         {years.map((year) => (
           <section key={year} id={`year-${year}`} aria-labelledby={`heading-${year}`}>
             <div className="border-b border-hairline px-0 py-5 lg:px-[var(--j-cell)]">
-              <h2 id={`heading-${year}`} className="text-[2rem]">
+              <h2 id={`heading-${year}`} className="j-year">
                 {year}
               </h2>
             </div>
@@ -161,7 +161,9 @@ function Work() {
                     </>
                   ) : project.kind === "state-of-tech" ? (
                     <>
-                      <p className="j-caps text-muted-foreground">PwC</p>
+                      <p className="j-caps text-muted-foreground">
+                        PricewaterhouseCoopers Netherlands
+                      </p>
                       <h3 className="work-entry-title">State of Tech</h3>
                       <p className="work-entry-lead">
                         A PwC and Startupbootcamp tour of emerging technologies and their
@@ -175,7 +177,9 @@ function Work() {
                     </>
                   ) : project.kind === "bxt-bootcamp" ? (
                     <>
-                      <p className="j-caps text-muted-foreground">PwC</p>
+                      <p className="j-caps text-muted-foreground">
+                        PricewaterhouseCoopers Netherlands
+                      </p>
                       <h3 className="work-entry-title">BXT Bootcamp</h3>
                       <p className="work-entry-lead">
                         A digital upskilling programme introducing PwC colleagues across lines of

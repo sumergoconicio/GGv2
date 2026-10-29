@@ -5,7 +5,7 @@ export const publications = [
     year: 2021,
     title: "Kansrijke Integratie Mens-Technologie Binnen Defensie",
     action: "Read report",
-    publisher: "The Hague Centre for Strategic Studies",
+    publisher: "Hague Centre for Strategic Studies",
     description:
       "Research on how technology could support Dutch defence personnel and improve the use of limited capacity.",
     href: "https://hcss.nl/report/kansrijke-integratie-mens-technologie-binnen-defensie/",
@@ -23,7 +23,7 @@ export const publications = [
     year: 2019,
     title: "Promoting Online Training Opportunities for the Workforce in Europe",
     action: "Read report",
-    publisher: "Publications Office of the European Union",
+    publisher: "European Commission",
     description:
       "Examines online learning, lifelong reskilling, and the delivery and funding barriers to wider access.",
     href: "https://op.europa.eu/en/publication-detail/-/publication/5433a0eb-f54c-11e9-8c1f-01aa75ed71a1",
@@ -32,7 +32,7 @@ export const publications = [
     year: 2019,
     title: "Curriculum Guidelines for Key Enabling and Advanced Manufacturing Technologies",
     action: "Read report",
-    publisher: "Publications Office of the European Union",
+    publisher: "European Commission",
     description:
       "Research and guidance on aligning advanced manufacturing education with changing industry skills.",
     href: "https://op.europa.eu/en/publication-detail/-/publication/4dcaeee3-29c2-11e9-8d04-01aa75ed71a1",
@@ -69,7 +69,7 @@ export const publications = [
     year: 2018,
     title: "Cross-Cutting Business Models for IoT",
     action: "Read study",
-    publisher: "Publications Office of the European Union",
+    publisher: "European Commission",
     description:
       "A study of cross-sector IoT business models, their barriers and social effects, and policy options for Europe.",
     href: "https://op.europa.eu/en/publication-detail/-/publication/5e6cd2bb-113c-11e8-9253-01aa75ed71a1",
@@ -89,7 +89,7 @@ export const publications = [
     title: "Dreamcatcher: a solution for relief aid in low-tech low-trust zones of unrest",
     action: "Watch film",
     displayTitle: "Dreamcatcher",
-    publisher: "UNHCR",
+    publisher: "United Nations High Commissioner for Refugees",
     description:
       "A relief-aid concept for places where connectivity is scarce and trust in institutions is fragile.",
     href: "https://vimeo.com/229391814",
@@ -99,7 +99,7 @@ export const publications = [
     date: "May 2015",
     title: "Responsible Innovation: MOOC2Book",
     action: "View book",
-    publisher: "TU Delft",
+    publisher: "Delft University of Technology",
     description:
       "Helped turn a Responsible Innovation course into a book about ethics, risk, and the values built into new technologies.",
     href: "https://books.open.tudelft.nl/home/catalog/book/157",
@@ -121,7 +121,7 @@ export const publications = [
     displayTitle: "pLaQue OUT!",
     image: "/images/igem-plaque-out.png",
     imageAlt: "Illustration of pLaqUe Out! cells among red blood cells in a vessel",
-    publisher: "NTU Singapore",
+    publisher: "Nanyang Technological University",
     description:
       "A student synthetic-biology project proposing a system to detect, visualize, and break down atherosclerotic plaque.",
     href: "https://2009.igem.org/Team:NTU-Singapore/Project",

@@ -17,10 +17,11 @@ const nav = [
 export function SiteHeader() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [glyphs, graphs] = site.name.split(" & ");
   return (
-    <header>
+    <header id="top" tabIndex={-1} className="j-meta">
       <div className="flex items-center justify-between gap-4 py-5 md:py-7">
-        <p className="min-w-0 truncate text-base">{site.tagline}</p>
+        <p className="min-w-0 truncate">{site.tagline}</p>
         <div className="flex shrink-0 items-center gap-6">
           <button
             type="button"
@@ -34,14 +35,14 @@ export function SiteHeader() {
       <div className="j-rule grid border-b border-hairline lg:grid-cols-12">
         <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-8 py-7 lg:col-span-7 lg:flex-col lg:items-start lg:border-r lg:border-hairline lg:py-9 lg:pr-8">
           <Link to="/" className="min-w-0">
-            <span className="block font-display text-[2rem] font-semibold leading-none tracking-tight md:text-[2.5rem] 2xl:text-[2.75rem]">
-              {site.name}
+            <span className="j-wordmark block">
+              {glyphs} <span className="j-wordmark-amp">&amp;</span> {graphs}
             </span>
           </Link>
           <Button
             variant="ghost"
             size="sm"
-            className="lg:hidden"
+            className="j-meta-nav lg:hidden"
             aria-expanded={menuOpen}
             aria-controls="site-nav"
             onClick={() => setMenuOpen((value) => !value)}
@@ -57,15 +58,15 @@ export function SiteHeader() {
           className={`${menuOpen ? "grid" : "hidden"} grid-cols-2 gap-6 border-t border-hairline py-7 lg:col-span-5 lg:grid lg:border-t-0 lg:py-9 lg:pl-[clamp(24px,4vw,72px)]`}
         >
           <nav aria-label="Main">
-            <ul className="space-y-1.5">
+            <ul className="j-header-links j-meta-nav">
               {nav.map((item) => (
                 <li key={item.to}>
                   <Link
                     to={item.to}
                     activeOptions={{ exact: item.exact }}
                     onClick={() => setMenuOpen(false)}
-                    className="font-display text-xl font-semibold transition-colors hover:text-active"
-                    activeProps={{ className: "text-active" }}
+                    className="transition-colors hover:text-active"
+                    activeProps={{ className: "text-active", "aria-current": "page" }}
                   >
                     {item.label}
                   </Link>
@@ -73,7 +74,7 @@ export function SiteHeader() {
               ))}
             </ul>
           </nav>
-          <div className="flex flex-col items-start gap-2 justify-self-end pr-2 text-[0.9375rem] lg:justify-self-auto lg:pl-[40%]">
+          <div className="j-header-links j-meta-nav justify-items-start justify-self-end pr-2 lg:justify-self-auto lg:pl-[40%]">
             <button
               type="button"
               aria-label="Say hello by email"

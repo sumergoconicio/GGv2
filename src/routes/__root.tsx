@@ -14,6 +14,7 @@ import layersCss from "../layers.css?url";
 import vlakCss from "@noorddev/vlak-react/css?url";
 import appCss from "../styles.css?url";
 import colorThemesCss from "../color-themes.css?url";
+import typographyCss from "../typography.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
@@ -23,9 +24,9 @@ function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
+        <h1 className="text-foreground">404</h1>
+        <h2 className="j-entry-title mt-4 text-foreground">Page not found</h2>
+        <p className="j-meta-small mt-2 text-muted-foreground">
           The page you're looking for doesn't exist or has been moved.
         </p>
         <div className="mt-6">
@@ -48,10 +49,8 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
+        <h1 className="j-entry-title text-foreground">This page didn't load</h1>
+        <p className="j-meta-small mt-2 text-muted-foreground">
           Something went wrong on our end. You can try refreshing or head back home.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-4">
@@ -87,13 +86,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "stylesheet", href: layersCss },
       { rel: "stylesheet", href: vlakCss },
       { rel: "stylesheet", href: appCss },
+      { rel: "stylesheet", href: "/fonts/site/fonts.css" },
+      { rel: "stylesheet", href: typographyCss },
       { rel: "stylesheet", href: colorThemesCss },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&family=Mrs+Saint+Delafield&display=swap",
-      },
       { rel: "icon", href: "/logo-assets/favicon-32.png", type: "image/png", sizes: "32x32" },
       {
         rel: "alternate",

@@ -10,15 +10,13 @@ export function JourneyLanding() {
       <section className="grid border-b border-hairline lg:grid-cols-12">
         <div className="border-b border-hairline py-10 lg:col-span-3 lg:border-b-0 lg:pr-[var(--j-cell)] lg:py-16">
           <p className="j-caps">Expedition</p>
-          <p className="mt-3 font-display text-3xl font-semibold">2017</p>
+          <p className="j-year mt-3">2017</p>
           <p className="mt-5 max-w-[34ch]">
             A journey to the seventh continent, told in eight parts.
           </p>
         </div>
         <div className="py-10 lg:col-span-9 lg:border-l lg:border-hairline lg:px-[var(--j-cell)] lg:py-16">
-          <h1 className="text-[clamp(2.25rem,4vw,4rem)]">
-            International Antarctic Expedition 2017
-          </h1>
+          <h1>International Antarctic Expedition 2017</h1>
           {firstPart && (
             <Link
               to="/works/iae2017/$slug"
@@ -32,7 +30,7 @@ export function JourneyLanding() {
       </section>
       <section className="grid lg:grid-cols-12" aria-label="Journey chapters">
         <div className="py-10 lg:col-span-3 lg:pr-[var(--j-cell)] lg:py-16">
-          <h2 className="text-[2rem]">The chapters</h2>
+          <h2 className="j-caps">The chapters</h2>
         </div>
         <div className="divide-y divide-hairline lg:col-span-9 lg:border-l lg:border-hairline">
           {travelPosts.map((post, index) => (
@@ -68,7 +66,7 @@ export function JourneyLanding() {
                     ""
                   )}
                 </p>
-                <h2 className="mt-3 text-[1.9rem]">
+                <h2 className="j-entry-title mt-3">
                   <Link
                     to="/works/iae2017/$slug"
                     params={{ slug: post.slug }}

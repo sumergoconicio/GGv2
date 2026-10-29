@@ -1,49 +1,48 @@
-// Module: SiteFooter.tsx. Show recent essays and site attribution.
-import { Link } from "@tanstack/react-router";
-import { datedEssays, formatDate } from "@/lib/archive";
+// Module: SiteFooter.tsx. Close the site with author attribution and a return-to-top link.
+import { ArrowUp } from "lucide-react";
 import { site } from "@/lib/content";
 
-/** Render three recent essays and a compact footer. */
+/** Render the closing footer and an accessible native jump to the site header. */
 export function SiteFooter() {
   return (
-    <footer>
-      <div className="j-rule grid border-b border-hairline lg:grid-cols-12">
-        <div className="hidden border-r border-hairline lg:col-span-2 lg:block" />
-        <div className="py-12 lg:col-span-10 lg:px-[clamp(24px,4vw,72px)] lg:py-16">
-          <p className="j-caps">Recent essays</p>
-          <ul className="mt-6 grid gap-6 md:grid-cols-3">
-            {datedEssays.slice(0, 3).map((post) => (
-              <li key={post.slug}>
-                <Link
-                  to="/blog/$slug"
-                  params={{ slug: post.slug }}
-                  className="font-display text-lg font-semibold hover:text-active"
-                >
-                  {post.title}
-                </Link>
-                <p className="mt-1 text-sm tracking-[0.08em] text-muted-foreground">
-                  {formatDate(post.date)}
-                </p>
-              </li>
-            ))}
-          </ul>
+    <footer className="j-meta j-footer">
+      <div className="j-rule grid gap-8 py-10 lg:grid-cols-12 lg:py-12">
+        <div className="space-y-3 lg:col-span-9">
+          <p className="flex flex-wrap items-center gap-2">
+            <a
+              href="https://creativecommons.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Creative Commons"
+              className="inline-flex shrink-0"
+            >
+              <img src="/images/creative-commons.svg" alt="" width="24" height="24" />
+            </a>
+            <span>
+              {new Date().getFullYear()} {site.author}
+            </span>
+          </p>
+          <p>Written with love from Utrecht, Netherlands.</p>
+          <p>
+            Built with the{" "}
+            <a
+              href="https://vlak.dev/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-4 hover:text-active"
+            >
+              VLAK design system
+            </a>
+            .
+          </p>
         </div>
-      </div>
-      <div className="flex flex-col gap-2 py-6 text-sm sm:flex-row sm:justify-between">
-        <p>
-          © {new Date().getFullYear()} {site.author} · {site.name}
-        </p>
-        <p className="text-muted-foreground">
-          Built with{" "}
-          <a
-            href="https://vlak.dev/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline underline-offset-4 hover:text-active"
-          >
-            VLAK
-          </a>
-        </p>
+        <a
+          href="#top"
+          className="j-meta-nav inline-flex items-center gap-2 self-start justify-self-start underline underline-offset-4 hover:text-active lg:col-span-3 lg:justify-self-end"
+        >
+          <ArrowUp size={24} aria-hidden="true" />
+          Back to top
+        </a>
       </div>
     </footer>
   );

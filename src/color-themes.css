@@ -1,4 +1,10 @@
 /* Site palettes override VLAK tokens after its stylesheet; styles.css remains a token consumer. */
+:root {
+  --site-ink: #203854;
+  --mango: #fbac4d;
+  --link-hover-text: var(--mango);
+}
+
 :root:not([data-theme="dark"]) {
   --bg: #ece9e0;
   --text: #203854;
@@ -11,7 +17,7 @@
   --grid-line: rgb(32 56 84 / 0.055);
   --control-border: rgb(32 56 84 / 0.42);
   --control-fill: #d9dfe0;
-  --j-active: #315f80;
+  --j-active: var(--site-ink);
   --j-field: #e1e5e4;
 }
 
@@ -19,7 +25,12 @@
   color: var(--text);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--site-heading);
 }
 
@@ -35,7 +46,8 @@ h1, h2, h3, h4, h5, h6 {
   --grid-line: rgb(236 233 224 / 0.08);
   --control-border: rgb(236 233 224 / 0.42);
   --control-fill: #2b4662;
-  --j-active: #bed8e8;
+  --j-active: var(--mango);
+  --link-hover-text: var(--mango);
   --j-field: #2b4662;
 }
 
@@ -52,7 +64,8 @@ h1, h2, h3, h4, h5, h6 {
     --grid-line: rgb(236 233 224 / 0.08);
     --control-border: rgb(236 233 224 / 0.42);
     --control-fill: #2b4662;
-    --j-active: #bed8e8;
+    --j-active: var(--mango);
+    --link-hover-text: var(--mango);
     --j-field: #2b4662;
   }
 

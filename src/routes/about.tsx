@@ -20,7 +20,7 @@ function About() {
       <div className="px-0 py-10 lg:px-[var(--j-cell)] lg:py-16">
         <div className="mx-auto max-w-[68ch]">
           <p className="j-caps">About me</p>
-          <h1 className="mt-3 text-[clamp(2.25rem,4vw,4rem)]">Naveen Srivatsav</h1>
+          <h1 className="mt-3">Naveen Srivatsav</h1>
         </div>
         <div className="j-prose archive-prose mx-auto mt-12">
           <figure className="mb-8 w-48 sm:float-left sm:mr-8">
@@ -32,8 +32,8 @@ function About() {
             />
           </figure>
           <p>
-            Hello there! <strong>I’m Naveen K Srivatsav. Thinker. Writer. Designer.</strong> Addicted
-            to infornography, ultraculture &amp; noosphere non sequiturs.
+            Hello there! <strong>I’m Naveen K Srivatsav. Thinker. Writer. Designer.</strong>{" "}
+            Addicted to infornography, ultraculture &amp; noosphere non sequiturs.
           </p>
           <p>
             <strong>

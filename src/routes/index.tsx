@@ -28,18 +28,19 @@ function Home() {
       >
         <div className="border-b border-hairline py-10 lg:col-span-3 lg:border-b-0 lg:pr-[var(--j-cell)] lg:py-16">
           <p className="j-caps">Naveen Srivatsav</p>
-          <p className="mt-3 max-w-[22ch] font-display text-2xl font-semibold leading-tight">
-            Thinker. Writer. Designer.
+          <p className="j-kicker mt-3 max-w-[22ch]">
+            Thinker.
+            <br />
+            Writer.
+            <br />
+            Designer.
           </p>
         </div>
         <div className="py-10 lg:col-span-9 lg:border-l lg:border-hairline lg:px-[var(--j-cell)] lg:py-16">
-          <h1
-            id="home-hero-title"
-            className="mb-8 max-w-[12ch] text-[clamp(3.6rem,8vw,8.5rem)] leading-[0.94] tracking-[-0.045em]"
-          >
-            Complexity is a playground.
+          <h1 id="home-hero-title" className="mb-8 max-w-[14ch]">
+            Complexity is my <span className="j-playground">playground.</span>
           </h1>
-          <p className="max-w-[55ch] text-[clamp(1.1rem,1.6vw,1.4rem)] leading-relaxed">
+          <p className="j-lead max-w-[55ch]">
             I’m building tools and strategies to explore it—and sharing what I learn along the way.
           </p>
           <nav aria-label="Explore the site" className="mt-10 flex flex-col items-start gap-4">
@@ -54,22 +55,22 @@ function Home() {
                   ".",
                   "com",
                 ].join("");
-                window.location.assign(destination);
+                window.open(destination, "_blank", "noopener,noreferrer");
               }}
-              className="j-link cursor-pointer text-left font-display text-[clamp(1.5rem,2.5vw,2.25rem)]"
+              className="j-link j-callout cursor-pointer text-left"
             >
               Let’s collaborate on exciting ideas →
             </button>
-            <Link to="/works" className="j-link">
+            <Link to="/works" className="j-link j-meta">
               See what I’m building →
             </Link>
           </nav>
         </div>
       </section>
       <section className="grid lg:grid-cols-12">
-        <div className="py-10 lg:col-span-3 lg:pr-[var(--j-cell)] lg:py-16">
+        <div className="j-meta py-8 lg:col-span-3 lg:pr-[var(--j-cell)]">
           <h2 className="j-caps">Recent writings</h2>
-          <Link to="/blog" className="j-link mt-5 inline-block">
+          <Link to="/blog" className="j-link j-meta-nav mt-5 inline-block">
             Browse by year →
           </Link>
         </div>
@@ -77,19 +78,17 @@ function Home() {
           {recent.map((post) => (
             <article
               key={post.slug}
-              className="grid gap-3 py-8 lg:grid-cols-[8rem_minmax(0,1fr)] lg:items-baseline lg:gap-8 lg:px-[var(--j-cell)]"
+              className="j-recent-entry grid gap-3 py-8 lg:grid-cols-[8rem_minmax(0,1fr)] lg:items-center lg:gap-x-8 lg:gap-y-0 lg:px-[var(--j-cell)]"
             >
               <time dateTime={post.date || undefined} className="j-caps text-muted-foreground">
                 {formatDate(post.date)}
               </time>
-              <div>
-                <h3 className="text-[1.75rem]">
-                  <Link to="/blog/$slug" params={{ slug: post.slug }} className="hover:text-active">
-                    {post.title}
-                  </Link>
-                </h3>
-                <p className="mt-5 max-w-[68ch]">{post.description}</p>
-              </div>
+              <h3 className="j-entry-title">
+                <Link to="/blog/$slug" params={{ slug: post.slug }} className="hover:text-active">
+                  {post.title}
+                </Link>
+              </h3>
+              <p className="max-w-[68ch] lg:col-start-2 lg:mt-5">{post.description}</p>
             </article>
           ))}
         </div>

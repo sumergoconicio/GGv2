@@ -23,14 +23,16 @@ export function PageGrid({
   const mainSpan = wide ? "lg:col-span-9" : "lg:col-span-9 xl:col-span-7";
   return (
     <section className={`grid lg:grid-cols-12 ${last ? "" : "border-b border-hairline"}`}>
-      <div className="lg:col-span-3 lg:pr-[var(--j-cell)]">{rail}</div>
+      <div className="j-meta lg:col-span-3 lg:pr-[var(--j-cell)]">{rail}</div>
       <div
         className={`min-w-0 lg:border-l lg:border-hairline ${mainSpan} ${!wide ? "xl:border-r" : ""}`}
       >
         {children}
       </div>
       {!wide && (
-        <div className="lg:col-span-9 lg:col-start-4 xl:col-span-2 xl:col-start-auto">{aside}</div>
+        <div className="j-meta lg:col-span-9 lg:col-start-4 xl:col-span-2 xl:col-start-auto">
+          {aside}
+        </div>
       )}
     </section>
   );
